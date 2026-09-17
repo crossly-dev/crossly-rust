@@ -1,0 +1,14 @@
+# CreateOrderLabelResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tracking_number** | Option<**String**> |  | [optional]
+**label_url** | Option<**String**> |  | [optional]
+**carrier** | Option<**String**> |  | [optional]
+**service** | Option<**String**> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

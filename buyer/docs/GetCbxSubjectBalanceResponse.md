@@ -1,0 +1,13 @@
+# GetCbxSubjectBalanceResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**subject_id** | **String** |  | 
+**available_base_units** | **String** |  | 
+**pending_cents** | **f32** |  | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

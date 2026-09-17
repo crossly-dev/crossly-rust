@@ -1,0 +1,13 @@
+[package]
+name = "crossly-webhooks"
+version = "0.1.0"
+edition = "2021"
+description = "Verify Crossly webhook signatures."
+license = "MIT"
+
+[dependencies]
+hmac = "0.12"
+sha2 = "0.10"
+
+[dev-dependencies]
+base64 = "0.22"
