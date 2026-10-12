@@ -1,0 +1,12 @@
+pub mod create_network_pool_response;
+pub use self::create_network_pool_response::CreateNetworkPoolResponse;
+pub mod get_network_pool_response;
+pub use self::get_network_pool_response::GetNetworkPoolResponse;
+pub mod get_network_pool_response_member;
+pub use self::get_network_pool_response_member::GetNetworkPoolResponseMember;
+pub mod get_network_pool_size_response;
+pub use self::get_network_pool_size_response::GetNetworkPoolSizeResponse;
+pub mod list_network_pool_log_item;
+pub use self::list_network_pool_log_item::ListNetworkPoolLogItem;
+pub mod list_network_pool_log_response;
+pub use self::list_network_pool_log_response::ListNetworkPoolLogResponse;

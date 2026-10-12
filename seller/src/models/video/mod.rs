@@ -1,0 +1,12 @@
+pub mod create_video_request_answer_response;
+pub use self::create_video_request_answer_response::CreateVideoRequestAnswerResponse;
+pub mod create_video_request_answer_response_data;
+pub use self::create_video_request_answer_response_data::CreateVideoRequestAnswerResponseData;
+pub mod create_video_request_upload_url_response;
+pub use self::create_video_request_upload_url_response::CreateVideoRequestUploadUrlResponse;
+pub mod create_video_request_upload_url_response_data;
+pub use self::create_video_request_upload_url_response_data::CreateVideoRequestUploadUrlResponseData;
+pub mod list_video_requests_item;
+pub use self::list_video_requests_item::ListVideoRequestsItem;
+pub mod list_video_requests_response;
+pub use self::list_video_requests_response::ListVideoRequestsResponse;

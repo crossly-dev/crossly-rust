@@ -1,0 +1,12 @@
+pub mod list_rental_offers_item;
+pub use self::list_rental_offers_item::ListRentalOffersItem;
+pub mod list_rental_offers_response;
+pub use self::list_rental_offers_response::ListRentalOffersResponse;
+pub mod list_rentals_item;
+pub use self::list_rentals_item::ListRentalsItem;
+pub mod list_rentals_response;
+pub use self::list_rentals_response::ListRentalsResponse;
+pub mod update_rental_offer_response;
+pub use self::update_rental_offer_response::UpdateRentalOfferResponse;
+pub mod update_rental_offer_response_data;
+pub use self::update_rental_offer_response_data::UpdateRentalOfferResponseData;

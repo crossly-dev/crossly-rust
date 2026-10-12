@@ -1,0 +1,14 @@
+pub mod get_main_stage_response;
+pub use self::get_main_stage_response::GetMainStageResponse;
+pub mod get_main_stage_response_live;
+pub use self::get_main_stage_response_live::GetMainStageResponseLive;
+pub mod get_main_stage_response_live_lineup;
+pub use self::get_main_stage_response_live_lineup::GetMainStageResponseLiveLineup;
+pub mod get_main_stage_response_stream;
+pub use self::get_main_stage_response_stream::GetMainStageResponseStream;
+pub mod get_main_stage_response_upcoming;
+pub use self::get_main_stage_response_upcoming::GetMainStageResponseUpcoming;
+pub mod list_main_stage_events_item;
+pub use self::list_main_stage_events_item::ListMainStageEventsItem;
+pub mod list_main_stage_events_response;
+pub use self::list_main_stage_events_response::ListMainStageEventsResponse;

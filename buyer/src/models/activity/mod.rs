@@ -1,0 +1,16 @@
+pub mod create_buyer_activity_request;
+pub use self::create_buyer_activity_request::CreateBuyerActivityRequest;
+pub mod create_buyer_activity_response;
+pub use self::create_buyer_activity_response::CreateBuyerActivityResponse;
+pub mod create_buyer_activity_response_data;
+pub use self::create_buyer_activity_response_data::CreateBuyerActivityResponseData;
+pub mod create_buyer_activity_response_data_match;
+pub use self::create_buyer_activity_response_data_match::CreateBuyerActivityResponseDataMatch;
+pub mod create_buyer_activity_response_data_match_catalog;
+pub use self::create_buyer_activity_response_data_match_catalog::CreateBuyerActivityResponseDataMatchCatalog;
+pub mod create_buyer_activity_response_data_match_offer;
+pub use self::create_buyer_activity_response_data_match_offer::CreateBuyerActivityResponseDataMatchOffer;
+pub mod list_buyer_activity_item;
+pub use self::list_buyer_activity_item::ListBuyerActivityItem;
+pub mod list_buyer_activity_response;
+pub use self::list_buyer_activity_response::ListBuyerActivityResponse;

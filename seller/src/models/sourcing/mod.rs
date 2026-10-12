@@ -1,0 +1,12 @@
+pub mod create_sourcing_receipt_response;
+pub use self::create_sourcing_receipt_response::CreateSourcingReceiptResponse;
+pub mod get_sourcing_receipt_response;
+pub use self::get_sourcing_receipt_response::GetSourcingReceiptResponse;
+pub mod list_sourcing_demand_item;
+pub use self::list_sourcing_demand_item::ListSourcingDemandItem;
+pub mod list_sourcing_demand_mine_item;
+pub use self::list_sourcing_demand_mine_item::ListSourcingDemandMineItem;
+pub mod list_sourcing_demand_mine_response;
+pub use self::list_sourcing_demand_mine_response::ListSourcingDemandMineResponse;
+pub mod list_sourcing_demand_response;
+pub use self::list_sourcing_demand_response::ListSourcingDemandResponse;

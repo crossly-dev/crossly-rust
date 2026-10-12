@@ -1,0 +1,16 @@
+pub mod create_buyer_rental_arrival_photo_response;
+pub use self::create_buyer_rental_arrival_photo_response::CreateBuyerRentalArrivalPhotoResponse;
+pub mod create_buyer_rental_arrival_photo_response_data;
+pub use self::create_buyer_rental_arrival_photo_response_data::CreateBuyerRentalArrivalPhotoResponseData;
+pub mod create_buyer_rental_identity_start_response;
+pub use self::create_buyer_rental_identity_start_response::CreateBuyerRentalIdentityStartResponse;
+pub mod create_buyer_rental_identity_start_response_data;
+pub use self::create_buyer_rental_identity_start_response_data::CreateBuyerRentalIdentityStartResponseData;
+pub mod get_buyer_rental_eligibility_response;
+pub use self::get_buyer_rental_eligibility_response::GetBuyerRentalEligibilityResponse;
+pub mod get_buyer_rental_eligibility_response_data;
+pub use self::get_buyer_rental_eligibility_response_data::GetBuyerRentalEligibilityResponseData;
+pub mod list_buyer_rentals_item;
+pub use self::list_buyer_rentals_item::ListBuyerRentalsItem;
+pub mod list_buyer_rentals_response;
+pub use self::list_buyer_rentals_response::ListBuyerRentalsResponse;

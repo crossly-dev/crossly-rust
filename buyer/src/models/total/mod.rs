@@ -1,0 +1,12 @@
+pub mod create_buyer_total_request_request;
+pub use self::create_buyer_total_request_request::CreateBuyerTotalRequestRequest;
+pub mod create_buyer_total_request_response;
+pub use self::create_buyer_total_request_response::CreateBuyerTotalRequestResponse;
+pub mod create_buyer_total_request_response_data;
+pub use self::create_buyer_total_request_response_data::CreateBuyerTotalRequestResponseData;
+pub mod list_buyer_total_requests_item;
+pub use self::list_buyer_total_requests_item::ListBuyerTotalRequestsItem;
+pub mod list_buyer_total_requests_item_lines;
+pub use self::list_buyer_total_requests_item_lines::ListBuyerTotalRequestsItemLines;
+pub mod list_buyer_total_requests_response;
+pub use self::list_buyer_total_requests_response::ListBuyerTotalRequestsResponse;
