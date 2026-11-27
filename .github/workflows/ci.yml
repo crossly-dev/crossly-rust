@@ -1,0 +1,48 @@
+# Build, test and package on every push (any branch) and pull request.
+#
+# Managed by tools/sdk-repo/seed.mjs in the Crossly monorepo: edits here are overwritten on the next seed.
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            seller -> target
+            buyer -> target
+            codegen/integrations/webhooks/rust -> target
+      - name: build seller
+        run: bash codegen/ci/check.sh rust seller
+      - name: build buyer
+        run: bash codegen/ci/check.sh rust buyer
+      - name: webhook conformance vectors
+        working-directory: codegen/integrations/webhooks/rust
+        run: cargo test -q -- --nocapture
+      - name: package
+        run: |
+          mkdir -p dist
+          for c in seller buyer; do
+            rm -rf "$c/target/package"
+            (cd "$c" && cargo package -q --no-verify --allow-dirty)
+            cp "$c"/target/package/*.crate dist/
+          done
+          for f in dist/*.crate; do
+            s=$(stat -c%s "$f"); echo "$f: $s bytes"
+            if [ "$s" -ge 10485760 ]; then echo "::error::$f is over the crates.io 10 MB limit"; exit 1; fi
+          done

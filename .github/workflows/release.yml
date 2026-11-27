@@ -1,0 +1,174 @@
+# Regenerate from the public Crossly OpenAPI specs and release, with signed build provenance.
+#
+# Daily, on dispatch, or on a crossly-spec-updated repository_dispatch: if the specs changed since the last
+# release, generate, build, test, write the CHANGELOG entry and version (codegen/ci/next-version.mjs), commit
+# and tag with this repository's own GITHUB_TOKEN, then publish. Publishing uses OIDC trusted publishing where the
+# registry supports it, so no registry token is stored here.
+#
+# Dispatched on any other branch it is a DRY RUN: it always regenerates, builds and tests, uploads the artifacts,
+# and never commits, tags or publishes.
+#
+# Managed by tools/sdk-repo/seed.mjs in the Crossly monorepo: edits here are overwritten on the next seed.
+name: release
+
+on:
+  schedule:
+    - cron: '23 7 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Regenerate and release even when the specs are unchanged
+        type: boolean
+        default: false
+  repository_dispatch:
+    types: [crossly-spec-updated]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      changed: ${{ steps.specs.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - id: specs
+        env:
+          FORCE: ${{ (inputs.force || github.ref != 'refs/heads/main') && 'true' || 'false' }}
+        run: node codegen/ci/fetch-specs.mjs
+
+  regen:
+    needs: detect
+    if: needs.detect.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+    env:
+      CROSSLY_SPEC_DIR: codegen/specs
+      # Every compile check so far was made against 5.4.0 output (it runs on Java 8).
+      OPENAPI_GENERATOR_VERSION: '5.4.0'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      # Generator runtime. Zulu, because Temurin has no Java 8 for Apple silicon.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: '8'
+      - uses: actions/cache@v6
+        with:
+          path: codegen/.tools
+          key: openapi-generator-${{ env.OPENAPI_GENERATOR_VERSION }}
+      - name: fetch specs
+        env:
+          FORCE: 'true'
+        run: node codegen/ci/fetch-specs.mjs
+      - name: version and changelog
+        id: version
+        run: node codegen/ci/next-version.mjs
+      - name: generate
+        env:
+          CROSSLY_SDK_VERSION: ${{ steps.version.outputs.version }}
+        run: node codegen/scripts/generate-sdks.mjs --lang rust
+      - name: assemble and scan
+        run: node codegen/ci/assemble.mjs
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            seller -> target
+            buyer -> target
+            codegen/integrations/webhooks/rust -> target
+      - name: build seller
+        run: bash codegen/ci/check.sh rust seller
+      - name: build buyer
+        run: bash codegen/ci/check.sh rust buyer
+      - name: webhook conformance vectors
+        working-directory: codegen/integrations/webhooks/rust
+        run: cargo test -q -- --nocapture
+      - name: package
+        run: |
+          mkdir -p dist
+          for c in seller buyer; do
+            rm -rf "$c/target/package"
+            (cd "$c" && cargo package -q --no-verify --allow-dirty)
+            cp "$c"/target/package/*.crate dist/
+          done
+          for f in dist/*.crate; do
+            s=$(stat -c%s "$f"); echo "$f: $s bytes"
+            if [ "$s" -ge 10485760 ]; then echo "::error::$f is over the crates.io 10 MB limit"; exit 1; fi
+          done
+      - name: commit and tag
+        if: github.ref == 'refs/heads/main'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A seller buyer webhooks CHANGELOG.md codegen/state.json codegen/index
+          git commit -q -m "$TAG: regenerate from the Crossly API" -m "$(head -c 4000 codegen/release-notes.md)"
+          git tag -a "$TAG" -m "$TAG"
+          git push origin HEAD:main
+          git push origin "$TAG"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release
+          path: |
+            dist/
+            codegen/release-notes.md
+          retention-days: 30
+
+  publish:
+    needs: regen
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: release
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+      # Signed SLSA build provenance for every artifact: gh attestation verify <file> --repo crossly-dev/crossly-rust
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: 'dist/*'
+      - uses: actions/checkout@v7
+        if: vars.PUBLISH_CRATES == 'true'
+        with:
+          ref: ${{ needs.regen.outputs.tag }}
+          path: src
+      - id: crates-auth
+        if: vars.PUBLISH_CRATES == 'true'
+        continue-on-error: true
+        uses: rust-lang/crates-io-auth-action@v1
+      - name: publish to crates.io
+        if: vars.PUBLISH_CRATES == 'true'
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.crates-auth.outputs.token || secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          for c in seller buyer; do
+            (cd "src/$c" && cargo publish --no-verify --allow-dirty)
+          done
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.regen.outputs.tag }}
+        run: gh release create "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file codegen/release-notes.md --verify-tag

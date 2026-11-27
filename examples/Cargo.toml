@@ -1,0 +1,22 @@
+# Runnable examples against the crate in ../seller. In your own project depend on the published crate instead:
+#   crossly = { version = "0.2", features = ["axum"] }
+[package]
+name = "crossly-examples"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+crossly = { path = "../seller", features = ["axum"] }
+axum = "0.8"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net"] }
+
+[[bin]]
+name = "list_listings"
+path = "list_listings.rs"
+
+[[bin]]
+name = "webhook_axum"
+path = "webhook_axum.rs"

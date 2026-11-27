@@ -1,0 +1,29 @@
+{
+  "lang": "rust",
+  "vendor": [
+    {
+      "from": "webhooks/rust/src/lib.rs",
+      "to": "seller/src/webhooks.rs"
+    },
+    {
+      "from": "webhooks/rust/src/lib.rs",
+      "to": "buyer/src/webhooks.rs"
+    },
+    {
+      "from": "extras/rust/src/client.rs",
+      "to": "seller/src/client.rs"
+    },
+    {
+      "from": "extras/rust/src/client.rs",
+      "to": "buyer/src/client.rs"
+    },
+    {
+      "from": "extras/rust/src/webhooks_http.rs",
+      "to": "seller/src/webhooks_http.rs"
+    },
+    {
+      "from": "extras/rust/src/webhooks_http.rs",
+      "to": "buyer/src/webhooks_http.rs"
+    }
+  ]
+}
