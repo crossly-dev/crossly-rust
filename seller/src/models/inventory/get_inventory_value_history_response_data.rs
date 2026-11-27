@@ -15,15 +15,15 @@
 pub struct GetInventoryValueHistoryResponseData {
     #[serde(rename = "points")]
     pub points: Vec<crate::models::GetInventoryValueHistoryResponseDataPoints>,
-    #[serde(rename = "collectingSince")]
-    pub collecting_since: String,
+    #[serde(rename = "collectingSince", skip_serializing_if = "Option::is_none")]
+    pub collecting_since: Option<String>,
 }
 
 impl GetInventoryValueHistoryResponseData {
-    pub fn new(points: Vec<crate::models::GetInventoryValueHistoryResponseDataPoints>, collecting_since: String) -> GetInventoryValueHistoryResponseData {
+    pub fn new(points: Vec<crate::models::GetInventoryValueHistoryResponseDataPoints>) -> GetInventoryValueHistoryResponseData {
         GetInventoryValueHistoryResponseData {
             points,
-            collecting_since,
+            collecting_since: None,
         }
     }
 }

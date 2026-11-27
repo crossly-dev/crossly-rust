@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerScanResponseIdentifier {
-    #[serde(rename = "value")]
-    pub value: String,
     #[serde(rename = "ns")]
     pub ns: Ns,
+    #[serde(rename = "value")]
+    pub value: String,
 }
 
 impl CreateBuyerScanResponseIdentifier {
-    pub fn new(value: String, ns: Ns) -> CreateBuyerScanResponseIdentifier {
+    pub fn new(ns: Ns, value: String) -> CreateBuyerScanResponseIdentifier {
         CreateBuyerScanResponseIdentifier {
-            value,
             ns,
+            value,
         }
     }
 }
@@ -31,10 +31,10 @@ impl CreateBuyerScanResponseIdentifier {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Ns {
-    #[serde(rename = "style_code")]
-    StyleCode,
     #[serde(rename = "gtin")]
     Gtin,
+    #[serde(rename = "style_code")]
+    StyleCode,
     #[serde(rename = "lego_set")]
     LegoSet,
     #[serde(rename = "tcgplayer")]
@@ -47,7 +47,7 @@ pub enum Ns {
 
 impl Default for Ns {
     fn default() -> Ns {
-        Self::StyleCode
+        Self::Gtin
     }
 }
 

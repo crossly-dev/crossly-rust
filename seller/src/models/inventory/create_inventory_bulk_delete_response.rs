@@ -13,20 +13,31 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateInventoryBulkDeleteResponse {
-    #[serde(rename = "success")]
-    pub success: bool,
     #[serde(rename = "deleted")]
     pub deleted: f32,
+    #[serde(rename = "deletedIds")]
+    pub deleted_ids: Vec<String>,
+    /// Items NOT deleted: a live listing Crossly may not end (action authority).
+    #[serde(rename = "refused")]
+    pub refused: Vec<crate::models::CreateInventoryBulkDeleteResponseRefused>,
+    /// Live rows handed to their managing app as delist commands.
+    #[serde(rename = "relayed")]
+    pub relayed: f32,
     #[serde(rename = "bulkJobId")]
     pub bulk_job_id: String,
+    #[serde(rename = "success")]
+    pub success: bool,
 }
 
 impl CreateInventoryBulkDeleteResponse {
-    pub fn new(success: bool, deleted: f32, bulk_job_id: String) -> CreateInventoryBulkDeleteResponse {
+    pub fn new(deleted: f32, deleted_ids: Vec<String>, refused: Vec<crate::models::CreateInventoryBulkDeleteResponseRefused>, relayed: f32, bulk_job_id: String, success: bool) -> CreateInventoryBulkDeleteResponse {
         CreateInventoryBulkDeleteResponse {
-            success,
             deleted,
+            deleted_ids,
+            refused,
+            relayed,
             bulk_job_id,
+            success,
         }
     }
 }

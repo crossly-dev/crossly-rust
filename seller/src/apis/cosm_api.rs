@@ -423,7 +423,7 @@ pub async fn create_cosm_attestation_anchor(configuration: &configuration::Confi
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -454,7 +454,7 @@ pub async fn create_cosm_auction(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -485,7 +485,7 @@ pub async fn create_cosm_auction_buy(configuration: &configuration::Configuratio
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -516,7 +516,7 @@ pub async fn create_cosm_cosmetic_buy(configuration: &configuration::Configurati
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -547,7 +547,7 @@ pub async fn create_cosm_cosmetic_buy_cbx(configuration: &configuration::Configu
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -578,7 +578,7 @@ pub async fn create_cosm_cosmetic_claim(configuration: &configuration::Configura
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -609,7 +609,7 @@ pub async fn create_cosm_fusion(configuration: &configuration::Configuration, re
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -640,7 +640,7 @@ pub async fn create_cosm_handle(configuration: &configuration::Configuration, ) 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -671,7 +671,7 @@ pub async fn create_cosm_withdrawal(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -702,7 +702,7 @@ pub async fn delete_cosm_handle(configuration: &configuration::Configuration, ) 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -733,7 +733,7 @@ pub async fn delete_cosm_peg(configuration: &configuration::Configuration, listi
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -764,7 +764,7 @@ pub async fn get_cosm_attestation_proof(configuration: &configuration::Configura
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -795,7 +795,7 @@ pub async fn get_cosm_auction_quote(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -826,7 +826,7 @@ pub async fn get_cosm_balance(configuration: &configuration::Configuration, ) ->
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -857,7 +857,7 @@ pub async fn get_cosm_employee_fee_quote(configuration: &configuration::Configur
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -888,7 +888,7 @@ pub async fn get_cosm_handle(configuration: &configuration::Configuration, handl
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -919,7 +919,7 @@ pub async fn get_cosm_stake_tenure(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -950,7 +950,7 @@ pub async fn get_cosm_supply(configuration: &configuration::Configuration, ) -> 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -981,7 +981,7 @@ pub async fn list_cosm_attestations(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1012,7 +1012,7 @@ pub async fn list_cosm_auction(configuration: &configuration::Configuration, ) -
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1043,7 +1043,7 @@ pub async fn list_cosm_cosmetics(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1074,7 +1074,7 @@ pub async fn list_cosm_goals(configuration: &configuration::Configuration, ) -> 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1105,7 +1105,7 @@ pub async fn list_cosm_inventory(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1136,7 +1136,7 @@ pub async fn list_cosm_pegs(configuration: &configuration::Configuration, ) -> R
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1167,7 +1167,7 @@ pub async fn list_cosm_supply_epochs(configuration: &configuration::Configuratio
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1198,7 +1198,7 @@ pub async fn list_cosm_supply_schedule(configuration: &configuration::Configurat
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1229,7 +1229,7 @@ pub async fn list_cosm_unlocks(configuration: &configuration::Configuration, ) -
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1260,7 +1260,7 @@ pub async fn list_cosm_withdrawals(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1291,7 +1291,7 @@ pub async fn update_cosm_cosmetic_unlock(configuration: &configuration::Configur
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -1322,7 +1322,7 @@ pub async fn update_cosm_peg(configuration: &configuration::Configuration, ) -> 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

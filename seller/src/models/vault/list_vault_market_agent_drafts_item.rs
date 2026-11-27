@@ -103,17 +103,17 @@ impl Default for Side {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Funding {
+    #[serde(rename = "vault")]
+    Vault,
     #[serde(rename = "card")]
     Card,
     #[serde(rename = "custodian")]
     Custodian,
-    #[serde(rename = "vault")]
-    Vault,
 }
 
 impl Default for Funding {
     fn default() -> Funding {
-        Self::Card
+        Self::Vault
     }
 }
 /// 
@@ -123,12 +123,12 @@ pub enum Status {
     Cancelled,
     #[serde(rename = "expired")]
     Expired,
+    #[serde(rename = "drafted")]
+    Drafted,
     #[serde(rename = "rejected")]
     Rejected,
     #[serde(rename = "placing")]
     Placing,
-    #[serde(rename = "drafted")]
-    Drafted,
     #[serde(rename = "placed")]
     Placed,
 }

@@ -59,10 +59,10 @@ impl GetVaultMarketAdvanceQuoteResponseUnit {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
-    #[serde(rename = "standard")]
-    Standard,
     #[serde(rename = "closed")]
     Closed,
+    #[serde(rename = "standard")]
+    Standard,
     #[serde(rename = "deep")]
     Deep,
     #[serde(rename = "thin")]
@@ -71,7 +71,7 @@ pub enum Tier {
 
 impl Default for Tier {
     fn default() -> Tier {
-        Self::Standard
+        Self::Closed
     }
 }
 

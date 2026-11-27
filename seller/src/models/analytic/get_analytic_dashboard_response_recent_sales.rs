@@ -19,6 +19,8 @@ pub struct GetAnalyticDashboardResponseRecentSales {
     pub platform: String,
     #[serde(rename = "platformOrderId", skip_serializing_if = "Option::is_none")]
     pub platform_order_id: Option<String>,
+    #[serde(rename = "detailsPending")]
+    pub details_pending: bool,
     #[serde(rename = "salePrice", skip_serializing_if = "Option::is_none")]
     pub sale_price: Option<f32>,
     #[serde(rename = "platformFee", skip_serializing_if = "Option::is_none")]
@@ -29,31 +31,26 @@ pub struct GetAnalyticDashboardResponseRecentSales {
     pub cost_of_goods: Option<f32>,
     #[serde(rename = "netProfit", skip_serializing_if = "Option::is_none")]
     pub net_profit: Option<f32>,
-    #[serde(rename = "detectedBy")]
-    pub detected_by: String,
-    #[serde(rename = "detectedAt")]
-    pub detected_at: String,
     #[serde(rename = "itemTitle", skip_serializing_if = "Option::is_none")]
     pub item_title: Option<String>,
-    #[serde(rename = "itemImage")]
-    pub item_image: String,
+    #[serde(rename = "itemImage", skip_serializing_if = "Option::is_none")]
+    pub item_image: Option<String>,
 }
 
 impl GetAnalyticDashboardResponseRecentSales {
-    pub fn new(sale_id: String, platform: String, detected_by: String, detected_at: String, item_image: String) -> GetAnalyticDashboardResponseRecentSales {
+    pub fn new(sale_id: String, platform: String, details_pending: bool) -> GetAnalyticDashboardResponseRecentSales {
         GetAnalyticDashboardResponseRecentSales {
             sale_id,
             platform,
             platform_order_id: None,
+            details_pending,
             sale_price: None,
             platform_fee: None,
             shipping_cost: None,
             cost_of_goods: None,
             net_profit: None,
-            detected_by,
-            detected_at,
             item_title: None,
-            item_image,
+            item_image: None,
         }
     }
 }

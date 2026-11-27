@@ -15,36 +15,36 @@
 pub struct GetBuyerListingBreakResponseData {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "title")]
     pub title: String,
+    #[serde(rename = "format")]
+    pub format: String,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
-    #[serde(rename = "format")]
-    pub format: String,
-    #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<String>,
-    #[serde(rename = "seedCommit")]
-    pub seed_commit: String,
     #[serde(rename = "spotsLeft")]
     pub spots_left: f32,
+    #[serde(rename = "seedCommit")]
+    pub seed_commit: String,
+    #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
+    pub seed: Option<String>,
 }
 
 impl GetBuyerListingBreakResponseData {
-    pub fn new(id: String, status: String, title: String, price_cents: f32, format: String, seed_commit: String, spots_left: f32) -> GetBuyerListingBreakResponseData {
+    pub fn new(id: String, title: String, format: String, status: String, price_cents: f32, spots_left: f32, seed_commit: String) -> GetBuyerListingBreakResponseData {
         GetBuyerListingBreakResponseData {
             id,
-            status,
             title,
+            format,
+            status,
             slug: None,
             price_cents,
-            format,
-            seed: None,
-            seed_commit,
             spots_left,
+            seed_commit,
+            seed: None,
         }
     }
 }

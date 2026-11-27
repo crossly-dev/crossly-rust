@@ -25,6 +25,12 @@ pub struct ListMeTemplatesItem {
     pub updated_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
+    pub notes: Option<String>,
+    #[serde(rename = "isDefault")]
+    pub is_default: bool,
     #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
     pub condition: Option<String>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -47,32 +53,26 @@ pub struct ListMeTemplatesItem {
     pub color: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
-    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
-    pub notes: Option<String>,
     #[serde(rename = "weightOz", skip_serializing_if = "Option::is_none")]
     pub weight_oz: Option<f32>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(rename = "isDefault")]
-    pub is_default: bool,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    #[serde(rename = "scope")]
-    pub scope: String,
-    #[serde(rename = "shareToken", skip_serializing_if = "Option::is_none")]
-    pub share_token: Option<String>,
     #[serde(rename = "sortOrder")]
     pub sort_order: f32,
+    #[serde(rename = "scope")]
+    pub scope: String,
     #[serde(rename = "descriptionVariants", skip_serializing_if = "Option::is_none")]
     pub description_variants: Option<Vec<String>>,
     #[serde(rename = "titleVariants", skip_serializing_if = "Option::is_none")]
     pub title_variants: Option<Vec<String>>,
     #[serde(rename = "defaultForCategory", skip_serializing_if = "Option::is_none")]
     pub default_for_category: Option<String>,
+    #[serde(rename = "shareToken", skip_serializing_if = "Option::is_none")]
+    pub share_token: Option<String>,
 }
 
 impl ListMeTemplatesItem {
-    pub fn new(id: String, name: String, created_at: String, updated_at: String, user_id: String, is_default: bool, scope: String, sort_order: f32) -> ListMeTemplatesItem {
+    pub fn new(id: String, name: String, created_at: String, updated_at: String, user_id: String, is_default: bool, sort_order: f32, scope: String) -> ListMeTemplatesItem {
         ListMeTemplatesItem {
             id,
             brand: None,
@@ -80,6 +80,9 @@ impl ListMeTemplatesItem {
             created_at,
             updated_at,
             user_id,
+            description: None,
+            notes: None,
+            is_default,
             condition: None,
             size: None,
             material: None,
@@ -91,17 +94,14 @@ impl ListMeTemplatesItem {
             size_system: None,
             color: None,
             tags: None,
-            notes: None,
             weight_oz: None,
-            description: None,
-            is_default,
             title: None,
-            scope,
-            share_token: None,
             sort_order,
+            scope,
             description_variants: None,
             title_variants: None,
             default_for_category: None,
+            share_token: None,
         }
     }
 }

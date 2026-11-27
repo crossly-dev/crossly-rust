@@ -123,7 +123,7 @@ pub async fn create_break(configuration: &configuration::Configuration, ) -> Res
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -137,7 +137,7 @@ pub async fn create_break(configuration: &configuration::Configuration, ) -> Res
     }
 }
 
-pub async fn create_break_cancel(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::CreateBreakCancelResponse, Error<CreateBreakCancelError>> {
+pub async fn create_break_cancel(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::UpdateGroupBuyResponse, Error<CreateBreakCancelError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -153,7 +153,7 @@ pub async fn create_break_cancel(configuration: &configuration::Configuration, i
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -183,7 +183,7 @@ pub async fn create_break_draw(configuration: &configuration::Configuration, id:
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -197,7 +197,7 @@ pub async fn create_break_draw(configuration: &configuration::Configuration, id:
     }
 }
 
-pub async fn create_break_opened(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::CreateBreakCancelResponse, Error<CreateBreakOpenedError>> {
+pub async fn create_break_opened(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::UpdateGroupBuyResponse, Error<CreateBreakOpenedError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -213,7 +213,7 @@ pub async fn create_break_opened(configuration: &configuration::Configuration, i
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -227,7 +227,7 @@ pub async fn create_break_opened(configuration: &configuration::Configuration, i
     }
 }
 
-pub async fn create_break_spot_hit(configuration: &configuration::Configuration, id: &str, spot_id: &str) -> Result<crate::models::CreateBreakCancelResponse, Error<CreateBreakSpotHitError>> {
+pub async fn create_break_spot_hit(configuration: &configuration::Configuration, id: &str, spot_id: &str) -> Result<crate::models::UpdateGroupBuyResponse, Error<CreateBreakSpotHitError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -243,7 +243,7 @@ pub async fn create_break_spot_hit(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -273,7 +273,7 @@ pub async fn get_break(configuration: &configuration::Configuration, id: &str) -
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -303,7 +303,7 @@ pub async fn list_breaks(configuration: &configuration::Configuration, ) -> Resu
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

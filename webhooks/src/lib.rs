@@ -87,7 +87,11 @@ fn parse_signature_header(header: &str) -> Option<(i64, &str)> {
     let mut v1: Option<&str> = None;
 
     for part in header.split(',') {
-        let (key, value) = part.split_once('=')?;
+        // A field without `=` is skipped, as every other port does, rather than failing the whole header.
+        let (key, value) = match part.split_once('=') {
+            Some(kv) => kv,
+            None => continue,
+        };
         match key.trim() {
             "t" => t = Some(value.trim().parse().ok()?),
             "v1" => v1 = Some(value.trim()),

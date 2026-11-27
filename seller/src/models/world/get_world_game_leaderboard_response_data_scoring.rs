@@ -36,17 +36,17 @@ impl GetWorldGameLeaderboardResponseDataScoring {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "wins")]
-    Wins,
     #[serde(rename = "points")]
     Points,
+    #[serde(rename = "wins")]
+    Wins,
     #[serde(rename = "time")]
     Time,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Wins
+        Self::Points
     }
 }
 /// 

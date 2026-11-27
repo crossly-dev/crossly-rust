@@ -41,10 +41,49 @@ pub enum DeleteMileageError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_book_tax_profile`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetBookTaxProfileError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_mileage_summary`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetMileageSummaryError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_order_sales_tax`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetOrderSalesTaxError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_tax_sales_tax`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetTaxSalesTaxError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -71,6 +110,45 @@ pub enum GetTaxScheduleCError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListMileageError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_tax_crossly_collects`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListTaxCrosslyCollectsError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_tax_sales_tax_not_collected`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListTaxSalesTaxNotCollectedError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_book_tax_profile`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateBookTaxProfileError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -110,7 +188,7 @@ pub async fn create_mileage(configuration: &configuration::Configuration, ) -> R
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -140,7 +218,7 @@ pub async fn delete_mileage(configuration: &configuration::Configuration, id: &s
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -154,12 +232,12 @@ pub async fn delete_mileage(configuration: &configuration::Configuration, id: &s
     }
 }
 
-pub async fn get_mileage_summary(configuration: &configuration::Configuration, ) -> Result<crate::models::GetMileageSummaryResponse, Error<GetMileageSummaryError>> {
+pub async fn get_book_tax_profile(configuration: &configuration::Configuration, ) -> Result<crate::models::GetBookTaxProfileResponse, Error<GetBookTaxProfileError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/v1/mileage/summary", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/v1/books/tax-profile", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -170,7 +248,40 @@ pub async fn get_mileage_summary(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetBookTaxProfileError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_mileage_summary(configuration: &configuration::Configuration, year: Option<i32>) -> Result<crate::models::GetMileageSummaryResponse, Error<GetMileageSummaryError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/mileage/summary", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = year {
+        local_var_req_builder = local_var_req_builder.query(&[("year", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -179,6 +290,72 @@ pub async fn get_mileage_summary(configuration: &configuration::Configuration, )
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetMileageSummaryError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_order_sales_tax(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetOrderSalesTaxResponse, Error<GetOrderSalesTaxError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/orders/{id}/sales-tax", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetOrderSalesTaxError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_tax_sales_tax(configuration: &configuration::Configuration, from: Option<&str>, to: Option<&str>) -> Result<crate::models::GetTaxSalesTaxResponse, Error<GetTaxSalesTaxError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tax/sales-tax", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetTaxSalesTaxError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -200,7 +377,7 @@ pub async fn get_tax_schedule_c(configuration: &configuration::Configuration, ) 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -214,12 +391,57 @@ pub async fn get_tax_schedule_c(configuration: &configuration::Configuration, ) 
     }
 }
 
-pub async fn list_mileage(configuration: &configuration::Configuration, ) -> Result<crate::models::ListMileageResponse, Error<ListMileageError>> {
+pub async fn list_mileage(configuration: &configuration::Configuration, year: Option<i32>, from: Option<&str>, to: Option<&str>, page: Option<i32>, limit: Option<i32>) -> Result<crate::models::ListMileageResponse, Error<ListMileageError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
     let local_var_uri_str = format!("{}/v1/mileage", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = year {
+        local_var_req_builder = local_var_req_builder.query(&[("year", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListMileageError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_tax_crossly_collects(configuration: &configuration::Configuration, ) -> Result<crate::models::ListTaxCrosslyCollectsResponse, Error<ListTaxCrosslyCollectsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tax/crossly-collects", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -230,7 +452,7 @@ pub async fn list_mileage(configuration: &configuration::Configuration, ) -> Res
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -238,7 +460,79 @@ pub async fn list_mileage(configuration: &configuration::Configuration, ) -> Res
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<ListMileageError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<ListTaxCrosslyCollectsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_tax_sales_tax_not_collected(configuration: &configuration::Configuration, from: Option<&str>, to: Option<&str>, page: Option<i32>, limit: Option<i32>) -> Result<crate::models::ListTaxSalesTaxNotCollectedResponse, Error<ListTaxSalesTaxNotCollectedError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tax/sales-tax/not-collected", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListTaxSalesTaxNotCollectedError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn update_book_tax_profile(configuration: &configuration::Configuration, ) -> Result<crate::models::GetBookTaxProfileResponse, Error<UpdateBookTaxProfileError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/books/tax-profile", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::PUT, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<UpdateBookTaxProfileError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -260,7 +554,7 @@ pub async fn update_mileage(configuration: &configuration::Configuration, id: &s
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

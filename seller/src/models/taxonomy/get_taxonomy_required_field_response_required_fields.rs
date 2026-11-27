@@ -21,10 +21,10 @@ pub struct GetTaxonomyRequiredFieldResponseRequiredFields {
     pub label: String,
     #[serde(rename = "key")]
     pub key: String,
-    #[serde(rename = "required")]
-    pub required: bool,
     #[serde(rename = "hint", skip_serializing_if = "Option::is_none")]
     pub hint: Option<String>,
+    #[serde(rename = "required")]
+    pub required: bool,
     #[serde(rename = "master")]
     pub master: bool,
     #[serde(rename = "selectionOnly")]
@@ -38,8 +38,8 @@ impl GetTaxonomyRequiredFieldResponseRequiredFields {
             enum_values: None,
             label,
             key,
-            required,
             hint: None,
+            required,
             master,
             selection_only,
         }

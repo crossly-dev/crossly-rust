@@ -22,7 +22,7 @@ pub struct GetHomeResponseVaultWallUnits {
     pub image_url: Option<String>,
     #[serde(rename = "units")]
     pub units: f32,
-    /// The book key, for a click through to its market (/shop/vault/markets/<bookKey>).
+    /// The book key, for a click through to its market (/trading/<bookKey>).
     #[serde(rename = "bookKey", skip_serializing_if = "Option::is_none")]
     pub book_key: Option<String>,
     /// One unit's mark, cents -- only when the viewer may see values (else absent).

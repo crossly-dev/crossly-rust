@@ -40,10 +40,10 @@ impl GetVaultMarketSetGoalBasketPlanResponseSkipped {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Reason {
-    #[serde(rename = "too_many")]
-    TooMany,
     #[serde(rename = "no_price")]
     NoPrice,
+    #[serde(rename = "too_many")]
+    TooMany,
     #[serde(rename = "over_budget")]
     OverBudget,
     #[serde(rename = "not_chosen")]
@@ -52,7 +52,7 @@ pub enum Reason {
 
 impl Default for Reason {
     fn default() -> Reason {
-        Self::TooMany
+        Self::NoPrice
     }
 }
 

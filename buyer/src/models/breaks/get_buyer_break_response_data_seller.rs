@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerBreakResponseDataSeller {
-    #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
     #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
+    #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
+    pub display_name: Option<String>,
 }
 
 impl GetBuyerBreakResponseDataSeller {
     pub fn new() -> GetBuyerBreakResponseDataSeller {
         GetBuyerBreakResponseDataSeller {
-            display_name: None,
             username: None,
+            display_name: None,
         }
     }
 }

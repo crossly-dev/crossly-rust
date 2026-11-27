@@ -26,6 +26,9 @@ pub struct Pagination {
     /// Derived from total and limit.
     #[serde(rename = "totalPages", skip_serializing_if = "Option::is_none")]
     pub total_pages: Option<i32>,
+    /// Deprecated alias of `totalPages`, sent only by GET /v1/inventory (its original name). Read `totalPages`.
+    #[serde(rename = "pages", skip_serializing_if = "Option::is_none")]
+    pub pages: Option<i32>,
 }
 
 impl Pagination {
@@ -36,6 +39,7 @@ impl Pagination {
             limit,
             total: None,
             total_pages: None,
+            pages: None,
         }
     }
 }

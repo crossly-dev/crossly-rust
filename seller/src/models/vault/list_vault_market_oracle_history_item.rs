@@ -90,10 +90,10 @@ impl ListVaultMarketOracleHistoryItem {
 pub enum Status {
     #[serde(rename = "skipped")]
     Skipped,
-    #[serde(rename = "failed")]
-    Failed,
     #[serde(rename = "published")]
     Published,
+    #[serde(rename = "failed")]
+    Failed,
 }
 
 impl Default for Status {

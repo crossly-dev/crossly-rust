@@ -57,12 +57,12 @@ impl ListVaultMarketSetGoalBasketsItemLegs {
 pub enum Status {
     #[serde(rename = "pending")]
     Pending,
-    #[serde(rename = "filled")]
-    Filled,
     #[serde(rename = "cancelled")]
     Cancelled,
     #[serde(rename = "rejected")]
     Rejected,
+    #[serde(rename = "filled")]
+    Filled,
     #[serde(rename = "working")]
     Working,
 }

@@ -97,7 +97,7 @@ pub async fn create_comp_watchlist(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -127,7 +127,7 @@ pub async fn create_comp_watchlist_scrape(configuration: &configuration::Configu
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -157,7 +157,7 @@ pub async fn delete_comp_watchlist(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -187,7 +187,7 @@ pub async fn list_comp_watchlist_recent(configuration: &configuration::Configura
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -217,7 +217,7 @@ pub async fn list_comp_watchlists(configuration: &configuration::Configuration, 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

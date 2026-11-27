@@ -57,19 +57,19 @@ impl Default for Role {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Program {
+    #[serde(rename = "retail")]
+    Retail,
     #[serde(rename = "volume")]
     Volume,
     #[serde(rename = "lp")]
     Lp,
     #[serde(rename = "dmm")]
     Dmm,
-    #[serde(rename = "retail")]
-    Retail,
 }
 
 impl Default for Program {
     fn default() -> Program {
-        Self::Volume
+        Self::Retail
     }
 }
 

@@ -37,6 +37,8 @@ impl GetSpatialEmployeeConfigResponseDataConfigRules {
 pub enum When {
     #[serde(rename = "entered")]
     Entered,
+    #[serde(rename = "asked")]
+    Asked,
     #[serde(rename = "lingered")]
     Lingered,
     #[serde(rename = "inspected")]
@@ -45,8 +47,6 @@ pub enum When {
     AddedToCart,
     #[serde(rename = "leaving_with_cart")]
     LeavingWithCart,
-    #[serde(rename = "asked")]
-    Asked,
 }
 
 impl Default for When {

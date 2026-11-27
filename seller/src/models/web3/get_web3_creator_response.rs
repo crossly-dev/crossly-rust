@@ -28,17 +28,17 @@ pub struct GetWeb3CreatorResponse {
     #[serde(rename = "sales")]
     pub sales: Box<crate::models::GetWeb3CreatorResponseSales>,
     #[serde(rename = "daily")]
-    pub daily: Vec<crate::models::GetWeb3CreatorResponseDaily>,
+    pub daily: Vec<crate::models::GetCreatorCollectionResponseDataDashboardDaily>,
     #[serde(rename = "recent")]
-    pub recent: Vec<crate::models::GetWeb3CreatorResponseRecent>,
+    pub recent: Vec<crate::models::GetCreatorCollectionResponseDataDashboardRecent>,
     #[serde(rename = "holders", skip_serializing_if = "Option::is_none")]
     pub holders: Option<Box<crate::models::GetWeb3CreatorResponseHolders>>,
     #[serde(rename = "mint", skip_serializing_if = "Option::is_none")]
-    pub mint: Option<Box<crate::models::GetWeb3CreatorResponseMint>>,
+    pub mint: Option<Box<crate::models::GetCreatorCollectionResponseDataDashboardMint>>,
 }
 
 impl GetWeb3CreatorResponse {
-    pub fn new(chain: String, contract: String, currency: String, royalty_estimate_wei: String, sales: crate::models::GetWeb3CreatorResponseSales, daily: Vec<crate::models::GetWeb3CreatorResponseDaily>, recent: Vec<crate::models::GetWeb3CreatorResponseRecent>) -> GetWeb3CreatorResponse {
+    pub fn new(chain: String, contract: String, currency: String, royalty_estimate_wei: String, sales: crate::models::GetWeb3CreatorResponseSales, daily: Vec<crate::models::GetCreatorCollectionResponseDataDashboardDaily>, recent: Vec<crate::models::GetCreatorCollectionResponseDataDashboardRecent>) -> GetWeb3CreatorResponse {
         GetWeb3CreatorResponse {
             chain,
             contract,

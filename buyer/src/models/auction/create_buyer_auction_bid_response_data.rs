@@ -13,26 +13,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerAuctionBidResponseData {
-    /// Possibly extended by anti-sniping.
-    #[serde(rename = "endsAt")]
-    pub ends_at: String,
-    /// The price now, in cents, after proxy bidding resolved.
-    #[serde(rename = "currentBidCents")]
-    pub current_bid_cents: f32,
     #[serde(rename = "ok")]
     pub ok: bool,
     /// false = a standing proxy bid outbid you straight away.
     #[serde(rename = "leading")]
     pub leading: bool,
+    /// The price now, in cents, after proxy bidding resolved.
+    #[serde(rename = "currentBidCents")]
+    pub current_bid_cents: f32,
+    /// Possibly extended by anti-sniping.
+    #[serde(rename = "endsAt")]
+    pub ends_at: String,
 }
 
 impl CreateBuyerAuctionBidResponseData {
-    pub fn new(ends_at: String, current_bid_cents: f32, ok: bool, leading: bool) -> CreateBuyerAuctionBidResponseData {
+    pub fn new(ok: bool, leading: bool, current_bid_cents: f32, ends_at: String) -> CreateBuyerAuctionBidResponseData {
         CreateBuyerAuctionBidResponseData {
-            ends_at,
-            current_bid_cents,
             ok,
             leading,
+            current_bid_cents,
+            ends_at,
         }
     }
 }

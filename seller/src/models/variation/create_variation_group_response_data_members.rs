@@ -17,6 +17,9 @@ pub struct CreateVariationGroupResponseDataMembers {
     pub listing_id: String,
     #[serde(rename = "axisValue", skip_serializing_if = "Option::is_none")]
     pub axis_value: Option<String>,
+    /// The member's value on every axis of a multi-axis group; null on a single-axis member.
+    #[serde(rename = "options", skip_serializing_if = "Option::is_none")]
+    pub options: Option<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "sortKey")]
     pub sort_key: f32,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
@@ -38,6 +41,7 @@ impl CreateVariationGroupResponseDataMembers {
         CreateVariationGroupResponseDataMembers {
             listing_id,
             axis_value: None,
+            options: None,
             sort_key,
             title: None,
             price: None,

@@ -18,10 +18,10 @@ pub struct CreateBuyerOrderReceivedResponseData {
     /// Feedback can now be left on this order.
     #[serde(rename = "canReview")]
     pub can_review: bool,
-    #[serde(rename = "buyerReceivedAt", skip_serializing_if = "Option::is_none")]
-    pub buyer_received_at: Option<String>,
     #[serde(rename = "alreadyConfirmed", skip_serializing_if = "Option::is_none")]
     pub already_confirmed: Option<bool>,
+    #[serde(rename = "buyerReceivedAt", skip_serializing_if = "Option::is_none")]
+    pub buyer_received_at: Option<String>,
 }
 
 impl CreateBuyerOrderReceivedResponseData {
@@ -29,8 +29,8 @@ impl CreateBuyerOrderReceivedResponseData {
         CreateBuyerOrderReceivedResponseData {
             ok,
             can_review,
-            buyer_received_at: None,
             already_confirmed: None,
+            buyer_received_at: None,
         }
     }
 }

@@ -28,10 +28,36 @@ pub enum CreateAccountCancelDeletionError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_account_identity_verification_start`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAccountIdentityVerificationStartError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_account_logout_all`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAccountLogoutAllError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_account_reconfirm_deletion`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAccountReconfirmDeletionError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -93,10 +119,36 @@ pub enum DeleteConnectedAppError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_account_closure_checklist`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAccountClosureChecklistError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_account_deletion_status`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAccountDeletionStatusError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_account_identity_verification`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAccountIdentityVerificationError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -159,7 +211,7 @@ pub enum ListConnectedAppsError {
 }
 
 
-pub async fn create_account_cancel_deletion(configuration: &configuration::Configuration, ) -> Result<crate::models::DeleteDropResponse, Error<CreateAccountCancelDeletionError>> {
+pub async fn create_account_cancel_deletion(configuration: &configuration::Configuration, ) -> Result<crate::models::CreateAccountCancelDeletionResponse, Error<CreateAccountCancelDeletionError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -175,7 +227,7 @@ pub async fn create_account_cancel_deletion(configuration: &configuration::Confi
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -184,6 +236,38 @@ pub async fn create_account_cancel_deletion(configuration: &configuration::Confi
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<CreateAccountCancelDeletionError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// alreadyVerified:true when there is nothing to do. Nothing is verified until a person completes the link.
+pub async fn create_account_identity_verification_start(configuration: &configuration::Configuration, create_account_identity_verification_start_request: crate::models::CreateAccountIdentityVerificationStartRequest) -> Result<crate::models::CreateWorldMatureVerifyResponse, Error<CreateAccountIdentityVerificationStartError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/account/identity-verification/start", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_account_identity_verification_start_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateAccountIdentityVerificationStartError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -205,7 +289,7 @@ pub async fn create_account_logout_all(configuration: &configuration::Configurat
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -214,6 +298,36 @@ pub async fn create_account_logout_all(configuration: &configuration::Configurat
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<CreateAccountLogoutAllError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_account_reconfirm_deletion(configuration: &configuration::Configuration, ) -> Result<crate::models::CreateAccountReconfirmDeletionResponse, Error<CreateAccountReconfirmDeletionError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/account/reconfirm-deletion", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateAccountReconfirmDeletionError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -235,7 +349,7 @@ pub async fn create_account_request_deletion(configuration: &configuration::Conf
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -265,7 +379,7 @@ pub async fn delete_auth_session(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -295,7 +409,7 @@ pub async fn delete_auth_session_by_session_id(configuration: &configuration::Co
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -325,7 +439,7 @@ pub async fn delete_connected_app(configuration: &configuration::Configuration, 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -334,6 +448,36 @@ pub async fn delete_connected_app(configuration: &configuration::Configuration, 
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<DeleteConnectedAppError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_account_closure_checklist(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAccountClosureChecklistResponse, Error<GetAccountClosureChecklistError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/account/closure-checklist", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAccountClosureChecklistError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -355,7 +499,7 @@ pub async fn get_account_deletion_status(configuration: &configuration::Configur
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -364,6 +508,37 @@ pub async fn get_account_deletion_status(configuration: &configuration::Configur
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetAccountDeletionStatusError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// status is unverified, requires_input, processing, verified or canceled. requires_input with a lastError { code, reason } is a failed try the person can redo on the same link (start returns it); processing is being reviewed; neither is a decline, only canceled is. attempts counts the failed tries. ageVerified passes the age-restricted checkout gate. message is the next step in words (null once verified).
+pub async fn get_account_identity_verification(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAccountIdentityVerificationResponse, Error<GetAccountIdentityVerificationError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/account/identity-verification", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAccountIdentityVerificationError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -385,7 +560,7 @@ pub async fn get_me(configuration: &configuration::Configuration, ) -> Result<cr
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -416,7 +591,7 @@ pub async fn get_membership(configuration: &configuration::Configuration, ) -> R
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -446,7 +621,7 @@ pub async fn list_auth_sessions(configuration: &configuration::Configuration, ) 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -476,7 +651,7 @@ pub async fn list_connected_apps(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

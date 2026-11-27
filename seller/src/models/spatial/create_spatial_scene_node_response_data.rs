@@ -13,41 +13,41 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateSpatialSceneNodeResponseData {
+    #[serde(rename = "transform")]
+    pub transform: Box<crate::models::CreateSpatialSceneNodeResponseDataTransform>,
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "transform")]
-    pub transform: Box<crate::models::CreateSpatialSceneNodeResponseDataTransform>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
     #[serde(rename = "sort")]
     pub sort: f32,
-    #[serde(rename = "segment", skip_serializing_if = "Option::is_none")]
-    pub segment: Option<String>,
     #[serde(rename = "sceneId")]
     pub scene_id: String,
     #[serde(rename = "parentId", skip_serializing_if = "Option::is_none")]
     pub parent_id: Option<String>,
     #[serde(rename = "unitKey")]
     pub unit_key: String,
+    #[serde(rename = "segment", skip_serializing_if = "Option::is_none")]
+    pub segment: Option<String>,
 }
 
 impl CreateSpatialSceneNodeResponseData {
-    pub fn new(id: String, created_at: String, updated_at: String, transform: crate::models::CreateSpatialSceneNodeResponseDataTransform, sort: f32, scene_id: String, unit_key: String) -> CreateSpatialSceneNodeResponseData {
+    pub fn new(transform: crate::models::CreateSpatialSceneNodeResponseDataTransform, id: String, created_at: String, updated_at: String, sort: f32, scene_id: String, unit_key: String) -> CreateSpatialSceneNodeResponseData {
         CreateSpatialSceneNodeResponseData {
+            transform: Box::new(transform),
             id,
             created_at,
             updated_at,
-            transform: Box::new(transform),
             label: None,
             sort,
-            segment: None,
             scene_id,
             parent_id: None,
             unit_key,
+            segment: None,
         }
     }
 }

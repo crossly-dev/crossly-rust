@@ -28,15 +28,15 @@ impl CreateWeb3SolanaOfferConfirmResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "filled")]
-    Filled,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "filled")]
+    Filled,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Filled
+        Self::Cancelled
     }
 }
 

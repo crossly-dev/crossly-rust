@@ -46,15 +46,15 @@ impl GetVaultMarketGradingSignalResponseGraders {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Via {
-    #[serde(rename = "run")]
-    Run,
     #[serde(rename = "single")]
     Single,
+    #[serde(rename = "run")]
+    Run,
 }
 
 impl Default for Via {
     fn default() -> Via {
-        Self::Run
+        Self::Single
     }
 }
 

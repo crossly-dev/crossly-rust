@@ -19,24 +19,31 @@ pub struct CreateInventoryCsvImportResponse {
     pub problem_count: f32,
     #[serde(rename = "maxRows")]
     pub max_rows: f32,
+    /// New items written — or, on a dry run, that WOULD be written.
     #[serde(rename = "created")]
     pub created: f32,
+    /// Existing items updated by SKU — or, on a dry run, that would be.
     #[serde(rename = "updated")]
     pub updated: f32,
-    /// Rows that mapped cleanly. `created + updated` when not a dry run.
+    /// Rows that can be imported: `created + updated + skippedOverLimit`. Zero means the file has nothing usable in it.
     #[serde(rename = "usable")]
     pub usable: f32,
     #[serde(rename = "totalRows")]
     pub total_rows: f32,
     #[serde(rename = "listingsCreated")]
     pub listings_created: f32,
+    /// New rows left out because the monthly item limit was reached.
+    #[serde(rename = "skippedOverLimit")]
+    pub skipped_over_limit: f32,
+    #[serde(rename = "capacity")]
+    pub capacity: Box<crate::models::CreateInventoryCsvImportResponseCapacity>,
     /// True when nothing was written — a preview pass.
     #[serde(rename = "dryRun")]
     pub dry_run: bool,
 }
 
 impl CreateInventoryCsvImportResponse {
-    pub fn new(problems: Vec<crate::models::CreateInventoryCsvImportResponseProblems>, problem_count: f32, max_rows: f32, created: f32, updated: f32, usable: f32, total_rows: f32, listings_created: f32, dry_run: bool) -> CreateInventoryCsvImportResponse {
+    pub fn new(problems: Vec<crate::models::CreateInventoryCsvImportResponseProblems>, problem_count: f32, max_rows: f32, created: f32, updated: f32, usable: f32, total_rows: f32, listings_created: f32, skipped_over_limit: f32, capacity: crate::models::CreateInventoryCsvImportResponseCapacity, dry_run: bool) -> CreateInventoryCsvImportResponse {
         CreateInventoryCsvImportResponse {
             problems,
             problem_count,
@@ -46,6 +53,8 @@ impl CreateInventoryCsvImportResponse {
             usable,
             total_rows,
             listings_created,
+            skipped_over_limit,
+            capacity: Box::new(capacity),
             dry_run,
         }
     }

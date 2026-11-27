@@ -68,17 +68,17 @@ impl GetVaultMarketLiquidityResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Bucket {
-    #[serde(rename = "high")]
-    High,
     #[serde(rename = "mid")]
     Mid,
     #[serde(rename = "low")]
     Low,
+    #[serde(rename = "high")]
+    High,
 }
 
 impl Default for Bucket {
     fn default() -> Bucket {
-        Self::High
+        Self::Mid
     }
 }
 /// 'category' when ranked within the key's category, 'all' when against every key.

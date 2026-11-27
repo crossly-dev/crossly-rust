@@ -17,6 +17,8 @@ pub struct ListVaultMarketFeedItem {
     pub id: String,
     #[serde(rename = "at")]
     pub at: String,
+    #[serde(rename = "by")]
+    pub by: Box<crate::models::ListVaultMarketFeedItemBy>,
     #[serde(rename = "bookKey")]
     pub book_key: String,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -26,16 +28,17 @@ pub struct ListVaultMarketFeedItem {
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "mark")]
-    pub mark: Box<crate::models::ListVaultMarketFeedItemMark>,
+    pub mark: Box<crate::models::ListVaultMarketOpeningItemMark>,
     #[serde(rename = "buyHref")]
     pub buy_href: String,
 }
 
 impl ListVaultMarketFeedItem {
-    pub fn new(id: String, at: String, book_key: String, mark: crate::models::ListVaultMarketFeedItemMark, buy_href: String) -> ListVaultMarketFeedItem {
+    pub fn new(id: String, at: String, by: crate::models::ListVaultMarketFeedItemBy, book_key: String, mark: crate::models::ListVaultMarketOpeningItemMark, buy_href: String) -> ListVaultMarketFeedItem {
         ListVaultMarketFeedItem {
             id,
             at,
+            by: Box::new(by),
             book_key,
             name: None,
             label: None,

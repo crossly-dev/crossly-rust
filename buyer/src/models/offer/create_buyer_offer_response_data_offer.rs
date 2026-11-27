@@ -15,26 +15,26 @@
 pub struct CreateBuyerOfferResponseDataOffer {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
     #[serde(rename = "buyerUserId")]
     pub buyer_user_id: String,
     #[serde(rename = "amountCents")]
     pub amount_cents: f32,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 }
 
 impl CreateBuyerOfferResponseDataOffer {
-    pub fn new(id: String, status: String, platform_listing_id: String, buyer_user_id: String, amount_cents: f32) -> CreateBuyerOfferResponseDataOffer {
+    pub fn new(id: String, platform_listing_id: String, buyer_user_id: String, amount_cents: f32, status: String) -> CreateBuyerOfferResponseDataOffer {
         CreateBuyerOfferResponseDataOffer {
             id,
-            status,
             platform_listing_id,
             buyer_user_id,
             amount_cents,
+            status,
             message: None,
         }
     }

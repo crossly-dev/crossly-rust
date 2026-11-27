@@ -13,17 +13,52 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateOrderWhatnotLabelResponse {
-    #[serde(rename = "shipment")]
-    pub shipment: Box<crate::models::CreateOrderWhatnotLabelResponseShipment>,
-    #[serde(rename = "recorded")]
-    pub recorded: bool,
+    #[serde(rename = "shipment", skip_serializing_if = "Option::is_none")]
+    pub shipment: Option<Box<crate::models::GetOrderWhatnotShipmentResponseShipment>>,
+    #[serde(rename = "recorded", skip_serializing_if = "Option::is_none")]
+    pub recorded: Option<bool>,
+    #[serde(rename = "ok", skip_serializing_if = "Option::is_none")]
+    pub ok: Option<bool>,
+    /// Absent for an additional label, which Poshmark delivers only by email.
+    #[serde(rename = "downloadUrl", skip_serializing_if = "Option::is_none")]
+    pub download_url: Option<String>,
+    /// True when the label exists only in the seller's inbox.
+    #[serde(rename = "emailOnly", skip_serializing_if = "Option::is_none")]
+    pub email_only: Option<bool>,
+    #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
+    pub label_url: Option<String>,
+    #[serde(rename = "trackingNumber", skip_serializing_if = "Option::is_none")]
+    pub tracking_number: Option<String>,
+    #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
+    pub carrier: Option<String>,
+    #[serde(rename = "service", skip_serializing_if = "Option::is_none")]
+    pub service: Option<String>,
+    #[serde(rename = "documentKind", skip_serializing_if = "Option::is_none")]
+    pub document_kind: Option<String>,
+    #[serde(rename = "webUrl", skip_serializing_if = "Option::is_none")]
+    pub web_url: Option<String>,
+    #[serde(rename = "pending", skip_serializing_if = "Option::is_none")]
+    pub pending: Option<bool>,
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
 impl CreateOrderWhatnotLabelResponse {
-    pub fn new(shipment: crate::models::CreateOrderWhatnotLabelResponseShipment, recorded: bool) -> CreateOrderWhatnotLabelResponse {
+    pub fn new() -> CreateOrderWhatnotLabelResponse {
         CreateOrderWhatnotLabelResponse {
-            shipment: Box::new(shipment),
-            recorded,
+            shipment: None,
+            recorded: None,
+            ok: None,
+            download_url: None,
+            email_only: None,
+            label_url: None,
+            tracking_number: None,
+            carrier: None,
+            service: None,
+            document_kind: None,
+            web_url: None,
+            pending: None,
+            message: None,
         }
     }
 }

@@ -15,6 +15,45 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 
+/// struct for typed errors of method [`create_workflow`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_activate`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowActivateError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_approval_decide`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowApprovalDecideError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_workflow_chain`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -54,10 +93,231 @@ pub enum CreateWorkflowChainToggleError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_workflow_deactivate`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowDeactivateError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_duplicate`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowDuplicateError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_expression_preview`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowExpressionPreviewError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_import`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowImportError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_run`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowRunError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_run_cancel`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowRunCancelError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_run_on`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowRunOnError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_run_retry`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowRunRetryError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_sale_end`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowSaleEndError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_template_use`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowTemplateUseError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_test`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowTestError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_validate`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowValidateError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_version_restore`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowVersionRestoreError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_workflow_webhook_rotate`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateWorkflowWebhookRotateError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_workflow`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteWorkflowError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_workflow_chain`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteWorkflowChainError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_workflow`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWorkflowError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_workflow_catalog`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWorkflowCatalogError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -80,10 +340,153 @@ pub enum GetWorkflowChainError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_workflow_export`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWorkflowExportError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_workflow_run`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWorkflowRunError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_workflow_run_node`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWorkflowRunNodeError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_approvals`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowApprovalsError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_workflow_chains`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWorkflowChainsError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_runs`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowRunsError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_runs2`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowRuns2Error {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_sale_active`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowSaleActiveError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_templates`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowTemplatesError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflow_versions`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowVersionsError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_workflows`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkflowsError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_workflow`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateWorkflowError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -107,6 +510,99 @@ pub enum UpdateWorkflowChainError {
 }
 
 
+pub async fn create_workflow(configuration: &configuration::Configuration, create_workflow_request: crate::models::CreateWorkflowRequest) -> Result<crate::models::CreateWorkflowResponse, Error<CreateWorkflowError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_activate(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::WorkflowResponse, Error<CreateWorkflowActivateError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/activate", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowActivateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_approval_decide(configuration: &configuration::Configuration, id: &str, create_workflow_approval_decide_request: crate::models::CreateWorkflowApprovalDecideRequest) -> Result<crate::models::CreateWorkflowApprovalDecideResponse, Error<CreateWorkflowApprovalDecideError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-approvals/{id}/decide", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_approval_decide_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowApprovalDecideError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn create_workflow_chain(configuration: &configuration::Configuration, ) -> Result<crate::models::IdResponse, Error<CreateWorkflowChainError>> {
     let local_var_configuration = configuration;
 
@@ -123,7 +619,7 @@ pub async fn create_workflow_chain(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -137,6 +633,7 @@ pub async fn create_workflow_chain(configuration: &configuration::Configuration,
     }
 }
 
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn create_workflow_chain_run_now(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::CreateWorkflowChainRunNowResponse, Error<CreateWorkflowChainRunNowError>> {
     let local_var_configuration = configuration;
 
@@ -153,7 +650,7 @@ pub async fn create_workflow_chain_run_now(configuration: &configuration::Config
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -167,6 +664,7 @@ pub async fn create_workflow_chain_run_now(configuration: &configuration::Config
     }
 }
 
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn create_workflow_chain_toggle(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::CreateWorkflowChainToggleResponse, Error<CreateWorkflowChainToggleError>> {
     let local_var_configuration = configuration;
 
@@ -183,7 +681,7 @@ pub async fn create_workflow_chain_toggle(configuration: &configuration::Configu
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -197,6 +695,466 @@ pub async fn create_workflow_chain_toggle(configuration: &configuration::Configu
     }
 }
 
+pub async fn create_workflow_deactivate(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::WorkflowResponse, Error<CreateWorkflowDeactivateError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/deactivate", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowDeactivateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_duplicate(configuration: &configuration::Configuration, id: &str, create_workflow_duplicate_request: crate::models::CreateWorkflowDuplicateRequest) -> Result<crate::models::CreateWorkflowDuplicateResponse, Error<CreateWorkflowDuplicateError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/duplicate", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_duplicate_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowDuplicateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_expression_preview(configuration: &configuration::Configuration, create_workflow_expression_preview_request: crate::models::CreateWorkflowExpressionPreviewRequest) -> Result<crate::models::CreateWorkflowExpressionPreviewResponse, Error<CreateWorkflowExpressionPreviewError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/expressions/preview", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_expression_preview_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowExpressionPreviewError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_import(configuration: &configuration::Configuration, request_body: ::std::collections::HashMap<String, serde_json::Value>) -> Result<crate::models::CreateWorkflowImportResponse, Error<CreateWorkflowImportError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/import", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&request_body);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowImportError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_run(configuration: &configuration::Configuration, id: &str, create_workflow_run_request: crate::models::CreateWorkflowRunRequest) -> Result<crate::models::CreateWorkflowRunResponse, Error<CreateWorkflowRunError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/run", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_run_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowRunError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_run_cancel(configuration: &configuration::Configuration, run_id: &str) -> Result<crate::models::CreateWorkflowRunCancelResponse, Error<CreateWorkflowRunCancelError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-runs/{runId}/cancel", local_var_configuration.base_path, runId=crate::apis::urlencode(run_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowRunCancelError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_run_on(configuration: &configuration::Configuration, create_workflow_run_on_request: crate::models::CreateWorkflowRunOnRequest) -> Result<crate::models::CreateWorkflowRunOnResponse, Error<CreateWorkflowRunOnError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/run-on", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_run_on_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowRunOnError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_run_retry(configuration: &configuration::Configuration, run_id: &str) -> Result<crate::models::CreateWorkflowRunRetryResponse, Error<CreateWorkflowRunRetryError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-runs/{runId}/retry", local_var_configuration.base_path, runId=crate::apis::urlencode(run_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowRunRetryError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_sale_end(configuration: &configuration::Configuration, sale_event_id: &str) -> Result<crate::models::CreateWorkflowSaleEndResponse, Error<CreateWorkflowSaleEndError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/sales/{saleEventId}/end", local_var_configuration.base_path, saleEventId=crate::apis::urlencode(sale_event_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowSaleEndError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_template_use(configuration: &configuration::Configuration, id: &str, create_workflow_template_use_request: crate::models::CreateWorkflowTemplateUseRequest) -> Result<crate::models::CreateWorkflowResponse, Error<CreateWorkflowTemplateUseError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/templates/{id}/use", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_template_use_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowTemplateUseError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_test(configuration: &configuration::Configuration, id: &str, create_workflow_test_request: crate::models::CreateWorkflowTestRequest) -> Result<crate::models::CreateWorkflowTestResponse, Error<CreateWorkflowTestError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/test", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_test_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowTestError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_validate(configuration: &configuration::Configuration, create_workflow_validate_request: crate::models::CreateWorkflowValidateRequest) -> Result<crate::models::CreateWorkflowValidateResponse, Error<CreateWorkflowValidateError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/validate", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_validate_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowValidateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_version_restore(configuration: &configuration::Configuration, id: &str, v: i32) -> Result<crate::models::WorkflowResponse, Error<CreateWorkflowVersionRestoreError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/versions/{v}/restore", local_var_configuration.base_path, id=crate::apis::urlencode(id), v=v);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowVersionRestoreError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_workflow_webhook_rotate(configuration: &configuration::Configuration, id: &str, node_id: &str, create_workflow_webhook_rotate_request: crate::models::CreateWorkflowWebhookRotateRequest) -> Result<crate::models::CreateWorkflowWebhookRotateResponse, Error<CreateWorkflowWebhookRotateError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/webhooks/{nodeId}/rotate", local_var_configuration.base_path, id=crate::apis::urlencode(id), nodeId=crate::apis::urlencode(node_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_workflow_webhook_rotate_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateWorkflowWebhookRotateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn delete_workflow(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::DeleteWorkflowResponse, Error<DeleteWorkflowError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<DeleteWorkflowError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn delete_workflow_chain(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::OkResponse, Error<DeleteWorkflowChainError>> {
     let local_var_configuration = configuration;
 
@@ -213,7 +1171,7 @@ pub async fn delete_workflow_chain(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -227,6 +1185,67 @@ pub async fn delete_workflow_chain(configuration: &configuration::Configuration,
     }
 }
 
+pub async fn get_workflow(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetWorkflowResponse, Error<GetWorkflowError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetWorkflowError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_workflow_catalog(configuration: &configuration::Configuration, ) -> Result<crate::models::GetWorkflowCatalogResponse, Error<GetWorkflowCatalogError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/catalog", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetWorkflowCatalogError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn get_workflow_chain(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetWorkflowChainResponse, Error<GetWorkflowChainError>> {
     let local_var_configuration = configuration;
 
@@ -243,7 +1262,7 @@ pub async fn get_workflow_chain(configuration: &configuration::Configuration, id
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -257,6 +1276,142 @@ pub async fn get_workflow_chain(configuration: &configuration::Configuration, id
     }
 }
 
+pub async fn get_workflow_export(configuration: &configuration::Configuration, id: &str, pinned_data: Option<&str>) -> Result<crate::models::GetWorkflowExportResponse, Error<GetWorkflowExportError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/export", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = pinned_data {
+        local_var_req_builder = local_var_req_builder.query(&[("pinnedData", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetWorkflowExportError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_workflow_run(configuration: &configuration::Configuration, run_id: &str) -> Result<crate::models::GetWorkflowRunResponse, Error<GetWorkflowRunError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-runs/{runId}", local_var_configuration.base_path, runId=crate::apis::urlencode(run_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetWorkflowRunError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_workflow_run_node(configuration: &configuration::Configuration, run_id: &str, node_id: &str) -> Result<crate::models::GetWorkflowRunNodeResponse, Error<GetWorkflowRunNodeError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-runs/{runId}/nodes/{nodeId}", local_var_configuration.base_path, runId=crate::apis::urlencode(run_id), nodeId=crate::apis::urlencode(node_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetWorkflowRunNodeError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_workflow_approvals(configuration: &configuration::Configuration, status: Option<&str>, workflow_id: Option<&str>, page: Option<i32>, limit: Option<i32>) -> Result<crate::models::ListWorkflowApprovalsResponse, Error<ListWorkflowApprovalsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-approvals", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = status {
+        local_var_req_builder = local_var_req_builder.query(&[("status", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = workflow_id {
+        local_var_req_builder = local_var_req_builder.query(&[("workflowId", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowApprovalsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn list_workflow_chains(configuration: &configuration::Configuration, ) -> Result<crate::models::ListWorkflowChainsResponse, Error<ListWorkflowChainsError>> {
     let local_var_configuration = configuration;
 
@@ -273,7 +1428,7 @@ pub async fn list_workflow_chains(configuration: &configuration::Configuration, 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -287,6 +1442,278 @@ pub async fn list_workflow_chains(configuration: &configuration::Configuration, 
     }
 }
 
+pub async fn list_workflow_runs(configuration: &configuration::Configuration, id: &str, status: Option<&str>, mode: Option<&str>, since: Option<String>, until: Option<String>, page: Option<i32>, limit: Option<i32>) -> Result<crate::models::ListWorkflowRunsResponse, Error<ListWorkflowRunsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/runs", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = status {
+        local_var_req_builder = local_var_req_builder.query(&[("status", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = mode {
+        local_var_req_builder = local_var_req_builder.query(&[("mode", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = since {
+        local_var_req_builder = local_var_req_builder.query(&[("since", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = until {
+        local_var_req_builder = local_var_req_builder.query(&[("until", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowRunsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_workflow_runs2(configuration: &configuration::Configuration, workflow_id: Option<&str>, status: Option<&str>, mode: Option<&str>, since: Option<String>, until: Option<String>, page: Option<i32>, limit: Option<i32>) -> Result<crate::models::ListWorkflowRunsResponse, Error<ListWorkflowRuns2Error>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflow-runs", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = workflow_id {
+        local_var_req_builder = local_var_req_builder.query(&[("workflowId", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = status {
+        local_var_req_builder = local_var_req_builder.query(&[("status", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = mode {
+        local_var_req_builder = local_var_req_builder.query(&[("mode", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = since {
+        local_var_req_builder = local_var_req_builder.query(&[("since", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = until {
+        local_var_req_builder = local_var_req_builder.query(&[("until", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowRuns2Error> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_workflow_sale_active(configuration: &configuration::Configuration, ) -> Result<crate::models::ListWorkflowSaleActiveResponse, Error<ListWorkflowSaleActiveError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/sales/active", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowSaleActiveError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_workflow_templates(configuration: &configuration::Configuration, category: Option<&str>, q: Option<&str>) -> Result<crate::models::ListWorkflowTemplatesResponse, Error<ListWorkflowTemplatesError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/templates", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = q {
+        local_var_req_builder = local_var_req_builder.query(&[("q", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowTemplatesError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_workflow_versions(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::ListWorkflowVersionsResponse, Error<ListWorkflowVersionsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}/versions", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowVersionsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_workflows(configuration: &configuration::Configuration, active: Option<&str>, tag: Option<&str>, trigger: Option<&str>, q: Option<&str>, legacy_ref: Option<&str>) -> Result<crate::models::ListWorkflowsResponse, Error<ListWorkflowsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = active {
+        local_var_req_builder = local_var_req_builder.query(&[("active", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tag {
+        local_var_req_builder = local_var_req_builder.query(&[("tag", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = trigger {
+        local_var_req_builder = local_var_req_builder.query(&[("trigger", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = q {
+        local_var_req_builder = local_var_req_builder.query(&[("q", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = legacy_ref {
+        local_var_req_builder = local_var_req_builder.query(&[("legacyRef", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListWorkflowsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn update_workflow(configuration: &configuration::Configuration, id: &str, update_workflow_request: crate::models::UpdateWorkflowRequest) -> Result<crate::models::WorkflowResponse, Error<UpdateWorkflowError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/workflows/{id}", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::PUT, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    local_var_req_builder = local_var_req_builder.json(&update_workflow_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<UpdateWorkflowError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Deprecated: workflow chains are workflows now. Use /v1/workflows.
 pub async fn update_workflow_chain(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::OkResponse, Error<UpdateWorkflowChainError>> {
     let local_var_configuration = configuration;
 
@@ -303,7 +1730,7 @@ pub async fn update_workflow_chain(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

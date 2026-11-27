@@ -16,7 +16,7 @@ pub struct CreateWorldGamePackageCheckResponseData {
     #[serde(rename = "ok")]
     pub ok: bool,
     #[serde(rename = "issues")]
-    pub issues: Vec<crate::models::CreateWorldGamePackageCheckResponseDataIssues>,
+    pub issues: Vec<crate::models::PathMessage>,
     #[serde(rename = "fits")]
     pub fits: Box<crate::models::CreateWorldGamePackageCheckResponseDataFits>,
     #[serde(rename = "totalBytes")]
@@ -26,7 +26,7 @@ pub struct CreateWorldGamePackageCheckResponseData {
 }
 
 impl CreateWorldGamePackageCheckResponseData {
-    pub fn new(ok: bool, issues: Vec<crate::models::CreateWorldGamePackageCheckResponseDataIssues>, fits: crate::models::CreateWorldGamePackageCheckResponseDataFits, total_bytes: f32) -> CreateWorldGamePackageCheckResponseData {
+    pub fn new(ok: bool, issues: Vec<crate::models::PathMessage>, fits: crate::models::CreateWorldGamePackageCheckResponseDataFits, total_bytes: f32) -> CreateWorldGamePackageCheckResponseData {
         CreateWorldGamePackageCheckResponseData {
             ok,
             issues,

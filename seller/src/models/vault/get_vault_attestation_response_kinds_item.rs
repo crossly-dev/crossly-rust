@@ -12,6 +12,8 @@
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum GetVaultAttestationResponseKindsItem {
+    #[serde(rename = "other")]
+    Other,
     #[serde(rename = "physical_count")]
     PhysicalCount,
     #[serde(rename = "insurance_certificate")]
@@ -20,26 +22,24 @@ pub enum GetVaultAttestationResponseKindsItem {
     Soc1Type2,
     #[serde(rename = "soc2")]
     Soc2,
-    #[serde(rename = "other")]
-    Other,
 
 }
 
 impl ToString for GetVaultAttestationResponseKindsItem {
     fn to_string(&self) -> String {
         match self {
+            Self::Other => String::from("other"),
             Self::PhysicalCount => String::from("physical_count"),
             Self::InsuranceCertificate => String::from("insurance_certificate"),
             Self::Soc1Type2 => String::from("soc1_type2"),
             Self::Soc2 => String::from("soc2"),
-            Self::Other => String::from("other"),
         }
     }
 }
 
 impl Default for GetVaultAttestationResponseKindsItem {
     fn default() -> GetVaultAttestationResponseKindsItem {
-        Self::PhysicalCount
+        Self::Other
     }
 }
 

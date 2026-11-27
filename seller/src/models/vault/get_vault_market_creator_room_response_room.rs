@@ -58,19 +58,19 @@ impl GetVaultMarketCreatorRoomResponseRoom {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "applied")]
-    Applied,
-    #[serde(rename = "verified")]
-    Verified,
-    #[serde(rename = "rejected")]
-    Rejected,
     #[serde(rename = "paused")]
     Paused,
+    #[serde(rename = "verified")]
+    Verified,
+    #[serde(rename = "applied")]
+    Applied,
+    #[serde(rename = "rejected")]
+    Rejected,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Applied
+        Self::Paused
     }
 }
 

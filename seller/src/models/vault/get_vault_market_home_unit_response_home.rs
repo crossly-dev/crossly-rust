@@ -36,10 +36,10 @@ impl GetVaultMarketHomeUnitResponseHome {
 pub enum Privacy {
     #[serde(rename = "open")]
     Open,
-    #[serde(rename = "locked")]
-    Locked,
     #[serde(rename = "friends")]
     Friends,
+    #[serde(rename = "locked")]
+    Locked,
 }
 
 impl Default for Privacy {

@@ -38,12 +38,15 @@ pub struct GetHomeResponseLayoutItem {
     /// The thing ITSELF as a 3D object in a case or on a shelf (shared listing-space.ts): never a flat photo. Not for NFTs.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<String>,
-    /// A `vault` ref: the unit's market (a book key), so a click opens /shop/vault/markets/<market>.
+    /// A `vault` ref: the unit's market (a book key), so a click opens /trading/<market>.
     #[serde(rename = "market", skip_serializing_if = "Option::is_none")]
     pub market: Option<String>,
     /// A `vault` ref, to its OWNER only: visitors may see it (vm_home_display.visitors).
     #[serde(rename = "visitors", skip_serializing_if = "Option::is_none")]
     pub visitors: Option<bool>,
+    /// The owner's open Trade Block post for this same product (trade-posts.ts): \"Offer a trade\" opens it.
+    #[serde(rename = "tradePostId", skip_serializing_if = "Option::is_none")]
+    pub trade_post_id: Option<String>,
 }
 
 impl GetHomeResponseLayoutItem {
@@ -60,6 +63,7 @@ impl GetHomeResponseLayoutItem {
             object: None,
             market: None,
             visitors: None,
+            trade_post_id: None,
         }
     }
 }

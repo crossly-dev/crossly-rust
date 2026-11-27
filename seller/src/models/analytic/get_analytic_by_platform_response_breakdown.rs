@@ -23,16 +23,31 @@ pub struct GetAnalyticByPlatformResponseBreakdown {
     pub fees: f32,
     #[serde(rename = "netProfit")]
     pub net_profit: f32,
+    #[serde(rename = "pendingDetailsCount")]
+    pub pending_details_count: f32,
+    #[serde(rename = "netSalesCents")]
+    pub net_sales_cents: f32,
+    #[serde(rename = "feesCents")]
+    pub fees_cents: f32,
+    #[serde(rename = "netProfitCents")]
+    pub net_profit_cents: f32,
+    #[serde(rename = "share")]
+    pub share: f32,
 }
 
 impl GetAnalyticByPlatformResponseBreakdown {
-    pub fn new(platform: String, sales: f32, revenue: f32, fees: f32, net_profit: f32) -> GetAnalyticByPlatformResponseBreakdown {
+    pub fn new(platform: String, sales: f32, revenue: f32, fees: f32, net_profit: f32, pending_details_count: f32, net_sales_cents: f32, fees_cents: f32, net_profit_cents: f32, share: f32) -> GetAnalyticByPlatformResponseBreakdown {
         GetAnalyticByPlatformResponseBreakdown {
             platform,
             sales,
             revenue,
             fees,
             net_profit,
+            pending_details_count,
+            net_sales_cents,
+            fees_cents,
+            net_profit_cents,
+            share,
         }
     }
 }

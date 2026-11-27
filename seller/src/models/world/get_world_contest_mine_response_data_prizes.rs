@@ -23,6 +23,8 @@ pub struct GetWorldContestMineResponseDataPrizes {
     pub user_id: String,
     #[serde(rename = "status")]
     pub status: Status,
+    #[serde(rename = "amount")]
+    pub amount: f32,
     #[serde(rename = "kind")]
     pub kind: String,
     #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
@@ -31,23 +33,21 @@ pub struct GetWorldContestMineResponseDataPrizes {
     pub place: f32,
     #[serde(rename = "contestId")]
     pub contest_id: String,
-    #[serde(rename = "amount")]
-    pub amount: f32,
 }
 
 impl GetWorldContestMineResponseDataPrizes {
-    pub fn new(id: String, created_at: String, user_id: String, status: Status, kind: String, place: f32, contest_id: String, amount: f32) -> GetWorldContestMineResponseDataPrizes {
+    pub fn new(id: String, created_at: String, user_id: String, status: Status, amount: f32, kind: String, place: f32, contest_id: String) -> GetWorldContestMineResponseDataPrizes {
         GetWorldContestMineResponseDataPrizes {
             id,
             _ref: None,
             created_at,
             user_id,
             status,
+            amount,
             kind,
             note: None,
             place,
             contest_id,
-            amount,
         }
     }
 }

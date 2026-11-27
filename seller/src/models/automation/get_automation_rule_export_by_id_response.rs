@@ -13,39 +13,39 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetAutomationRuleExportByIdResponse {
-    #[serde(rename = "name")]
-    pub name: String,
-    #[serde(rename = "action")]
-    pub action: Box<crate::models::GetAutomationRuleExportByIdResponseAction>,
     #[serde(rename = "schemaVersion")]
     pub schema_version: f32,
+    #[serde(rename = "name")]
+    pub name: String,
     #[serde(rename = "trigger")]
-    pub trigger: Box<crate::models::GetAutomationRuleExportByIdResponseAction>,
-    #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
-    pub condition: Option<Box<crate::models::GetAutomationRuleExportByIdResponseCondition>>,
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<Box<crate::models::GetAutomationRuleExportByIdResponseMetadata>>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(rename = "platforms", skip_serializing_if = "Option::is_none")]
-    pub platforms: Option<Vec<String>>,
+    pub trigger: Box<crate::models::GetAutomationRuleExportByIdResponseTrigger>,
+    #[serde(rename = "action")]
+    pub action: Box<crate::models::GetAutomationRuleExportByIdResponseTrigger>,
     /// Optional reference to the public schema URL — purely cosmetic.
     #[serde(rename = "$schema", skip_serializing_if = "Option::is_none")]
     pub schema: Option<String>,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
+    pub condition: Option<Box<crate::models::GetAutomationRuleExportByIdResponseCondition>>,
+    #[serde(rename = "platforms", skip_serializing_if = "Option::is_none")]
+    pub platforms: Option<Vec<String>>,
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Box<crate::models::GetAutomationRuleExportByIdResponseMetadata>>,
 }
 
 impl GetAutomationRuleExportByIdResponse {
-    pub fn new(name: String, action: crate::models::GetAutomationRuleExportByIdResponseAction, schema_version: f32, trigger: crate::models::GetAutomationRuleExportByIdResponseAction) -> GetAutomationRuleExportByIdResponse {
+    pub fn new(schema_version: f32, name: String, trigger: crate::models::GetAutomationRuleExportByIdResponseTrigger, action: crate::models::GetAutomationRuleExportByIdResponseTrigger) -> GetAutomationRuleExportByIdResponse {
         GetAutomationRuleExportByIdResponse {
-            name,
-            action: Box::new(action),
             schema_version,
+            name,
             trigger: Box::new(trigger),
-            condition: None,
-            metadata: None,
-            description: None,
-            platforms: None,
+            action: Box::new(action),
             schema: None,
+            description: None,
+            condition: None,
+            platforms: None,
+            metadata: None,
         }
     }
 }

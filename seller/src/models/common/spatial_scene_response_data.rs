@@ -15,36 +15,55 @@
 pub struct SpatialSceneResponseData {
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(rename = "userId")]
+    pub user_id: String,
+    /// 'collection' | 'warehouse'  Same renderer, opposite contracts. A collection may be arranged for beauty; a warehouse must match the physical room or it is worse than no warehouse, because someone will walk to the wrong shelf.
+    #[serde(rename = "kind")]
+    pub kind: String,
+    /// NULL for warehouses and for the generic catch-all room.
+    #[serde(rename = "categorySlug", skip_serializing_if = "Option::is_none")]
+    pub category_slug: Option<String>,
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Public share handle. NULL until someone chooses to share.
+    #[serde(rename = "publicSlug", skip_serializing_if = "Option::is_none")]
+    pub public_slug: Option<String>,
+    /// 'private' | 'unlisted' | 'public'  Defaults CLOSED. A collection is the one surface in this product that routinely contains things which are not for sale and were never meant to be seen by anybody — that is most of what makes it a collection.
+    #[serde(rename = "visibility")]
+    pub visibility: String,
+    #[serde(rename = "settings")]
+    pub settings: Box<crate::models::SpatialSceneResponseDataSettings>,
+    /// kind='shop': the store this showroom belongs to (0830). NULL = a legacy row of the default store.
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
+    /// 1147 kind='shop': a store's showrooms in order; 0 = its primary (one per store, the unique index below).
+    #[serde(rename = "showroomPosition")]
+    pub showroom_position: f32,
+    /// 1147 kind='shop': opt-in, stand every live item automatically. Off = only what is pinned shows.
+    #[serde(rename = "autoIncludeInventory")]
+    pub auto_include_inventory: bool,
     #[serde(rename = "createdAt")]
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "inventoryItemId")]
-    pub inventory_item_id: String,
-    #[serde(rename = "sceneId")]
-    pub scene_id: String,
-    #[serde(rename = "inventoryUnitId", skip_serializing_if = "Option::is_none")]
-    pub inventory_unit_id: Option<String>,
-    #[serde(rename = "nodeId")]
-    pub node_id: String,
-    #[serde(rename = "slotIndex")]
-    pub slot_index: f32,
-    #[serde(rename = "pinned")]
-    pub pinned: bool,
 }
 
 impl SpatialSceneResponseData {
-    pub fn new(id: String, created_at: String, updated_at: String, inventory_item_id: String, scene_id: String, node_id: String, slot_index: f32, pinned: bool) -> SpatialSceneResponseData {
+    pub fn new(id: String, user_id: String, kind: String, name: String, visibility: String, settings: crate::models::SpatialSceneResponseDataSettings, showroom_position: f32, auto_include_inventory: bool, created_at: String, updated_at: String) -> SpatialSceneResponseData {
         SpatialSceneResponseData {
             id,
+            user_id,
+            kind,
+            category_slug: None,
+            name,
+            public_slug: None,
+            visibility,
+            settings: Box::new(settings),
+            storefront_id: None,
+            showroom_position,
+            auto_include_inventory,
             created_at,
             updated_at,
-            inventory_item_id,
-            scene_id,
-            inventory_unit_id: None,
-            node_id,
-            slot_index,
-            pinned,
         }
     }
 }

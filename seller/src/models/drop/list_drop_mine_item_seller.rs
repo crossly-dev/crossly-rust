@@ -16,7 +16,7 @@ pub struct ListDropMineItemSeller {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "shop", skip_serializing_if = "Option::is_none")]
-    pub shop: Option<Box<crate::models::NameSlug>>,
+    pub shop: Option<Box<crate::models::NameSlug2>>,
 }
 
 impl ListDropMineItemSeller {

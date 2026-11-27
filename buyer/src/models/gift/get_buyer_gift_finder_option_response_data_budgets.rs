@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerGiftFinderOptionResponseDataBudgets {
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "key")]
     pub key: String,
+    #[serde(rename = "label")]
+    pub label: String,
 }
 
 impl GetBuyerGiftFinderOptionResponseDataBudgets {
-    pub fn new(label: String, key: String) -> GetBuyerGiftFinderOptionResponseDataBudgets {
+    pub fn new(key: String, label: String) -> GetBuyerGiftFinderOptionResponseDataBudgets {
         GetBuyerGiftFinderOptionResponseDataBudgets {
-            label,
             key,
+            label,
         }
     }
 }

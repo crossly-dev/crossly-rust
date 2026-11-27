@@ -115,10 +115,10 @@ impl Default for Source {
 pub enum FetchStatus {
     #[serde(rename = "error")]
     Error,
-    #[serde(rename = "unsupported")]
-    Unsupported,
     #[serde(rename = "ok")]
     Ok,
+    #[serde(rename = "unsupported")]
+    Unsupported,
     #[serde(rename = "not_found")]
     NotFound,
 }

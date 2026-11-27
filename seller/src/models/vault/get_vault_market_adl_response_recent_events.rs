@@ -47,15 +47,15 @@ impl GetVaultMarketAdlResponseRecentEvents {
 /// The side that went under water.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BankruptSide {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for BankruptSide {
     fn default() -> BankruptSide {
-        Self::Long
+        Self::Short
     }
 }
 

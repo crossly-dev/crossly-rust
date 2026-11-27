@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerOrderPriceProtectionResponseData {
-    #[serde(rename = "active")]
-    pub active: bool,
     #[serde(rename = "until")]
     pub until: String,
+    #[serde(rename = "active")]
+    pub active: bool,
     #[serde(rename = "creditedCents")]
     pub credited_cents: f32,
 }
 
 impl GetBuyerOrderPriceProtectionResponseData {
-    pub fn new(active: bool, until: String, credited_cents: f32) -> GetBuyerOrderPriceProtectionResponseData {
+    pub fn new(until: String, active: bool, credited_cents: f32) -> GetBuyerOrderPriceProtectionResponseData {
         GetBuyerOrderPriceProtectionResponseData {
-            active,
             until,
+            active,
             credited_cents,
         }
     }

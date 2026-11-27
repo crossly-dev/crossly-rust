@@ -13,23 +13,29 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateVaultMarketSupplySendResponse {
+    #[serde(rename = "batchId", skip_serializing_if = "Option::is_none")]
+    pub batch_id: Option<serde_json::Value>,
     #[serde(rename = "created")]
-    pub created: Vec<crate::models::CreateVaultMarketSupplySendResponseCreated>,
+    pub created: Option<serde_json::Value>,
     #[serde(rename = "skipped")]
-    pub skipped: Vec<crate::models::CreateVaultMarketSupplySendResponseSkipped>,
+    pub skipped: Vec<crate::models::InventoryItemIdReason>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Box<crate::models::CreateVaultMarketPartnerBatchResponseLabel>>,
+    pub label: Option<serde_json::Value>,
     #[serde(rename = "labelError", skip_serializing_if = "Option::is_none")]
-    pub label_error: Option<String>,
+    pub label_error: Option<serde_json::Value>,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
 }
 
 impl CreateVaultMarketSupplySendResponse {
-    pub fn new(created: Vec<crate::models::CreateVaultMarketSupplySendResponseCreated>, skipped: Vec<crate::models::CreateVaultMarketSupplySendResponseSkipped>) -> CreateVaultMarketSupplySendResponse {
+    pub fn new(created: Option<serde_json::Value>, skipped: Vec<crate::models::InventoryItemIdReason>) -> CreateVaultMarketSupplySendResponse {
         CreateVaultMarketSupplySendResponse {
+            batch_id: None,
             created,
             skipped,
             label: None,
             label_error: None,
+            storefront_id: None,
         }
     }
 }

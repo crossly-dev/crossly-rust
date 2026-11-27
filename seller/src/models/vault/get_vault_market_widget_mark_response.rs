@@ -26,7 +26,7 @@ pub struct GetVaultMarketWidgetMarkResponse {
     #[serde(rename = "gradeKey", skip_serializing_if = "Option::is_none")]
     pub grade_key: Option<String>,
     #[serde(rename = "mark")]
-    pub mark: Box<crate::models::ListVaultMarketFeedItemMark>,
+    pub mark: Box<crate::models::ListVaultMarketOpeningItemMark>,
     #[serde(rename = "trades30d")]
     pub trades30d: f32,
     #[serde(rename = "insufficient")]
@@ -38,7 +38,7 @@ pub struct GetVaultMarketWidgetMarkResponse {
 }
 
 impl GetVaultMarketWidgetMarkResponse {
-    pub fn new(book_key: String, condition: String, mark: crate::models::ListVaultMarketFeedItemMark, trades30d: f32, insufficient: bool, points: Vec<crate::models::GetVaultMarketWidgetMarkResponsePoints>, href: String) -> GetVaultMarketWidgetMarkResponse {
+    pub fn new(book_key: String, condition: String, mark: crate::models::ListVaultMarketOpeningItemMark, trades30d: f32, insufficient: bool, points: Vec<crate::models::GetVaultMarketWidgetMarkResponsePoints>, href: String) -> GetVaultMarketWidgetMarkResponse {
         GetVaultMarketWidgetMarkResponse {
             book_key,
             name: None,

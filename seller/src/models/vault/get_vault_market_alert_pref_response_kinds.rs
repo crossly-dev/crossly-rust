@@ -40,14 +40,18 @@ impl GetVaultMarketAlertPrefResponseKinds {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Key {
-    #[serde(rename = "price")]
-    Price,
-    #[serde(rename = "auction")]
-    Auction,
-    #[serde(rename = "fill")]
-    Fill,
     #[serde(rename = "account")]
     Account,
+    #[serde(rename = "price")]
+    Price,
+    #[serde(rename = "fill")]
+    Fill,
+    #[serde(rename = "auction")]
+    Auction,
+    #[serde(rename = "prediction")]
+    Prediction,
+    #[serde(rename = "option_expiry")]
+    OptionExpiry,
     #[serde(rename = "margin_call")]
     MarginCall,
     #[serde(rename = "adl")]
@@ -62,11 +66,19 @@ pub enum Key {
     SetGoal,
     #[serde(rename = "follow")]
     Follow,
+    #[serde(rename = "share_offering")]
+    ShareOffering,
+    #[serde(rename = "share_vote")]
+    ShareVote,
+    #[serde(rename = "option_settlement")]
+    OptionSettlement,
+    #[serde(rename = "prediction_odds")]
+    PredictionOdds,
 }
 
 impl Default for Key {
     fn default() -> Key {
-        Self::Price
+        Self::Account
     }
 }
 

@@ -22,12 +22,12 @@ pub struct ListBuyerFollowingSellersItem {
     /// Active listings put up since you last marked this seller seen.
     #[serde(rename = "newListings")]
     pub new_listings: f32,
+    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "avatarUrl", skip_serializing_if = "Option::is_none")]
     pub avatar_url: Option<String>,
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
     #[serde(rename = "lastSeenAt", skip_serializing_if = "Option::is_none")]
     pub last_seen_at: Option<String>,
 }
@@ -39,9 +39,9 @@ impl ListBuyerFollowingSellersItem {
             followed_at,
             active_listings,
             new_listings,
+            username: None,
             name: None,
             avatar_url: None,
-            username: None,
             last_seen_at: None,
         }
     }

@@ -15,6 +15,8 @@
 pub struct GetCbxSubjectBalanceBySubjectIdResponseData {
     #[serde(rename = "grantedBaseUnits")]
     pub granted_base_units: String,
+    #[serde(rename = "fundingRestrictedBaseUnits")]
+    pub funding_restricted_base_units: String,
     #[serde(rename = "earnedBaseUnits")]
     pub earned_base_units: String,
     #[serde(rename = "stakedBaseUnits")]
@@ -28,9 +30,10 @@ pub struct GetCbxSubjectBalanceBySubjectIdResponseData {
 }
 
 impl GetCbxSubjectBalanceBySubjectIdResponseData {
-    pub fn new(granted_base_units: String, earned_base_units: String, staked_base_units: String, earned_available_base_units: String, connected_available_base_units: String, total_spendable_base_units: String) -> GetCbxSubjectBalanceBySubjectIdResponseData {
+    pub fn new(granted_base_units: String, funding_restricted_base_units: String, earned_base_units: String, staked_base_units: String, earned_available_base_units: String, connected_available_base_units: String, total_spendable_base_units: String) -> GetCbxSubjectBalanceBySubjectIdResponseData {
         GetCbxSubjectBalanceBySubjectIdResponseData {
             granted_base_units,
+            funding_restricted_base_units,
             earned_base_units,
             staked_base_units,
             earned_available_base_units,

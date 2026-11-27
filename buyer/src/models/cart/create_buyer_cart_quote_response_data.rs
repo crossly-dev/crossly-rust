@@ -13,18 +13,18 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerCartQuoteResponseData {
-    #[serde(rename = "currency")]
-    pub currency: String,
     #[serde(rename = "kind")]
     pub kind: String,
-    #[serde(rename = "taxCents")]
-    pub tax_cents: f32,
-    #[serde(rename = "shippingCents")]
-    pub shipping_cents: f32,
-    #[serde(rename = "totalCents")]
-    pub total_cents: f32,
     #[serde(rename = "itemsTotalCents")]
     pub items_total_cents: f32,
+    #[serde(rename = "shippingCents")]
+    pub shipping_cents: f32,
+    #[serde(rename = "taxCents")]
+    pub tax_cents: f32,
+    #[serde(rename = "totalCents")]
+    pub total_cents: f32,
+    #[serde(rename = "currency")]
+    pub currency: String,
     /// Lines being collected in person, so a summary can name what ships free.
     #[serde(rename = "pickupCartItemIds")]
     pub pickup_cart_item_ids: Vec<String>,
@@ -50,14 +50,14 @@ pub struct CreateBuyerCartQuoteResponseData {
 }
 
 impl CreateBuyerCartQuoteResponseData {
-    pub fn new(currency: String, kind: String, tax_cents: f32, shipping_cents: f32, total_cents: f32, items_total_cents: f32, pickup_cart_item_ids: Vec<String>, tax_complete: bool) -> CreateBuyerCartQuoteResponseData {
+    pub fn new(kind: String, items_total_cents: f32, shipping_cents: f32, tax_cents: f32, total_cents: f32, currency: String, pickup_cart_item_ids: Vec<String>, tax_complete: bool) -> CreateBuyerCartQuoteResponseData {
         CreateBuyerCartQuoteResponseData {
-            currency,
             kind,
-            tax_cents,
-            shipping_cents,
-            total_cents,
             items_total_cents,
+            shipping_cents,
+            tax_cents,
+            total_cents,
+            currency,
             pickup_cart_item_ids,
             tax_complete,
             duties_cents: None,

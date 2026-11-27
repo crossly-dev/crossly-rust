@@ -16,7 +16,7 @@ pub struct GetVaultMarketProofOfReserveResponse {
     #[serde(rename = "latest", skip_serializing_if = "Option::is_none")]
     pub latest: Option<Box<crate::models::GetVaultMarketProofOfReserveResponseLatest>>,
     #[serde(rename = "history")]
-    pub history: Vec<crate::models::GetVaultMarketProofOfReserveByDayResponse>,
+    pub history: Vec<crate::models::GetVaultMarketProofOfReserveResponseHistory>,
     #[serde(rename = "anchoring")]
     pub anchoring: Box<crate::models::GetVaultMarketProofOfReserveResponseAnchoring>,
     #[serde(rename = "method")]
@@ -24,7 +24,7 @@ pub struct GetVaultMarketProofOfReserveResponse {
 }
 
 impl GetVaultMarketProofOfReserveResponse {
-    pub fn new(history: Vec<crate::models::GetVaultMarketProofOfReserveByDayResponse>, anchoring: crate::models::GetVaultMarketProofOfReserveResponseAnchoring, method: crate::models::GetVaultMarketProofOfReserveResponseMethod) -> GetVaultMarketProofOfReserveResponse {
+    pub fn new(history: Vec<crate::models::GetVaultMarketProofOfReserveResponseHistory>, anchoring: crate::models::GetVaultMarketProofOfReserveResponseAnchoring, method: crate::models::GetVaultMarketProofOfReserveResponseMethod) -> GetVaultMarketProofOfReserveResponse {
         GetVaultMarketProofOfReserveResponse {
             latest: None,
             history,

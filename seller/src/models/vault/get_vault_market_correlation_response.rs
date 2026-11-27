@@ -26,7 +26,7 @@ pub struct GetVaultMarketCorrelationResponse {
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
     #[serde(rename = "indexes")]
-    pub indexes: Vec<crate::models::SlugName>,
+    pub indexes: Vec<crate::models::NameSlug>,
     #[serde(rename = "rho")]
     pub rho: Vec<Vec<f32>>,
     #[serde(rename = "n")]
@@ -36,7 +36,7 @@ pub struct GetVaultMarketCorrelationResponse {
 }
 
 impl GetVaultMarketCorrelationResponse {
-    pub fn new(label: String, derived: bool, weeks: f32, min_pair_weeks: f32, insufficient: bool, indexes: Vec<crate::models::SlugName>, rho: Vec<Vec<f32>>, n: Vec<Vec<f32>>, as_of: String) -> GetVaultMarketCorrelationResponse {
+    pub fn new(label: String, derived: bool, weeks: f32, min_pair_weeks: f32, insufficient: bool, indexes: Vec<crate::models::NameSlug>, rho: Vec<Vec<f32>>, n: Vec<Vec<f32>>, as_of: String) -> GetVaultMarketCorrelationResponse {
         GetVaultMarketCorrelationResponse {
             label,
             derived,

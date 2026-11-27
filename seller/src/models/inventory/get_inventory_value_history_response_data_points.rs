@@ -33,10 +33,16 @@ pub struct GetInventoryValueHistoryResponseDataPoints {
     pub market_cents: Option<f32>,
     #[serde(rename = "stuckCostCents")]
     pub stuck_cost_cents: f32,
+    #[serde(rename = "over90CostCents", skip_serializing_if = "Option::is_none")]
+    pub over90_cost_cents: Option<f32>,
+    #[serde(rename = "costKnownItems", skip_serializing_if = "Option::is_none")]
+    pub cost_known_items: Option<f32>,
+    #[serde(rename = "reconstructed")]
+    pub reconstructed: bool,
 }
 
 impl GetInventoryValueHistoryResponseDataPoints {
-    pub fn new(id: String, created_at: String, user_id: String, snapshot_date: String, item_count: f32, unit_count: f32, cost_cents: f32, retail_cents: f32, stuck_cost_cents: f32) -> GetInventoryValueHistoryResponseDataPoints {
+    pub fn new(id: String, created_at: String, user_id: String, snapshot_date: String, item_count: f32, unit_count: f32, cost_cents: f32, retail_cents: f32, stuck_cost_cents: f32, reconstructed: bool) -> GetInventoryValueHistoryResponseDataPoints {
         GetInventoryValueHistoryResponseDataPoints {
             id,
             created_at,
@@ -48,6 +54,9 @@ impl GetInventoryValueHistoryResponseDataPoints {
             retail_cents,
             market_cents: None,
             stuck_cost_cents,
+            over90_cost_cents: None,
+            cost_known_items: None,
+            reconstructed,
         }
     }
 }

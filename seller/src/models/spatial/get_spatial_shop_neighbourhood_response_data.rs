@@ -19,22 +19,16 @@ pub struct GetSpatialShopNeighbourhoodResponseData {
     pub home: Option<serde_json::Value>,
     #[serde(rename = "suggested", skip_serializing_if = "Option::is_none")]
     pub suggested: Option<Suggested>,
-    #[serde(rename = "canMove")]
-    pub can_move: bool,
-    #[serde(rename = "move", skip_serializing_if = "Option::is_none")]
-    pub _move: Option<serde_json::Value>,
     #[serde(rename = "options")]
     pub options: Vec<crate::models::ListNeighbourhoodsItem>,
 }
 
 impl GetSpatialShopNeighbourhoodResponseData {
-    pub fn new(shop: Option<serde_json::Value>, can_move: bool, options: Vec<crate::models::ListNeighbourhoodsItem>) -> GetSpatialShopNeighbourhoodResponseData {
+    pub fn new(shop: Option<serde_json::Value>, options: Vec<crate::models::ListNeighbourhoodsItem>) -> GetSpatialShopNeighbourhoodResponseData {
         GetSpatialShopNeighbourhoodResponseData {
             shop,
             home: None,
             suggested: None,
-            can_move,
-            _move: None,
             options,
         }
     }

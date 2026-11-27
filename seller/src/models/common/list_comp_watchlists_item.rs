@@ -23,12 +23,12 @@ pub struct ListCompWatchlistsItem {
     pub created_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
+    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
     #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
     pub condition: Option<String>,
     #[serde(rename = "categoryMain", skip_serializing_if = "Option::is_none")]
     pub category_main: Option<String>,
-    #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
-    pub platform: Option<String>,
     #[serde(rename = "minPrice", skip_serializing_if = "Option::is_none")]
     pub min_price: Option<String>,
     #[serde(rename = "maxPrice", skip_serializing_if = "Option::is_none")]
@@ -47,9 +47,9 @@ impl ListCompWatchlistsItem {
             name,
             created_at,
             user_id,
+            platform: None,
             condition: None,
             category_main: None,
-            platform: None,
             min_price: None,
             max_price: None,
             last_matched_at: None,

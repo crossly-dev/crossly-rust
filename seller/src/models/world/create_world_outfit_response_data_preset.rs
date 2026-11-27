@@ -18,7 +18,7 @@ pub struct CreateWorldOutfitResponseDataPreset {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "appearance")]
-    pub appearance: Box<crate::models::ListWorldOutfitsItemAppearance>,
+    pub appearance: Box<crate::models::CreateWorldOutfitResponseDataPresetAppearance>,
     #[serde(rename = "items")]
     pub items: Vec<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "createdAt")]
@@ -28,7 +28,7 @@ pub struct CreateWorldOutfitResponseDataPreset {
 }
 
 impl CreateWorldOutfitResponseDataPreset {
-    pub fn new(id: String, name: String, appearance: crate::models::ListWorldOutfitsItemAppearance, items: Vec<::std::collections::HashMap<String, serde_json::Value>>, created_at: String, updated_at: String) -> CreateWorldOutfitResponseDataPreset {
+    pub fn new(id: String, name: String, appearance: crate::models::CreateWorldOutfitResponseDataPresetAppearance, items: Vec<::std::collections::HashMap<String, serde_json::Value>>, created_at: String, updated_at: String) -> CreateWorldOutfitResponseDataPreset {
         CreateWorldOutfitResponseDataPreset {
             id,
             name,

@@ -12,14 +12,14 @@
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum GetWorldCapabilityCatalogueResponseDataKindsClientsItem {
-    #[serde(rename = "web")]
-    Web,
     #[serde(rename = "app")]
     App,
-    #[serde(rename = "godot")]
-    Godot,
     #[serde(rename = "api")]
     Api,
+    #[serde(rename = "web")]
+    Web,
+    #[serde(rename = "godot")]
+    Godot,
     #[serde(rename = "runner")]
     Runner,
 
@@ -28,10 +28,10 @@ pub enum GetWorldCapabilityCatalogueResponseDataKindsClientsItem {
 impl ToString for GetWorldCapabilityCatalogueResponseDataKindsClientsItem {
     fn to_string(&self) -> String {
         match self {
-            Self::Web => String::from("web"),
             Self::App => String::from("app"),
-            Self::Godot => String::from("godot"),
             Self::Api => String::from("api"),
+            Self::Web => String::from("web"),
+            Self::Godot => String::from("godot"),
             Self::Runner => String::from("runner"),
         }
     }
@@ -39,7 +39,7 @@ impl ToString for GetWorldCapabilityCatalogueResponseDataKindsClientsItem {
 
 impl Default for GetWorldCapabilityCatalogueResponseDataKindsClientsItem {
     fn default() -> GetWorldCapabilityCatalogueResponseDataKindsClientsItem {
-        Self::Web
+        Self::App
     }
 }
 

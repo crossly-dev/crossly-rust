@@ -16,11 +16,11 @@ pub struct CreateAutomationRuleImportResponseErrors {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "errors")]
-    pub errors: Vec<::std::collections::HashMap<String, serde_json::Value>>,
+    pub errors: Vec<serde_json::Value>,
 }
 
 impl CreateAutomationRuleImportResponseErrors {
-    pub fn new(name: String, errors: Vec<::std::collections::HashMap<String, serde_json::Value>>) -> CreateAutomationRuleImportResponseErrors {
+    pub fn new(name: String, errors: Vec<serde_json::Value>) -> CreateAutomationRuleImportResponseErrors {
         CreateAutomationRuleImportResponseErrors {
             name,
             errors,

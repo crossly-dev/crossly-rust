@@ -18,7 +18,7 @@ pub struct ListWorldFriendsItem {
     #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
     #[serde(rename = "room", skip_serializing_if = "Option::is_none")]
-    pub room: Option<Box<crate::models::NameSlug>>,
+    pub room: Option<Box<crate::models::NameSlug2>>,
     #[serde(rename = "homeSlug", skip_serializing_if = "Option::is_none")]
     pub home_slug: Option<String>,
 }

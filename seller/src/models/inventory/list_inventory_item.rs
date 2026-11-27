@@ -23,6 +23,12 @@ pub struct ListInventoryItem {
     pub updated_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
+    pub notes: Option<String>,
+    #[serde(rename = "source")]
+    pub source: String,
     #[serde(rename = "sku", skip_serializing_if = "Option::is_none")]
     pub sku: Option<String>,
     #[serde(rename = "quantity")]
@@ -31,6 +37,8 @@ pub struct ListInventoryItem {
     pub quantity_available: f32,
     #[serde(rename = "quantityReserved")]
     pub quantity_reserved: f32,
+    #[serde(rename = "wholesaleReserve")]
+    pub wholesale_reserve: f32,
     #[serde(rename = "quantitySold")]
     pub quantity_sold: f32,
     #[serde(rename = "originalPrice", skip_serializing_if = "Option::is_none")]
@@ -67,8 +75,6 @@ pub struct ListInventoryItem {
     pub tags: Vec<String>,
     #[serde(rename = "labels")]
     pub labels: Vec<String>,
-    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
-    pub notes: Option<String>,
     #[serde(rename = "customLabel", skip_serializing_if = "Option::is_none")]
     pub custom_label: Option<String>,
     #[serde(rename = "warehouseLocation", skip_serializing_if = "Option::is_none")]
@@ -83,14 +89,18 @@ pub struct ListInventoryItem {
     pub market_variant_id: Option<String>,
     #[serde(rename = "gradeKey", skip_serializing_if = "Option::is_none")]
     pub grade_key: Option<String>,
+    #[serde(rename = "vaultSellFrom", skip_serializing_if = "Option::is_none")]
+    pub vault_sell_from: Option<VaultSellFrom>,
     #[serde(rename = "grading", skip_serializing_if = "Option::is_none")]
-    pub grading: Option<Box<crate::models::ListGradingSubmissionsItemGrading>>,
+    pub grading: Option<Box<crate::models::CreateBulkBatchItemResponseGrading>>,
     #[serde(rename = "firstListedAt", skip_serializing_if = "Option::is_none")]
     pub first_listed_at: Option<String>,
     #[serde(rename = "includeTaxInLanded")]
     pub include_tax_in_landed: bool,
     #[serde(rename = "costBasisCents", skip_serializing_if = "Option::is_none")]
     pub cost_basis_cents: Option<f32>,
+    #[serde(rename = "supplier", skip_serializing_if = "Option::is_none")]
+    pub supplier: Option<Box<crate::models::ListInventoryItemSupplier>>,
     #[serde(rename = "priceFloorCents", skip_serializing_if = "Option::is_none")]
     pub price_floor_cents: Option<f32>,
     #[serde(rename = "floorIsNet")]
@@ -109,26 +119,28 @@ pub struct ListInventoryItem {
     pub dimension_win: Option<String>,
     #[serde(rename = "dimensionHIn", skip_serializing_if = "Option::is_none")]
     pub dimension_hin: Option<String>,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "source")]
-    pub source: String,
+    #[serde(rename = "allowanceAppId", skip_serializing_if = "Option::is_none")]
+    pub allowance_app_id: Option<String>,
     #[serde(rename = "category", skip_serializing_if = "Option::is_none")]
     pub category: Option<Box<crate::models::MainSub>>,
 }
 
 impl ListInventoryItem {
-    pub fn new(id: String, created_at: String, updated_at: String, user_id: String, quantity: f32, quantity_available: f32, quantity_reserved: f32, quantity_sold: f32, color: Vec<String>, default_title: String, images: Vec<String>, tags: Vec<String>, labels: Vec<String>, include_tax_in_landed: bool, floor_is_net: bool, status: String, source: String) -> ListInventoryItem {
+    pub fn new(id: String, created_at: String, updated_at: String, user_id: String, status: String, source: String, quantity: f32, quantity_available: f32, quantity_reserved: f32, wholesale_reserve: f32, quantity_sold: f32, color: Vec<String>, default_title: String, images: Vec<String>, tags: Vec<String>, labels: Vec<String>, include_tax_in_landed: bool, floor_is_net: bool) -> ListInventoryItem {
         ListInventoryItem {
             id,
             brand: None,
             created_at,
             updated_at,
             user_id,
+            status,
+            notes: None,
+            source,
             sku: None,
             quantity,
             quantity_available,
             quantity_reserved,
+            wholesale_reserve,
             quantity_sold,
             original_price: None,
             condition: None,
@@ -147,7 +159,6 @@ impl ListInventoryItem {
             provenance_receipt_id: None,
             tags,
             labels,
-            notes: None,
             custom_label: None,
             warehouse_location: None,
             storage_bin: None,
@@ -155,10 +166,12 @@ impl ListInventoryItem {
             market_sku_id: None,
             market_variant_id: None,
             grade_key: None,
+            vault_sell_from: None,
             grading: None,
             first_listed_at: None,
             include_tax_in_landed,
             cost_basis_cents: None,
+            supplier: None,
             price_floor_cents: None,
             floor_is_net,
             acquired_at: None,
@@ -168,11 +181,26 @@ impl ListInventoryItem {
             dimension_lin: None,
             dimension_win: None,
             dimension_hin: None,
-            status,
-            source,
+            allowance_app_id: None,
             category: None,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum VaultSellFrom {
+    #[serde(rename = "vault_first")]
+    VaultFirst,
+    #[serde(rename = "warehouse_first")]
+    WarehouseFirst,
+    #[serde(rename = "cheapest")]
+    Cheapest,
+}
+
+impl Default for VaultSellFrom {
+    fn default() -> VaultSellFrom {
+        Self::VaultFirst
+    }
+}
 

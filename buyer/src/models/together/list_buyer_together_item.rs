@@ -13,20 +13,20 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerTogetherItem {
+    #[serde(rename = "code")]
+    pub code: String,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "endsAt")]
     pub ends_at: String,
-    #[serde(rename = "code")]
-    pub code: String,
 }
 
 impl ListBuyerTogetherItem {
-    pub fn new(name: String, ends_at: String, code: String) -> ListBuyerTogetherItem {
+    pub fn new(code: String, name: String, ends_at: String) -> ListBuyerTogetherItem {
         ListBuyerTogetherItem {
+            code,
             name,
             ends_at,
-            code,
         }
     }
 }

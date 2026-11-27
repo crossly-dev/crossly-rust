@@ -15,29 +15,29 @@
 pub struct GetBuyerCatalogListingPriceResponseDataPriceCheck {
     #[serde(rename = "verdict")]
     pub verdict: Verdict,
-    #[serde(rename = "sales")]
-    pub sales: f32,
     #[serde(rename = "medianCents")]
     pub median_cents: f32,
-    #[serde(rename = "days")]
-    pub days: f32,
     #[serde(rename = "lowCents")]
     pub low_cents: f32,
     #[serde(rename = "highCents")]
     pub high_cents: f32,
+    #[serde(rename = "sales")]
+    pub sales: f32,
+    #[serde(rename = "days")]
+    pub days: f32,
     #[serde(rename = "lastSoldAt")]
     pub last_sold_at: String,
 }
 
 impl GetBuyerCatalogListingPriceResponseDataPriceCheck {
-    pub fn new(verdict: Verdict, sales: f32, median_cents: f32, days: f32, low_cents: f32, high_cents: f32, last_sold_at: String) -> GetBuyerCatalogListingPriceResponseDataPriceCheck {
+    pub fn new(verdict: Verdict, median_cents: f32, low_cents: f32, high_cents: f32, sales: f32, days: f32, last_sold_at: String) -> GetBuyerCatalogListingPriceResponseDataPriceCheck {
         GetBuyerCatalogListingPriceResponseDataPriceCheck {
             verdict,
-            sales,
             median_cents,
-            days,
             low_cents,
             high_cents,
+            sales,
+            days,
             last_sold_at,
         }
     }
@@ -46,19 +46,19 @@ impl GetBuyerCatalogListingPriceResponseDataPriceCheck {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Verdict {
-    #[serde(rename = "high")]
-    High,
-    #[serde(rename = "fair")]
-    Fair,
     #[serde(rename = "good")]
     Good,
+    #[serde(rename = "fair")]
+    Fair,
+    #[serde(rename = "high")]
+    High,
     #[serde(rename = "great")]
     Great,
 }
 
 impl Default for Verdict {
     fn default() -> Verdict {
-        Self::High
+        Self::Good
     }
 }
 

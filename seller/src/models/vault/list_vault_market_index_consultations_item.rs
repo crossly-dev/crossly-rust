@@ -65,10 +65,10 @@ pub enum Status {
     Open,
     #[serde(rename = "closed")]
     Closed,
-    #[serde(rename = "adopted")]
-    Adopted,
     #[serde(rename = "withdrawn")]
     Withdrawn,
+    #[serde(rename = "adopted")]
+    Adopted,
 }
 
 impl Default for Status {

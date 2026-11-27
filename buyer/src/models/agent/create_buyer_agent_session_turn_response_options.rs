@@ -41,6 +41,11 @@ pub struct CreateBuyerAgentSessionTurnResponseOptions {
     pub reason: String,
     #[serde(rename = "priceCheck", skip_serializing_if = "Option::is_none")]
     pub price_check: Option<Box<crate::models::CreateBuyerAgentSessionActResponseQuotePriceCheck>>,
+    /// The world object it stands as, and the seller's public shop room (world-picks.ts).
+    #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
+    pub model: Option<String>,
+    #[serde(rename = "shopSlug", skip_serializing_if = "Option::is_none")]
+    pub shop_slug: Option<String>,
 }
 
 impl CreateBuyerAgentSessionTurnResponseOptions {
@@ -60,6 +65,8 @@ impl CreateBuyerAgentSessionTurnResponseOptions {
             facts,
             reason,
             price_check: None,
+            model: None,
+            shop_slug: None,
         }
     }
 }

@@ -29,8 +29,14 @@ pub struct GetVaultMarketTaxResponse {
     pub income: Box<crate::models::GetVaultMarketTaxResponseIncome>,
     #[serde(rename = "positions")]
     pub positions: Vec<crate::models::GetVaultMarketTaxResponsePositions>,
+    #[serde(rename = "options", skip_serializing_if = "Option::is_none")]
+    pub options: Option<Box<crate::models::GetVaultMarketTaxResponseOptions>>,
     #[serde(rename = "notes")]
     pub notes: Vec<String>,
+    #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
+    pub shares: Option<Box<crate::models::GetVaultMarketTaxResponseShares>>,
+    #[serde(rename = "predictions", skip_serializing_if = "Option::is_none")]
+    pub predictions: Option<Box<crate::models::GetVaultMarketTaxResponsePredictions>>,
 }
 
 impl GetVaultMarketTaxResponse {
@@ -44,7 +50,10 @@ impl GetVaultMarketTaxResponse {
             gifts_out,
             income: Box::new(income),
             positions,
+            options: None,
             notes,
+            shares: None,
+            predictions: None,
         }
     }
 }

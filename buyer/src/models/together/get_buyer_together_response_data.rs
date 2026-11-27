@@ -15,33 +15,33 @@
 pub struct GetBuyerTogetherResponseData {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "name")]
-    pub name: String,
-    #[serde(rename = "endsAt")]
-    pub ends_at: String,
     #[serde(rename = "code")]
     pub code: String,
+    #[serde(rename = "name")]
+    pub name: String,
+    #[serde(rename = "isHost")]
+    pub is_host: bool,
+    #[serde(rename = "endsAt")]
+    pub ends_at: String,
     #[serde(rename = "members")]
     pub members: Vec<crate::models::GetBuyerTogetherResponseDataMembers>,
     #[serde(rename = "items")]
     pub items: Vec<crate::models::GetBuyerTogetherResponseDataItems>,
     #[serde(rename = "messages")]
     pub messages: Vec<crate::models::GetBuyerTogetherResponseDataMessages>,
-    #[serde(rename = "isHost")]
-    pub is_host: bool,
 }
 
 impl GetBuyerTogetherResponseData {
-    pub fn new(id: String, name: String, ends_at: String, code: String, members: Vec<crate::models::GetBuyerTogetherResponseDataMembers>, items: Vec<crate::models::GetBuyerTogetherResponseDataItems>, messages: Vec<crate::models::GetBuyerTogetherResponseDataMessages>, is_host: bool) -> GetBuyerTogetherResponseData {
+    pub fn new(id: String, code: String, name: String, is_host: bool, ends_at: String, members: Vec<crate::models::GetBuyerTogetherResponseDataMembers>, items: Vec<crate::models::GetBuyerTogetherResponseDataItems>, messages: Vec<crate::models::GetBuyerTogetherResponseDataMessages>) -> GetBuyerTogetherResponseData {
         GetBuyerTogetherResponseData {
             id,
-            name,
-            ends_at,
             code,
+            name,
+            is_host,
+            ends_at,
             members,
             items,
             messages,
-            is_host,
         }
     }
 }

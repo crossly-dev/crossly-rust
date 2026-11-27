@@ -13,23 +13,38 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetAnalyticSummaryResponse {
+    #[serde(rename = "days")]
+    pub days: f32,
     #[serde(rename = "sales")]
     pub sales: f32,
     #[serde(rename = "revenue")]
     pub revenue: f32,
     #[serde(rename = "fees")]
     pub fees: f32,
-    #[serde(rename = "days")]
-    pub days: f32,
+    #[serde(rename = "pendingDetailsCount")]
+    pub pending_details_count: f32,
+    #[serde(rename = "unitsSold")]
+    pub units_sold: f32,
+    #[serde(rename = "netSalesCents")]
+    pub net_sales_cents: f32,
+    #[serde(rename = "feesCents")]
+    pub fees_cents: f32,
+    #[serde(rename = "netProfitCents", skip_serializing_if = "Option::is_none")]
+    pub net_profit_cents: Option<f32>,
 }
 
 impl GetAnalyticSummaryResponse {
-    pub fn new(sales: f32, revenue: f32, fees: f32, days: f32) -> GetAnalyticSummaryResponse {
+    pub fn new(days: f32, sales: f32, revenue: f32, fees: f32, pending_details_count: f32, units_sold: f32, net_sales_cents: f32, fees_cents: f32) -> GetAnalyticSummaryResponse {
         GetAnalyticSummaryResponse {
+            days,
             sales,
             revenue,
             fees,
-            days,
+            pending_details_count,
+            units_sold,
+            net_sales_cents,
+            fees_cents,
+            net_profit_cents: None,
         }
     }
 }

@@ -131,15 +131,15 @@ impl CreateVaultMarketPositionCollateralResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Long
+        Self::Short
     }
 }
 

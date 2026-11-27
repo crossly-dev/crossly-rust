@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerOfferResponseData {
-    #[serde(rename = "offer")]
-    pub offer: Box<crate::models::CreateBuyerOfferResponseDataOffer>,
     #[serde(rename = "ok")]
     pub ok: bool,
+    #[serde(rename = "offer")]
+    pub offer: Box<crate::models::CreateBuyerOfferResponseDataOffer>,
 }
 
 impl CreateBuyerOfferResponseData {
-    pub fn new(offer: crate::models::CreateBuyerOfferResponseDataOffer, ok: bool) -> CreateBuyerOfferResponseData {
+    pub fn new(ok: bool, offer: crate::models::CreateBuyerOfferResponseDataOffer) -> CreateBuyerOfferResponseData {
         CreateBuyerOfferResponseData {
-            offer: Box::new(offer),
             ok,
+            offer: Box::new(offer),
         }
     }
 }

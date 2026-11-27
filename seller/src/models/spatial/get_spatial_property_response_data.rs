@@ -18,11 +18,11 @@ pub struct GetSpatialPropertyResponseData {
     #[serde(rename = "deeds")]
     pub deeds: Vec<crate::models::GetSpatialPropertyResponseDataDeeds>,
     #[serde(rename = "tenancies")]
-    pub tenancies: Vec<crate::models::CreateSpatialPropertyDeedLeaseResponseData>,
+    pub tenancies: Vec<crate::models::GetSpatialPropertyResponseDataTenancies>,
 }
 
 impl GetSpatialPropertyResponseData {
-    pub fn new(enabled: bool, deeds: Vec<crate::models::GetSpatialPropertyResponseDataDeeds>, tenancies: Vec<crate::models::CreateSpatialPropertyDeedLeaseResponseData>) -> GetSpatialPropertyResponseData {
+    pub fn new(enabled: bool, deeds: Vec<crate::models::GetSpatialPropertyResponseDataDeeds>, tenancies: Vec<crate::models::GetSpatialPropertyResponseDataTenancies>) -> GetSpatialPropertyResponseData {
         GetSpatialPropertyResponseData {
             enabled,
             deeds,

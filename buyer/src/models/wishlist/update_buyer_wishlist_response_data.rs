@@ -19,22 +19,22 @@ pub struct UpdateBuyerWishlistResponseData {
     pub id: String,
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
     #[serde(rename = "isPublic")]
     pub is_public: bool,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
     #[serde(rename = "shareToken", skip_serializing_if = "Option::is_none")]
     pub share_token: Option<String>,
 }
 
 impl UpdateBuyerWishlistResponseData {
-    pub fn new(id: String, name: String, created_at: String, is_public: bool) -> UpdateBuyerWishlistResponseData {
+    pub fn new(id: String, name: String, is_public: bool, created_at: String) -> UpdateBuyerWishlistResponseData {
         UpdateBuyerWishlistResponseData {
             share_url: None,
             id,
             name,
-            created_at,
             is_public,
+            created_at,
             share_token: None,
         }
     }

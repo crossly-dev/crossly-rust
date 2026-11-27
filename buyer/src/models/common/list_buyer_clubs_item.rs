@@ -13,16 +13,16 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerClubsItem {
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
-    #[serde(rename = "member", skip_serializing_if = "Option::is_none")]
-    pub member: Option<Box<crate::models::CreateBuyerSellerClubJoinResponseDataMember>>,
     #[serde(rename = "tiers")]
     pub tiers: Vec<crate::models::CreateBuyerSellerClubJoinResponseDataTiers>,
+    #[serde(rename = "member", skip_serializing_if = "Option::is_none")]
+    pub member: Option<Box<crate::models::CreateBuyerSellerClubJoinResponseDataMember>>,
     #[serde(rename = "sellerName")]
     pub seller_name: String,
     #[serde(rename = "sellerHandle", skip_serializing_if = "Option::is_none")]
@@ -30,13 +30,13 @@ pub struct ListBuyerClubsItem {
 }
 
 impl ListBuyerClubsItem {
-    pub fn new(name: String, seller_user_id: String, tiers: Vec<crate::models::CreateBuyerSellerClubJoinResponseDataTiers>, seller_name: String) -> ListBuyerClubsItem {
+    pub fn new(seller_user_id: String, name: String, tiers: Vec<crate::models::CreateBuyerSellerClubJoinResponseDataTiers>, seller_name: String) -> ListBuyerClubsItem {
         ListBuyerClubsItem {
+            seller_user_id,
             name,
             description: None,
-            seller_user_id,
-            member: None,
             tiers,
+            member: None,
             seller_name,
             seller_handle: None,
         }

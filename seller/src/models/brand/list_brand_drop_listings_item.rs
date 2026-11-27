@@ -25,6 +25,12 @@ pub struct ListBrandDropListingsItem {
     pub price_cents: Option<f32>,
     #[serde(rename = "status")]
     pub status: String,
+    /// The Crossly listing's slug (platform_listings.platform_listing_id): what the cart adds by.
+    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
+    /// Units the listing offers (null = untracked): a pre-book's reservable quantity.
+    #[serde(rename = "quantity", skip_serializing_if = "Option::is_none")]
+    pub quantity: Option<f32>,
 }
 
 impl ListBrandDropListingsItem {
@@ -36,6 +42,8 @@ impl ListBrandDropListingsItem {
             image_url: None,
             price_cents: None,
             status,
+            slug: None,
+            quantity: None,
         }
     }
 }

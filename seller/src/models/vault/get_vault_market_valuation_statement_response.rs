@@ -53,6 +53,8 @@ pub struct GetVaultMarketValuationStatementResponse {
     pub verify_url: Option<String>,
     #[serde(rename = "venue")]
     pub venue: String,
+    #[serde(rename = "shares", skip_serializing_if = "Option::is_none")]
+    pub shares: Option<Box<crate::models::CreateVaultMarketValuationStatementResponseShares>>,
 }
 
 impl GetVaultMarketValuationStatementResponse {
@@ -78,6 +80,7 @@ impl GetVaultMarketValuationStatementResponse {
             notes,
             verify_url: None,
             venue,
+            shares: None,
         }
     }
 }
@@ -85,15 +88,15 @@ impl GetVaultMarketValuationStatementResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Purpose {
-    #[serde(rename = "insurance")]
-    Insurance,
     #[serde(rename = "appraisal")]
     Appraisal,
+    #[serde(rename = "insurance")]
+    Insurance,
 }
 
 impl Default for Purpose {
     fn default() -> Purpose {
-        Self::Insurance
+        Self::Appraisal
     }
 }
 

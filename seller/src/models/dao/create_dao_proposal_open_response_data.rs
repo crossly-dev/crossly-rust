@@ -51,12 +51,16 @@ pub struct CreateDaoProposalOpenResponseData {
     pub vetoed_reason: Option<String>,
     #[serde(rename = "charityGoalId", skip_serializing_if = "Option::is_none")]
     pub charity_goal_id: Option<String>,
+    #[serde(rename = "proposalKind")]
+    pub proposal_kind: String,
+    #[serde(rename = "params", skip_serializing_if = "Option::is_none")]
+    pub params: Option<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "createdAt")]
     pub created_at: String,
 }
 
 impl CreateDaoProposalOpenResponseData {
-    pub fn new(eligible_voters: f32, id: String, title: String, body: String, beneficiary_kind: String, status: String, total_voting_power: String, power_for: String, power_against: String, power_abstain: String, quorum_bps: f32, pass_threshold_bps: f32, created_at: String) -> CreateDaoProposalOpenResponseData {
+    pub fn new(eligible_voters: f32, id: String, title: String, body: String, beneficiary_kind: String, status: String, total_voting_power: String, power_for: String, power_against: String, power_abstain: String, quorum_bps: f32, pass_threshold_bps: f32, proposal_kind: String, created_at: String) -> CreateDaoProposalOpenResponseData {
         CreateDaoProposalOpenResponseData {
             eligible_voters,
             id,
@@ -77,6 +81,8 @@ impl CreateDaoProposalOpenResponseData {
             tallied_at: None,
             vetoed_reason: None,
             charity_goal_id: None,
+            proposal_kind,
+            params: None,
             created_at,
         }
     }

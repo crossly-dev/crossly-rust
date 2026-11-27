@@ -37,14 +37,14 @@ impl CreateBuyerLockonConfirmResponseHudAction {
 pub enum Kind {
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "confirm")]
-    Confirm,
     #[serde(rename = "save")]
     Save,
     #[serde(rename = "buy_crossly")]
     BuyCrossly,
     #[serde(rename = "buy_offsite")]
     BuyOffsite,
+    #[serde(rename = "confirm")]
+    Confirm,
 }
 
 impl Default for Kind {

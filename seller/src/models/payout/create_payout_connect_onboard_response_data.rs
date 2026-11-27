@@ -19,18 +19,20 @@ pub struct CreatePayoutConnectOnboardResponseData {
     pub country: String,
     #[serde(rename = "agreement")]
     pub agreement: Agreement,
-    /// False when Stripe offers no way for Crossly to pay this account (see connect.ts).
     #[serde(rename = "payoutsSupported")]
     pub payouts_supported: bool,
+    #[serde(rename = "accountSource")]
+    pub account_source: String,
 }
 
 impl CreatePayoutConnectOnboardResponseData {
-    pub fn new(url: String, country: String, agreement: Agreement, payouts_supported: bool) -> CreatePayoutConnectOnboardResponseData {
+    pub fn new(url: String, country: String, agreement: Agreement, payouts_supported: bool, account_source: String) -> CreatePayoutConnectOnboardResponseData {
         CreatePayoutConnectOnboardResponseData {
             url,
             country,
             agreement,
             payouts_supported,
+            account_source,
         }
     }
 }

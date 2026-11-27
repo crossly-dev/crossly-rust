@@ -23,16 +23,22 @@ pub struct GetAnalyticBookkeepingResponsePlatformBreakdown {
     pub platform_fees: f32,
     #[serde(rename = "netProfit")]
     pub net_profit: f32,
+    #[serde(rename = "refunds")]
+    pub refunds: f32,
+    #[serde(rename = "taxCollected")]
+    pub tax_collected: f32,
 }
 
 impl GetAnalyticBookkeepingResponsePlatformBreakdown {
-    pub fn new(platform: String, revenue: f32, count: f32, platform_fees: f32, net_profit: f32) -> GetAnalyticBookkeepingResponsePlatformBreakdown {
+    pub fn new(platform: String, revenue: f32, count: f32, platform_fees: f32, net_profit: f32, refunds: f32, tax_collected: f32) -> GetAnalyticBookkeepingResponsePlatformBreakdown {
         GetAnalyticBookkeepingResponsePlatformBreakdown {
             platform,
             revenue,
             count,
             platform_fees,
             net_profit,
+            refunds,
+            tax_collected,
         }
     }
 }

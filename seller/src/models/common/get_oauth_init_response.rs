@@ -15,8 +15,6 @@
 pub struct GetOauthInitResponse {
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    #[serde(rename = "correlationId", skip_serializing_if = "Option::is_none")]
-    pub correlation_id: Option<String>,
     #[serde(rename = "oneShot", skip_serializing_if = "Option::is_none")]
     pub one_shot: Option<bool>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
@@ -31,7 +29,6 @@ impl GetOauthInitResponse {
     pub fn new() -> GetOauthInitResponse {
         GetOauthInitResponse {
             url: None,
-            correlation_id: None,
             one_shot: None,
             status: None,
             request_url: None,

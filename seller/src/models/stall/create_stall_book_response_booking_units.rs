@@ -24,6 +24,9 @@ pub struct CreateStallBookResponseBookingUnits {
     /// CBX only: the spend's external id for this unit (one spend per unit).
     #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
     pub external_id: Option<String>,
+    /// CBX only, booked since gap 6: this unit's world_payments row (refunds go through refundWorld).
+    #[serde(rename = "paymentId", skip_serializing_if = "Option::is_none")]
+    pub payment_id: Option<String>,
 }
 
 impl CreateStallBookResponseBookingUnits {
@@ -34,6 +37,7 @@ impl CreateStallBookResponseBookingUnits {
             ends_at,
             cents,
             external_id: None,
+            payment_id: None,
         }
     }
 }

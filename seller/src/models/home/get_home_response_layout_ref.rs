@@ -31,25 +31,25 @@ impl GetHomeResponseLayoutRef {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "token")]
-    Token,
-    #[serde(rename = "portal")]
-    Portal,
-    #[serde(rename = "portfolio")]
-    Portfolio,
     #[serde(rename = "inventory")]
     Inventory,
+    #[serde(rename = "vault")]
+    Vault,
+    #[serde(rename = "portal")]
+    Portal,
+    #[serde(rename = "token")]
+    Token,
     #[serde(rename = "purchase")]
     Purchase,
     #[serde(rename = "nft")]
     Nft,
-    #[serde(rename = "vault")]
-    Vault,
+    #[serde(rename = "portfolio")]
+    Portfolio,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Token
+        Self::Inventory
     }
 }
 

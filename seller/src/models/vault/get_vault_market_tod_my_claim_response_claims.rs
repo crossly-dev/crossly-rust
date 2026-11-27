@@ -72,6 +72,8 @@ impl GetVaultMarketTodMyClaimResponseClaims {
 pub enum Status {
     #[serde(rename = "draft")]
     Draft,
+    #[serde(rename = "submitted")]
+    Submitted,
     #[serde(rename = "rejected")]
     Rejected,
     #[serde(rename = "withdrawn")]
@@ -80,8 +82,6 @@ pub enum Status {
     Released,
     #[serde(rename = "waiting")]
     Waiting,
-    #[serde(rename = "submitted")]
-    Submitted,
     #[serde(rename = "needs_info")]
     NeedsInfo,
     #[serde(rename = "partly_released")]

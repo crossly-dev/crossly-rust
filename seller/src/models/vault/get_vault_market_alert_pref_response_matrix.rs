@@ -13,37 +13,51 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetVaultMarketAlertPrefResponseMatrix {
-    #[serde(rename = "price")]
-    pub price: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
-    #[serde(rename = "auction")]
-    pub auction: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
-    #[serde(rename = "fill")]
-    pub fill: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
     #[serde(rename = "account")]
-    pub account: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub account: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "price")]
+    pub price: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "fill")]
+    pub fill: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "auction")]
+    pub auction: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "prediction")]
+    pub prediction: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "option_expiry")]
+    pub option_expiry: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "margin_call")]
-    pub margin_call: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub margin_call: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "adl")]
-    pub adl: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub adl: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "p2p_loan")]
-    pub p2p_loan: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub p2p_loan: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "market_open")]
-    pub market_open: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub market_open: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "receipt_token")]
-    pub receipt_token: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub receipt_token: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "set_goal")]
-    pub set_goal: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub set_goal: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
     #[serde(rename = "follow")]
-    pub follow: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixPrice>,
+    pub follow: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "share_offering")]
+    pub share_offering: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "share_vote")]
+    pub share_vote: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "option_settlement")]
+    pub option_settlement: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
+    #[serde(rename = "prediction_odds")]
+    pub prediction_odds: Box<crate::models::GetVaultMarketAlertPrefResponseMatrixAccount>,
 }
 
 impl GetVaultMarketAlertPrefResponseMatrix {
-    pub fn new(price: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, auction: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, fill: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, account: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, margin_call: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, adl: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, p2p_loan: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, market_open: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, receipt_token: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, set_goal: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice, follow: crate::models::GetVaultMarketAlertPrefResponseMatrixPrice) -> GetVaultMarketAlertPrefResponseMatrix {
+    pub fn new(account: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, price: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, fill: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, auction: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, prediction: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, option_expiry: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, margin_call: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, adl: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, p2p_loan: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, market_open: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, receipt_token: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, set_goal: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, follow: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, share_offering: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, share_vote: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, option_settlement: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount, prediction_odds: crate::models::GetVaultMarketAlertPrefResponseMatrixAccount) -> GetVaultMarketAlertPrefResponseMatrix {
         GetVaultMarketAlertPrefResponseMatrix {
-            price: Box::new(price),
-            auction: Box::new(auction),
-            fill: Box::new(fill),
             account: Box::new(account),
+            price: Box::new(price),
+            fill: Box::new(fill),
+            auction: Box::new(auction),
+            prediction: Box::new(prediction),
+            option_expiry: Box::new(option_expiry),
             margin_call: Box::new(margin_call),
             adl: Box::new(adl),
             p2p_loan: Box::new(p2p_loan),
@@ -51,6 +65,10 @@ impl GetVaultMarketAlertPrefResponseMatrix {
             receipt_token: Box::new(receipt_token),
             set_goal: Box::new(set_goal),
             follow: Box::new(follow),
+            share_offering: Box::new(share_offering),
+            share_vote: Box::new(share_vote),
+            option_settlement: Box::new(option_settlement),
+            prediction_odds: Box::new(prediction_odds),
         }
     }
 }

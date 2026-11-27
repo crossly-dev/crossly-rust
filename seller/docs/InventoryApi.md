@@ -10,7 +10,8 @@ Method | HTTP request | Description
 [**create_inventory_bulk_archive**](InventoryApi.md#create_inventory_bulk_archive) | **POST** /v1/inventory/bulk-archive | Bulk archive inventory items (soft).
 [**create_inventory_bulk_delete**](InventoryApi.md#create_inventory_bulk_delete) | **POST** /v1/inventory/bulk-delete | Bulk delete inventory items (delinks listings).
 [**create_inventory_bulk_label**](InventoryApi.md#create_inventory_bulk_label) | **POST** /v1/inventory/bulk-labels | Bulk add/remove labels on inventory items.
-[**create_inventory_bulk_quantity**](InventoryApi.md#create_inventory_bulk_quantity) | **POST** /v1/inventory/bulk-quantity | Set / add / subtract stock across many items, syncing live listings.
+[**create_inventory_bulk_quantity**](InventoryApi.md#create_inventory_bulk_quantity) | **POST** /v1/inventory/bulk-quantity | Set / add / subtract stock across many items, or set a stock per item; syncs live listings.
+[**create_inventory_bulk_restore**](InventoryApi.md#create_inventory_bulk_restore) | **POST** /v1/inventory/bulk-restore | Restore archived inventory items (status returns to active, or sold_out when no stock).
 [**create_inventory_catalog_match_refresh**](InventoryApi.md#create_inventory_catalog_match_refresh) | **POST** /v1/inventory/{id}/catalog-matches/refresh | Run catalog matching for one item now. An identifier (UPC, style code, catalogue number) that resolves to exactly one product links it; otherwise likely products are returned as suggestions to confirm.
 [**create_inventory_csv_export**](InventoryApi.md#create_inventory_csv_export) | **POST** /v1/inventory/csv/export | Export inventory as CSV. Round-trips back through csv/import.
 [**create_inventory_csv_import**](InventoryApi.md#create_inventory_csv_import) | **POST** /v1/inventory/csv/import | Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview.
@@ -34,18 +35,21 @@ Method | HTTP request | Description
 [**create_spatial_street_request_found**](InventoryApi.md#create_spatial_street_request_found) | **POST** /v1/spatial/streets/requests/{id}/found | Found an approved street, in CBX.
 [**delete_inventory**](InventoryApi.md#delete_inventory) | **DELETE** /v1/inventory/{id} | Soft-archive an inventory item.
 [**delete_spatial_street_plot**](InventoryApi.md#delete_spatial_street_plot) | **DELETE** /v1/spatial/streets/{slug}/plot | Take your shop off a street.
+[**get_analytic_inventory**](InventoryApi.md#get_analytic_inventory) | **GET** /v1/analytics/inventory | Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+[**get_game_event_summary**](InventoryApi.md#get_game_event_summary) | **GET** /v1/games/events/{eventId}/summary | The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
+[**get_game_hunt_build**](InventoryApi.md#get_game_hunt_build) | **GET** /v1/games/hunts/{id}/build | One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World.
 [**get_game_leaderboard**](InventoryApi.md#get_game_leaderboard) | **GET** /v1/games/leaderboards | Game leaderboards: for each of Price Guess (wins, then points), scavenger hunts (finished) and speed trades (won), the top ten this week (Monday 00:00 UTC on) under week and of all time under all -- rank, name, named, value and, for Price Guess, score. A name appears only for somebody who chose to be seen by name in Crossly World; everyone else is \"A player\" in their place.
 [**get_home**](InventoryApi.md#get_home) | **GET** /v1/homes/{slug} | A home by its address, as you may see it: open homes to anybody, friends-only homes to mutual follows, locked homes to their owner. 404 when you may not enter.
 [**get_home_mine**](InventoryApi.md#get_home_mine) | **GET** /v1/homes/mine | Your Crossly World home: its address, privacy (open / friends / locked), theme, the room, the layout (each piece with what it shows -- things you no longer own are left out at read time) and the guestbook. Made on first read.
 [**get_inventory**](InventoryApi.md#get_inventory) | **GET** /v1/inventory/{id} | Get one inventory item with platform listings.
-[**get_inventory_aging**](InventoryApi.md#get_inventory_aging) | **GET** /v1/inventory/aging | Unsold stock by age (0-7, 7-30, 30-90, 90+ days, unlisted), each bucket with a recommendation.
+[**get_inventory_aging**](InventoryApi.md#get_inventory_aging) | **GET** /v1/inventory/aging | Unsold stock by days since first listed (unlisted, 0-7, 7-30, 30-90, 90+), each bucket with items, units, known cost (items without a cost counted separately) and listed value.
 [**get_inventory_catalog_match**](InventoryApi.md#get_inventory_catalog_match) | **GET** /v1/inventory/{id}/catalog-matches | One inventory item's catalog binding (if confirmed) and its pending match suggestions.
 [**get_inventory_facet**](InventoryApi.md#get_inventory_facet) | **GET** /v1/inventory/facets | Distinct brands + categories across this user's inventory.
 [**get_inventory_label**](InventoryApi.md#get_inventory_label) | **GET** /v1/inventory/labels | List every distinct label across this user's inventory.
 [**get_inventory_label_stat**](InventoryApi.md#get_inventory_label_stat) | **GET** /v1/inventory/labels/stats | List distinct labels with usage counts + colors.
-[**get_inventory_sell_through**](InventoryApi.md#get_inventory_sell_through) | **GET** /v1/inventory/sell-through | Cohort sell-through for a window (default: the 30 days ending 30 days ago) against the previous window of the same length.
+[**get_inventory_sell_through**](InventoryApi.md#get_inventory_sell_through) | **GET** /v1/inventory/sell-through | Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
 [**get_inventory_sku_exist**](InventoryApi.md#get_inventory_sku_exist) | **GET** /v1/inventory/sku-exists | Check whether a SKU is already in use on this user's inventory.
-[**get_inventory_value_history**](InventoryApi.md#get_inventory_value_history) | **GET** /v1/inventory/value-history | Portfolio value of unsold stock over time, oldest first (one point per nightly snapshot).
+[**get_inventory_value_history**](InventoryApi.md#get_inventory_value_history) | **GET** /v1/inventory/value-history | Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
 [**get_main_stage**](InventoryApi.md#get_main_stage) | **GET** /v1/main-stage | The Crossly World Main Stage right now: the live show (title, kind, host lineup), the stream on its big screen while a lineup host is on air, how many people are there (it holds 64 per copy and opens copies as it fills) and what is on next.
 [**get_pet_mine**](InventoryApi.md#get_pet_mine) | **GET** /v1/pets/mine | Your Crossly World pets: every kind (cat, dog, slab bot) with whether you own it, when it was earned and the ways to earn it (a quest or a reputation level -- pets are never sold), plus the pet walking beside you and the one greeting visitors at your shop door.
 [**get_reputation**](InventoryApi.md#get_reputation) | **GET** /v1/reputation/{profile} | Somebody's public reputation levels by their storefront handle: the level on each track and their nameplate badge. 404 for an unknown handle.
@@ -64,12 +68,14 @@ Method | HTTP request | Description
 [**get_spatial_street**](InventoryApi.md#get_spatial_street) | **GET** /v1/spatial/streets/{slug} | A street: every plot and the shop open on each.
 [**get_spatial_street_founding**](InventoryApi.md#get_spatial_street_founding) | **GET** /v1/spatial/streets/founding | What founding a street costs.
 [**get_spatial_street_plot_quote**](InventoryApi.md#get_spatial_street_plot_quote) | **GET** /v1/spatial/streets/{slug}/plots/{number}/quote | What a plot costs.
+[**get_world_pulse**](InventoryApi.md#get_world_pulse) | **GET** /v1/world/pulse | Crossly World's pulse, aggregated with no people in it: the public world shops that made a sale today (slugs only -- never counts, amounts or buyers), the times the world's shops passed each sales milestone today (each fires a fireworks show), and what Crossly Cares took in this month against the Commons fountain's mark.
 [**get_world_room_funnel**](InventoryApi.md#get_world_room_funnel) | **GET** /v1/world/rooms/{sceneId}/funnel | Your room's funnel over the last `days` (1-35, default 30): visitors (people, once a day), looks, items opened, checkouts started from the room, paid sales and revenueCents. Sales count only lines the room itself put in a cart.
 [**get_world_shelf**](InventoryApi.md#get_world_shelf) | **GET** /v1/world/shelf/{listingSlug} | Where a Crossly listing sits on a shelf in a public room right now (roomSlug, roomName, itemId), or data:null when it is in no room.
 [**get_world_skus_cheapest**](InventoryApi.md#get_world_skus_cheapest) | **GET** /v1/world/skus/{skuId}/cheapest | The cheapest copy of a catalogue piece for sale on Crossly now, matched by the catalogue id (listingSlug, priceCents, and the room and item when it stands on a shelf), or data:null.
 [**list_catalog_matches**](InventoryApi.md#list_catalog_matches) | **GET** /v1/catalog-matches | Pending catalog-match suggestions: inventory items that look like a catalog product, awaiting your confirm.
 [**list_festivals**](InventoryApi.md#list_festivals) | **GET** /v1/festivals | Live and upcoming Crossly World festivals, soonest first: a weekend when every street wears one decor and the festival quest line (limited pins) counts. meta.live is the festival on now, if any.
 [**list_game_break_upcoming**](InventoryApi.md#list_game_break_upcoming) | **GET** /v1/games/breaks/upcoming | Pack breaks staged on shop stages in Crossly World, live first then soonest: the break, its shop, start time, spots (taken or not, buyer masked), hits revealed so far, and buyUrl -- the break's page on crossly.net, the only place a spot is bought (null once every spot has sold).
+[**list_game_hunt_mine**](InventoryApi.md#list_game_hunt_mine) | **GET** /v1/games/hunts/mine | Your scavenger hunts (spec WD6: made from Branding events, built in Crossly World), newest first: title, place slug, the event it belongs to (eventId), your discount code if it rewards one, whether it is a draft (not yet built and published), live or ended, its coins, and how many people finished.
 [**list_game_hunts**](InventoryApi.md#list_game_hunts) | **GET** /v1/games/hunts | Scavenger hunts running now in Crossly World shops and pop-up stalls, ending soonest first: title, shop (name and slug -- for a hunt at a stall, the street slug, with stall.bookingId set), how many tokens, what finishing unlocks (\"10% off\" -- never the code), when it ends and how many people have finished. Optional place filters to one shop or street slug.
 [**list_game_result_mine**](InventoryApi.md#list_game_result_mine) | **GET** /v1/games/results/mine | Your market-game results, newest first: game (price_guess, price_guess_solo, hunt, speed_trade, break_host), the round/hunt/trade/break id, score, whether you won, Bucks prize in cents (0 while prizes are pins only) and detail. meta.unlocks lists the hunt coupons you earned (with their codes); meta.hits the break hits pulled for spots you bought, with the order each ships with.
 [**list_home_mine_builders**](InventoryApi.md#list_home_mine_builders) | **GET** /v1/homes/mine/builders | Your co-builders: friends you let rearrange your home in the world (move, turn, take out your things, add free furniture; never your bought pieces). Each: userId, name, friends (false once the friendship ended: listed but powerless).
@@ -264,7 +270,9 @@ This endpoint does not need any parameter.
 ## create_inventory_bulk_quantity
 
 > crate::models::CreateInventoryBulkQuantityResponse create_inventory_bulk_quantity()
-Set / add / subtract stock across many items, syncing live listings.
+Set / add / subtract stock across many items, or set a stock per item; syncs live listings.
+
+Two bodies. {ids, mode: \"set\"|\"increase\"|\"decrease\", value, syncMarketplaces?} applies one value to every id. {mode: \"set\", items: [{id, quantity}], syncMarketplaces?} sets each item to its own quantity (1-5000 items, each id once; a repeated id, more than 5000 items, or a body mixing items with ids/value is a 400 naming both shapes). The value is the AVAILABLE stock (reserved units of open orders are kept). Stock changes at once; live listings are pushed in the background against the returned bulkJobId (anything dropping to 0 is delisted). Response: {affected, skipped, bulkJobId?}: skipped = ids that did not move (already at that number, or not yours). Send an Idempotency-Key to retry safely.
 
 ### Parameters
 
@@ -273,6 +281,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::CreateInventoryBulkQuantityResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_inventory_bulk_restore
+
+> crate::models::CreateInventoryBulkRestoreResponse create_inventory_bulk_restore()
+Restore archived inventory items (status returns to active, or sold_out when no stock).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateInventoryBulkRestoreResponse**
 
 ### Authorization
 
@@ -366,7 +399,7 @@ This endpoint does not need any parameter.
 
 ## create_inventory_label_rename
 
-> crate::models::CreateInventoryLabelRenameResponse create_inventory_label_rename()
+> crate::models::UpdatedResponse create_inventory_label_rename()
 Rename a label across every inventory item.
 
 ### Parameters
@@ -375,7 +408,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**crate::models::CreateInventoryLabelRenameResponse**
+**crate::models::UpdatedResponse**
 
 ### Authorization
 
@@ -563,7 +596,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_spatial_property_lease_accept
 
-> crate::models::CreateSpatialPropertyLeaseAcceptResponse create_spatial_property_lease_accept(id)
+> crate::models::CreateWorldMarketPlotRentResponse create_spatial_property_lease_accept(id)
 Take a plot on lease.
 
 Pays the first week to the owner from your EARNED CBX and moves your (public) shop onto the plot.
@@ -577,7 +610,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**crate::models::CreateSpatialPropertyLeaseAcceptResponse**
+**crate::models::CreateWorldMarketPlotRentResponse**
 
 ### Authorization
 
@@ -596,7 +629,7 @@ Name | Type | Description  | Required | Notes
 > crate::models::CreateSpatialPropertyLeaseEndResponse create_spatial_property_lease_end(id)
 End a lease (owner or tenant).
 
-The tenant's shop gets a free Main Street address again.
+The tenant's showroom leaves the plot.
 
 ### Parameters
 
@@ -947,6 +980,101 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_analytic_inventory
+
+> crate::models::GetAnalyticInventoryResponse get_analytic_inventory(range, from, to, compare, cmp_from, cmp_to, labels, platforms, category, brand, tz, maturity)
+Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**range** | Option<**String**> | Reporting window. Default 30d. custom needs from and to. |  |
+**from** | Option<**String**> | YYYY-MM-DD, inclusive, in tz. Only with range=custom. |  |
+**to** | Option<**String**> | YYYY-MM-DD, inclusive, in tz. Only with range=custom. |  |
+**compare** | Option<**String**> | Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). |  |
+**cmp_from** | Option<**String**> | YYYY-MM-DD. Only with compare=custom. |  |
+**cmp_to** | Option<**String**> | YYYY-MM-DD. Only with compare=custom. |  |
+**labels** | Option<**String**> | Comma-separated inventory labels (any of them). |  |
+**platforms** | Option<**String**> | Comma-separated platform ids. |  |
+**category** | Option<**String**> | Canonical main-category key. |  |
+**brand** | Option<**String**> | Brand name. |  |
+**tz** | Option<**String**> | IANA time zone for day boundaries. Default UTC. An invalid name is a 400. |  |
+**maturity** | Option<**i32**> | Days an item has to sell within to count as sold in the cohort. Default 30. |  |
+
+### Return type
+
+**crate::models::GetAnalyticInventoryResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_game_event_summary
+
+> crate::models::GetGameEventSummaryResponse get_game_event_summary(event_id)
+The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**event_id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetGameEventSummaryResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_game_hunt_build
+
+> crate::models::GetGameHuntBuildResponse get_game_hunt_build(id)
+One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetGameHuntBuildResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_game_leaderboard
 
 > crate::models::GetGameLeaderboardResponse get_game_leaderboard()
@@ -1056,7 +1184,7 @@ Name | Type | Description  | Required | Notes
 ## get_inventory_aging
 
 > crate::models::GetInventoryAgingResponse get_inventory_aging()
-Unsold stock by age (0-7, 7-30, 30-90, 90+ days, unlisted), each bucket with a recommendation.
+Unsold stock by days since first listed (unlisted, 0-7, 7-30, 30-90, 90+), each bucket with items, units, known cost (items without a cost counted separately) and listed value.
 
 ### Parameters
 
@@ -1184,7 +1312,7 @@ This endpoint does not need any parameter.
 ## get_inventory_sell_through
 
 > crate::models::GetInventorySellThroughResponse get_inventory_sell_through()
-Cohort sell-through for a window (default: the 30 days ending 30 days ago) against the previous window of the same length.
+Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
 
 ### Parameters
 
@@ -1237,7 +1365,7 @@ Name | Type | Description  | Required | Notes
 ## get_inventory_value_history
 
 > crate::models::GetInventoryValueHistoryResponse get_inventory_value_history()
-Portfolio value of unsold stock over time, oldest first (one point per nightly snapshot).
+Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
 
 ### Parameters
 
@@ -1765,6 +1893,31 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_world_pulse
+
+> crate::models::GetWorldPulseResponse get_world_pulse()
+Crossly World's pulse, aggregated with no people in it: the public world shops that made a sale today (slugs only -- never counts, amounts or buyers), the times the world's shops passed each sales milestone today (each fires a fireworks show), and what Crossly Cares took in this month against the Commons fountain's mark.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetWorldPulseResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_world_room_funnel
 
 > crate::models::GetWorldRoomFunnelResponse get_world_room_funnel(scene_id, days)
@@ -1929,6 +2082,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_game_hunt_mine
+
+> crate::models::ListGameHuntMineResponse list_game_hunt_mine()
+Your scavenger hunts (spec WD6: made from Branding events, built in Crossly World), newest first: title, place slug, the event it belongs to (eventId), your discount code if it rewards one, whether it is a draft (not yet built and published), live or ended, its coins, and how many people finished.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListGameHuntMineResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_game_hunts
 
 > crate::models::ListGameHuntsResponse list_game_hunts(place)
@@ -2034,7 +2212,7 @@ This endpoint does not need any parameter.
 
 ## list_inventory
 
-> crate::models::ListInventoryResponse list_inventory(page, limit, search, status, kind, platforms, platform_mode)
+> crate::models::ListInventoryResponse list_inventory(page, limit, search, status, kind, platforms, platform_mode, sku, updated_since)
 List inventory items.
 
 ### Parameters
@@ -2049,6 +2227,8 @@ Name | Type | Description  | Required | Notes
 **kind** | Option<**String**> | Physical goods or Web3 assets (NFTs). Omit for both. |  |
 **platforms** | Option<**String**> | Comma-separated marketplaces, e.g. \"ebay,vinted\". Items live (an active listing) on any of them. |  |
 **platform_mode** | Option<**String**> | \"not_listed\" inverts `platforms`: items live on none of them. Default \"listed\". |  |
+**sku** | Option<**String**> | Exact SKU match: look up the row a supplier product maps to. |  |
+**updated_since** | Option<**String**> | Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw. |  |
 
 ### Return type
 

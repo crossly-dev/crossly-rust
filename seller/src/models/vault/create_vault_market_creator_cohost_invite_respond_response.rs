@@ -49,19 +49,19 @@ impl CreateVaultMarketCreatorCohostInviteRespondResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "invited")]
-    Invited,
-    #[serde(rename = "withdrawn")]
-    Withdrawn,
     #[serde(rename = "accepted")]
     Accepted,
     #[serde(rename = "declined")]
     Declined,
+    #[serde(rename = "withdrawn")]
+    Withdrawn,
+    #[serde(rename = "invited")]
+    Invited,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Invited
+        Self::Accepted
     }
 }
 

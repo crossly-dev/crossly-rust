@@ -13,32 +13,32 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCollectionOfferResponseData {
-    #[serde(rename = "pending", skip_serializing_if = "Option::is_none")]
-    pub pending: Option<Box<crate::models::GetBuyerCollectionOfferResponseDataPending>>,
+    #[serde(rename = "portfolioId")]
+    pub portfolio_id: String,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
     #[serde(rename = "lastSaleCents", skip_serializing_if = "Option::is_none")]
     pub last_sale_cents: Option<f32>,
-    #[serde(rename = "skuId", skip_serializing_if = "Option::is_none")]
-    pub sku_id: Option<String>,
-    #[serde(rename = "portfolioId")]
-    pub portfolio_id: String,
-    #[serde(rename = "offer", skip_serializing_if = "Option::is_none")]
-    pub offer: Option<Box<crate::models::GetBuyerCollectionOfferResponseDataOffer>>,
     #[serde(rename = "topBidCents", skip_serializing_if = "Option::is_none")]
     pub top_bid_cents: Option<f32>,
+    #[serde(rename = "skuId", skip_serializing_if = "Option::is_none")]
+    pub sku_id: Option<String>,
+    #[serde(rename = "offer", skip_serializing_if = "Option::is_none")]
+    pub offer: Option<Box<crate::models::GetBuyerCollectionOfferResponseDataOffer>>,
+    #[serde(rename = "pending", skip_serializing_if = "Option::is_none")]
+    pub pending: Option<Box<crate::models::GetBuyerCollectionOfferResponseDataPending>>,
 }
 
 impl GetBuyerCollectionOfferResponseData {
     pub fn new(portfolio_id: String) -> GetBuyerCollectionOfferResponseData {
         GetBuyerCollectionOfferResponseData {
-            pending: None,
+            portfolio_id,
             title: None,
             last_sale_cents: None,
-            sku_id: None,
-            portfolio_id,
-            offer: None,
             top_bid_cents: None,
+            sku_id: None,
+            offer: None,
+            pending: None,
         }
     }
 }

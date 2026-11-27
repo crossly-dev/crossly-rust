@@ -15,6 +15,8 @@
 pub struct ListVaultMarketFollowLeaderboardsItem {
     #[serde(rename = "rank")]
     pub rank: f32,
+    #[serde(rename = "person")]
+    pub person: Box<crate::models::ListVaultMarketFollowLeaderboardsItemPerson>,
     #[serde(rename = "returnBps")]
     pub return_bps: f32,
     #[serde(rename = "volatilityBps")]
@@ -32,9 +34,10 @@ pub struct ListVaultMarketFollowLeaderboardsItem {
 }
 
 impl ListVaultMarketFollowLeaderboardsItem {
-    pub fn new(rank: f32, return_bps: f32, volatility_bps: f32, risk_adjusted: f32, max_drawdown_bps: f32, days: f32, markets: f32, is_me: bool) -> ListVaultMarketFollowLeaderboardsItem {
+    pub fn new(rank: f32, person: crate::models::ListVaultMarketFollowLeaderboardsItemPerson, return_bps: f32, volatility_bps: f32, risk_adjusted: f32, max_drawdown_bps: f32, days: f32, markets: f32, is_me: bool) -> ListVaultMarketFollowLeaderboardsItem {
         ListVaultMarketFollowLeaderboardsItem {
             rank,
+            person: Box::new(person),
             return_bps,
             volatility_bps,
             risk_adjusted,

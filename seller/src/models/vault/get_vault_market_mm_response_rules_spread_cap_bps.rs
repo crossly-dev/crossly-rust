@@ -13,22 +13,22 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetVaultMarketMmResponseRulesSpreadCapBps {
+    #[serde(rename = "C")]
+    pub C: f32,
     #[serde(rename = "A")]
     pub A: f32,
     #[serde(rename = "B")]
     pub B: f32,
-    #[serde(rename = "C")]
-    pub C: f32,
     #[serde(rename = "D")]
     pub D: f32,
 }
 
 impl GetVaultMarketMmResponseRulesSpreadCapBps {
-    pub fn new(A: f32, B: f32, C: f32, D: f32) -> GetVaultMarketMmResponseRulesSpreadCapBps {
+    pub fn new(C: f32, A: f32, B: f32, D: f32) -> GetVaultMarketMmResponseRulesSpreadCapBps {
         GetVaultMarketMmResponseRulesSpreadCapBps {
+            C,
             A,
             B,
-            C,
             D,
         }
     }

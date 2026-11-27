@@ -39,8 +39,6 @@ impl GetSpatialSceneWarehouseResponseDataShell {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Theme {
-    #[serde(rename = "storybook")]
-    Storybook,
     #[serde(rename = "studio")]
     Studio,
     #[serde(rename = "noir")]
@@ -51,11 +49,13 @@ pub enum Theme {
     Vitrine,
     #[serde(rename = "street")]
     Street,
+    #[serde(rename = "storybook")]
+    Storybook,
 }
 
 impl Default for Theme {
     fn default() -> Theme {
-        Self::Storybook
+        Self::Studio
     }
 }
 

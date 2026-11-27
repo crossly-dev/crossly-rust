@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerListingFitResponseDataComparisons {
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "refId")]
     pub ref_id: String,
+    #[serde(rename = "label")]
+    pub label: String,
     #[serde(rename = "result")]
     pub result: Box<crate::models::GetBuyerListingFitResponseDataComparisonsResult>,
 }
 
 impl GetBuyerListingFitResponseDataComparisons {
-    pub fn new(label: String, ref_id: String, result: crate::models::GetBuyerListingFitResponseDataComparisonsResult) -> GetBuyerListingFitResponseDataComparisons {
+    pub fn new(ref_id: String, label: String, result: crate::models::GetBuyerListingFitResponseDataComparisonsResult) -> GetBuyerListingFitResponseDataComparisons {
         GetBuyerListingFitResponseDataComparisons {
-            label,
             ref_id,
+            label,
             result: Box::new(result),
         }
     }

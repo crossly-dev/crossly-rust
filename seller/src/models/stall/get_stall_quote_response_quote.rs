@@ -27,6 +27,10 @@ pub struct GetStallQuoteResponseQuote {
     pub quote: Box<crate::models::CreateStallBookResponseBookingQuote>,
     #[serde(rename = "rails")]
     pub rails: Vec<crate::models::GetStallQuoteResponseQuoteRailsItem>,
+    #[serde(rename = "boothKind")]
+    pub booth_kind: BoothKind,
+    #[serde(rename = "capacity")]
+    pub capacity: f32,
     #[serde(rename = "bookable")]
     pub bookable: bool,
     #[serde(rename = "unbookableReason", skip_serializing_if = "Option::is_none")]
@@ -34,7 +38,7 @@ pub struct GetStallQuoteResponseQuote {
 }
 
 impl GetStallQuoteResponseQuote {
-    pub fn new(street: String, spot_index: f32, owner: crate::models::GetStallQuoteResponseQuoteOwner, open: bool, units: Vec<crate::models::GetStallQuoteResponseQuoteUnits>, quote: crate::models::CreateStallBookResponseBookingQuote, rails: Vec<crate::models::GetStallQuoteResponseQuoteRailsItem>, bookable: bool) -> GetStallQuoteResponseQuote {
+    pub fn new(street: String, spot_index: f32, owner: crate::models::GetStallQuoteResponseQuoteOwner, open: bool, units: Vec<crate::models::GetStallQuoteResponseQuoteUnits>, quote: crate::models::CreateStallBookResponseBookingQuote, rails: Vec<crate::models::GetStallQuoteResponseQuoteRailsItem>, booth_kind: BoothKind, capacity: f32, bookable: bool) -> GetStallQuoteResponseQuote {
         GetStallQuoteResponseQuote {
             street,
             spot_index,
@@ -43,10 +47,28 @@ impl GetStallQuoteResponseQuote {
             units,
             quote: Box::new(quote),
             rails,
+            booth_kind,
+            capacity,
             bookable,
             unbookable_reason: None,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BoothKind {
+    #[serde(rename = "booth")]
+    Booth,
+    #[serde(rename = "cart")]
+    Cart,
+    #[serde(rename = "pavilion")]
+    Pavilion,
+}
+
+impl Default for BoothKind {
+    fn default() -> BoothKind {
+        Self::Booth
+    }
+}
 

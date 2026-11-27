@@ -48,10 +48,10 @@ impl CreateCbxRedemptionQuoteResponseData {
 pub enum ServiceKind {
     #[serde(rename = "grading")]
     Grading,
-    #[serde(rename = "authentication")]
-    Authentication,
     #[serde(rename = "subscription")]
     Subscription,
+    #[serde(rename = "authentication")]
+    Authentication,
 }
 
 impl Default for ServiceKind {

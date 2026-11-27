@@ -17,6 +17,8 @@ pub struct CreateListingResponseSkipped {
     pub platform: String,
     #[serde(rename = "reason")]
     pub reason: String,
+    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
 }
 
 impl CreateListingResponseSkipped {
@@ -24,6 +26,7 @@ impl CreateListingResponseSkipped {
         CreateListingResponseSkipped {
             platform,
             reason,
+            code: None,
         }
     }
 }

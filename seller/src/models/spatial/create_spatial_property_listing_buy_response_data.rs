@@ -13,20 +13,35 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateSpatialPropertyListingBuyResponseData {
-    #[serde(rename = "deedId")]
-    pub deed_id: String,
-    #[serde(rename = "priceCents")]
-    pub price_cents: f32,
-    #[serde(rename = "paidThrough")]
-    pub paid_through: String,
+    #[serde(rename = "done", skip_serializing_if = "Option::is_none")]
+    pub done: Option<bool>,
+    #[serde(rename = "paymentId", skip_serializing_if = "Option::is_none")]
+    pub payment_id: Option<String>,
+    #[serde(rename = "requiresAction", skip_serializing_if = "Option::is_none")]
+    pub requires_action: Option<bool>,
+    #[serde(rename = "clientSecret", skip_serializing_if = "Option::is_none")]
+    pub client_secret: Option<String>,
+    #[serde(rename = "deedId", skip_serializing_if = "Option::is_none")]
+    pub deed_id: Option<String>,
+    #[serde(rename = "priceCents", skip_serializing_if = "Option::is_none")]
+    pub price_cents: Option<f32>,
+    #[serde(rename = "paidThrough", skip_serializing_if = "Option::is_none")]
+    pub paid_through: Option<String>,
+    #[serde(rename = "placed", skip_serializing_if = "Option::is_none")]
+    pub placed: Option<Box<crate::models::CreateWorldMarketPlotRentResponseDataOneOf2Placed>>,
 }
 
 impl CreateSpatialPropertyListingBuyResponseData {
-    pub fn new(deed_id: String, price_cents: f32, paid_through: String) -> CreateSpatialPropertyListingBuyResponseData {
+    pub fn new() -> CreateSpatialPropertyListingBuyResponseData {
         CreateSpatialPropertyListingBuyResponseData {
-            deed_id,
-            price_cents,
-            paid_through,
+            done: None,
+            payment_id: None,
+            requires_action: None,
+            client_secret: None,
+            deed_id: None,
+            price_cents: None,
+            paid_through: None,
+            placed: None,
         }
     }
 }

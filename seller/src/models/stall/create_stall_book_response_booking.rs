@@ -43,6 +43,10 @@ pub struct CreateStallBookResponseBooking {
     pub cancellable: bool,
     #[serde(rename = "listingIds")]
     pub listing_ids: Vec<String>,
+    #[serde(rename = "boothKind")]
+    pub booth_kind: BoothKind,
+    #[serde(rename = "capacity")]
+    pub capacity: f32,
     #[serde(rename = "awning", skip_serializing_if = "Option::is_none")]
     pub awning: Option<Box<crate::models::ColourPattern>>,
     #[serde(rename = "booth", skip_serializing_if = "Option::is_none")]
@@ -58,7 +62,7 @@ pub struct CreateStallBookResponseBooking {
 }
 
 impl CreateStallBookResponseBooking {
-    pub fn new(id: String, street: String, spot_index: f32, unit: Unit, units: Vec<crate::models::CreateStallBookResponseBookingUnits>, starts_at: String, ends_at: String, status: Status, rail: Rail, owner: crate::models::CreateStallBookResponseBookingOwner, quote: crate::models::CreateStallBookResponseBookingQuote, total_cents: f32, refunded_cents: f32, cancellable: bool, listing_ids: Vec<String>, attendant: bool, stats: crate::models::CreateStallBookResponseBookingStats, created_at: String) -> CreateStallBookResponseBooking {
+    pub fn new(id: String, street: String, spot_index: f32, unit: Unit, units: Vec<crate::models::CreateStallBookResponseBookingUnits>, starts_at: String, ends_at: String, status: Status, rail: Rail, owner: crate::models::CreateStallBookResponseBookingOwner, quote: crate::models::CreateStallBookResponseBookingQuote, total_cents: f32, refunded_cents: f32, cancellable: bool, listing_ids: Vec<String>, booth_kind: BoothKind, capacity: f32, attendant: bool, stats: crate::models::CreateStallBookResponseBookingStats, created_at: String) -> CreateStallBookResponseBooking {
         CreateStallBookResponseBooking {
             id,
             street,
@@ -75,6 +79,8 @@ impl CreateStallBookResponseBooking {
             refunded_cents,
             cancellable,
             listing_ids,
+            booth_kind,
+            capacity,
             awning: None,
             booth: None,
             sign: None,
@@ -88,15 +94,15 @@ impl CreateStallBookResponseBooking {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Unit {
-    #[serde(rename = "event")]
-    Event,
     #[serde(rename = "day")]
     Day,
+    #[serde(rename = "event")]
+    Event,
 }
 
 impl Default for Unit {
     fn default() -> Unit {
-        Self::Event
+        Self::Day
     }
 }
 /// 
@@ -122,15 +128,31 @@ impl Default for Status {
 pub enum Rail {
     #[serde(rename = "card")]
     Card,
-    #[serde(rename = "bucks")]
-    Bucks,
     #[serde(rename = "cbx")]
     Cbx,
+    #[serde(rename = "bucks")]
+    Bucks,
 }
 
 impl Default for Rail {
     fn default() -> Rail {
         Self::Card
+    }
+}
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BoothKind {
+    #[serde(rename = "booth")]
+    Booth,
+    #[serde(rename = "cart")]
+    Cart,
+    #[serde(rename = "pavilion")]
+    Pavilion,
+}
+
+impl Default for BoothKind {
+    fn default() -> BoothKind {
+        Self::Booth
     }
 }
 

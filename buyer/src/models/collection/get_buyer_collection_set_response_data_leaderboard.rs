@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCollectionSetResponseDataLeaderboard {
-    #[serde(rename = "name")]
-    pub name: String,
     #[serde(rename = "rank")]
     pub rank: f32,
+    #[serde(rename = "name")]
+    pub name: String,
     #[serde(rename = "owned")]
     pub owned: f32,
 }
 
 impl GetBuyerCollectionSetResponseDataLeaderboard {
-    pub fn new(name: String, rank: f32, owned: f32) -> GetBuyerCollectionSetResponseDataLeaderboard {
+    pub fn new(rank: f32, name: String, owned: f32) -> GetBuyerCollectionSetResponseDataLeaderboard {
         GetBuyerCollectionSetResponseDataLeaderboard {
-            name,
             rank,
+            name,
             owned,
         }
     }

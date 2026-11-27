@@ -19,16 +19,28 @@ pub struct RentalResponseData {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
-    pub cancelled_at: Option<String>,
+    #[serde(rename = "days")]
+    pub days: f32,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "shippedAt", skip_serializing_if = "Option::is_none")]
     pub shipped_at: Option<String>,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
+    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
+    pub delivered_at: Option<String>,
+    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
+    pub cancelled_at: Option<String>,
+    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
+    pub order_id: Option<String>,
+    #[serde(rename = "inspectedAt", skip_serializing_if = "Option::is_none")]
+    pub inspected_at: Option<String>,
     #[serde(rename = "stripePaymentIntentId", skip_serializing_if = "Option::is_none")]
     pub stripe_payment_intent_id: Option<String>,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
+    #[serde(rename = "payoutAccountId", skip_serializing_if = "Option::is_none")]
+    pub payout_account_id: Option<String>,
     #[serde(rename = "crosslyFeeCents")]
     pub crossly_fee_cents: f32,
     #[serde(rename = "shippingCents")]
@@ -37,28 +49,32 @@ pub struct RentalResponseData {
     pub return_label_url: Option<String>,
     #[serde(rename = "closedAt", skip_serializing_if = "Option::is_none")]
     pub closed_at: Option<String>,
-    #[serde(rename = "outboundLabelUrl", skip_serializing_if = "Option::is_none")]
-    pub outbound_label_url: Option<String>,
+    #[serde(rename = "approvedAt", skip_serializing_if = "Option::is_none")]
+    pub approved_at: Option<String>,
+    #[serde(rename = "terms")]
+    pub terms: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "depositCents")]
     pub deposit_cents: f32,
+    #[serde(rename = "outboundLabelUrl", skip_serializing_if = "Option::is_none")]
+    pub outbound_label_url: Option<String>,
     #[serde(rename = "claimedAt", skip_serializing_if = "Option::is_none")]
     pub claimed_at: Option<String>,
+    #[serde(rename = "fulfilment")]
+    pub fulfilment: String,
     #[serde(rename = "shipTo")]
     pub ship_to: ::std::collections::HashMap<String, serde_json::Value>,
-    #[serde(rename = "outboundTracking", skip_serializing_if = "Option::is_none")]
-    pub outbound_tracking: Option<String>,
     #[serde(rename = "renterUserId")]
     pub renter_user_id: String,
     #[serde(rename = "startDate")]
     pub start_date: String,
     #[serde(rename = "endDate")]
     pub end_date: String,
-    #[serde(rename = "days")]
-    pub days: f32,
     #[serde(rename = "rentCents")]
     pub rent_cents: f32,
     #[serde(rename = "shipFrom", skip_serializing_if = "Option::is_none")]
     pub ship_from: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "outboundTracking", skip_serializing_if = "Option::is_none")]
+    pub outbound_tracking: Option<String>,
     #[serde(rename = "returnTracking", skip_serializing_if = "Option::is_none")]
     pub return_tracking: Option<String>,
     #[serde(rename = "returnedAt", skip_serializing_if = "Option::is_none")]
@@ -79,34 +95,72 @@ pub struct RentalResponseData {
     pub condition_photos_out: Vec<String>,
     #[serde(rename = "conditionPhotosIn")]
     pub condition_photos_in: Vec<String>,
+    #[serde(rename = "unitIndex")]
+    pub unit_index: f32,
+    #[serde(rename = "charges")]
+    pub charges: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "damageWaiver")]
+    pub damage_waiver: bool,
+    #[serde(rename = "cleaningFeeCents")]
+    pub cleaning_fee_cents: f32,
+    #[serde(rename = "damageWaiverCents")]
+    pub damage_waiver_cents: f32,
+    #[serde(rename = "lateFeeCents")]
+    pub late_fee_cents: f32,
+    #[serde(rename = "rentRefundedCents")]
+    pub rent_refunded_cents: f32,
+    #[serde(rename = "payoutTiming")]
+    pub payout_timing: String,
+    #[serde(rename = "payoutReleasedAt", skip_serializing_if = "Option::is_none")]
+    pub payout_released_at: Option<String>,
+    #[serde(rename = "returnShippedAt", skip_serializing_if = "Option::is_none")]
+    pub return_shipped_at: Option<String>,
+    #[serde(rename = "conditionPhotosReturn")]
+    pub condition_photos_return: Vec<String>,
+    #[serde(rename = "inspection")]
+    pub inspection: Vec<crate::models::RentalResponseDataInspection>,
+    #[serde(rename = "boughtOutAt", skip_serializing_if = "Option::is_none")]
+    pub bought_out_at: Option<String>,
+    #[serde(rename = "buyoutCents", skip_serializing_if = "Option::is_none")]
+    pub buyout_cents: Option<f32>,
+    #[serde(rename = "notReturnedAt", skip_serializing_if = "Option::is_none")]
+    pub not_returned_at: Option<String>,
 }
 
 impl RentalResponseData {
-    pub fn new(id: String, created_at: String, status: String, platform_listing_id: String, seller_user_id: String, crossly_fee_cents: f32, shipping_cents: f32, deposit_cents: f32, ship_to: ::std::collections::HashMap<String, serde_json::Value>, renter_user_id: String, start_date: String, end_date: String, days: f32, rent_cents: f32, claim_cents: f32, claim_photos: Vec<String>, claim_disputed: bool, deposit_refunded_cents: f32, condition_photos_out: Vec<String>, condition_photos_in: Vec<String>) -> RentalResponseData {
+    pub fn new(id: String, created_at: String, status: String, days: f32, platform_listing_id: String, seller_user_id: String, crossly_fee_cents: f32, shipping_cents: f32, terms: ::std::collections::HashMap<String, serde_json::Value>, deposit_cents: f32, fulfilment: String, ship_to: ::std::collections::HashMap<String, serde_json::Value>, renter_user_id: String, start_date: String, end_date: String, rent_cents: f32, claim_cents: f32, claim_photos: Vec<String>, claim_disputed: bool, deposit_refunded_cents: f32, condition_photos_out: Vec<String>, condition_photos_in: Vec<String>, unit_index: f32, charges: ::std::collections::HashMap<String, serde_json::Value>, damage_waiver: bool, cleaning_fee_cents: f32, damage_waiver_cents: f32, late_fee_cents: f32, rent_refunded_cents: f32, payout_timing: String, condition_photos_return: Vec<String>, inspection: Vec<crate::models::RentalResponseDataInspection>) -> RentalResponseData {
         RentalResponseData {
             id,
             created_at,
             status,
-            cancelled_at: None,
+            days,
             platform_listing_id,
+            storefront_id: None,
             shipped_at: None,
-            seller_user_id,
+            delivered_at: None,
+            cancelled_at: None,
+            order_id: None,
+            inspected_at: None,
             stripe_payment_intent_id: None,
+            seller_user_id,
+            payout_account_id: None,
             crossly_fee_cents,
             shipping_cents,
             return_label_url: None,
             closed_at: None,
-            outbound_label_url: None,
+            approved_at: None,
+            terms,
             deposit_cents,
+            outbound_label_url: None,
             claimed_at: None,
+            fulfilment,
             ship_to,
-            outbound_tracking: None,
             renter_user_id,
             start_date,
             end_date,
-            days,
             rent_cents,
             ship_from: None,
+            outbound_tracking: None,
             return_tracking: None,
             returned_at: None,
             claim_cents,
@@ -117,6 +171,21 @@ impl RentalResponseData {
             approval_due_at: None,
             condition_photos_out,
             condition_photos_in,
+            unit_index,
+            charges,
+            damage_waiver,
+            cleaning_fee_cents,
+            damage_waiver_cents,
+            late_fee_cents,
+            rent_refunded_cents,
+            payout_timing,
+            payout_released_at: None,
+            return_shipped_at: None,
+            condition_photos_return,
+            inspection,
+            bought_out_at: None,
+            buyout_cents: None,
+            not_returned_at: None,
         }
     }
 }

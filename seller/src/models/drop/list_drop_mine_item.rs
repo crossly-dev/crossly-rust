@@ -91,21 +91,21 @@ impl ListDropMineItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "scheduled")]
-    Scheduled,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "scheduled")]
+    Scheduled,
     #[serde(rename = "closed")]
     Closed,
-    #[serde(rename = "released")]
-    Released,
     #[serde(rename = "line_open")]
     LineOpen,
+    #[serde(rename = "released")]
+    Released,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Scheduled
+        Self::Cancelled
     }
 }
 /// 

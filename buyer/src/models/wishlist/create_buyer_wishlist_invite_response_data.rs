@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerWishlistInviteResponseData {
-    #[serde(rename = "url")]
-    pub url: String,
     #[serde(rename = "token")]
     pub token: String,
+    #[serde(rename = "url")]
+    pub url: String,
     #[serde(rename = "expiresAt")]
     pub expires_at: String,
 }
 
 impl CreateBuyerWishlistInviteResponseData {
-    pub fn new(url: String, token: String, expires_at: String) -> CreateBuyerWishlistInviteResponseData {
+    pub fn new(token: String, url: String, expires_at: String) -> CreateBuyerWishlistInviteResponseData {
         CreateBuyerWishlistInviteResponseData {
-            url,
             token,
+            url,
             expires_at,
         }
     }

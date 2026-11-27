@@ -17,6 +17,8 @@ pub struct GetPayoutConnectResponseData {
     pub status: String,
     #[serde(rename = "defaultCountry", skip_serializing_if = "Option::is_none")]
     pub default_country: Option<String>,
+    #[serde(rename = "accountSource")]
+    pub account_source: String,
     #[serde(rename = "payoutsEnabled", skip_serializing_if = "Option::is_none")]
     pub payouts_enabled: Option<bool>,
     #[serde(rename = "chargesEnabled", skip_serializing_if = "Option::is_none")]
@@ -45,10 +47,11 @@ pub struct GetPayoutConnectResponseData {
 }
 
 impl GetPayoutConnectResponseData {
-    pub fn new(status: String) -> GetPayoutConnectResponseData {
+    pub fn new(status: String, account_source: String) -> GetPayoutConnectResponseData {
         GetPayoutConnectResponseData {
             status,
             default_country: None,
+            account_source,
             payouts_enabled: None,
             charges_enabled: None,
             transfers_active: None,

@@ -31,6 +31,8 @@ pub struct GetSpatialStreetPlotQuoteResponseData {
     pub buyable: bool,
     #[serde(rename = "enabled")]
     pub enabled: bool,
+    #[serde(rename = "claim", skip_serializing_if = "Option::is_none")]
+    pub claim: Option<Box<crate::models::GetSpatialStreetPlotQuoteResponseDataClaim>>,
 }
 
 impl GetSpatialStreetPlotQuoteResponseData {
@@ -45,6 +47,7 @@ impl GetSpatialStreetPlotQuoteResponseData {
             vacant,
             buyable,
             enabled,
+            claim: None,
         }
     }
 }

@@ -17,16 +17,16 @@ pub struct CreateBuyerCatalogListingVideoRequestResponseData {
     pub id: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
-    #[serde(rename = "videoUrl", skip_serializing_if = "Option::is_none")]
-    pub video_url: Option<String>,
     #[serde(rename = "status")]
     pub status: String,
+    #[serde(rename = "videoUrl", skip_serializing_if = "Option::is_none")]
+    pub video_url: Option<String>,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
     #[serde(rename = "buyerUserId")]
     pub buyer_user_id: String,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
     #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
     #[serde(rename = "answeredAt", skip_serializing_if = "Option::is_none")]
@@ -36,15 +36,15 @@ pub struct CreateBuyerCatalogListingVideoRequestResponseData {
 }
 
 impl CreateBuyerCatalogListingVideoRequestResponseData {
-    pub fn new(id: String, created_at: String, status: String, platform_listing_id: String, seller_user_id: String, buyer_user_id: String) -> CreateBuyerCatalogListingVideoRequestResponseData {
+    pub fn new(id: String, created_at: String, status: String, platform_listing_id: String, buyer_user_id: String, seller_user_id: String) -> CreateBuyerCatalogListingVideoRequestResponseData {
         CreateBuyerCatalogListingVideoRequestResponseData {
             id,
             created_at,
-            video_url: None,
             status,
+            video_url: None,
             platform_listing_id,
-            seller_user_id,
             buyer_user_id,
+            seller_user_id,
             note: None,
             answered_at: None,
             seller_note: None,

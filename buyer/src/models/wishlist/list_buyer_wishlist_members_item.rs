@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerWishlistMembersItem {
-    #[serde(rename = "name")]
-    pub name: String,
     #[serde(rename = "userId")]
     pub user_id: String,
+    #[serde(rename = "name")]
+    pub name: String,
     #[serde(rename = "joinedAt")]
     pub joined_at: String,
 }
 
 impl ListBuyerWishlistMembersItem {
-    pub fn new(name: String, user_id: String, joined_at: String) -> ListBuyerWishlistMembersItem {
+    pub fn new(user_id: String, name: String, joined_at: String) -> ListBuyerWishlistMembersItem {
         ListBuyerWishlistMembersItem {
-            name,
             user_id,
+            name,
             joined_at,
         }
     }

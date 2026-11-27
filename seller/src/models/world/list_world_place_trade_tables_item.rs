@@ -14,7 +14,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListWorldPlaceTradeTablesItem {
     #[serde(rename = "visitor", skip_serializing_if = "Option::is_none")]
-    pub visitor: Option<Box<crate::models::ListWorldPlaceTradeTablesItemVisitor>>,
+    pub visitor: Option<Box<crate::models::GetWorldExperiencePlaceCollabOpResponseDataFramesBy>>,
     #[serde(rename = "totals")]
     pub totals: Box<crate::models::ListWorldPlaceTradeTablesItemTotals>,
     #[serde(rename = "you", skip_serializing_if = "Option::is_none")]
@@ -87,10 +87,10 @@ impl Default for You {
 pub enum Status {
     #[serde(rename = "open")]
     Open,
-    #[serde(rename = "done")]
-    Done,
     #[serde(rename = "closed")]
     Closed,
+    #[serde(rename = "done")]
+    Done,
 }
 
 impl Default for Status {

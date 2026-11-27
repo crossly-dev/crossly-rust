@@ -17,6 +17,9 @@ pub struct CreateBuyerCartItemRequest {
     pub listing_slug: String,
     #[serde(rename = "quantity", skip_serializing_if = "Option::is_none")]
     pub quantity: Option<i32>,
+    /// The option (variants[].id) on a listing with options.
+    #[serde(rename = "listingVariantId", skip_serializing_if = "Option::is_none")]
+    pub listing_variant_id: Option<String>,
     /// Where in Crossly World it was added, e.g. room:<publicSlug>.
     #[serde(rename = "via", skip_serializing_if = "Option::is_none")]
     pub via: Option<String>,
@@ -27,6 +30,7 @@ impl CreateBuyerCartItemRequest {
         CreateBuyerCartItemRequest {
             listing_slug,
             quantity: None,
+            listing_variant_id: None,
             via: None,
         }
     }

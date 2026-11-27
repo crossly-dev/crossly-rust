@@ -15,18 +15,18 @@
 pub struct GetBuyerCollectionOfferResponseDataOffer {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "expiresAt")]
-    pub expires_at: String,
     #[serde(rename = "cents")]
     pub cents: f32,
+    #[serde(rename = "expiresAt")]
+    pub expires_at: String,
 }
 
 impl GetBuyerCollectionOfferResponseDataOffer {
-    pub fn new(id: String, expires_at: String, cents: f32) -> GetBuyerCollectionOfferResponseDataOffer {
+    pub fn new(id: String, cents: f32, expires_at: String) -> GetBuyerCollectionOfferResponseDataOffer {
         GetBuyerCollectionOfferResponseDataOffer {
             id,
-            expires_at,
             cents,
+            expires_at,
         }
     }
 }

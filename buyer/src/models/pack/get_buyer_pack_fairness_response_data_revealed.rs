@@ -15,27 +15,27 @@
 pub struct GetBuyerPackFairnessResponseDataRevealed {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "nonce")]
-    pub nonce: f32,
-    #[serde(rename = "revealedAt")]
-    pub revealed_at: String,
     #[serde(rename = "serverSeed")]
     pub server_seed: String,
     #[serde(rename = "serverSeedHash")]
     pub server_seed_hash: String,
     #[serde(rename = "clientSeed")]
     pub client_seed: String,
+    #[serde(rename = "nonce")]
+    pub nonce: f32,
+    #[serde(rename = "revealedAt")]
+    pub revealed_at: String,
 }
 
 impl GetBuyerPackFairnessResponseDataRevealed {
-    pub fn new(id: String, nonce: f32, revealed_at: String, server_seed: String, server_seed_hash: String, client_seed: String) -> GetBuyerPackFairnessResponseDataRevealed {
+    pub fn new(id: String, server_seed: String, server_seed_hash: String, client_seed: String, nonce: f32, revealed_at: String) -> GetBuyerPackFairnessResponseDataRevealed {
         GetBuyerPackFairnessResponseDataRevealed {
             id,
-            nonce,
-            revealed_at,
             server_seed,
             server_seed_hash,
             client_seed,
+            nonce,
+            revealed_at,
         }
     }
 }

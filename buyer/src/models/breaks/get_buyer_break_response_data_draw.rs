@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerBreakResponseDataDraw {
-    #[serde(rename = "position")]
-    pub position: f32,
     #[serde(rename = "entry")]
     pub entry: f32,
+    #[serde(rename = "position")]
+    pub position: f32,
 }
 
 impl GetBuyerBreakResponseDataDraw {
-    pub fn new(position: f32, entry: f32) -> GetBuyerBreakResponseDataDraw {
+    pub fn new(entry: f32, position: f32) -> GetBuyerBreakResponseDataDraw {
         GetBuyerBreakResponseDataDraw {
-            position,
             entry,
+            position,
         }
     }
 }

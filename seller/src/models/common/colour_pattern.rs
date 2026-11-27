@@ -31,49 +31,49 @@ impl ColourPattern {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Colour {
+    #[serde(rename = "yellow")]
+    Yellow,
+    #[serde(rename = "blue")]
+    Blue,
+    #[serde(rename = "green")]
+    Green,
+    #[serde(rename = "pink")]
+    Pink,
+    #[serde(rename = "purple")]
+    Purple,
+    #[serde(rename = "charcoal")]
+    Charcoal,
     #[serde(rename = "red")]
     Red,
     #[serde(rename = "orange")]
     Orange,
-    #[serde(rename = "yellow")]
-    Yellow,
-    #[serde(rename = "green")]
-    Green,
     #[serde(rename = "teal")]
     Teal,
-    #[serde(rename = "blue")]
-    Blue,
-    #[serde(rename = "purple")]
-    Purple,
-    #[serde(rename = "pink")]
-    Pink,
     #[serde(rename = "cream")]
     Cream,
-    #[serde(rename = "charcoal")]
-    Charcoal,
 }
 
 impl Default for Colour {
     fn default() -> Colour {
-        Self::Red
+        Self::Yellow
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Pattern {
-    #[serde(rename = "solid")]
-    Solid,
-    #[serde(rename = "stripe")]
-    Stripe,
-    #[serde(rename = "scallop")]
-    Scallop,
     #[serde(rename = "check")]
     Check,
+    #[serde(rename = "stripe")]
+    Stripe,
+    #[serde(rename = "solid")]
+    Solid,
+    #[serde(rename = "scallop")]
+    Scallop,
 }
 
 impl Default for Pattern {
     fn default() -> Pattern {
-        Self::Solid
+        Self::Check
     }
 }
 

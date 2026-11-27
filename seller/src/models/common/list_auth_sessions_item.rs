@@ -23,25 +23,25 @@ pub struct ListAuthSessionsItem {
     pub ip_address: Option<String>,
     #[serde(rename = "ipCountry", skip_serializing_if = "Option::is_none")]
     pub ip_country: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "lastUsedAt")]
-    pub last_used_at: String,
-    #[serde(rename = "expiresAt")]
-    pub expires_at: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<String>,
+    #[serde(rename = "lastUsedAt", skip_serializing_if = "Option::is_none")]
+    pub last_used_at: Option<String>,
+    #[serde(rename = "expiresAt", skip_serializing_if = "Option::is_none")]
+    pub expires_at: Option<String>,
 }
 
 impl ListAuthSessionsItem {
-    pub fn new(is_current: bool, id: String, created_at: String, last_used_at: String, expires_at: String) -> ListAuthSessionsItem {
+    pub fn new(is_current: bool, id: String) -> ListAuthSessionsItem {
         ListAuthSessionsItem {
             is_current,
             id,
             user_agent: None,
             ip_address: None,
             ip_country: None,
-            created_at,
-            last_used_at,
-            expires_at,
+            created_at: None,
+            last_used_at: None,
+            expires_at: None,
         }
     }
 }

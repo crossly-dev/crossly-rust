@@ -15,24 +15,24 @@
 pub struct GetBuyerMarketPurchaseOptionResponseDataGradingRuns {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "priceCents")]
-    pub price_cents: f32,
-    #[serde(rename = "tierName")]
-    pub tier_name: String,
-    #[serde(rename = "cutoffAt")]
-    pub cutoff_at: String,
     #[serde(rename = "graderName")]
     pub grader_name: String,
+    #[serde(rename = "tierName")]
+    pub tier_name: String,
+    #[serde(rename = "priceCents")]
+    pub price_cents: f32,
+    #[serde(rename = "cutoffAt")]
+    pub cutoff_at: String,
 }
 
 impl GetBuyerMarketPurchaseOptionResponseDataGradingRuns {
-    pub fn new(id: String, price_cents: f32, tier_name: String, cutoff_at: String, grader_name: String) -> GetBuyerMarketPurchaseOptionResponseDataGradingRuns {
+    pub fn new(id: String, grader_name: String, tier_name: String, price_cents: f32, cutoff_at: String) -> GetBuyerMarketPurchaseOptionResponseDataGradingRuns {
         GetBuyerMarketPurchaseOptionResponseDataGradingRuns {
             id,
-            price_cents,
-            tier_name,
-            cutoff_at,
             grader_name,
+            tier_name,
+            price_cents,
+            cutoff_at,
         }
     }
 }

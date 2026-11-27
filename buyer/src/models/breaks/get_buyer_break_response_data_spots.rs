@@ -15,16 +15,10 @@
 pub struct GetBuyerBreakResponseDataSpots {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "position")]
     pub position: f32,
-    #[serde(rename = "heldUntil", skip_serializing_if = "Option::is_none")]
-    pub held_until: Option<String>,
-    #[serde(rename = "hits", skip_serializing_if = "Option::is_none")]
-    pub hits: Option<String>,
-    #[serde(rename = "buyer", skip_serializing_if = "Option::is_none")]
-    pub buyer: Option<String>,
+    #[serde(rename = "label")]
+    pub label: String,
     #[serde(rename = "taken")]
     pub taken: bool,
     #[serde(rename = "mine")]
@@ -33,21 +27,27 @@ pub struct GetBuyerBreakResponseDataSpots {
     pub held_by_me: bool,
     #[serde(rename = "heldByOther")]
     pub held_by_other: bool,
+    #[serde(rename = "heldUntil", skip_serializing_if = "Option::is_none")]
+    pub held_until: Option<String>,
+    #[serde(rename = "buyer", skip_serializing_if = "Option::is_none")]
+    pub buyer: Option<String>,
+    #[serde(rename = "hits", skip_serializing_if = "Option::is_none")]
+    pub hits: Option<String>,
 }
 
 impl GetBuyerBreakResponseDataSpots {
-    pub fn new(id: String, label: String, position: f32, taken: bool, mine: bool, held_by_me: bool, held_by_other: bool) -> GetBuyerBreakResponseDataSpots {
+    pub fn new(id: String, position: f32, label: String, taken: bool, mine: bool, held_by_me: bool, held_by_other: bool) -> GetBuyerBreakResponseDataSpots {
         GetBuyerBreakResponseDataSpots {
             id,
-            label,
             position,
-            held_until: None,
-            hits: None,
-            buyer: None,
+            label,
             taken,
             mine,
             held_by_me,
             held_by_other,
+            held_until: None,
+            buyer: None,
+            hits: None,
         }
     }
 }

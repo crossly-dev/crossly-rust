@@ -22,14 +22,14 @@ pub struct GetTaxonomyCategoryAspectResponseAspects {
     pub enum_values: Option<Vec<String>>,
     #[serde(rename = "required")]
     pub required: bool,
-    /// Cardinality — SINGLE_VALUE / MULTIPLE_VALUES.
-    #[serde(rename = "cardinality")]
-    pub cardinality: String,
     #[serde(rename = "variesByAspect", skip_serializing_if = "Option::is_none")]
     pub varies_by_aspect: Option<bool>,
     /// Helpful for client validation — max length when supplied.
     #[serde(rename = "maxLength", skip_serializing_if = "Option::is_none")]
     pub max_length: Option<f32>,
+    /// Cardinality — SINGLE_VALUE / MULTIPLE_VALUES.
+    #[serde(rename = "cardinality")]
+    pub cardinality: String,
     #[serde(rename = "selectionOnly")]
     pub selection_only: bool,
 }
@@ -41,9 +41,9 @@ impl GetTaxonomyCategoryAspectResponseAspects {
             data_type,
             enum_values: None,
             required,
-            cardinality,
             varies_by_aspect: None,
             max_length: None,
+            cardinality,
             selection_only,
         }
     }

@@ -1,0 +1,12 @@
+pub mod list_channel_inventory_item;
+pub use self::list_channel_inventory_item::ListChannelInventoryItem;
+pub mod list_channel_inventory_item_capabilities;
+pub use self::list_channel_inventory_item_capabilities::ListChannelInventoryItemCapabilities;
+pub mod list_channel_inventory_item_capabilities_out_of_stock_actions_item;
+pub use self::list_channel_inventory_item_capabilities_out_of_stock_actions_item::ListChannelInventoryItemCapabilitiesOutOfStockActionsItem;
+pub mod list_channel_inventory_item_exclusions;
+pub use self::list_channel_inventory_item_exclusions::ListChannelInventoryItemExclusions;
+pub mod list_channel_inventory_item_policy;
+pub use self::list_channel_inventory_item_policy::ListChannelInventoryItemPolicy;
+pub mod list_channel_inventory_response;
+pub use self::list_channel_inventory_response::ListChannelInventoryResponse;

@@ -23,15 +23,36 @@ pub struct CreateMagicScanResponseTopHits {
     pub image_url: Option<String>,
     #[serde(rename = "listingUrl", skip_serializing_if = "Option::is_none")]
     pub listing_url: Option<String>,
-    /// Origin marker for the UI badge.
+    /// Origin marker for the UI badge. Every eBay hit is an image-search hit ('ebay-image'); 'ebay-text' is kept in the union only for rows cached before that was fixed.
     #[serde(rename = "origin")]
     pub origin: String,
-    /// CLIP cosine [0,1]; populated after the visual-rank pass.
+    /// CLIP cosine [0,1]; populated after the visual-rank pass. ABSENT = unscored (no image, CLIP down) — never filled in with a made-up value.
     #[serde(rename = "visualSim", skip_serializing_if = "Option::is_none")]
     pub visual_sim: Option<f32>,
+    /// Title agreement with the match reference after the hard gates (rank.ts).
+    #[serde(rename = "agreement", skip_serializing_if = "Option::is_none")]
+    pub agreement: Option<f32>,
+    /// True when the comp states the photo's own identifier (GTIN / style code).
+    #[serde(rename = "carriesIdentifier", skip_serializing_if = "Option::is_none")]
+    pub carries_identifier: Option<bool>,
+    /// Price outlier within its condition / grade bucket: shown, but not used for pricing.
+    #[serde(rename = "priceOutlier", skip_serializing_if = "Option::is_none")]
+    pub price_outlier: Option<bool>,
+    /// Condition text the platform reported, for the pricing buckets.
+    #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
+    pub condition: Option<String>,
+    /// Brand the platform reported, for the brand gate at verdict time.
+    #[serde(rename = "brand", skip_serializing_if = "Option::is_none")]
+    pub brand: Option<String>,
     /// 'active' = currently for sale; 'sold' = historical comp. UI renders distinct badges so the seller can see both at a glance.
     #[serde(rename = "state")]
     pub state: State,
+    /// Shipping in cents (0 = free), where the platform reports it (ExternalSoldComp.shippingCents).
+    #[serde(rename = "shippingCents", skip_serializing_if = "Option::is_none")]
+    pub shipping_cents: Option<f32>,
+    /// Auction vs fixed price, where the platform says; an active auction's price is a bid (compPriceIsBid).
+    #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
+    pub format: Option<Format>,
 }
 
 impl CreateMagicScanResponseTopHits {
@@ -44,7 +65,14 @@ impl CreateMagicScanResponseTopHits {
             listing_url: None,
             origin,
             visual_sim: None,
+            agreement: None,
+            carries_identifier: None,
+            price_outlier: None,
+            condition: None,
+            brand: None,
             state,
+            shipping_cents: None,
+            format: None,
         }
     }
 }
@@ -61,6 +89,20 @@ pub enum State {
 impl Default for State {
     fn default() -> State {
         Self::Active
+    }
+}
+/// Auction vs fixed price, where the platform says; an active auction's price is a bid (compPriceIsBid).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Format {
+    #[serde(rename = "auction")]
+    Auction,
+    #[serde(rename = "fixed_price")]
+    FixedPrice,
+}
+
+impl Default for Format {
+    fn default() -> Format {
+        Self::Auction
     }
 }
 

@@ -31,10 +31,10 @@ impl CreateMagicScanResponsePhotoIdentifierIdentifier {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Namespace {
-    #[serde(rename = "style_code")]
-    StyleCode,
     #[serde(rename = "gtin")]
     Gtin,
+    #[serde(rename = "style_code")]
+    StyleCode,
     #[serde(rename = "lego_set")]
     LegoSet,
     #[serde(rename = "tcgplayer")]
@@ -47,7 +47,7 @@ pub enum Namespace {
 
 impl Default for Namespace {
     fn default() -> Namespace {
-        Self::StyleCode
+        Self::Gtin
     }
 }
 

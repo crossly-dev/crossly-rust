@@ -15,12 +15,15 @@
 pub struct GetBuyerCatalogListingPriceResponseDataLowestAnywhere {
     #[serde(rename = "platforms")]
     pub platforms: Vec<String>,
+    #[serde(rename = "platformNames", skip_serializing_if = "Option::is_none")]
+    pub platform_names: Option<Vec<String>>,
 }
 
 impl GetBuyerCatalogListingPriceResponseDataLowestAnywhere {
     pub fn new(platforms: Vec<String>) -> GetBuyerCatalogListingPriceResponseDataLowestAnywhere {
         GetBuyerCatalogListingPriceResponseDataLowestAnywhere {
             platforms,
+            platform_names: None,
         }
     }
 }

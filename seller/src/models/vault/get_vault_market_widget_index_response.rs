@@ -34,7 +34,7 @@ pub struct GetVaultMarketWidgetIndexResponse {
     #[serde(rename = "sinceInceptionBps", skip_serializing_if = "Option::is_none")]
     pub since_inception_bps: Option<f32>,
     #[serde(rename = "points")]
-    pub points: Vec<crate::models::GetVaultMarketWidgetIndexResponsePoints>,
+    pub points: Vec<crate::models::GetVaultMarketOptionAnalyticResponseHistoricalVolSeries>,
     #[serde(rename = "quality")]
     pub quality: Quality,
     #[serde(rename = "n")]
@@ -50,7 +50,7 @@ pub struct GetVaultMarketWidgetIndexResponse {
 }
 
 impl GetVaultMarketWidgetIndexResponse {
-    pub fn new(slug: String, name: String, kind: Kind, weighting: Weighting, base_value: f32, points: Vec<crate::models::GetVaultMarketWidgetIndexResponsePoints>, quality: Quality, n: f32, members: f32, insufficient: bool, href: String) -> GetVaultMarketWidgetIndexResponse {
+    pub fn new(slug: String, name: String, kind: Kind, weighting: Weighting, base_value: f32, points: Vec<crate::models::GetVaultMarketOptionAnalyticResponseHistoricalVolSeries>, quality: Quality, n: f32, members: f32, insufficient: bool, href: String) -> GetVaultMarketWidgetIndexResponse {
         GetVaultMarketWidgetIndexResponse {
             slug,
             name,
@@ -82,12 +82,12 @@ pub enum Kind {
     Brand,
     #[serde(rename = "category")]
     Category,
+    #[serde(rename = "segment")]
+    Segment,
     #[serde(rename = "curated")]
     Curated,
     #[serde(rename = "composite")]
     Composite,
-    #[serde(rename = "segment")]
-    Segment,
 }
 
 impl Default for Kind {
@@ -118,12 +118,12 @@ impl Default for Weighting {
 pub enum Quality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Quality {

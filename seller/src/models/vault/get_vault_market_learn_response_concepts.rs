@@ -54,6 +54,8 @@ pub enum Slug {
     Indexes,
     #[serde(rename = "marks")]
     Marks,
+    #[serde(rename = "vault-shares")]
+    VaultShares,
 }
 
 impl Default for Slug {

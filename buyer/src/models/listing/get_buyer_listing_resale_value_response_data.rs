@@ -19,26 +19,26 @@ pub struct GetBuyerListingResaleValueResponseData {
     pub category: String,
     #[serde(rename = "medianCents")]
     pub median_cents: f32,
-    #[serde(rename = "buybackDays")]
-    pub buyback_days: f32,
-    #[serde(rename = "buybackCents", skip_serializing_if = "Option::is_none")]
-    pub buyback_cents: Option<f32>,
     #[serde(rename = "comps")]
     pub comps: f32,
     #[serde(rename = "keepsPct", skip_serializing_if = "Option::is_none")]
     pub keeps_pct: Option<f32>,
+    #[serde(rename = "buybackCents", skip_serializing_if = "Option::is_none")]
+    pub buyback_cents: Option<f32>,
+    #[serde(rename = "buybackDays")]
+    pub buyback_days: f32,
 }
 
 impl GetBuyerListingResaleValueResponseData {
-    pub fn new(brand: String, category: String, median_cents: f32, buyback_days: f32, comps: f32) -> GetBuyerListingResaleValueResponseData {
+    pub fn new(brand: String, category: String, median_cents: f32, comps: f32, buyback_days: f32) -> GetBuyerListingResaleValueResponseData {
         GetBuyerListingResaleValueResponseData {
             brand,
             category,
             median_cents,
-            buyback_days,
-            buyback_cents: None,
             comps,
             keeps_pct: None,
+            buyback_cents: None,
+            buyback_days,
         }
     }
 }

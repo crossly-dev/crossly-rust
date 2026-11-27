@@ -15,36 +15,43 @@
 pub struct ListAutomationRunsItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
+    #[serde(rename = "ruleId", skip_serializing_if = "Option::is_none")]
+    pub rule_id: Option<String>,
+    #[serde(rename = "chainId", skip_serializing_if = "Option::is_none")]
+    pub chain_id: Option<String>,
     #[serde(rename = "status")]
     pub status: String,
+    #[serde(rename = "actionType")]
+    pub action_type: String,
+    #[serde(rename = "summary")]
+    pub summary: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
     pub error_message: Option<String>,
     #[serde(rename = "durationMs", skip_serializing_if = "Option::is_none")]
     pub duration_ms: Option<f32>,
-    #[serde(rename = "ruleId", skip_serializing_if = "Option::is_none")]
-    pub rule_id: Option<String>,
-    #[serde(rename = "actionType")]
-    pub action_type: String,
-    #[serde(rename = "chainId", skip_serializing_if = "Option::is_none")]
-    pub chain_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    /// Set for runs of the converted workflow.
+    #[serde(rename = "workflowRunId", skip_serializing_if = "Option::is_none")]
+    pub workflow_run_id: Option<String>,
 }
 
 impl ListAutomationRunsItem {
-    pub fn new(id: String, created_at: String, user_id: String, status: String, action_type: String) -> ListAutomationRunsItem {
+    pub fn new(id: String, user_id: String, status: String, action_type: String, summary: ::std::collections::HashMap<String, serde_json::Value>, created_at: String) -> ListAutomationRunsItem {
         ListAutomationRunsItem {
             id,
-            created_at,
             user_id,
+            rule_id: None,
+            chain_id: None,
             status,
+            action_type,
+            summary,
             error_message: None,
             duration_ms: None,
-            rule_id: None,
-            action_type,
-            chain_id: None,
+            created_at,
+            workflow_run_id: None,
         }
     }
 }

@@ -42,7 +42,7 @@ pub struct ListWeb3LaunchesItem {
     #[serde(rename = "endTime", skip_serializing_if = "Option::is_none")]
     pub end_time: Option<String>,
     #[serde(rename = "holderGate", skip_serializing_if = "Option::is_none")]
-    pub holder_gate: Option<Box<crate::models::ListWeb3LaunchesItemHolderGate>>,
+    pub holder_gate: Option<Box<crate::models::ContractName>>,
     #[serde(rename = "maxPerWallet")]
     pub max_per_wallet: f32,
     #[serde(rename = "royaltyBps")]
@@ -52,7 +52,7 @@ pub struct ListWeb3LaunchesItem {
     #[serde(rename = "phase")]
     pub phase: Phase,
     #[serde(rename = "creator")]
-    pub creator: Box<crate::models::ListWeb3LaunchesItemCreator>,
+    pub creator: Box<crate::models::NameObject>,
     /// Card checkout (Crossmint) is set up and the collection is verified there.
     #[serde(rename = "card")]
     pub card: bool,
@@ -62,10 +62,18 @@ pub struct ListWeb3LaunchesItem {
     /// Per-token art has been revealed.
     #[serde(rename = "revealed")]
     pub revealed: bool,
+    /// Creator Studio (migration 1163): the card set this collection takes on chain, and the creations it mints.
+    #[serde(rename = "cardSetId", skip_serializing_if = "Option::is_none")]
+    pub card_set_id: Option<String>,
+    #[serde(rename = "creationRefs", skip_serializing_if = "Option::is_none")]
+    pub creation_refs: Option<Vec<String>>,
+    /// Migration 1178 (R-studio-15): what holding a token gets you, decided at mint (shared/creator/holder-perks).
+    #[serde(rename = "holderPerks", skip_serializing_if = "Option::is_none")]
+    pub holder_perks: Option<Vec<crate::models::ListWeb3LaunchesItemHolderPerksItem>>,
 }
 
 impl ListWeb3LaunchesItem {
-    pub fn new(id: String, chain: Chain, status: Status, name: String, symbol: String, max_supply: f32, minted: f32, price_wei: String, public_start: String, max_per_wallet: f32, royalty_bps: f32, platform_bps: f32, phase: Phase, creator: crate::models::ListWeb3LaunchesItemCreator, card: bool, allowlist: bool, revealed: bool) -> ListWeb3LaunchesItem {
+    pub fn new(id: String, chain: Chain, status: Status, name: String, symbol: String, max_supply: f32, minted: f32, price_wei: String, public_start: String, max_per_wallet: f32, royalty_bps: f32, platform_bps: f32, phase: Phase, creator: crate::models::NameObject, card: bool, allowlist: bool, revealed: bool) -> ListWeb3LaunchesItem {
         ListWeb3LaunchesItem {
             id,
             chain,
@@ -90,6 +98,9 @@ impl ListWeb3LaunchesItem {
             card,
             allowlist,
             revealed,
+            card_set_id: None,
+            creation_refs: None,
+            holder_perks: None,
         }
     }
 }
@@ -97,8 +108,6 @@ impl ListWeb3LaunchesItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Chain {
-    #[serde(rename = "solana")]
-    Solana,
     #[serde(rename = "ethereum")]
     Ethereum,
     #[serde(rename = "base")]
@@ -109,20 +118,22 @@ pub enum Chain {
     Arbitrum,
     #[serde(rename = "optimism")]
     Optimism,
+    #[serde(rename = "solana")]
+    Solana,
 }
 
 impl Default for Chain {
     fn default() -> Chain {
-        Self::Solana
+        Self::Ethereum
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "live")]
-    Live,
     #[serde(rename = "draft")]
     Draft,
+    #[serde(rename = "live")]
+    Live,
     #[serde(rename = "failed")]
     Failed,
     #[serde(rename = "deploying")]
@@ -131,27 +142,27 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Live
+        Self::Draft
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Phase {
-    #[serde(rename = "ended")]
-    Ended,
-    #[serde(rename = "holder")]
-    Holder,
     #[serde(rename = "public")]
     Public,
+    #[serde(rename = "ended")]
+    Ended,
     #[serde(rename = "upcoming")]
     Upcoming,
+    #[serde(rename = "holder")]
+    Holder,
     #[serde(rename = "sold_out")]
     SoldOut,
 }
 
 impl Default for Phase {
     fn default() -> Phase {
-        Self::Ended
+        Self::Public
     }
 }
 

@@ -40,7 +40,7 @@ pub struct ListVaultMarketOpeningItem {
     #[serde(rename = "waitlist")]
     pub waitlist: f32,
     #[serde(rename = "mark")]
-    pub mark: Box<crate::models::ListVaultMarketFeedItemMark>,
+    pub mark: Box<crate::models::ListVaultMarketOpeningItemMark>,
     #[serde(rename = "marketHref")]
     pub market_href: String,
     #[serde(rename = "me", skip_serializing_if = "Option::is_none")]
@@ -50,7 +50,7 @@ pub struct ListVaultMarketOpeningItem {
 }
 
 impl ListVaultMarketOpeningItem {
-    pub fn new(slug: String, title: String, status: Status, book_key: String, key: crate::models::ListVaultMarketOpeningItemKey, units_on_shelf: f32, dealers_quoting: f32, waitlist: f32, mark: crate::models::ListVaultMarketFeedItemMark, market_href: String) -> ListVaultMarketOpeningItem {
+    pub fn new(slug: String, title: String, status: Status, book_key: String, key: crate::models::ListVaultMarketOpeningItemKey, units_on_shelf: f32, dealers_quoting: f32, waitlist: f32, mark: crate::models::ListVaultMarketOpeningItemMark, market_href: String) -> ListVaultMarketOpeningItem {
         ListVaultMarketOpeningItem {
             slug,
             title,

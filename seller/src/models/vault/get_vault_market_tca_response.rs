@@ -23,18 +23,21 @@ pub struct GetVaultMarketTcaResponse {
     pub summary: Box<crate::models::GetVaultMarketTcaResponseSummary>,
     #[serde(rename = "items")]
     pub items: Vec<crate::models::GetVaultMarketTcaResponseItems>,
+    #[serde(rename = "options")]
+    pub options: Box<crate::models::GetVaultMarketTcaResponseOptions>,
     #[serde(rename = "note")]
     pub note: String,
 }
 
 impl GetVaultMarketTcaResponse {
-    pub fn new(account: crate::models::AccountIdLabel, from: String, to: String, summary: crate::models::GetVaultMarketTcaResponseSummary, items: Vec<crate::models::GetVaultMarketTcaResponseItems>, note: String) -> GetVaultMarketTcaResponse {
+    pub fn new(account: crate::models::AccountIdLabel, from: String, to: String, summary: crate::models::GetVaultMarketTcaResponseSummary, items: Vec<crate::models::GetVaultMarketTcaResponseItems>, options: crate::models::GetVaultMarketTcaResponseOptions, note: String) -> GetVaultMarketTcaResponse {
         GetVaultMarketTcaResponse {
             account: Box::new(account),
             from,
             to,
             summary: Box::new(summary),
             items,
+            options: Box::new(options),
             note,
         }
     }

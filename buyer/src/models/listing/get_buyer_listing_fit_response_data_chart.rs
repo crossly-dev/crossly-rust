@@ -15,18 +15,18 @@
 pub struct GetBuyerListingFitResponseDataChart {
     #[serde(rename = "kind")]
     pub kind: String,
-    #[serde(rename = "rows")]
-    pub rows: Vec<crate::models::GetBuyerListingFitResponseDataChartRows>,
     #[serde(rename = "kindLabel")]
     pub kind_label: String,
+    #[serde(rename = "rows")]
+    pub rows: Vec<crate::models::GetBuyerListingFitResponseDataChartRows>,
 }
 
 impl GetBuyerListingFitResponseDataChart {
-    pub fn new(kind: String, rows: Vec<crate::models::GetBuyerListingFitResponseDataChartRows>, kind_label: String) -> GetBuyerListingFitResponseDataChart {
+    pub fn new(kind: String, kind_label: String, rows: Vec<crate::models::GetBuyerListingFitResponseDataChartRows>) -> GetBuyerListingFitResponseDataChart {
         GetBuyerListingFitResponseDataChart {
             kind,
-            rows,
             kind_label,
+            rows,
         }
     }
 }

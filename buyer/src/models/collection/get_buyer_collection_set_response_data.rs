@@ -15,36 +15,36 @@
 pub struct GetBuyerCollectionSetResponseData {
     #[serde(rename = "group")]
     pub group: Box<crate::models::GetBuyerCollectionSetResponseDataGroup>,
-    #[serde(rename = "leaderboard")]
-    pub leaderboard: Vec<crate::models::GetBuyerCollectionSetResponseDataLeaderboard>,
-    #[serde(rename = "missing")]
-    pub missing: f32,
-    #[serde(rename = "pieces")]
-    pub pieces: Vec<crate::models::GetBuyerCollectionSetResponseDataPieces>,
-    #[serde(rename = "leaderboardOptIn")]
-    pub leaderboard_opt_in: bool,
     #[serde(rename = "pct")]
     pub pct: f32,
+    #[serde(rename = "pieces")]
+    pub pieces: Vec<crate::models::GetBuyerCollectionSetResponseDataPieces>,
+    #[serde(rename = "missing")]
+    pub missing: f32,
     #[serde(rename = "missingCostCents")]
     pub missing_cost_cents: f32,
     #[serde(rename = "missingUnpriced")]
     pub missing_unpriced: f32,
+    #[serde(rename = "leaderboard")]
+    pub leaderboard: Vec<crate::models::GetBuyerCollectionSetResponseDataLeaderboard>,
     #[serde(rename = "myRank", skip_serializing_if = "Option::is_none")]
     pub my_rank: Option<f32>,
+    #[serde(rename = "leaderboardOptIn")]
+    pub leaderboard_opt_in: bool,
 }
 
 impl GetBuyerCollectionSetResponseData {
-    pub fn new(group: crate::models::GetBuyerCollectionSetResponseDataGroup, leaderboard: Vec<crate::models::GetBuyerCollectionSetResponseDataLeaderboard>, missing: f32, pieces: Vec<crate::models::GetBuyerCollectionSetResponseDataPieces>, leaderboard_opt_in: bool, pct: f32, missing_cost_cents: f32, missing_unpriced: f32) -> GetBuyerCollectionSetResponseData {
+    pub fn new(group: crate::models::GetBuyerCollectionSetResponseDataGroup, pct: f32, pieces: Vec<crate::models::GetBuyerCollectionSetResponseDataPieces>, missing: f32, missing_cost_cents: f32, missing_unpriced: f32, leaderboard: Vec<crate::models::GetBuyerCollectionSetResponseDataLeaderboard>, leaderboard_opt_in: bool) -> GetBuyerCollectionSetResponseData {
         GetBuyerCollectionSetResponseData {
             group: Box::new(group),
-            leaderboard,
-            missing,
-            pieces,
-            leaderboard_opt_in,
             pct,
+            pieces,
+            missing,
             missing_cost_cents,
             missing_unpriced,
+            leaderboard,
             my_rank: None,
+            leaderboard_opt_in,
         }
     }
 }

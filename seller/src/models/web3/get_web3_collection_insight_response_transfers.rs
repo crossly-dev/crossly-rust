@@ -50,21 +50,21 @@ impl GetWeb3CollectionInsightResponseTransfers {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "transfer")]
-    Transfer,
-    #[serde(rename = "listing")]
-    Listing,
     #[serde(rename = "sale")]
     Sale,
+    #[serde(rename = "listing")]
+    Listing,
     #[serde(rename = "mint")]
     Mint,
+    #[serde(rename = "transfer")]
+    Transfer,
     #[serde(rename = "burn")]
     Burn,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Transfer
+        Self::Sale
     }
 }
 

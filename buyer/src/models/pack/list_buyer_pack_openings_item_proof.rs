@@ -13,35 +13,35 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerPackOpeningsItemProof {
-    #[serde(rename = "nonce")]
-    pub nonce: f32,
-    #[serde(rename = "tierId", skip_serializing_if = "Option::is_none")]
-    pub tier_id: Option<String>,
-    #[serde(rename = "serverSeed", skip_serializing_if = "Option::is_none")]
-    pub server_seed: Option<String>,
     #[serde(rename = "serverSeedHash")]
     pub server_seed_hash: String,
+    #[serde(rename = "serverSeed", skip_serializing_if = "Option::is_none")]
+    pub server_seed: Option<String>,
     #[serde(rename = "clientSeed")]
     pub client_seed: String,
-    #[serde(rename = "poolItemId", skip_serializing_if = "Option::is_none")]
-    pub pool_item_id: Option<String>,
+    #[serde(rename = "nonce")]
+    pub nonce: f32,
     #[serde(rename = "tierItemIds", skip_serializing_if = "Option::is_none")]
     pub tier_item_ids: Option<Vec<String>>,
     #[serde(rename = "tierWeights", skip_serializing_if = "Option::is_none")]
     pub tier_weights: Option<Vec<crate::models::ListBuyerPackOpeningsItemProofTierWeights>>,
+    #[serde(rename = "tierId", skip_serializing_if = "Option::is_none")]
+    pub tier_id: Option<String>,
+    #[serde(rename = "poolItemId", skip_serializing_if = "Option::is_none")]
+    pub pool_item_id: Option<String>,
 }
 
 impl ListBuyerPackOpeningsItemProof {
-    pub fn new(nonce: f32, server_seed_hash: String, client_seed: String) -> ListBuyerPackOpeningsItemProof {
+    pub fn new(server_seed_hash: String, client_seed: String, nonce: f32) -> ListBuyerPackOpeningsItemProof {
         ListBuyerPackOpeningsItemProof {
-            nonce,
-            tier_id: None,
-            server_seed: None,
             server_seed_hash,
+            server_seed: None,
             client_seed,
-            pool_item_id: None,
+            nonce,
             tier_item_ids: None,
             tier_weights: None,
+            tier_id: None,
+            pool_item_id: None,
         }
     }
 }

@@ -96,15 +96,15 @@ impl Default for How {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Term {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Term {
     fn default() -> Term {
-        Self::Long
+        Self::Short
     }
 }
 

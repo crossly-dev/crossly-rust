@@ -27,12 +27,14 @@ pub struct GetVaultMarketRiskReportResponse {
     pub stress: Box<crate::models::GetVaultMarketRiskReportResponseStress>,
     #[serde(rename = "concentration")]
     pub concentration: Box<crate::models::GetVaultMarketRiskReportResponseConcentration>,
+    #[serde(rename = "counterparty")]
+    pub counterparty: Box<crate::models::GetVaultMarketRiskReportResponseCounterparty>,
     #[serde(rename = "partnerDcm")]
     pub partner_dcm: Box<crate::models::GetVaultMarketRiskReportResponsePartnerDcm>,
 }
 
 impl GetVaultMarketRiskReportResponse {
-    pub fn new(account: crate::models::CreateVaultMarketPortfolioMarginEnrollResponseOneOfAccount, as_of: String, nav: crate::models::GetVaultMarketNavResponseTotals, var: crate::models::GetVaultMarketRiskReportResponseVar, lvar: crate::models::GetVaultMarketRiskReportResponseLvar, stress: crate::models::GetVaultMarketRiskReportResponseStress, concentration: crate::models::GetVaultMarketRiskReportResponseConcentration, partner_dcm: crate::models::GetVaultMarketRiskReportResponsePartnerDcm) -> GetVaultMarketRiskReportResponse {
+    pub fn new(account: crate::models::CreateVaultMarketPortfolioMarginEnrollResponseOneOfAccount, as_of: String, nav: crate::models::GetVaultMarketNavResponseTotals, var: crate::models::GetVaultMarketRiskReportResponseVar, lvar: crate::models::GetVaultMarketRiskReportResponseLvar, stress: crate::models::GetVaultMarketRiskReportResponseStress, concentration: crate::models::GetVaultMarketRiskReportResponseConcentration, counterparty: crate::models::GetVaultMarketRiskReportResponseCounterparty, partner_dcm: crate::models::GetVaultMarketRiskReportResponsePartnerDcm) -> GetVaultMarketRiskReportResponse {
         GetVaultMarketRiskReportResponse {
             account: Box::new(account),
             as_of,
@@ -41,6 +43,7 @@ impl GetVaultMarketRiskReportResponse {
             lvar: Box::new(lvar),
             stress: Box::new(stress),
             concentration: Box::new(concentration),
+            counterparty: Box::new(counterparty),
             partner_dcm: Box::new(partner_dcm),
         }
     }

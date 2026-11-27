@@ -35,19 +35,19 @@ impl ListWeb3MarketplaceKeysItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Marketplace {
-    #[serde(rename = "opensea")]
-    Opensea,
-    #[serde(rename = "tensor")]
-    Tensor,
-    #[serde(rename = "magic_eden")]
-    MagicEden,
     #[serde(rename = "rarible")]
     Rarible,
+    #[serde(rename = "magic_eden")]
+    MagicEden,
+    #[serde(rename = "tensor")]
+    Tensor,
+    #[serde(rename = "opensea")]
+    Opensea,
 }
 
 impl Default for Marketplace {
     fn default() -> Marketplace {
-        Self::Opensea
+        Self::Rarible
     }
 }
 

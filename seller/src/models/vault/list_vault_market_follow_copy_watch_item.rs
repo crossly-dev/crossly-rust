@@ -13,6 +13,8 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListVaultMarketFollowCopyWatchItem {
+    #[serde(rename = "person")]
+    pub person: Box<crate::models::ListVaultMarketFollowCopyWatchItemPerson>,
     #[serde(rename = "since")]
     pub since: String,
     #[serde(rename = "active")]
@@ -20,8 +22,9 @@ pub struct ListVaultMarketFollowCopyWatchItem {
 }
 
 impl ListVaultMarketFollowCopyWatchItem {
-    pub fn new(since: String, active: bool) -> ListVaultMarketFollowCopyWatchItem {
+    pub fn new(person: crate::models::ListVaultMarketFollowCopyWatchItemPerson, since: String, active: bool) -> ListVaultMarketFollowCopyWatchItem {
         ListVaultMarketFollowCopyWatchItem {
+            person: Box::new(person),
             since,
             active,
         }

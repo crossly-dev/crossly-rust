@@ -13,22 +13,22 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerListingSubscribeOfferResponseData {
-    #[serde(rename = "priceCents")]
-    pub price_cents: f32,
     #[serde(rename = "discountBps")]
     pub discount_bps: f32,
     #[serde(rename = "intervals")]
     pub intervals: Vec<f32>,
+    #[serde(rename = "priceCents")]
+    pub price_cents: f32,
     #[serde(rename = "subscribePriceCents")]
     pub subscribe_price_cents: f32,
 }
 
 impl GetBuyerListingSubscribeOfferResponseData {
-    pub fn new(price_cents: f32, discount_bps: f32, intervals: Vec<f32>, subscribe_price_cents: f32) -> GetBuyerListingSubscribeOfferResponseData {
+    pub fn new(discount_bps: f32, intervals: Vec<f32>, price_cents: f32, subscribe_price_cents: f32) -> GetBuyerListingSubscribeOfferResponseData {
         GetBuyerListingSubscribeOfferResponseData {
-            price_cents,
             discount_bps,
             intervals,
+            price_cents,
             subscribe_price_cents,
         }
     }

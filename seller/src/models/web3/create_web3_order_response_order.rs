@@ -21,10 +21,10 @@ pub struct CreateWeb3OrderResponseOrder {
     pub updated_at: String,
     #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
-    #[serde(rename = "quantity")]
-    pub quantity: f32,
     #[serde(rename = "status")]
     pub status: Status,
+    #[serde(rename = "quantity")]
+    pub quantity: f32,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
     pub inventory_item_id: Option<String>,
     #[serde(rename = "currency")]
@@ -33,24 +33,24 @@ pub struct CreateWeb3OrderResponseOrder {
     pub bundle: Option<Vec<crate::models::CreateWeb3OrderResponseOrderBundle>>,
     #[serde(rename = "lastCheckedAt", skip_serializing_if = "Option::is_none")]
     pub last_checked_at: Option<String>,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "kind")]
     pub kind: Kind,
+    #[serde(rename = "marketplace")]
+    pub marketplace: String,
+    #[serde(rename = "tokenId", skip_serializing_if = "Option::is_none")]
+    pub token_id: Option<String>,
     #[serde(rename = "externalUrl", skip_serializing_if = "Option::is_none")]
     pub external_url: Option<String>,
-    #[serde(rename = "walletId", skip_serializing_if = "Option::is_none")]
-    pub wallet_id: Option<String>,
     #[serde(rename = "chain")]
     pub chain: String,
     #[serde(rename = "contract")]
     pub contract: String,
-    #[serde(rename = "tokenId", skip_serializing_if = "Option::is_none")]
-    pub token_id: Option<String>,
-    #[serde(rename = "collectionName", skip_serializing_if = "Option::is_none")]
-    pub collection_name: Option<String>,
     #[serde(rename = "orderHash")]
     pub order_hash: String,
-    #[serde(rename = "marketplace")]
-    pub marketplace: String,
+    #[serde(rename = "walletId", skip_serializing_if = "Option::is_none")]
+    pub wallet_id: Option<String>,
     #[serde(rename = "maker")]
     pub maker: String,
     #[serde(rename = "priceWei")]
@@ -69,6 +69,8 @@ pub struct CreateWeb3OrderResponseOrder {
     pub item_name: Option<String>,
     #[serde(rename = "itemImage", skip_serializing_if = "Option::is_none")]
     pub item_image: Option<String>,
+    #[serde(rename = "collectionName", skip_serializing_if = "Option::is_none")]
+    pub collection_name: Option<String>,
     #[serde(rename = "taker", skip_serializing_if = "Option::is_none")]
     pub taker: Option<String>,
     #[serde(rename = "filledTx", skip_serializing_if = "Option::is_none")]
@@ -82,27 +84,27 @@ pub struct CreateWeb3OrderResponseOrder {
 }
 
 impl CreateWeb3OrderResponseOrder {
-    pub fn new(id: String, created_at: String, updated_at: String, quantity: f32, status: Status, currency: String, kind: Kind, chain: String, contract: String, order_hash: String, marketplace: String, maker: String, price_wei: String, start_time: String, end_time: String, signature: String) -> CreateWeb3OrderResponseOrder {
+    pub fn new(id: String, created_at: String, updated_at: String, status: Status, quantity: f32, currency: String, kind: Kind, marketplace: String, chain: String, contract: String, order_hash: String, maker: String, price_wei: String, start_time: String, end_time: String, signature: String) -> CreateWeb3OrderResponseOrder {
         CreateWeb3OrderResponseOrder {
             id,
             created_at,
             updated_at,
             user_id: None,
-            quantity,
             status,
+            quantity,
             inventory_item_id: None,
             currency,
             bundle: None,
             last_checked_at: None,
+            storefront_id: None,
             kind,
+            marketplace,
+            token_id: None,
             external_url: None,
-            wallet_id: None,
             chain,
             contract,
-            token_id: None,
-            collection_name: None,
             order_hash,
-            marketplace,
+            wallet_id: None,
             maker,
             price_wei,
             end_price_wei: None,
@@ -112,6 +114,7 @@ impl CreateWeb3OrderResponseOrder {
             status_reason: None,
             item_name: None,
             item_image: None,
+            collection_name: None,
             taker: None,
             filled_tx: None,
             filled_at: None,
@@ -124,21 +127,21 @@ impl CreateWeb3OrderResponseOrder {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "open")]
-    Open,
-    #[serde(rename = "filled")]
-    Filled,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "open")]
+    Open,
     #[serde(rename = "expired")]
     Expired,
+    #[serde(rename = "filled")]
+    Filled,
     #[serde(rename = "invalid")]
     Invalid,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Open
+        Self::Cancelled
     }
 }
 /// 
@@ -146,12 +149,12 @@ impl Default for Status {
 pub enum Kind {
     #[serde(rename = "bundle")]
     Bundle,
+    #[serde(rename = "offer")]
+    Offer,
     #[serde(rename = "listing")]
     Listing,
     #[serde(rename = "private_listing")]
     PrivateListing,
-    #[serde(rename = "offer")]
-    Offer,
     #[serde(rename = "collection_offer")]
     CollectionOffer,
     #[serde(rename = "trait_offer")]

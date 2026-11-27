@@ -15,18 +15,18 @@
 pub struct GetBuyerCollectionOfferResponseDataPending {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "cents")]
     pub cents: f32,
+    #[serde(rename = "status")]
+    pub status: String,
 }
 
 impl GetBuyerCollectionOfferResponseDataPending {
-    pub fn new(id: String, status: String, cents: f32) -> GetBuyerCollectionOfferResponseDataPending {
+    pub fn new(id: String, cents: f32, status: String) -> GetBuyerCollectionOfferResponseDataPending {
         GetBuyerCollectionOfferResponseDataPending {
             id,
-            status,
             cents,
+            status,
         }
     }
 }

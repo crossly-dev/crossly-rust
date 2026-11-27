@@ -13,32 +13,40 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListInboxItem {
+    #[serde(rename = "canSendOffer")]
+    pub can_send_offer: bool,
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "platform")]
     pub platform: String,
-    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
-    pub listing_id: Option<String>,
     #[serde(rename = "accountSlot")]
     pub account_slot: f32,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    #[serde(rename = "labels")]
+    pub labels: Vec<String>,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
     pub inventory_item_id: Option<String>,
+    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
+    pub listing_id: Option<String>,
     #[serde(rename = "platformListingId", skip_serializing_if = "Option::is_none")]
     pub platform_listing_id: Option<String>,
     #[serde(rename = "buyerUsername", skip_serializing_if = "Option::is_none")]
     pub buyer_username: Option<String>,
-    #[serde(rename = "subject", skip_serializing_if = "Option::is_none")]
-    pub subject: Option<String>,
     #[serde(rename = "platformConversationId")]
     pub platform_conversation_id: String,
     #[serde(rename = "buyerPlatformId", skip_serializing_if = "Option::is_none")]
     pub buyer_platform_id: Option<String>,
+    #[serde(rename = "buyerAvatarUrl", skip_serializing_if = "Option::is_none")]
+    pub buyer_avatar_url: Option<String>,
+    #[serde(rename = "subject", skip_serializing_if = "Option::is_none")]
+    pub subject: Option<String>,
     #[serde(rename = "isRead")]
     pub is_read: bool,
     #[serde(rename = "isHidden")]
@@ -53,24 +61,32 @@ pub struct ListInboxItem {
     pub platform_conversation_url: Option<String>,
     #[serde(rename = "lastMessageAt", skip_serializing_if = "Option::is_none")]
     pub last_message_at: Option<String>,
+    #[serde(rename = "supersededAt", skip_serializing_if = "Option::is_none")]
+    pub superseded_at: Option<String>,
+    #[serde(rename = "isStarred")]
+    pub is_starred: bool,
 }
 
 impl ListInboxItem {
-    pub fn new(id: String, created_at: String, user_id: String, status: String, platform: String, account_slot: f32, platform_conversation_id: String, is_read: bool, is_hidden: bool, has_offer: bool) -> ListInboxItem {
+    pub fn new(can_send_offer: bool, id: String, created_at: String, user_id: String, platform: String, account_slot: f32, status: String, labels: Vec<String>, platform_conversation_id: String, is_read: bool, is_hidden: bool, has_offer: bool, is_starred: bool) -> ListInboxItem {
         ListInboxItem {
+            can_send_offer,
             id,
             created_at,
             user_id,
-            status,
             platform,
-            listing_id: None,
             account_slot,
+            status,
+            source: None,
+            labels,
             inventory_item_id: None,
+            listing_id: None,
             platform_listing_id: None,
             buyer_username: None,
-            subject: None,
             platform_conversation_id,
             buyer_platform_id: None,
+            buyer_avatar_url: None,
+            subject: None,
             is_read,
             is_hidden,
             has_offer,
@@ -78,6 +94,8 @@ impl ListInboxItem {
             offer_status: None,
             platform_conversation_url: None,
             last_message_at: None,
+            superseded_at: None,
+            is_starred,
         }
     }
 }

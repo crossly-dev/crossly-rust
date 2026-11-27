@@ -13,17 +13,20 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCatalogListingPriceResponseDataPriceMatch {
-    #[serde(rename = "platform")]
-    pub platform: String,
     #[serde(rename = "listPriceCents")]
     pub list_price_cents: f32,
+    #[serde(rename = "platform")]
+    pub platform: String,
+    #[serde(rename = "platformName", skip_serializing_if = "Option::is_none")]
+    pub platform_name: Option<String>,
 }
 
 impl GetBuyerCatalogListingPriceResponseDataPriceMatch {
-    pub fn new(platform: String, list_price_cents: f32) -> GetBuyerCatalogListingPriceResponseDataPriceMatch {
+    pub fn new(list_price_cents: f32, platform: String) -> GetBuyerCatalogListingPriceResponseDataPriceMatch {
         GetBuyerCatalogListingPriceResponseDataPriceMatch {
-            platform,
             list_price_cents,
+            platform,
+            platform_name: None,
         }
     }
 }

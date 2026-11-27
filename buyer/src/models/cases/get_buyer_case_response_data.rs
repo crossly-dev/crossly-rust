@@ -13,10 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCaseResponseData {
-    #[serde(rename = "messages")]
-    pub messages: Vec<crate::models::GetBuyerCaseResponseDataMessages>,
     #[serde(rename = "case")]
     pub case: Box<crate::models::GetBuyerCaseResponseDataCase>,
+    #[serde(rename = "messages")]
+    pub messages: Vec<crate::models::GetBuyerCaseResponseDataMessages>,
     #[serde(rename = "purchase", skip_serializing_if = "Option::is_none")]
     pub purchase: Option<Box<crate::models::GetBuyerCaseResponseDataPurchase>>,
     #[serde(rename = "returnShipment", skip_serializing_if = "Option::is_none")]
@@ -24,10 +24,10 @@ pub struct GetBuyerCaseResponseData {
 }
 
 impl GetBuyerCaseResponseData {
-    pub fn new(messages: Vec<crate::models::GetBuyerCaseResponseDataMessages>, case: crate::models::GetBuyerCaseResponseDataCase) -> GetBuyerCaseResponseData {
+    pub fn new(case: crate::models::GetBuyerCaseResponseDataCase, messages: Vec<crate::models::GetBuyerCaseResponseDataMessages>) -> GetBuyerCaseResponseData {
         GetBuyerCaseResponseData {
-            messages,
             case: Box::new(case),
+            messages,
             purchase: None,
             return_shipment: None,
         }

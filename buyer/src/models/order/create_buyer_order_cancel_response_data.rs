@@ -13,18 +13,18 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerOrderCancelResponseData {
+    #[serde(rename = "ok")]
+    pub ok: bool,
     /// false only for an order paid entirely with credit, which has no card charge to refund.
     #[serde(rename = "refunded")]
     pub refunded: bool,
-    #[serde(rename = "ok")]
-    pub ok: bool,
 }
 
 impl CreateBuyerOrderCancelResponseData {
-    pub fn new(refunded: bool, ok: bool) -> CreateBuyerOrderCancelResponseData {
+    pub fn new(ok: bool, refunded: bool) -> CreateBuyerOrderCancelResponseData {
         CreateBuyerOrderCancelResponseData {
-            refunded,
             ok,
+            refunded,
         }
     }
 }

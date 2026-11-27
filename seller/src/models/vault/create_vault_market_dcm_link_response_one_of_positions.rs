@@ -58,15 +58,15 @@ impl CreateVaultMarketDcmLinkResponseOneOfPositions {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Side {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Side {
     fn default() -> Side {
-        Self::Long
+        Self::Short
     }
 }
 

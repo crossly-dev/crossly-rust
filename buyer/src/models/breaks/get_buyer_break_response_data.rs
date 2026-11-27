@@ -15,57 +15,57 @@
 pub struct GetBuyerBreakResponseData {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "assignedAt", skip_serializing_if = "Option::is_none")]
-    pub assigned_at: Option<String>,
     #[serde(rename = "title")]
     pub title: String,
-    #[serde(rename = "seller")]
-    pub seller: Box<crate::models::GetBuyerBreakResponseDataSeller>,
+    #[serde(rename = "product", skip_serializing_if = "Option::is_none")]
+    pub product: Option<String>,
+    #[serde(rename = "format")]
+    pub format: String,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
-    #[serde(rename = "format")]
-    pub format: String,
     #[serde(rename = "streamId", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
-    #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<String>,
-    #[serde(rename = "product", skip_serializing_if = "Option::is_none")]
-    pub product: Option<String>,
-    #[serde(rename = "seedCommit")]
-    pub seed_commit: String,
+    #[serde(rename = "seller")]
+    pub seller: Box<crate::models::GetBuyerBreakResponseDataSeller>,
     #[serde(rename = "spots")]
     pub spots: Vec<crate::models::GetBuyerBreakResponseDataSpots>,
     #[serde(rename = "spotsLeft")]
     pub spots_left: f32,
+    #[serde(rename = "seedCommit")]
+    pub seed_commit: String,
+    #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
+    pub seed: Option<String>,
     #[serde(rename = "draw", skip_serializing_if = "Option::is_none")]
     pub draw: Option<Vec<crate::models::GetBuyerBreakResponseDataDraw>>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    #[serde(rename = "assignedAt", skip_serializing_if = "Option::is_none")]
+    pub assigned_at: Option<String>,
 }
 
 impl GetBuyerBreakResponseData {
-    pub fn new(id: String, created_at: String, status: String, title: String, seller: crate::models::GetBuyerBreakResponseDataSeller, price_cents: f32, format: String, seed_commit: String, spots: Vec<crate::models::GetBuyerBreakResponseDataSpots>, spots_left: f32) -> GetBuyerBreakResponseData {
+    pub fn new(id: String, title: String, format: String, status: String, price_cents: f32, seller: crate::models::GetBuyerBreakResponseDataSeller, spots: Vec<crate::models::GetBuyerBreakResponseDataSpots>, spots_left: f32, seed_commit: String, created_at: String) -> GetBuyerBreakResponseData {
         GetBuyerBreakResponseData {
             id,
-            created_at,
-            status,
-            assigned_at: None,
             title,
-            seller: Box::new(seller),
+            product: None,
+            format,
+            status,
             slug: None,
             price_cents,
-            format,
             stream_id: None,
-            seed: None,
-            product: None,
-            seed_commit,
+            seller: Box::new(seller),
             spots,
             spots_left,
+            seed_commit,
+            seed: None,
             draw: None,
+            created_at,
+            assigned_at: None,
         }
     }
 }

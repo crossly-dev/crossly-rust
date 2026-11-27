@@ -76,7 +76,7 @@ pub struct CreateListingByIdResponseItems {
     #[serde(rename = "gradeKey", skip_serializing_if = "Option::is_none")]
     pub grade_key: Option<String>,
     #[serde(rename = "grading", skip_serializing_if = "Option::is_none")]
-    pub grading: Option<Box<crate::models::ListGradingSubmissionsItemGrading>>,
+    pub grading: Option<Box<crate::models::CreateBulkBatchItemResponseGrading>>,
     #[serde(rename = "brand", skip_serializing_if = "Option::is_none")]
     pub brand: Option<String>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -142,6 +142,11 @@ pub struct CreateListingByIdResponseItems {
     pub automation_assigned_chain_ids: Vec<String>,
     #[serde(rename = "automationBlockedChainIds")]
     pub automation_blocked_chain_ids: Vec<String>,
+    /// Per-listing workflow overrides (migration 1099, docs/WORKFLOWS.md §10): the automation_* rule/chain ids above map here on conversion; `find.listings` and listing action nodes honour them.   workflowBlockedIds  — workflows (workflows.id) this listing is exempt from  workflowAssignedIds — workflows this listing is force-included in
+    #[serde(rename = "workflowBlockedIds")]
+    pub workflow_blocked_ids: Vec<String>,
+    #[serde(rename = "workflowAssignedIds")]
+    pub workflow_assigned_ids: Vec<String>,
     /// Harmonised System customs code — international shipping declarations.
     #[serde(rename = "hsCode", skip_serializing_if = "Option::is_none")]
     pub hs_code: Option<String>,
@@ -170,6 +175,14 @@ pub struct CreateListingByIdResponseItems {
     /// UUID minted on a seller's machine for a draft written offline.  The idempotency key for desktop sync. The failure it guards is a POST that succeeds server-side whose reply is lost — the client cannot tell that from a failure, retries, and one item becomes two live listings against one piece of stock. Unique per user (partial index, migration 0268); null for every listing that did not come from an offline draft.
     #[serde(rename = "clientDraftId", skip_serializing_if = "Option::is_none")]
     pub client_draft_id: Option<String>,
+    /// The third-party OAuth app that created this listing (via its access token), if any — the anchor for developer revenue-share: the app that created the item earns a cut of its sales. Stamped once at create time (first writer wins, never overwritten); null for the web app, a PAT, or anything first-party. `attributedGrantId` pins the specific install whose agreed terms apply. See services/developer-earnings/.
+    #[serde(rename = "attributedOauthAppId", skip_serializing_if = "Option::is_none")]
+    pub attributed_oauth_app_id: Option<String>,
+    #[serde(rename = "attributedGrantId", skip_serializing_if = "Option::is_none")]
+    pub attributed_grant_id: Option<String>,
+    /// Which quota this listing is counted in (migration 1064): 'app_allowance' = the attributed app's per-seller allowance (services/app-allowance/), 'plan' = the seller's plan, null = created before allowances / by no app (plan rules). Stays 'app_allowance' after an unlink (grandfathered, no longer counted).
+    #[serde(rename = "quotaBucket", skip_serializing_if = "Option::is_none")]
+    pub quota_bucket: Option<String>,
     #[serde(rename = "createdAt")]
     pub created_at: String,
     #[serde(rename = "updatedAt")]
@@ -177,7 +190,7 @@ pub struct CreateListingByIdResponseItems {
 }
 
 impl CreateListingByIdResponseItems {
-    pub fn new(effective_title: String, effective_images: Vec<String>, effective_color: Vec<String>, effective_tags: Vec<String>, platform_listings: Vec<::std::collections::HashMap<String, serde_json::Value>>, id: String, user_id: String, ai_media_urls: Vec<String>, ai_media_declared: bool, ai_media_detected_urls: Vec<String>, status: String, color: Vec<String>, tags: Vec<String>, is_digital: bool, quantity: f32, quantity_available: f32, is_bundle: bool, automation_assigned_rule_ids: Vec<String>, automation_blocked_rule_ids: Vec<String>, automation_assigned_chain_ids: Vec<String>, automation_blocked_chain_ids: Vec<String>, floor_is_net: bool, source: String, created_at: String, updated_at: String) -> CreateListingByIdResponseItems {
+    pub fn new(effective_title: String, effective_images: Vec<String>, effective_color: Vec<String>, effective_tags: Vec<String>, platform_listings: Vec<::std::collections::HashMap<String, serde_json::Value>>, id: String, user_id: String, ai_media_urls: Vec<String>, ai_media_declared: bool, ai_media_detected_urls: Vec<String>, status: String, color: Vec<String>, tags: Vec<String>, is_digital: bool, quantity: f32, quantity_available: f32, is_bundle: bool, automation_assigned_rule_ids: Vec<String>, automation_blocked_rule_ids: Vec<String>, automation_assigned_chain_ids: Vec<String>, automation_blocked_chain_ids: Vec<String>, workflow_blocked_ids: Vec<String>, workflow_assigned_ids: Vec<String>, floor_is_net: bool, source: String, created_at: String, updated_at: String) -> CreateListingByIdResponseItems {
         CreateListingByIdResponseItems {
             effective_title,
             effective_price: None,
@@ -237,6 +250,8 @@ impl CreateListingByIdResponseItems {
             automation_blocked_rule_ids,
             automation_assigned_chain_ids,
             automation_blocked_chain_ids,
+            workflow_blocked_ids,
+            workflow_assigned_ids,
             hs_code: None,
             country_of_origin: None,
             price_floor_cents: None,
@@ -247,6 +262,9 @@ impl CreateListingByIdResponseItems {
             source,
             duplicate_of_listing_id: None,
             client_draft_id: None,
+            attributed_oauth_app_id: None,
+            attributed_grant_id: None,
+            quota_bucket: None,
             created_at,
             updated_at,
         }

@@ -15,6 +15,8 @@
 pub struct ListVaultMarketFollowCopyWatchAlertsItem {
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(rename = "by")]
+    pub by: Box<crate::models::ListVaultMarketFollowCopyWatchAlertsItemBy>,
     #[serde(rename = "side")]
     pub side: Side,
     #[serde(rename = "quantity")]
@@ -42,9 +44,10 @@ pub struct ListVaultMarketFollowCopyWatchAlertsItem {
 }
 
 impl ListVaultMarketFollowCopyWatchAlertsItem {
-    pub fn new(id: String, side: Side, quantity: f32, book_key: String, placed_at: String, at: String, read: bool, still_resting: bool, market_href: String) -> ListVaultMarketFollowCopyWatchAlertsItem {
+    pub fn new(id: String, by: crate::models::ListVaultMarketFollowCopyWatchAlertsItemBy, side: Side, quantity: f32, book_key: String, placed_at: String, at: String, read: bool, still_resting: bool, market_href: String) -> ListVaultMarketFollowCopyWatchAlertsItem {
         ListVaultMarketFollowCopyWatchAlertsItem {
             id,
+            by: Box::new(by),
             side,
             quantity,
             limit_cents: None,

@@ -31,10 +31,10 @@ impl CreateBuyerLockonConfirmResponseIdentifier {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Ns {
-    #[serde(rename = "style_code")]
-    StyleCode,
     #[serde(rename = "gtin")]
     Gtin,
+    #[serde(rename = "style_code")]
+    StyleCode,
     #[serde(rename = "lego_set")]
     LegoSet,
     #[serde(rename = "tcgplayer")]
@@ -47,7 +47,7 @@ pub enum Ns {
 
 impl Default for Ns {
     fn default() -> Ns {
-        Self::StyleCode
+        Self::Gtin
     }
 }
 

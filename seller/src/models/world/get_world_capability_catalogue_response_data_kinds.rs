@@ -46,10 +46,10 @@ impl GetWorldCapabilityCatalogueResponseDataKinds {
 pub enum Review {
     #[serde(rename = "always")]
     Always,
-    #[serde(rename = "asset")]
-    Asset,
     #[serde(rename = "never")]
     Never,
+    #[serde(rename = "asset")]
+    Asset,
 }
 
 impl Default for Review {
@@ -62,12 +62,16 @@ impl Default for Review {
 pub enum Kind {
     #[serde(rename = "portal")]
     Portal,
-    #[serde(rename = "display")]
-    Display,
+    #[serde(rename = "interactive")]
+    Interactive,
     #[serde(rename = "place")]
     Place,
+    #[serde(rename = "display")]
+    Display,
     #[serde(rename = "badge")]
     Badge,
+    #[serde(rename = "perk")]
+    Perk,
     #[serde(rename = "wear")]
     Wear,
     #[serde(rename = "emote")]
@@ -82,10 +86,6 @@ pub enum Kind {
     Quest,
     #[serde(rename = "game_pass")]
     GamePass,
-    #[serde(rename = "perk")]
-    Perk,
-    #[serde(rename = "interactive")]
-    Interactive,
 }
 
 impl Default for Kind {

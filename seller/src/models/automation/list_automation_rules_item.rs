@@ -15,48 +15,61 @@
 pub struct ListAutomationRulesItem {
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(rename = "userId")]
+    pub user_id: String,
     #[serde(rename = "name")]
     pub name: String,
+    #[serde(rename = "isActive")]
+    pub is_active: bool,
+    #[serde(rename = "triggerType")]
+    pub trigger_type: String,
+    #[serde(rename = "triggerConfig")]
+    pub trigger_config: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "conditionType", skip_serializing_if = "Option::is_none")]
+    pub condition_type: Option<String>,
+    #[serde(rename = "conditionConfig", skip_serializing_if = "Option::is_none")]
+    pub condition_config: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "actionType")]
+    pub action_type: String,
+    #[serde(rename = "actionConfig")]
+    pub action_config: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "platforms", skip_serializing_if = "Option::is_none")]
+    pub platforms: Option<Vec<String>>,
+    #[serde(rename = "lastRunAt", skip_serializing_if = "Option::is_none")]
+    pub last_run_at: Option<String>,
+    #[serde(rename = "nextRunAt", skip_serializing_if = "Option::is_none")]
+    pub next_run_at: Option<String>,
+    #[serde(rename = "runCount")]
+    pub run_count: f32,
     #[serde(rename = "createdAt")]
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "userId")]
-    pub user_id: String,
-    #[serde(rename = "isActive")]
-    pub is_active: bool,
-    #[serde(rename = "platforms", skip_serializing_if = "Option::is_none")]
-    pub platforms: Option<Vec<String>>,
-    #[serde(rename = "nextRunAt", skip_serializing_if = "Option::is_none")]
-    pub next_run_at: Option<String>,
-    #[serde(rename = "lastRunAt", skip_serializing_if = "Option::is_none")]
-    pub last_run_at: Option<String>,
-    #[serde(rename = "triggerType")]
-    pub trigger_type: String,
-    #[serde(rename = "conditionType", skip_serializing_if = "Option::is_none")]
-    pub condition_type: Option<String>,
-    #[serde(rename = "actionType")]
-    pub action_type: String,
-    #[serde(rename = "runCount")]
-    pub run_count: f32,
+    /// The workflow this rule is (open it in /v1/workflows).
+    #[serde(rename = "workflowId")]
+    pub workflow_id: String,
 }
 
 impl ListAutomationRulesItem {
-    pub fn new(id: String, name: String, created_at: String, updated_at: String, user_id: String, is_active: bool, trigger_type: String, action_type: String, run_count: f32) -> ListAutomationRulesItem {
+    pub fn new(id: String, user_id: String, name: String, is_active: bool, trigger_type: String, trigger_config: ::std::collections::HashMap<String, serde_json::Value>, action_type: String, action_config: ::std::collections::HashMap<String, serde_json::Value>, run_count: f32, created_at: String, updated_at: String, workflow_id: String) -> ListAutomationRulesItem {
         ListAutomationRulesItem {
             id,
+            user_id,
             name,
+            is_active,
+            trigger_type,
+            trigger_config,
+            condition_type: None,
+            condition_config: None,
+            action_type,
+            action_config,
+            platforms: None,
+            last_run_at: None,
+            next_run_at: None,
+            run_count,
             created_at,
             updated_at,
-            user_id,
-            is_active,
-            platforms: None,
-            next_run_at: None,
-            last_run_at: None,
-            trigger_type,
-            condition_type: None,
-            action_type,
-            run_count,
+            workflow_id,
         }
     }
 }

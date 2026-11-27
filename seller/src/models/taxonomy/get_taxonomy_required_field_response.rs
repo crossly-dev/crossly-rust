@@ -18,11 +18,11 @@ pub struct GetTaxonomyRequiredFieldResponse {
     #[serde(rename = "requiredFields")]
     pub required_fields: Vec<crate::models::GetTaxonomyRequiredFieldResponseRequiredFields>,
     #[serde(rename = "inlineAspects")]
-    pub inline_aspects: Vec<crate::models::GetTaxonomyCategoryAspectResponseAspects>,
+    pub inline_aspects: Vec<crate::models::GetTaxonomyRequiredFieldResponseInlineAspects>,
 }
 
 impl GetTaxonomyRequiredFieldResponse {
-    pub fn new(platform: Platform, required_fields: Vec<crate::models::GetTaxonomyRequiredFieldResponseRequiredFields>, inline_aspects: Vec<crate::models::GetTaxonomyCategoryAspectResponseAspects>) -> GetTaxonomyRequiredFieldResponse {
+    pub fn new(platform: Platform, required_fields: Vec<crate::models::GetTaxonomyRequiredFieldResponseRequiredFields>, inline_aspects: Vec<crate::models::GetTaxonomyRequiredFieldResponseInlineAspects>) -> GetTaxonomyRequiredFieldResponse {
         GetTaxonomyRequiredFieldResponse {
             platform,
             required_fields,

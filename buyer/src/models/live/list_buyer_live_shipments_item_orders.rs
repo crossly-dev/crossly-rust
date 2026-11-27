@@ -15,10 +15,10 @@
 pub struct ListBuyerLiveShipmentsItemOrders {
     #[serde(rename = "orderId")]
     pub order_id: String,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "purchaseId")]
     pub purchase_id: String,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "shippingCents")]
     pub shipping_cents: f32,
     #[serde(rename = "orderStatus", skip_serializing_if = "Option::is_none")]
@@ -29,8 +29,8 @@ impl ListBuyerLiveShipmentsItemOrders {
     pub fn new(order_id: String, purchase_id: String, shipping_cents: f32) -> ListBuyerLiveShipmentsItemOrders {
         ListBuyerLiveShipmentsItemOrders {
             order_id,
-            title: None,
             purchase_id,
+            title: None,
             shipping_cents,
             order_status: None,
         }

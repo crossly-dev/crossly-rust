@@ -21,14 +21,14 @@ pub struct CreateMagicScanResponseEbayHits {
     pub title: String,
     #[serde(rename = "brand", skip_serializing_if = "Option::is_none")]
     pub brand: Option<String>,
-    /// Normalized cents. eBay returns string + currency on `price.value`.
+    /// Integer cents.
     #[serde(rename = "priceCents", skip_serializing_if = "Option::is_none")]
     pub price_cents: Option<f32>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
     #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
     pub condition: Option<String>,
-    /// Top-level category eBay assigned to the match (id + path).
+    /// The category the marketplace filed the match under (id + path), when the provider returns it.
     #[serde(rename = "categoryId", skip_serializing_if = "Option::is_none")]
     pub category_id: Option<String>,
     #[serde(rename = "categoryPath", skip_serializing_if = "Option::is_none")]
@@ -37,7 +37,7 @@ pub struct CreateMagicScanResponseEbayHits {
     pub item_url: String,
     #[serde(rename = "thumbnailUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_url: Option<String>,
-    /// Loosely-typed aspect bag — Brand, Color, Material, etc. when eBay inlines them. Always inspected defensively by the synthesizer.
+    /// Item specifics, when the provider returns them. Always read defensively.
     #[serde(rename = "aspects", skip_serializing_if = "Option::is_none")]
     pub aspects: Option<::std::collections::HashMap<String, serde_json::Value>>,
 }

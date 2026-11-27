@@ -224,6 +224,7 @@ pub enum UpdateAutomationRuleError {
 }
 
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn create_automation_rule(configuration: &configuration::Configuration, ) -> Result<crate::models::ListAutomationRulesItem, Error<CreateAutomationRuleError>> {
     let local_var_configuration = configuration;
 
@@ -240,7 +241,7 @@ pub async fn create_automation_rule(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -254,6 +255,7 @@ pub async fn create_automation_rule(configuration: &configuration::Configuration
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn create_automation_rule_import(configuration: &configuration::Configuration, activate: Option<bool>) -> Result<crate::models::CreateAutomationRuleImportResponse, Error<CreateAutomationRuleImportError>> {
     let local_var_configuration = configuration;
 
@@ -273,7 +275,7 @@ pub async fn create_automation_rule_import(configuration: &configuration::Config
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -287,6 +289,7 @@ pub async fn create_automation_rule_import(configuration: &configuration::Config
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn create_automation_rule_run_now(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::CreateAutomationRuleRunNowResponse, Error<CreateAutomationRuleRunNowError>> {
     let local_var_configuration = configuration;
 
@@ -303,7 +306,7 @@ pub async fn create_automation_rule_run_now(configuration: &configuration::Confi
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -317,7 +320,8 @@ pub async fn create_automation_rule_run_now(configuration: &configuration::Confi
     }
 }
 
-pub async fn create_automation_rule_toggle(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::UpdateAutomationRuleResponse, Error<CreateAutomationRuleToggleError>> {
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
+pub async fn create_automation_rule_toggle(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetAutomationRuleResponse, Error<CreateAutomationRuleToggleError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -333,7 +337,7 @@ pub async fn create_automation_rule_toggle(configuration: &configuration::Config
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -347,6 +351,7 @@ pub async fn create_automation_rule_toggle(configuration: &configuration::Config
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn create_automation_rule_validate_recipe(configuration: &configuration::Configuration, ) -> Result<crate::models::CreateAutomationRuleValidateRecipeResponse, Error<CreateAutomationRuleValidateRecipeError>> {
     let local_var_configuration = configuration;
 
@@ -363,7 +368,7 @@ pub async fn create_automation_rule_validate_recipe(configuration: &configuratio
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -393,7 +398,7 @@ pub async fn create_reprice_event_approve(configuration: &configuration::Configu
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -423,7 +428,7 @@ pub async fn create_reprice_event_skip(configuration: &configuration::Configurat
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -437,6 +442,7 @@ pub async fn create_reprice_event_skip(configuration: &configuration::Configurat
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn delete_automation_rule(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::OkResponse, Error<DeleteAutomationRuleError>> {
     let local_var_configuration = configuration;
 
@@ -453,7 +459,7 @@ pub async fn delete_automation_rule(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -483,7 +489,7 @@ pub async fn get_automation_catalog(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -497,6 +503,7 @@ pub async fn get_automation_catalog(configuration: &configuration::Configuration
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn get_automation_rule(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetAutomationRuleResponse, Error<GetAutomationRuleError>> {
     let local_var_configuration = configuration;
 
@@ -513,7 +520,7 @@ pub async fn get_automation_rule(configuration: &configuration::Configuration, i
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -527,6 +534,7 @@ pub async fn get_automation_rule(configuration: &configuration::Configuration, i
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn get_automation_rule_export(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAutomationRuleExportResponse, Error<GetAutomationRuleExportError>> {
     let local_var_configuration = configuration;
 
@@ -543,7 +551,7 @@ pub async fn get_automation_rule_export(configuration: &configuration::Configura
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -557,6 +565,7 @@ pub async fn get_automation_rule_export(configuration: &configuration::Configura
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn get_automation_rule_export_by_id(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetAutomationRuleExportByIdResponse, Error<GetAutomationRuleExportByIdError>> {
     let local_var_configuration = configuration;
 
@@ -573,7 +582,7 @@ pub async fn get_automation_rule_export_by_id(configuration: &configuration::Con
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -587,6 +596,7 @@ pub async fn get_automation_rule_export_by_id(configuration: &configuration::Con
     }
 }
 
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
 pub async fn list_automation_rules(configuration: &configuration::Configuration, ) -> Result<crate::models::ListAutomationRulesResponse, Error<ListAutomationRulesError>> {
     let local_var_configuration = configuration;
 
@@ -603,7 +613,7 @@ pub async fn list_automation_rules(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -617,6 +627,7 @@ pub async fn list_automation_rules(configuration: &configuration::Configuration,
     }
 }
 
+/// Deprecated: use /v1/workflow-runs.
 pub async fn list_automation_runs(configuration: &configuration::Configuration, rule_id: Option<&str>, chain_id: Option<&str>, limit: Option<i32>) -> Result<crate::models::ListAutomationRunsResponse, Error<ListAutomationRunsError>> {
     let local_var_configuration = configuration;
 
@@ -642,7 +653,7 @@ pub async fn list_automation_runs(configuration: &configuration::Configuration, 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -672,7 +683,7 @@ pub async fn list_reprice_events(configuration: &configuration::Configuration, )
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -686,7 +697,8 @@ pub async fn list_reprice_events(configuration: &configuration::Configuration, )
     }
 }
 
-pub async fn update_automation_rule(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::UpdateAutomationRuleResponse, Error<UpdateAutomationRuleError>> {
+/// Deprecated: automation rules are workflows now. Use /v1/workflows.
+pub async fn update_automation_rule(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetAutomationRuleResponse, Error<UpdateAutomationRuleError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -702,7 +714,7 @@ pub async fn update_automation_rule(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

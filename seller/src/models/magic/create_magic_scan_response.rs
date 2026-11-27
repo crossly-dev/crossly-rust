@@ -17,6 +17,8 @@ pub struct CreateMagicScanResponse {
     pub run_id: String,
     #[serde(rename = "photoIdentifier", skip_serializing_if = "Option::is_none")]
     pub photo_identifier: Option<Box<crate::models::CreateMagicScanResponsePhotoIdentifier>>,
+    #[serde(rename = "matchReference", skip_serializing_if = "Option::is_none")]
+    pub match_reference: Option<Box<crate::models::CreateMagicScanResponseMatchReference>>,
     #[serde(rename = "ebayMatch", skip_serializing_if = "Option::is_none")]
     pub ebay_match: Option<Box<crate::models::CreateMagicScanResponseEbayMatch>>,
     /// Unified top-10-globally list, ranked by CLIP visual similarity to the seller's source photo. Each hit carries its origin platform.
@@ -38,6 +40,9 @@ pub struct CreateMagicScanResponse {
     pub possible_duplicates: Vec<crate::models::CreateMagicScanResponsePossibleDuplicates>,
     #[serde(rename = "cached")]
     pub cached: bool,
+    /// Monthly vision calls (vision-quota.ts) this scan spent: the seller's Activity Log shows them as credits used. 0 for a single-photo scan and for a re-scan of the same photos.
+    #[serde(rename = "visionCallsUsed", skip_serializing_if = "Option::is_none")]
+    pub vision_calls_used: Option<f32>,
 }
 
 impl CreateMagicScanResponse {
@@ -45,6 +50,7 @@ impl CreateMagicScanResponse {
         CreateMagicScanResponse {
             run_id,
             photo_identifier: None,
+            match_reference: None,
             ebay_match: None,
             top_hits,
             ebay_hits,
@@ -53,6 +59,7 @@ impl CreateMagicScanResponse {
             vision_aspects,
             possible_duplicates,
             cached,
+            vision_calls_used: None,
         }
     }
 }

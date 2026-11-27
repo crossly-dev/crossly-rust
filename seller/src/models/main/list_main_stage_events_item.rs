@@ -53,10 +53,10 @@ impl ListMainStageEventsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "creator_meetup")]
-    CreatorMeetup,
     #[serde(rename = "brand_launch")]
     BrandLaunch,
+    #[serde(rename = "creator_meetup")]
+    CreatorMeetup,
     #[serde(rename = "festival")]
     Festival,
     #[serde(rename = "talk")]
@@ -67,7 +67,7 @@ pub enum Kind {
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::CreatorMeetup
+        Self::BrandLaunch
     }
 }
 

@@ -76,15 +76,15 @@ impl ListVaultMarketPriceWidgetsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "mark")]
-    Mark,
     #[serde(rename = "index")]
     Index,
+    #[serde(rename = "mark")]
+    Mark,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Mark
+        Self::Index
     }
 }
 /// 

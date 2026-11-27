@@ -33,10 +33,22 @@ pub struct GetBuyerCatalogListingShippingResponse {
     pub ships_to_country: bool,
     #[serde(rename = "noShipReason", skip_serializing_if = "Option::is_none")]
     pub no_ship_reason: Option<String>,
+    /// Why it doesn't ship here, as the buyer should read it; null when it does.
+    #[serde(rename = "noShipMessage", skip_serializing_if = "Option::is_none")]
+    pub no_ship_message: Option<String>,
+    /// The seller's ship-to rule that decided a refusal; null when none did.
+    #[serde(rename = "rule", skip_serializing_if = "Option::is_none")]
+    pub rule: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    /// True when a fuller address (ZIP / postcode) could change the answer.
+    #[serde(rename = "partial")]
+    pub partial: bool,
     #[serde(rename = "services")]
     pub services: Vec<crate::models::GetBuyerCatalogListingShippingResponseServices>,
     #[serde(rename = "defaultServiceId", skip_serializing_if = "Option::is_none")]
     pub default_service_id: Option<String>,
+    /// Buyer pays: calculated: no live label rate for this destination yet (give a ZIP); `cents` is null.
+    #[serde(rename = "calculatedAtCheckout", skip_serializing_if = "Option::is_none")]
+    pub calculated_at_checkout: Option<bool>,
     #[serde(rename = "international")]
     pub international: Box<crate::models::GetBuyerCatalogListingShippingResponseInternational>,
     #[serde(rename = "importChargesNote")]
@@ -44,7 +56,7 @@ pub struct GetBuyerCatalogListingShippingResponse {
 }
 
 impl GetBuyerCatalogListingShippingResponse {
-    pub fn new(quantity: f32, cached: bool, ships_to_country: bool, services: Vec<crate::models::GetBuyerCatalogListingShippingResponseServices>, international: crate::models::GetBuyerCatalogListingShippingResponseInternational, import_charges_note: bool) -> GetBuyerCatalogListingShippingResponse {
+    pub fn new(quantity: f32, cached: bool, ships_to_country: bool, partial: bool, services: Vec<crate::models::GetBuyerCatalogListingShippingResponseServices>, international: crate::models::GetBuyerCatalogListingShippingResponseInternational, import_charges_note: bool) -> GetBuyerCatalogListingShippingResponse {
         GetBuyerCatalogListingShippingResponse {
             cents: None,
             kind: None,
@@ -56,8 +68,12 @@ impl GetBuyerCatalogListingShippingResponse {
             destination_country: None,
             ships_to_country,
             no_ship_reason: None,
+            no_ship_message: None,
+            rule: None,
+            partial,
             services,
             default_service_id: None,
+            calculated_at_checkout: None,
             international: Box::new(international),
             import_charges_note,
         }

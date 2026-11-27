@@ -57,16 +57,16 @@ impl GetVaultMarketMarketResponseMark {
 pub enum Source {
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "twap")]
-    Twap,
-    #[serde(rename = "mid")]
-    Mid,
     #[serde(rename = "ask")]
     Ask,
-    #[serde(rename = "bid")]
-    Bid,
+    #[serde(rename = "mid")]
+    Mid,
     #[serde(rename = "last")]
     Last,
+    #[serde(rename = "bid")]
+    Bid,
+    #[serde(rename = "twap")]
+    Twap,
     #[serde(rename = "implied")]
     Implied,
 }
@@ -81,12 +81,12 @@ impl Default for Source {
 pub enum Quality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Quality {

@@ -15,6 +15,58 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 
+/// struct for typed errors of method [`create_analytic_experiment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAnalyticExperimentError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_analytic_experiment_declare`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAnalyticExperimentDeclareError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_analytic_experiment_stop`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAnalyticExperimentStopError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_analytic_experiment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAnalyticExperimentError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_analytic_bookkeeping`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -41,6 +93,19 @@ pub enum GetAnalyticByPlatformError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_analytic_compare`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticCompareError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_analytic_dashboard`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -54,10 +119,153 @@ pub enum GetAnalyticDashboardError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_analytic_experiment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticExperimentError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_experiment_by_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticExperimentByIdError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_inventory`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticInventoryError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_analytic_item`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAnalyticItemError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_item_by_listing_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticItemByListingIdError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_marketplace`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticMarketplaceError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_marketplace_by_platform`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticMarketplaceByPlatformError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_overview`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticOverviewError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_performance`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticPerformanceError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_program`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticProgramError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_segment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticSegmentError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_analytic_segment_by_key`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAnalyticSegmentByKeyError {
     Status400(crate::models::Error),
     Status401(crate::models::Error),
     Status403(crate::models::Error),
@@ -119,6 +327,139 @@ pub enum ListInsightByPlatformError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_analytic_experiment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAnalyticExperimentError {
+    Status400(crate::models::Error),
+    Status401(crate::models::Error),
+    Status403(crate::models::Error),
+    Status404(crate::models::Error),
+    Status429(crate::models::Error),
+    Status500(crate::models::Error),
+    UnknownValue(serde_json::Value),
+}
+
+
+pub async fn create_analytic_experiment(configuration: &configuration::Configuration, ) -> Result<crate::models::AnalyticExperimentResponse, Error<CreateAnalyticExperimentError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateAnalyticExperimentError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_analytic_experiment_declare(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::AnalyticExperimentResponse, Error<CreateAnalyticExperimentDeclareError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments/{id}/declare", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateAnalyticExperimentDeclareError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_analytic_experiment_stop(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::AnalyticExperimentResponse, Error<CreateAnalyticExperimentStopError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments/{id}/stop", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateAnalyticExperimentStopError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn delete_analytic_experiment(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::DeleteStoryResponse, Error<DeleteAnalyticExperimentError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments/{id}", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<DeleteAnalyticExperimentError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
 
 pub async fn get_analytic_bookkeeping(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAnalyticBookkeepingResponse, Error<GetAnalyticBookkeepingError>> {
     let local_var_configuration = configuration;
@@ -136,7 +477,7 @@ pub async fn get_analytic_bookkeeping(configuration: &configuration::Configurati
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -150,7 +491,7 @@ pub async fn get_analytic_bookkeeping(configuration: &configuration::Configurati
     }
 }
 
-pub async fn get_analytic_by_platform(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAnalyticByPlatformResponse, Error<GetAnalyticByPlatformError>> {
+pub async fn get_analytic_by_platform(configuration: &configuration::Configuration, days: Option<i32>, tz: Option<&str>) -> Result<crate::models::GetAnalyticByPlatformResponse, Error<GetAnalyticByPlatformError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -158,6 +499,12 @@ pub async fn get_analytic_by_platform(configuration: &configuration::Configurati
     let local_var_uri_str = format!("{}/v1/analytics/by-platform", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = days {
+        local_var_req_builder = local_var_req_builder.query(&[("days", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -166,7 +513,7 @@ pub async fn get_analytic_by_platform(configuration: &configuration::Configurati
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -175,6 +522,46 @@ pub async fn get_analytic_by_platform(configuration: &configuration::Configurati
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetAnalyticByPlatformError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_compare(configuration: &configuration::Configuration, ids: &str, align: Option<&str>, platform: Option<&str>, tz: Option<&str>) -> Result<crate::models::GetAnalyticCompareResponse, Error<GetAnalyticCompareError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/compare", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    local_var_req_builder = local_var_req_builder.query(&[("ids", &ids.to_string())]);
+    if let Some(ref local_var_str) = align {
+        local_var_req_builder = local_var_req_builder.query(&[("align", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platform {
+        local_var_req_builder = local_var_req_builder.query(&[("platform", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticCompareError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -196,7 +583,7 @@ pub async fn get_analytic_dashboard(configuration: &configuration::Configuration
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -205,6 +592,141 @@ pub async fn get_analytic_dashboard(configuration: &configuration::Configuration
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetAnalyticDashboardError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_experiment(configuration: &configuration::Configuration, status: Option<&str>, page: Option<i32>, size: Option<i32>) -> Result<crate::models::GetAnalyticExperimentResponse, Error<GetAnalyticExperimentError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = status {
+        local_var_req_builder = local_var_req_builder.query(&[("status", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = size {
+        local_var_req_builder = local_var_req_builder.query(&[("size", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticExperimentError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_experiment_by_id(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::GetAnalyticExperimentByIdResponse, Error<GetAnalyticExperimentByIdError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments/{id}", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticExperimentByIdError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_inventory(configuration: &configuration::Configuration, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>, maturity: Option<i32>) -> Result<crate::models::GetAnalyticInventoryResponse, Error<GetAnalyticInventoryError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/inventory", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = maturity {
+        local_var_req_builder = local_var_req_builder.query(&[("maturity", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticInventoryError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -226,7 +748,7 @@ pub async fn get_analytic_item(configuration: &configuration::Configuration, ) -
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -240,7 +762,508 @@ pub async fn get_analytic_item(configuration: &configuration::Configuration, ) -
     }
 }
 
-pub async fn get_analytic_summary(configuration: &configuration::Configuration, days: Option<i32>) -> Result<crate::models::GetAnalyticSummaryResponse, Error<GetAnalyticSummaryError>> {
+pub async fn get_analytic_item_by_listing_id(configuration: &configuration::Configuration, listing_id: &str, by: Option<&str>, tz: Option<&str>) -> Result<crate::models::GetAnalyticItemByListingIdResponse, Error<GetAnalyticItemByListingIdError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/items/{listingId}", local_var_configuration.base_path, listingId=crate::apis::urlencode(listing_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = by {
+        local_var_req_builder = local_var_req_builder.query(&[("by", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticItemByListingIdError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_marketplace(configuration: &configuration::Configuration, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>, vs: Option<&str>, sort: Option<&str>, dir: Option<&str>) -> Result<crate::models::GetAnalyticMarketplaceResponse, Error<GetAnalyticMarketplaceError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/marketplaces", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = vs {
+        local_var_req_builder = local_var_req_builder.query(&[("vs", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = sort {
+        local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = dir {
+        local_var_req_builder = local_var_req_builder.query(&[("dir", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticMarketplaceError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_marketplace_by_platform(configuration: &configuration::Configuration, platform: &str, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>) -> Result<crate::models::GetAnalyticMarketplaceByPlatformResponse, Error<GetAnalyticMarketplaceByPlatformError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/marketplaces/{platform}", local_var_configuration.base_path, platform=crate::apis::urlencode(platform));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticMarketplaceByPlatformError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_overview(configuration: &configuration::Configuration, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>, stores: Option<&str>) -> Result<crate::models::GetAnalyticOverviewResponse, Error<GetAnalyticOverviewError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/overview", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = stores {
+        local_var_req_builder = local_var_req_builder.query(&[("stores", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticOverviewError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_performance(configuration: &configuration::Configuration, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>, status: Option<&str>, q: Option<&str>, sort: Option<&str>, dir: Option<&str>, page: Option<i32>, size: Option<i32>, min_days: Option<i32>) -> Result<crate::models::GetAnalyticPerformanceResponse, Error<GetAnalyticPerformanceError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/performance", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = status {
+        local_var_req_builder = local_var_req_builder.query(&[("status", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = q {
+        local_var_req_builder = local_var_req_builder.query(&[("q", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = sort {
+        local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = dir {
+        local_var_req_builder = local_var_req_builder.query(&[("dir", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = size {
+        local_var_req_builder = local_var_req_builder.query(&[("size", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = min_days {
+        local_var_req_builder = local_var_req_builder.query(&[("minDays", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticPerformanceError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_program(configuration: &configuration::Configuration, program: &str, from: Option<String>, to: Option<String>, by: Option<&str>) -> Result<crate::models::GetAnalyticProgramResponse, Error<GetAnalyticProgramError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/programs/{program}", local_var_configuration.base_path, program=crate::apis::urlencode(program));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = by {
+        local_var_req_builder = local_var_req_builder.query(&[("by", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticProgramError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_segment(configuration: &configuration::Configuration, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>, dim: Option<&str>, sort: Option<&str>, dir: Option<&str>, min_n: Option<i32>, q: Option<&str>) -> Result<crate::models::GetAnalyticSegmentResponse, Error<GetAnalyticSegmentError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/segments", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = dim {
+        local_var_req_builder = local_var_req_builder.query(&[("dim", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = sort {
+        local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = dir {
+        local_var_req_builder = local_var_req_builder.query(&[("dir", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = min_n {
+        local_var_req_builder = local_var_req_builder.query(&[("minN", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = q {
+        local_var_req_builder = local_var_req_builder.query(&[("q", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticSegmentError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_segment_by_key(configuration: &configuration::Configuration, dim: &str, key: &str, range: Option<&str>, from: Option<&str>, to: Option<&str>, compare: Option<&str>, cmp_from: Option<&str>, cmp_to: Option<&str>, labels: Option<&str>, platforms: Option<&str>, category: Option<&str>, brand: Option<&str>, tz: Option<&str>) -> Result<crate::models::GetAnalyticSegmentByKeyResponse, Error<GetAnalyticSegmentByKeyError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/segments/{dim}/{key}", local_var_configuration.base_path, dim=crate::apis::urlencode(dim), key=crate::apis::urlencode(key));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = range {
+        local_var_req_builder = local_var_req_builder.query(&[("range", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = from {
+        local_var_req_builder = local_var_req_builder.query(&[("from", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = to {
+        local_var_req_builder = local_var_req_builder.query(&[("to", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = compare {
+        local_var_req_builder = local_var_req_builder.query(&[("compare", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_from {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpFrom", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cmp_to {
+        local_var_req_builder = local_var_req_builder.query(&[("cmpTo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = labels {
+        local_var_req_builder = local_var_req_builder.query(&[("labels", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = platforms {
+        local_var_req_builder = local_var_req_builder.query(&[("platforms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category {
+        local_var_req_builder = local_var_req_builder.query(&[("category", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = brand {
+        local_var_req_builder = local_var_req_builder.query(&[("brand", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAnalyticSegmentByKeyError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_analytic_summary(configuration: &configuration::Configuration, days: Option<i32>, tz: Option<&str>) -> Result<crate::models::GetAnalyticSummaryResponse, Error<GetAnalyticSummaryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -251,6 +1274,9 @@ pub async fn get_analytic_summary(configuration: &configuration::Configuration, 
     if let Some(ref local_var_str) = days {
         local_var_req_builder = local_var_req_builder.query(&[("days", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -259,7 +1285,7 @@ pub async fn get_analytic_summary(configuration: &configuration::Configuration, 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -273,7 +1299,7 @@ pub async fn get_analytic_summary(configuration: &configuration::Configuration, 
     }
 }
 
-pub async fn get_analytic_timesery(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAnalyticTimeseryResponse, Error<GetAnalyticTimeseryError>> {
+pub async fn get_analytic_timesery(configuration: &configuration::Configuration, days: Option<i32>, tz: Option<&str>) -> Result<crate::models::GetAnalyticTimeseryResponse, Error<GetAnalyticTimeseryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -281,6 +1307,12 @@ pub async fn get_analytic_timesery(configuration: &configuration::Configuration,
     let local_var_uri_str = format!("{}/v1/analytics/timeseries", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = days {
+        local_var_req_builder = local_var_req_builder.query(&[("days", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -289,7 +1321,7 @@ pub async fn get_analytic_timesery(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -319,7 +1351,7 @@ pub async fn get_analytic_today(configuration: &configuration::Configuration, ) 
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -333,13 +1365,46 @@ pub async fn get_analytic_today(configuration: &configuration::Configuration, ) 
     }
 }
 
-pub async fn list_insight_by_platform(configuration: &configuration::Configuration, ) -> Result<crate::models::ListInsightByPlatformResponse, Error<ListInsightByPlatformError>> {
+pub async fn list_insight_by_platform(configuration: &configuration::Configuration, tz: Option<&str>) -> Result<crate::models::ListInsightByPlatformResponse, Error<ListInsightByPlatformError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
     let local_var_uri_str = format!("{}/v1/insights/by-platform", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = tz {
+        local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListInsightByPlatformError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn update_analytic_experiment(configuration: &configuration::Configuration, id: &str) -> Result<crate::models::AnalyticExperimentResponse, Error<UpdateAnalyticExperimentError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/analytics/experiments/{id}", local_var_configuration.base_path, id=crate::apis::urlencode(id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::PATCH, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -349,7 +1414,7 @@ pub async fn list_insight_by_platform(configuration: &configuration::Configurati
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -357,7 +1422,7 @@ pub async fn list_insight_by_platform(configuration: &configuration::Configurati
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<ListInsightByPlatformError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<UpdateAnalyticExperimentError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

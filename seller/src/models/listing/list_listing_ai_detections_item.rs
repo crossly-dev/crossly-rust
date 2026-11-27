@@ -82,12 +82,12 @@ impl Default for Verdict {
 /// 'flagged' | 'review' | 'disputed' | 'cleared' | 'clear' — one word for a UI chip.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "flagged")]
-    Flagged,
     #[serde(rename = "review")]
     Review,
     #[serde(rename = "clear")]
     Clear,
+    #[serde(rename = "flagged")]
+    Flagged,
     #[serde(rename = "disputed")]
     Disputed,
     #[serde(rename = "cleared")]
@@ -96,7 +96,7 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Flagged
+        Self::Review
     }
 }
 /// 

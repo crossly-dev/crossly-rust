@@ -19,14 +19,28 @@ pub struct GetAccountDeletionStatusResponsePending {
     pub requested_at: String,
     #[serde(rename = "scheduledFor")]
     pub scheduled_for: String,
+    /// Set when the account was found in use: it waits for a re-confirmation.
+    #[serde(rename = "pausedAt", skip_serializing_if = "Option::is_none")]
+    pub paused_at: Option<String>,
+    #[serde(rename = "pauseReason", skip_serializing_if = "Option::is_none")]
+    pub pause_reason: Option<String>,
+    /// What the cascade will take.
+    #[serde(rename = "listingCount")]
+    pub listing_count: f32,
+    #[serde(rename = "inventoryCount")]
+    pub inventory_count: f32,
 }
 
 impl GetAccountDeletionStatusResponsePending {
-    pub fn new(id: String, requested_at: String, scheduled_for: String) -> GetAccountDeletionStatusResponsePending {
+    pub fn new(id: String, requested_at: String, scheduled_for: String, listing_count: f32, inventory_count: f32) -> GetAccountDeletionStatusResponsePending {
         GetAccountDeletionStatusResponsePending {
             id,
             requested_at,
             scheduled_for,
+            paused_at: None,
+            pause_reason: None,
+            listing_count,
+            inventory_count,
         }
     }
 }

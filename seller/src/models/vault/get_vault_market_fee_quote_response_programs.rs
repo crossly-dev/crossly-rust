@@ -37,15 +37,15 @@ impl GetVaultMarketFeeQuoteResponsePrograms {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MemberTier {
-    #[serde(rename = "classic")]
-    Classic,
     #[serde(rename = "pro")]
     Pro,
+    #[serde(rename = "classic")]
+    Classic,
 }
 
 impl Default for MemberTier {
     fn default() -> MemberTier {
-        Self::Classic
+        Self::Pro
     }
 }
 

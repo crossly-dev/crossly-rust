@@ -26,6 +26,8 @@ pub enum GetVaultMarketLearnByConceptResponseRelatedItem {
     Indexes,
     #[serde(rename = "marks")]
     Marks,
+    #[serde(rename = "vault-shares")]
+    VaultShares,
 
 }
 
@@ -39,6 +41,7 @@ impl ToString for GetVaultMarketLearnByConceptResponseRelatedItem {
             Self::Auctions => String::from("auctions"),
             Self::Indexes => String::from("indexes"),
             Self::Marks => String::from("marks"),
+            Self::VaultShares => String::from("vault-shares"),
         }
     }
 }

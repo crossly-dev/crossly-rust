@@ -37,17 +37,17 @@ impl GetVaultMarketSetGoalResponseTarget {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum GradeMode {
+    #[serde(rename = "any")]
+    Any,
     #[serde(rename = "exact")]
     Exact,
     #[serde(rename = "ungraded")]
     Ungraded,
-    #[serde(rename = "any")]
-    Any,
 }
 
 impl Default for GradeMode {
     fn default() -> GradeMode {
-        Self::Exact
+        Self::Any
     }
 }
 

@@ -13,22 +13,22 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerPackFairnessResponseData {
-    #[serde(rename = "nonce")]
-    pub nonce: f32,
     #[serde(rename = "serverSeedHash")]
     pub server_seed_hash: String,
     #[serde(rename = "clientSeed")]
     pub client_seed: String,
+    #[serde(rename = "nonce")]
+    pub nonce: f32,
     #[serde(rename = "revealed")]
     pub revealed: Vec<crate::models::GetBuyerPackFairnessResponseDataRevealed>,
 }
 
 impl GetBuyerPackFairnessResponseData {
-    pub fn new(nonce: f32, server_seed_hash: String, client_seed: String, revealed: Vec<crate::models::GetBuyerPackFairnessResponseDataRevealed>) -> GetBuyerPackFairnessResponseData {
+    pub fn new(server_seed_hash: String, client_seed: String, nonce: f32, revealed: Vec<crate::models::GetBuyerPackFairnessResponseDataRevealed>) -> GetBuyerPackFairnessResponseData {
         GetBuyerPackFairnessResponseData {
-            nonce,
             server_seed_hash,
             client_seed,
+            nonce,
             revealed,
         }
     }

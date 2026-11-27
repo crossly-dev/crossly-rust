@@ -39,10 +39,18 @@ pub struct CreateVaultMarketPartnerApplyResponsePartner {
     pub decided_at: Option<String>,
     #[serde(rename = "decisionNote", skip_serializing_if = "Option::is_none")]
     pub decision_note: Option<String>,
+    #[serde(rename = "postalCode", skip_serializing_if = "Option::is_none")]
+    pub postal_code: Option<String>,
+    #[serde(rename = "hours", skip_serializing_if = "Option::is_none")]
+    pub hours: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "services")]
+    pub services: Vec<String>,
+    #[serde(rename = "listed")]
+    pub listed: bool,
 }
 
 impl CreateVaultMarketPartnerApplyResponsePartner {
-    pub fn new(id: String, user_id: String, status: Status, shop_name: String, share_bps: f32, cap_cents: f32, applied_at: String) -> CreateVaultMarketPartnerApplyResponsePartner {
+    pub fn new(id: String, user_id: String, status: Status, shop_name: String, share_bps: f32, cap_cents: f32, applied_at: String, services: Vec<String>, listed: bool) -> CreateVaultMarketPartnerApplyResponsePartner {
         CreateVaultMarketPartnerApplyResponsePartner {
             id,
             user_id,
@@ -57,6 +65,10 @@ impl CreateVaultMarketPartnerApplyResponsePartner {
             applied_at,
             decided_at: None,
             decision_note: None,
+            postal_code: None,
+            hours: None,
+            services,
+            listed,
         }
     }
 }
@@ -66,10 +78,10 @@ impl CreateVaultMarketPartnerApplyResponsePartner {
 pub enum Status {
     #[serde(rename = "applied")]
     Applied,
-    #[serde(rename = "approved")]
-    Approved,
     #[serde(rename = "rejected")]
     Rejected,
+    #[serde(rename = "approved")]
+    Approved,
     #[serde(rename = "suspended")]
     Suspended,
 }

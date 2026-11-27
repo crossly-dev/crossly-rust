@@ -15,10 +15,10 @@
 pub struct GetBuyerPurchaseDeliveryResponseData {
     #[serde(rename = "pickupPoint", skip_serializing_if = "Option::is_none")]
     pub pickup_point: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
-    pub carrier: Option<String>,
     #[serde(rename = "trackingNumber", skip_serializing_if = "Option::is_none")]
     pub tracking_number: Option<String>,
+    #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
+    pub carrier: Option<String>,
     #[serde(rename = "consolidation", skip_serializing_if = "Option::is_none")]
     pub consolidation: Option<::std::collections::HashMap<String, serde_json::Value>>,
 }
@@ -27,8 +27,8 @@ impl GetBuyerPurchaseDeliveryResponseData {
     pub fn new() -> GetBuyerPurchaseDeliveryResponseData {
         GetBuyerPurchaseDeliveryResponseData {
             pickup_point: None,
-            carrier: None,
             tracking_number: None,
+            carrier: None,
             consolidation: None,
         }
     }

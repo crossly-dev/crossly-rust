@@ -17,22 +17,22 @@ pub struct GetBuyerTogetherResponseDataMessages {
     pub id: String,
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "body")]
-    pub body: String,
     #[serde(rename = "me")]
     pub me: bool,
+    #[serde(rename = "body")]
+    pub body: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
 }
 
 impl GetBuyerTogetherResponseDataMessages {
-    pub fn new(id: String, name: String, created_at: String, body: String, me: bool) -> GetBuyerTogetherResponseDataMessages {
+    pub fn new(id: String, name: String, me: bool, body: String, created_at: String) -> GetBuyerTogetherResponseDataMessages {
         GetBuyerTogetherResponseDataMessages {
             id,
             name,
-            created_at,
-            body,
             me,
+            body,
+            created_at,
         }
     }
 }

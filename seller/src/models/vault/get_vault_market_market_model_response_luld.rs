@@ -45,10 +45,10 @@ impl GetVaultMarketMarketModelResponseLuld {
 pub enum Phase {
     #[serde(rename = "limit")]
     Limit,
-    #[serde(rename = "normal")]
-    Normal,
     #[serde(rename = "paused")]
     Paused,
+    #[serde(rename = "normal")]
+    Normal,
 }
 
 impl Default for Phase {

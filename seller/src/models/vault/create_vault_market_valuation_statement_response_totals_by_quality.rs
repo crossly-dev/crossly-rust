@@ -15,21 +15,21 @@
 pub struct CreateVaultMarketValuationStatementResponseTotalsByQuality {
     #[serde(rename = "none")]
     pub none: Box<crate::models::UnitsCents>,
+    #[serde(rename = "C")]
+    pub C: Box<crate::models::UnitsCents>,
     #[serde(rename = "A")]
     pub A: Box<crate::models::UnitsCents>,
     #[serde(rename = "B")]
     pub B: Box<crate::models::UnitsCents>,
-    #[serde(rename = "C")]
-    pub C: Box<crate::models::UnitsCents>,
 }
 
 impl CreateVaultMarketValuationStatementResponseTotalsByQuality {
-    pub fn new(none: crate::models::UnitsCents, A: crate::models::UnitsCents, B: crate::models::UnitsCents, C: crate::models::UnitsCents) -> CreateVaultMarketValuationStatementResponseTotalsByQuality {
+    pub fn new(none: crate::models::UnitsCents, C: crate::models::UnitsCents, A: crate::models::UnitsCents, B: crate::models::UnitsCents) -> CreateVaultMarketValuationStatementResponseTotalsByQuality {
         CreateVaultMarketValuationStatementResponseTotalsByQuality {
             none: Box::new(none),
+            C: Box::new(C),
             A: Box::new(A),
             B: Box::new(B),
-            C: Box::new(C),
         }
     }
 }

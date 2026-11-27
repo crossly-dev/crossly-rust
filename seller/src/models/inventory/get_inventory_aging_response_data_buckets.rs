@@ -19,26 +19,48 @@ pub struct GetInventoryAgingResponseDataBuckets {
     pub item_count: f32,
     #[serde(rename = "unitCount")]
     pub unit_count: f32,
-    /// What the seller PAID for the stock in this bucket — the number that makes 90+ feel urgent. Retail value flatters it; cost is the money actually stuck on the shelf.
-    #[serde(rename = "costCents")]
-    pub cost_cents: f32,
-    /// What it would bring in at current prices, for the opportunity figure.
+    /// Old name for listedValueCents.
     #[serde(rename = "retailCents")]
     pub retail_cents: f32,
-    /// One line the seller can act on.
     #[serde(rename = "recommendation")]
     pub recommendation: String,
+    #[serde(rename = "key")]
+    pub key: Key,
+    #[serde(rename = "items")]
+    pub items: f32,
+    #[serde(rename = "units")]
+    pub units: f32,
+    /// Σ unit cost × units over the items whose cost is known.
+    #[serde(rename = "costCents")]
+    pub cost_cents: f32,
+    #[serde(rename = "costKnownItems")]
+    pub cost_known_items: f32,
+    #[serde(rename = "costUnknownItems")]
+    pub cost_unknown_items: f32,
+    /// Σ ask × units; items with no ask add nothing.
+    #[serde(rename = "listedValueCents")]
+    pub listed_value_cents: f32,
+    /// Σ market × units over the marked items; null when none in the bucket are marked.
+    #[serde(rename = "marketValueCents", skip_serializing_if = "Option::is_none")]
+    pub market_value_cents: Option<f32>,
 }
 
 impl GetInventoryAgingResponseDataBuckets {
-    pub fn new(bucket: Bucket, item_count: f32, unit_count: f32, cost_cents: f32, retail_cents: f32, recommendation: String) -> GetInventoryAgingResponseDataBuckets {
+    pub fn new(bucket: Bucket, item_count: f32, unit_count: f32, retail_cents: f32, recommendation: String, key: Key, items: f32, units: f32, cost_cents: f32, cost_known_items: f32, cost_unknown_items: f32, listed_value_cents: f32) -> GetInventoryAgingResponseDataBuckets {
         GetInventoryAgingResponseDataBuckets {
             bucket,
             item_count,
             unit_count,
-            cost_cents,
             retail_cents,
             recommendation,
+            key,
+            items,
+            units,
+            cost_cents,
+            cost_known_items,
+            cost_unknown_items,
+            listed_value_cents,
+            market_value_cents: None,
         }
     }
 }
@@ -46,21 +68,41 @@ impl GetInventoryAgingResponseDataBuckets {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Bucket {
+    #[serde(rename = "unlisted")]
+    Unlisted,
+    #[serde(rename = "90+")]
+    _90,
     #[serde(rename = "0-7")]
     _07,
     #[serde(rename = "7-30")]
     _730,
     #[serde(rename = "30-90")]
     _3090,
-    #[serde(rename = "90+")]
-    _90,
-    #[serde(rename = "unlisted")]
-    Unlisted,
 }
 
 impl Default for Bucket {
     fn default() -> Bucket {
-        Self::_07
+        Self::Unlisted
+    }
+}
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Key {
+    #[serde(rename = "unlisted")]
+    Unlisted,
+    #[serde(rename = "lt7")]
+    Lt7,
+    #[serde(rename = "d7_30")]
+    D730,
+    #[serde(rename = "d30_90")]
+    D3090,
+    #[serde(rename = "gt90")]
+    Gt90,
+}
+
+impl Default for Key {
+    fn default() -> Key {
+        Self::Unlisted
     }
 }
 

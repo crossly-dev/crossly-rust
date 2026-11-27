@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerGiftFinderOptionResponseDataRecipients {
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "key")]
     pub key: String,
+    #[serde(rename = "label")]
+    pub label: String,
     #[serde(rename = "interests")]
     pub interests: Vec<::std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl GetBuyerGiftFinderOptionResponseDataRecipients {
-    pub fn new(label: String, key: String, interests: Vec<::std::collections::HashMap<String, serde_json::Value>>) -> GetBuyerGiftFinderOptionResponseDataRecipients {
+    pub fn new(key: String, label: String, interests: Vec<::std::collections::HashMap<String, serde_json::Value>>) -> GetBuyerGiftFinderOptionResponseDataRecipients {
         GetBuyerGiftFinderOptionResponseDataRecipients {
-            label,
             key,
+            label,
             interests,
         }
     }

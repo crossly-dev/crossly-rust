@@ -19,16 +19,16 @@ pub struct CreateBuyerRegistryResponseData {
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "token")]
-    pub token: String,
+    #[serde(rename = "ownerUserId")]
+    pub owner_user_id: String,
     #[serde(rename = "kind")]
     pub kind: String,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-    #[serde(rename = "ownerUserId")]
-    pub owner_user_id: String,
     #[serde(rename = "wishlistId")]
     pub wishlist_id: String,
+    #[serde(rename = "token")]
+    pub token: String,
     #[serde(rename = "eventDate", skip_serializing_if = "Option::is_none")]
     pub event_date: Option<String>,
     #[serde(rename = "shipAddressId", skip_serializing_if = "Option::is_none")]
@@ -36,16 +36,16 @@ pub struct CreateBuyerRegistryResponseData {
 }
 
 impl CreateBuyerRegistryResponseData {
-    pub fn new(id: String, created_at: String, updated_at: String, token: String, kind: String, owner_user_id: String, wishlist_id: String) -> CreateBuyerRegistryResponseData {
+    pub fn new(id: String, created_at: String, updated_at: String, owner_user_id: String, kind: String, wishlist_id: String, token: String) -> CreateBuyerRegistryResponseData {
         CreateBuyerRegistryResponseData {
             id,
             created_at,
             updated_at,
-            token,
+            owner_user_id,
             kind,
             message: None,
-            owner_user_id,
             wishlist_id,
+            token,
             event_date: None,
             ship_address_id: None,
         }

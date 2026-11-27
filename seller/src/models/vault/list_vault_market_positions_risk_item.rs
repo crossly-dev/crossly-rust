@@ -85,24 +85,24 @@ impl Default for Direction {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Long
+        Self::Short
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
-    #[serde(rename = "standard")]
-    Standard,
     #[serde(rename = "closed")]
     Closed,
+    #[serde(rename = "standard")]
+    Standard,
     #[serde(rename = "deep")]
     Deep,
     #[serde(rename = "thin")]
@@ -111,23 +111,23 @@ pub enum Tier {
 
 impl Default for Tier {
     fn default() -> Tier {
-        Self::Standard
+        Self::Closed
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MarginState {
-    #[serde(rename = "buy_in")]
-    BuyIn,
     #[serde(rename = "healthy")]
     Healthy,
     #[serde(rename = "call")]
     Call,
+    #[serde(rename = "buy_in")]
+    BuyIn,
 }
 
 impl Default for MarginState {
     fn default() -> MarginState {
-        Self::BuyIn
+        Self::Healthy
     }
 }
 

@@ -1,9 +1,23 @@
 [package]
 name = "crossly"
-version = "0.1.0"
-authors = ["OpenAPI Generator team and contributors"]
+version = "0.2.0"
+authors = ["Crossly"]
 edition = "2018"
+rust-version = "1.75"
+description = "Official Crossly seller API client (your store: listings, crossposting, orders, inventory, analytics), with webhook verification."
+license = "MIT"
+repository = "https://github.com/crossly-dev/crossly-rust"
+homepage = "https://crossly.net/docs"
+documentation = "https://docs.rs/crossly"
+readme = "README.md"
+keywords = ["crossly", "reselling", "ecommerce", "marketplace", "api"]
+categories = ["api-bindings", "web-programming::http-client"]
+exclude = ["docs/", ".openapi-generator/", ".openapi-generator-ignore", ".travis.yml", "git_push.sh", "target/"]
 
+[package.metadata.docs.rs]
+all-features = true
+
+# --- generated dependencies (openapi-generator) ---
 [dependencies]
 serde = "^1.0"
 serde_derive = "^1.0"
@@ -12,5 +26,38 @@ url = "^2.2"
 [dependencies.reqwest]
 version = "^0.11"
 features = ["json", "multipart"]
+# --- end generated dependencies ---
 
-[dev-dependencies]
+[dependencies.hmac]
+version = "0.12"
+
+[dependencies.sha2]
+version = "0.10"
+
+[dependencies.tokio]
+version = "1"
+features = ["time"]
+
+[dependencies.futures-util]
+version = "0.3"
+default-features = false
+features = ["alloc"]
+
+[dependencies.axum]
+version = "0.8"
+optional = true
+default-features = false
+
+[dependencies.actix-web]
+version = "4"
+optional = true
+default-features = false
+
+[features]
+# Webhook extractors: crossly::webhooks_http::axum_extract / actix_extract.
+axum = ["dep:axum"]
+actix-web = ["dep:actix-web"]
+
+[dev-dependencies.tokio]
+version = "1"
+features = ["macros", "rt-multi-thread"]

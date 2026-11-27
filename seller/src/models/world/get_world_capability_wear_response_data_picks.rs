@@ -15,10 +15,10 @@
 pub struct GetWorldCapabilityWearResponseDataPicks {
     #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    #[serde(rename = "legs", skip_serializing_if = "Option::is_none")]
-    pub legs: Option<String>,
     #[serde(rename = "head", skip_serializing_if = "Option::is_none")]
     pub head: Option<String>,
+    #[serde(rename = "legs", skip_serializing_if = "Option::is_none")]
+    pub legs: Option<String>,
     #[serde(rename = "feet", skip_serializing_if = "Option::is_none")]
     pub feet: Option<String>,
     #[serde(rename = "back", skip_serializing_if = "Option::is_none")]
@@ -29,8 +29,8 @@ impl GetWorldCapabilityWearResponseDataPicks {
     pub fn new() -> GetWorldCapabilityWearResponseDataPicks {
         GetWorldCapabilityWearResponseDataPicks {
             body: None,
-            legs: None,
             head: None,
+            legs: None,
             feet: None,
             back: None,
         }

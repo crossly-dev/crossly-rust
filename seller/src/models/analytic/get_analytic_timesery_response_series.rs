@@ -19,14 +19,20 @@ pub struct GetAnalyticTimeseryResponseSeries {
     pub sales: f32,
     #[serde(rename = "revenue")]
     pub revenue: f32,
+    #[serde(rename = "netSalesCents")]
+    pub net_sales_cents: f32,
+    #[serde(rename = "netProfitCents")]
+    pub net_profit_cents: f32,
 }
 
 impl GetAnalyticTimeseryResponseSeries {
-    pub fn new(day: String, sales: f32, revenue: f32) -> GetAnalyticTimeseryResponseSeries {
+    pub fn new(day: String, sales: f32, revenue: f32, net_sales_cents: f32, net_profit_cents: f32) -> GetAnalyticTimeseryResponseSeries {
         GetAnalyticTimeseryResponseSeries {
             day,
             sales,
             revenue,
+            net_sales_cents,
+            net_profit_cents,
         }
     }
 }

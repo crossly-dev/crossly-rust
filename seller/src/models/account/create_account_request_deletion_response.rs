@@ -19,14 +19,17 @@ pub struct CreateAccountRequestDeletionResponse {
     pub scheduled_for: String,
     #[serde(rename = "graceDays")]
     pub grace_days: f32,
+    #[serde(rename = "subscriptionsEnding")]
+    pub subscriptions_ending: f32,
 }
 
 impl CreateAccountRequestDeletionResponse {
-    pub fn new(id: String, scheduled_for: String, grace_days: f32) -> CreateAccountRequestDeletionResponse {
+    pub fn new(id: String, scheduled_for: String, grace_days: f32, subscriptions_ending: f32) -> CreateAccountRequestDeletionResponse {
         CreateAccountRequestDeletionResponse {
             id,
             scheduled_for,
             grace_days,
+            subscriptions_ending,
         }
     }
 }

@@ -13,14 +13,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetAccountDeletionStatusResponse {
-    #[serde(rename = "pending")]
-    pub pending: Box<crate::models::GetAccountDeletionStatusResponsePending>,
+    #[serde(rename = "pending", skip_serializing_if = "Option::is_none")]
+    pub pending: Option<Box<crate::models::GetAccountDeletionStatusResponsePending>>,
 }
 
 impl GetAccountDeletionStatusResponse {
-    pub fn new(pending: crate::models::GetAccountDeletionStatusResponsePending) -> GetAccountDeletionStatusResponse {
+    pub fn new() -> GetAccountDeletionStatusResponse {
         GetAccountDeletionStatusResponse {
-            pending: Box::new(pending),
+            pending: None,
         }
     }
 }

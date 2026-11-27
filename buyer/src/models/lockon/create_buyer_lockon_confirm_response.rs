@@ -77,12 +77,12 @@ impl CreateBuyerLockonConfirmResponse {
 pub enum IdentitySource {
     #[serde(rename = "confirmed")]
     Confirmed,
+    #[serde(rename = "barcode")]
+    Barcode,
     #[serde(rename = "visual")]
     Visual,
     #[serde(rename = "ocr")]
     Ocr,
-    #[serde(rename = "barcode")]
-    Barcode,
 }
 
 impl Default for IdentitySource {

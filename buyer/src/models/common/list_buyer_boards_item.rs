@@ -15,30 +15,30 @@
 pub struct ListBuyerBoardsItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
-    #[serde(rename = "isPublic")]
-    pub is_public: bool,
-    #[serde(rename = "itemCount")]
-    pub item_count: f32,
     #[serde(rename = "title")]
     pub title: String,
+    #[serde(rename = "isPublic")]
+    pub is_public: bool,
     #[serde(rename = "shareToken")]
     pub share_token: String,
     #[serde(rename = "coverUrl", skip_serializing_if = "Option::is_none")]
     pub cover_url: Option<String>,
+    #[serde(rename = "itemCount")]
+    pub item_count: f32,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
 }
 
 impl ListBuyerBoardsItem {
-    pub fn new(id: String, updated_at: String, is_public: bool, item_count: f32, title: String, share_token: String) -> ListBuyerBoardsItem {
+    pub fn new(id: String, title: String, is_public: bool, share_token: String, item_count: f32, updated_at: String) -> ListBuyerBoardsItem {
         ListBuyerBoardsItem {
             id,
-            updated_at,
-            is_public,
-            item_count,
             title,
+            is_public,
             share_token,
             cover_url: None,
+            item_count,
+            updated_at,
         }
     }
 }

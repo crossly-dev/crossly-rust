@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerFitVocabularyResponseDataKinds {
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "key")]
     pub key: String,
+    #[serde(rename = "label")]
+    pub label: String,
     #[serde(rename = "measures")]
     pub measures: Vec<::std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl GetBuyerFitVocabularyResponseDataKinds {
-    pub fn new(label: String, key: String, measures: Vec<::std::collections::HashMap<String, serde_json::Value>>) -> GetBuyerFitVocabularyResponseDataKinds {
+    pub fn new(key: String, label: String, measures: Vec<::std::collections::HashMap<String, serde_json::Value>>) -> GetBuyerFitVocabularyResponseDataKinds {
         GetBuyerFitVocabularyResponseDataKinds {
-            label,
             key,
+            label,
             measures,
         }
     }

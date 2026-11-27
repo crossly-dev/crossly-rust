@@ -51,17 +51,17 @@ impl CreateBuyerLockonConfirmResponseHud {
 /// `win` earned a saving, `info` found something, `none` found nothing.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tone {
-    #[serde(rename = "none")]
-    None,
     #[serde(rename = "info")]
     Info,
+    #[serde(rename = "none")]
+    None,
     #[serde(rename = "win")]
     Win,
 }
 
 impl Default for Tone {
     fn default() -> Tone {
-        Self::None
+        Self::Info
     }
 }
 

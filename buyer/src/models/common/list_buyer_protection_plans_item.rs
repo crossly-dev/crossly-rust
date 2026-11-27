@@ -15,45 +15,45 @@
 pub struct ListBuyerProtectionPlansItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
+    #[serde(rename = "purchaseId", skip_serializing_if = "Option::is_none")]
+    pub purchase_id: Option<String>,
     #[serde(rename = "status")]
     pub status: String,
     #[serde(rename = "title")]
     pub title: String,
-    #[serde(rename = "purchaseId", skip_serializing_if = "Option::is_none")]
-    pub purchase_id: Option<String>,
+    #[serde(rename = "termMonths", skip_serializing_if = "Option::is_none")]
+    pub term_months: Option<f32>,
+    #[serde(rename = "coverage", skip_serializing_if = "Option::is_none")]
+    pub coverage: Option<String>,
     #[serde(rename = "termsUrl", skip_serializing_if = "Option::is_none")]
     pub terms_url: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
     #[serde(rename = "refundCents", skip_serializing_if = "Option::is_none")]
     pub refund_cents: Option<f32>,
-    #[serde(rename = "termMonths", skip_serializing_if = "Option::is_none")]
-    pub term_months: Option<f32>,
-    #[serde(rename = "coverage", skip_serializing_if = "Option::is_none")]
-    pub coverage: Option<String>,
     #[serde(rename = "contractId", skip_serializing_if = "Option::is_none")]
     pub contract_id: Option<String>,
     #[serde(rename = "itemTitle", skip_serializing_if = "Option::is_none")]
     pub item_title: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
 }
 
 impl ListBuyerProtectionPlansItem {
-    pub fn new(id: String, created_at: String, status: String, title: String, price_cents: f32) -> ListBuyerProtectionPlansItem {
+    pub fn new(id: String, status: String, title: String, price_cents: f32, created_at: String) -> ListBuyerProtectionPlansItem {
         ListBuyerProtectionPlansItem {
             id,
-            created_at,
+            purchase_id: None,
             status,
             title,
-            purchase_id: None,
+            term_months: None,
+            coverage: None,
             terms_url: None,
             price_cents,
             refund_cents: None,
-            term_months: None,
-            coverage: None,
             contract_id: None,
             item_title: None,
+            created_at,
         }
     }
 }

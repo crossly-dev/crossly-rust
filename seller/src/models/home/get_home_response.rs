@@ -38,6 +38,8 @@ pub struct GetHomeResponse {
     pub guestbook: Vec<crate::models::GetHomeResponseGuestbook>,
     #[serde(rename = "giftShelf", skip_serializing_if = "Option::is_none")]
     pub gift_shelf: Option<Box<crate::models::GetHomeResponseGiftShelf>>,
+    #[serde(rename = "pullsShelf", skip_serializing_if = "Option::is_none")]
+    pub pulls_shelf: Option<Box<crate::models::GetHomeResponsePullsShelf>>,
     /// The owner's earned pins, rarest first, when a pin case stands here (pin-case.ts).
     #[serde(rename = "pinCase", skip_serializing_if = "Option::is_none")]
     pub pin_case: Option<Vec<crate::models::GetHomeResponsePinCase>>,
@@ -67,6 +69,7 @@ impl GetHomeResponse {
             layout,
             guestbook,
             gift_shelf: None,
+            pulls_shelf: None,
             pin_case: None,
             vault_wall: None,
             set_wall: None,
@@ -81,10 +84,10 @@ impl GetHomeResponse {
 pub enum Privacy {
     #[serde(rename = "open")]
     Open,
-    #[serde(rename = "locked")]
-    Locked,
     #[serde(rename = "friends")]
     Friends,
+    #[serde(rename = "locked")]
+    Locked,
 }
 
 impl Default for Privacy {
@@ -95,8 +98,6 @@ impl Default for Privacy {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Theme {
-    #[serde(rename = "storybook")]
-    Storybook,
     #[serde(rename = "studio")]
     Studio,
     #[serde(rename = "noir")]
@@ -105,11 +106,13 @@ pub enum Theme {
     Daylight,
     #[serde(rename = "vitrine")]
     Vitrine,
+    #[serde(rename = "storybook")]
+    Storybook,
 }
 
 impl Default for Theme {
     fn default() -> Theme {
-        Self::Storybook
+        Self::Studio
     }
 }
 

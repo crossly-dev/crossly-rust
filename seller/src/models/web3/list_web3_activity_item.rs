@@ -58,19 +58,19 @@ impl ListWeb3ActivityItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
-    #[serde(rename = "listing")]
-    Listing,
-    #[serde(rename = "offer")]
-    Offer,
     #[serde(rename = "sale")]
     Sale,
+    #[serde(rename = "offer")]
+    Offer,
+    #[serde(rename = "listing")]
+    Listing,
     #[serde(rename = "cancel")]
     Cancel,
 }
 
 impl Default for Event {
     fn default() -> Event {
-        Self::Listing
+        Self::Sale
     }
 }
 

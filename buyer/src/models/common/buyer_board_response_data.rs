@@ -15,39 +15,39 @@
 pub struct BuyerBoardResponseData {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
-    #[serde(rename = "isPublic")]
-    pub is_public: bool,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
     #[serde(rename = "title")]
     pub title: String,
-    #[serde(rename = "items")]
-    pub items: Vec<crate::models::BuyerBoardResponseDataItems>,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(rename = "isPublic")]
+    pub is_public: bool,
     #[serde(rename = "shareToken", skip_serializing_if = "Option::is_none")]
     pub share_token: Option<String>,
     #[serde(rename = "coverUrl", skip_serializing_if = "Option::is_none")]
     pub cover_url: Option<String>,
-    #[serde(rename = "mine")]
-    pub mine: bool,
     #[serde(rename = "ownerName")]
     pub owner_name: String,
+    #[serde(rename = "mine")]
+    pub mine: bool,
+    #[serde(rename = "items")]
+    pub items: Vec<crate::models::BuyerBoardResponseDataItems>,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
 }
 
 impl BuyerBoardResponseData {
-    pub fn new(id: String, updated_at: String, is_public: bool, title: String, items: Vec<crate::models::BuyerBoardResponseDataItems>, mine: bool, owner_name: String) -> BuyerBoardResponseData {
+    pub fn new(id: String, title: String, is_public: bool, owner_name: String, mine: bool, items: Vec<crate::models::BuyerBoardResponseDataItems>, updated_at: String) -> BuyerBoardResponseData {
         BuyerBoardResponseData {
             id,
-            updated_at,
-            is_public,
-            description: None,
             title,
-            items,
+            description: None,
+            is_public,
             share_token: None,
             cover_url: None,
-            mine,
             owner_name,
+            mine,
+            items,
+            updated_at,
         }
     }
 }

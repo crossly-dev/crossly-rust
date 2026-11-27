@@ -59,6 +59,9 @@ pub struct ListBuyerCatalogBrowseItem {
     /// ISO alpha-2 the seller ships from (storefront ship-from, default US) —  the tile's \"Ships from {country}\" chip when it isn't the buyer's.
     #[serde(rename = "shipsFromCountry")]
     pub ships_from_country: String,
+    /// The item has an active Crossly Passport (the tile's \"Crossly Passport\" chip, docs/PASSPORTS.md §7.4).  Optional: only the main browse query reads it; other row builders leave it out.
+    #[serde(rename = "hasPassport", skip_serializing_if = "Option::is_none")]
+    pub has_passport: Option<bool>,
     /// ISO timestamp of the sale.
     #[serde(rename = "soldAt", skip_serializing_if = "Option::is_none")]
     pub sold_at: Option<String>,
@@ -92,6 +95,7 @@ impl ListBuyerCatalogBrowseItem {
             ai_media,
             ai_media_detected,
             ships_from_country,
+            has_passport: None,
             sold_at: None,
             sold_price_cents: None,
             sold_quantity: None,

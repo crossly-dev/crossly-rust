@@ -64,31 +64,31 @@ impl GetVaultMarketValuationStatementVerifyResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Purpose {
-    #[serde(rename = "insurance")]
-    Insurance,
     #[serde(rename = "appraisal")]
     Appraisal,
+    #[serde(rename = "insurance")]
+    Insurance,
 }
 
 impl Default for Purpose {
     fn default() -> Purpose {
-        Self::Insurance
+        Self::Appraisal
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Verdict {
-    #[serde(rename = "valid")]
-    Valid,
-    #[serde(rename = "altered")]
-    Altered,
     #[serde(rename = "mismatch")]
     Mismatch,
+    #[serde(rename = "altered")]
+    Altered,
+    #[serde(rename = "valid")]
+    Valid,
 }
 
 impl Default for Verdict {
     fn default() -> Verdict {
-        Self::Valid
+        Self::Mismatch
     }
 }
 

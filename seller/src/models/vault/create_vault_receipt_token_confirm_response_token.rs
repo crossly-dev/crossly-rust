@@ -97,12 +97,12 @@ pub enum Status {
     Live,
     #[serde(rename = "expired")]
     Expired,
+    #[serde(rename = "conflict")]
+    Conflict,
     #[serde(rename = "frozen")]
     Frozen,
     #[serde(rename = "burned")]
     Burned,
-    #[serde(rename = "conflict")]
-    Conflict,
 }
 
 impl Default for Status {

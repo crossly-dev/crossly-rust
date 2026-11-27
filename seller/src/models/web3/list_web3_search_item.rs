@@ -37,8 +37,6 @@ impl ListWeb3SearchItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Chain {
-    #[serde(rename = "solana")]
-    Solana,
     #[serde(rename = "ethereum")]
     Ethereum,
     #[serde(rename = "base")]
@@ -49,11 +47,13 @@ pub enum Chain {
     Arbitrum,
     #[serde(rename = "optimism")]
     Optimism,
+    #[serde(rename = "solana")]
+    Solana,
 }
 
 impl Default for Chain {
     fn default() -> Chain {
-        Self::Solana
+        Self::Ethereum
     }
 }
 

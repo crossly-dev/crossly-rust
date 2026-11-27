@@ -13,29 +13,29 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCollectionSetResponseDataPieces {
-    #[serde(rename = "number")]
-    pub number: f32,
+    #[serde(rename = "skuId")]
+    pub sku_id: String,
     #[serde(rename = "title")]
     pub title: String,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
-    #[serde(rename = "skuId")]
-    pub sku_id: String,
-    #[serde(rename = "bestAskCents", skip_serializing_if = "Option::is_none")]
-    pub best_ask_cents: Option<f32>,
+    #[serde(rename = "number")]
+    pub number: f32,
     #[serde(rename = "owned")]
     pub owned: bool,
+    #[serde(rename = "bestAskCents", skip_serializing_if = "Option::is_none")]
+    pub best_ask_cents: Option<f32>,
 }
 
 impl GetBuyerCollectionSetResponseDataPieces {
-    pub fn new(number: f32, title: String, sku_id: String, owned: bool) -> GetBuyerCollectionSetResponseDataPieces {
+    pub fn new(sku_id: String, title: String, number: f32, owned: bool) -> GetBuyerCollectionSetResponseDataPieces {
         GetBuyerCollectionSetResponseDataPieces {
-            number,
+            sku_id,
             title,
             image_url: None,
-            sku_id,
-            best_ask_cents: None,
+            number,
             owned,
+            best_ask_cents: None,
         }
     }
 }

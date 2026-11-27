@@ -13,6 +13,8 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetVaultMarketAccountResponseGates {
+    #[serde(rename = "shares")]
+    pub shares: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
     #[serde(rename = "custody")]
     pub custody: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
     #[serde(rename = "lending")]
@@ -21,15 +23,34 @@ pub struct GetVaultMarketAccountResponseGates {
     pub leverage: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
     #[serde(rename = "staking")]
     pub staking: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
+    #[serde(rename = "shares_partner")]
+    pub shares_partner: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
+    #[serde(rename = "shares_self")]
+    pub shares_self: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
+    #[serde(rename = "options_routing")]
+    pub options_routing: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
+    #[serde(rename = "options_venue")]
+    pub options_venue: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
+    #[serde(rename = "prediction_partner")]
+    pub prediction_partner: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
+    #[serde(rename = "prediction_self")]
+    pub prediction_self: Box<crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns>,
 }
 
 impl GetVaultMarketAccountResponseGates {
-    pub fn new(custody: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, lending: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, leverage: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, staking: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns) -> GetVaultMarketAccountResponseGates {
+    pub fn new(shares: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, custody: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, lending: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, leverage: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, staking: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, shares_partner: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, shares_self: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, options_routing: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, options_venue: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, prediction_partner: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns, prediction_self: crate::models::ListVaultMarketGradeToVaultItemGatesGradingRuns) -> GetVaultMarketAccountResponseGates {
         GetVaultMarketAccountResponseGates {
+            shares: Box::new(shares),
             custody: Box::new(custody),
             lending: Box::new(lending),
             leverage: Box::new(leverage),
             staking: Box::new(staking),
+            shares_partner: Box::new(shares_partner),
+            shares_self: Box::new(shares_self),
+            options_routing: Box::new(options_routing),
+            options_venue: Box::new(options_venue),
+            prediction_partner: Box::new(prediction_partner),
+            prediction_self: Box::new(prediction_self),
         }
     }
 }

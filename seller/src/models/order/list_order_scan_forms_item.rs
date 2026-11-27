@@ -25,18 +25,18 @@ pub struct ListOrderScanFormsItem {
     pub carrier: String,
     #[serde(rename = "orderIds")]
     pub order_ids: Vec<String>,
-    #[serde(rename = "documentUrl", skip_serializing_if = "Option::is_none")]
-    pub document_url: Option<String>,
-    #[serde(rename = "shippoManifestId")]
-    pub shippo_manifest_id: String,
-    #[serde(rename = "shipDate")]
-    pub ship_date: String,
     #[serde(rename = "warnings")]
     pub warnings: Vec<String>,
+    #[serde(rename = "shipDate")]
+    pub ship_date: String,
+    #[serde(rename = "shippoManifestId")]
+    pub shippo_manifest_id: String,
+    #[serde(rename = "documentUrl", skip_serializing_if = "Option::is_none")]
+    pub document_url: Option<String>,
 }
 
 impl ListOrderScanFormsItem {
-    pub fn new(id: String, created_at: String, user_id: String, status: String, carrier: String, order_ids: Vec<String>, shippo_manifest_id: String, ship_date: String, warnings: Vec<String>) -> ListOrderScanFormsItem {
+    pub fn new(id: String, created_at: String, user_id: String, status: String, carrier: String, order_ids: Vec<String>, warnings: Vec<String>, ship_date: String, shippo_manifest_id: String) -> ListOrderScanFormsItem {
         ListOrderScanFormsItem {
             id,
             created_at,
@@ -44,10 +44,10 @@ impl ListOrderScanFormsItem {
             status,
             carrier,
             order_ids,
-            document_url: None,
-            shippo_manifest_id,
-            ship_date,
             warnings,
+            ship_date,
+            shippo_manifest_id,
+            document_url: None,
         }
     }
 }

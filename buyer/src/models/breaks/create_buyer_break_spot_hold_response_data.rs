@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerBreakSpotHoldResponseData {
-    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
-    pub slug: Option<String>,
     #[serde(rename = "heldUntil")]
     pub held_until: String,
+    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
 }
 
 impl CreateBuyerBreakSpotHoldResponseData {
     pub fn new(held_until: String) -> CreateBuyerBreakSpotHoldResponseData {
         CreateBuyerBreakSpotHoldResponseData {
-            slug: None,
             held_until,
+            slug: None,
         }
     }
 }

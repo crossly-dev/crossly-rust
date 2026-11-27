@@ -5,11 +5,13 @@ All URIs are relative to *https://crossly.net/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_account**](AccountsApi.md#create_account) | **POST** /v1/accounts | Connect a new platform account (kicks off OAuth or extension handshake).
+[**create_connection_cardnexus_api_key**](AccountsApi.md#create_connection_cardnexus_api_key) | **POST** /v1/connections/cardnexus/api-key | Connect CardNexus with a personal API key (validated live before it is stored).
 [**create_connection_email_imap**](AccountsApi.md#create_connection_email_imap) | **POST** /v1/connections/email/imap | Add an IMAP mailbox connection.
 [**create_connection_email_imap_test**](AccountsApi.md#create_connection_email_imap_test) | **POST** /v1/connections/email/imap/test | Validate IMAP credentials without persisting.
+[**create_connection_lightspeed_x_token**](AccountsApi.md#create_connection_lightspeed_x_token) | **POST** /v1/connections/lightspeed_x/token | Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
 [**create_connection_request**](AccountsApi.md#create_connection_request) | **POST** /v1/connections/{platform}/request | Express interest in a request_only platform.
 [**create_platform_account_connect**](AccountsApi.md#create_platform_account_connect) | **POST** /v1/platform-accounts/{platform}/connect | Revive or initiate connection for a cookie platform.
-[**create_platform_account_disconnect**](AccountsApi.md#create_platform_account_disconnect) | **POST** /v1/platform-accounts/{platform}/disconnect | Archive every active account row for a platform.
+[**create_platform_account_disconnect**](AccountsApi.md#create_platform_account_disconnect) | **POST** /v1/platform-accounts/{platform}/disconnect | Disconnect every account of a platform (archives the rows and deletes their stored sessions).
 [**create_platform_account_history_import**](AccountsApi.md#create_platform_account_history_import) | **POST** /v1/platform-accounts/{platform}/history-import | Set how far back to backfill order history + active listings for a platform, and run it now.
 [**create_platform_account_refresh_status**](AccountsApi.md#create_platform_account_refresh_status) | **POST** /v1/platform-accounts/refresh-status | Run on-demand healthchecks across cookie accounts.
 [**delete_account**](AccountsApi.md#delete_account) | **DELETE** /v1/accounts/{id} | Disconnect a platform account.
@@ -17,11 +19,14 @@ Method | HTTP request | Description
 [**delete_connection_email_imap**](AccountsApi.md#delete_connection_email_imap) | **DELETE** /v1/connections/email/imap/{id} | Remove an IMAP mailbox connection.
 [**get_connection_email**](AccountsApi.md#get_connection_email) | **GET** /v1/connections/email | List IMAP and email-OAuth connections.
 [**get_connection_extension_online**](AccountsApi.md#get_connection_extension_online) | **GET** /v1/connections/extension-online | Check if the browser extension is online.
+[**get_connection_policy_management_option**](AccountsApi.md#get_connection_policy_management_option) | **GET** /v1/connections/policy-management/{connectionId}/options/{source} | List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
 [**get_oauth_init**](AccountsApi.md#get_oauth_init) | **GET** /v1/oauth/{platform}/init | Return the OAuth authorize URL for an API-track platform.
 [**get_platform_limit**](AccountsApi.md#get_platform_limit) | **GET** /v1/platforms/limits | eBay free-tier + Etsy fees aggregate.
 [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List your connected platform accounts.
+[**list_connection_policy_management**](AccountsApi.md#list_connection_policy_management) | **GET** /v1/connections/policy-management | List eBay and Etsy accounts with whether Crossly manages their policies.
 [**list_connections**](AccountsApi.md#list_connections) | **GET** /v1/connections | List OAuth-connected API platforms.
 [**update_connection_email_imap**](AccountsApi.md#update_connection_email_imap) | **PATCH** /v1/connections/email/imap/{id} | Edit an IMAP mailbox connection.
+[**update_connection_policy_management**](AccountsApi.md#update_connection_policy_management) | **PUT** /v1/connections/policy-management/{connectionId} | Turn Crossly policy management on or off for one eBay or Etsy account.
 [**update_platform_preference**](AccountsApi.md#update_platform_preference) | **PATCH** /v1/platforms/{platform}/preferences | Update per-platform connection preferences.
 
 
@@ -38,6 +43,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::CreateAccountResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_connection_cardnexus_api_key
+
+> crate::models::CreateConnectionCardnexusApiKeyResponse create_connection_cardnexus_api_key()
+Connect CardNexus with a personal API key (validated live before it is stored).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateConnectionCardnexusApiKeyResponse**
 
 ### Authorization
 
@@ -96,6 +126,34 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_connection_lightspeed_x_token
+
+> crate::models::CreateConnectionLightspeedXTokenResponse create_connection_lightspeed_x_token(create_connection_lightspeed_x_token_request)
+Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_connection_lightspeed_x_token_request** | **CreateConnectionLightspeedXTokenRequest** |  | [required] |
+
+### Return type
+
+**crate::models::CreateConnectionLightspeedXTokenResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
@@ -160,7 +218,7 @@ Name | Type | Description  | Required | Notes
 ## create_platform_account_disconnect
 
 > crate::models::CreatePlatformAccountDisconnectResponse create_platform_account_disconnect(platform)
-Archive every active account row for a platform.
+Disconnect every account of a platform (archives the rows and deletes their stored sessions).
 
 ### Parameters
 
@@ -373,12 +431,43 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_connection_policy_management_option
+
+> crate::models::GetConnectionPolicyManagementOptionResponse get_connection_policy_management_option(connection_id, source)
+List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+
+For one of your managed connections, the choices a preset's `platformFields` picker offers, from the marketplace (`source` is the field's `optionsSource`, e.g. `delivery-methods`). An unknown connection or source is a 404.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connection_id** | **String** |  | [required] |
+**source** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetConnectionPolicyManagementOptionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_oauth_init
 
 > crate::models::GetOauthInitResponse get_oauth_init(platform, shop, region, site_url)
 Return the OAuth authorize URL for an API-track platform.
 
-Most platforms return `{ url }`. Etsy adds `{ correlationId }` (PKCE verifier stashed in Redis). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
+Most platforms return `{ url }` (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
 
 ### Parameters
 
@@ -456,6 +545,33 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_connection_policy_management
+
+> crate::models::ListConnectionPolicyManagementResponse list_connection_policy_management()
+List eBay and Etsy accounts with whether Crossly manages their policies.
+
+One row per connected eBay or Etsy account: `eligible` (eBay only on EBAY_US), `managed` (Crossly keeps its policies / shipping profiles in step with your default presets) and sync `notes`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListConnectionPolicyManagementResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_connections
 
 > crate::models::ListConnectionsResponse list_connections()
@@ -496,6 +612,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::SuccessResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## update_connection_policy_management
+
+> crate::models::ListConnectionPolicyManagementItem update_connection_policy_management(connection_id)
+Turn Crossly policy management on or off for one eBay or Etsy account.
+
+Body `{ managed: boolean }`. On: Crossly may overwrite that account's own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**connection_id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListConnectionPolicyManagementItem**
 
 ### Authorization
 

@@ -17,20 +17,22 @@ pub struct GetListingResponsePlatformListings {
     pub id: String,
     #[serde(rename = "userId")]
     pub user_id: String,
-    #[serde(rename = "quantity")]
-    pub quantity: f32,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "platform")]
     pub platform: String,
-    #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
-    pub error_message: Option<String>,
-    #[serde(rename = "listingId")]
-    pub listing_id: String,
-    #[serde(rename = "marketplaceId", skip_serializing_if = "Option::is_none")]
-    pub marketplace_id: Option<String>,
     #[serde(rename = "accountSlot")]
     pub account_slot: f32,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "marketplaceId", skip_serializing_if = "Option::is_none")]
+    pub marketplace_id: Option<String>,
+    #[serde(rename = "origin")]
+    pub origin: Origin,
+    #[serde(rename = "views")]
+    pub views: f32,
+    #[serde(rename = "favorites")]
+    pub favorites: f32,
+    #[serde(rename = "quantity")]
+    pub quantity: f32,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
     pub inventory_item_id: Option<String>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
@@ -39,6 +41,8 @@ pub struct GetListingResponsePlatformListings {
     pub delisted_at: Option<String>,
     #[serde(rename = "soldAt", skip_serializing_if = "Option::is_none")]
     pub sold_at: Option<String>,
+    #[serde(rename = "listingId")]
+    pub listing_id: String,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
     #[serde(rename = "platformListingUrl", skip_serializing_if = "Option::is_none")]
@@ -53,20 +57,38 @@ pub struct GetListingResponsePlatformListings {
     pub delist_reason: Option<String>,
     #[serde(rename = "lastCheckedAt", skip_serializing_if = "Option::is_none")]
     pub last_checked_at: Option<String>,
-    #[serde(rename = "views")]
-    pub views: f32,
-    #[serde(rename = "favorites")]
-    pub favorites: f32,
     #[serde(rename = "commentsCount")]
     pub comments_count: f32,
+    #[serde(rename = "impressions", skip_serializing_if = "Option::is_none")]
+    pub impressions: Option<f32>,
+    #[serde(rename = "ctrBps", skip_serializing_if = "Option::is_none")]
+    pub ctr_bps: Option<f32>,
+    #[serde(rename = "viewsSemantics", skip_serializing_if = "Option::is_none")]
+    pub views_semantics: Option<ViewsSemantics>,
     #[serde(rename = "lastStatsSyncedAt", skip_serializing_if = "Option::is_none")]
     pub last_stats_synced_at: Option<String>,
+    #[serde(rename = "errorMessage", skip_serializing_if = "Option::is_none")]
+    pub error_message: Option<String>,
+    #[serde(rename = "delistRequestedAt", skip_serializing_if = "Option::is_none")]
+    pub delist_requested_at: Option<String>,
+    #[serde(rename = "delistRequestedReason", skip_serializing_if = "Option::is_none")]
+    pub delist_requested_reason: Option<String>,
+    #[serde(rename = "delistFailedAt", skip_serializing_if = "Option::is_none")]
+    pub delist_failed_at: Option<String>,
+    #[serde(rename = "delistError", skip_serializing_if = "Option::is_none")]
+    pub delist_error: Option<String>,
+    #[serde(rename = "delistErrorCode", skip_serializing_if = "Option::is_none")]
+    pub delist_error_code: Option<String>,
     #[serde(rename = "listedPrice", skip_serializing_if = "Option::is_none")]
     pub listed_price: Option<String>,
     #[serde(rename = "crosslyPriceUsdCents", skip_serializing_if = "Option::is_none")]
     pub crossly_price_usd_cents: Option<f32>,
     #[serde(rename = "crosslyPriceFxAsOf", skip_serializing_if = "Option::is_none")]
     pub crossly_price_fx_as_of: Option<String>,
+    #[serde(rename = "bundlePromo", skip_serializing_if = "Option::is_none")]
+    pub bundle_promo: Option<Box<crate::models::GetInventoryResponsePlatformListingsBundlePromo>>,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "hashtags", skip_serializing_if = "Option::is_none")]
     pub hashtags: Option<Vec<String>>,
     #[serde(rename = "isDraft")]
@@ -105,8 +127,6 @@ pub struct GetListingResponsePlatformListings {
     pub aesthetic_tags: Option<Vec<String>>,
     #[serde(rename = "personalization", skip_serializing_if = "Option::is_none")]
     pub personalization: Option<Box<crate::models::GetInventoryResponsePlatformListingsPersonalization>>,
-    #[serde(rename = "digitalFile", skip_serializing_if = "Option::is_none")]
-    pub digital_file: Option<Box<crate::models::GetInventoryResponsePlatformListingsDigitalFile>>,
     #[serde(rename = "tryDays", skip_serializing_if = "Option::is_none")]
     pub try_days: Option<f32>,
     #[serde(rename = "tryFeeCents", skip_serializing_if = "Option::is_none")]
@@ -185,24 +205,30 @@ pub struct GetListingResponsePlatformListings {
     pub details_pending: bool,
     #[serde(rename = "publishedOverrides", skip_serializing_if = "Option::is_none")]
     pub published_overrides: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "delistState", skip_serializing_if = "Option::is_none")]
+    pub delist_state: Option<DelistState>,
+    #[serde(rename = "unmatchedSale", skip_serializing_if = "Option::is_none")]
+    pub unmatched_sale: Option<Box<crate::models::GetListingResponsePlatformListingsUnmatchedSale>>,
 }
 
 impl GetListingResponsePlatformListings {
-    pub fn new(id: String, user_id: String, quantity: f32, status: String, platform: String, listing_id: String, account_slot: f32, platform_listing_id: String, stock_location: String, views: f32, favorites: f32, comments_count: f32, is_draft: bool, is_dutch_auction: bool, is_pre_order: bool, best_offer_enabled: bool, allows_local_pickup: bool, authentication_required: bool, has_variants: bool, min_order_quantity: f32, is_gtc: bool, handling_time_days: f32, verification_failed: bool, details_pending: bool) -> GetListingResponsePlatformListings {
+    pub fn new(id: String, user_id: String, platform: String, account_slot: f32, status: String, origin: Origin, views: f32, favorites: f32, quantity: f32, listing_id: String, platform_listing_id: String, stock_location: String, comments_count: f32, is_draft: bool, is_dutch_auction: bool, is_pre_order: bool, best_offer_enabled: bool, allows_local_pickup: bool, authentication_required: bool, has_variants: bool, min_order_quantity: f32, is_gtc: bool, handling_time_days: f32, verification_failed: bool, details_pending: bool) -> GetListingResponsePlatformListings {
         GetListingResponsePlatformListings {
             id,
             user_id,
-            quantity,
-            status,
             platform,
-            error_message: None,
-            listing_id,
-            marketplace_id: None,
             account_slot,
+            status,
+            marketplace_id: None,
+            origin,
+            views,
+            favorites,
+            quantity,
             inventory_item_id: None,
             currency: None,
             delisted_at: None,
             sold_at: None,
+            listing_id,
             platform_listing_id,
             platform_listing_url: None,
             stock_location,
@@ -210,13 +236,22 @@ impl GetListingResponsePlatformListings {
             shared_at: None,
             delist_reason: None,
             last_checked_at: None,
-            views,
-            favorites,
             comments_count,
+            impressions: None,
+            ctr_bps: None,
+            views_semantics: None,
             last_stats_synced_at: None,
+            error_message: None,
+            delist_requested_at: None,
+            delist_requested_reason: None,
+            delist_failed_at: None,
+            delist_error: None,
+            delist_error_code: None,
             listed_price: None,
             crossly_price_usd_cents: None,
             crossly_price_fx_as_of: None,
+            bundle_promo: None,
+            storefront_id: None,
             hashtags: None,
             is_draft,
             scheduled_publish_at: None,
@@ -236,7 +271,6 @@ impl GetListingResponsePlatformListings {
             best_offer_auto_decline_cents: None,
             aesthetic_tags: None,
             personalization: None,
-            digital_file: None,
             try_days: None,
             try_fee_cents: None,
             subscribe_discount_bps: None,
@@ -276,8 +310,62 @@ impl GetListingResponsePlatformListings {
             verification_failed,
             details_pending,
             published_overrides: None,
+            delist_state: None,
+            unmatched_sale: None,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Origin {
+    #[serde(rename = "unknown")]
+    Unknown,
+    #[serde(rename = "published")]
+    Published,
+    #[serde(rename = "imported")]
+    Imported,
+    #[serde(rename = "external_stub")]
+    ExternalStub,
+    #[serde(rename = "app_linked")]
+    AppLinked,
+}
+
+impl Default for Origin {
+    fn default() -> Origin {
+        Self::Unknown
+    }
+}
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ViewsSemantics {
+    #[serde(rename = "lifetime")]
+    Lifetime,
+    #[serde(rename = "rolling7d")]
+    Rolling7d,
+    #[serde(rename = "rolling30d")]
+    Rolling30d,
+    #[serde(rename = "clicks")]
+    Clicks,
+}
+
+impl Default for ViewsSemantics {
+    fn default() -> ViewsSemantics {
+        Self::Lifetime
+    }
+}
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum DelistState {
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "failed")]
+    Failed,
+}
+
+impl Default for DelistState {
+    fn default() -> DelistState {
+        Self::Pending
+    }
+}
 

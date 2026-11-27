@@ -19,6 +19,7 @@ pub struct CreateEmbedKeyRequest {
     /// Origins permitted to use this key, e.g. [\"https://shop.example.com\"]. LEAVE EMPTY to allow any origin — necessary when embedding on a platform whose domain you do not control, and the reason this is not locked by default.
     #[serde(rename = "allowedOrigins", skip_serializing_if = "Option::is_none")]
     pub allowed_origins: Option<Vec<String>>,
+    /// Omit for this server's own: live on crossly.net, test on sandbox.crossly.net. The other one is refused.
     #[serde(rename = "environment", skip_serializing_if = "Option::is_none")]
     pub environment: Option<Environment>,
 }
@@ -33,7 +34,7 @@ impl CreateEmbedKeyRequest {
     }
 }
 
-/// 
+/// Omit for this server's own: live on crossly.net, test on sandbox.crossly.net. The other one is refused.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Environment {
     #[serde(rename = "live")]

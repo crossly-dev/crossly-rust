@@ -23,19 +23,19 @@ pub struct CreateTeamInviteResponse {
     pub scopes: Vec<String>,
     #[serde(rename = "expiresAt")]
     pub expires_at: String,
-    #[serde(rename = "acceptUrl")]
-    pub accept_url: String,
+    #[serde(rename = "acceptUrl", skip_serializing_if = "Option::is_none")]
+    pub accept_url: Option<String>,
 }
 
 impl CreateTeamInviteResponse {
-    pub fn new(id: String, invitee_email: String, role: Role, scopes: Vec<String>, expires_at: String, accept_url: String) -> CreateTeamInviteResponse {
+    pub fn new(id: String, invitee_email: String, role: Role, scopes: Vec<String>, expires_at: String) -> CreateTeamInviteResponse {
         CreateTeamInviteResponse {
             id,
             invitee_email,
             role,
             scopes,
             expires_at,
-            accept_url,
+            accept_url: None,
         }
     }
 }

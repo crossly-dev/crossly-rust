@@ -29,10 +29,14 @@ pub struct GetCustomerResponse {
     pub profiles: Vec<crate::models::GetCustomerResponseProfiles>,
     #[serde(rename = "stats")]
     pub stats: Box<crate::models::GetCustomerResponseStats>,
+    #[serde(rename = "notes")]
+    pub notes: String,
+    #[serde(rename = "notesUpdatedAt", skip_serializing_if = "Option::is_none")]
+    pub notes_updated_at: Option<String>,
 }
 
 impl GetCustomerResponse {
-    pub fn new(normalized_handle: String, platforms: Vec<String>, total_orders: f32, total_spent: f32, orders: Vec<crate::models::GetCustomerResponseOrders>, contact: crate::models::GetCustomerResponseContact, profiles: Vec<crate::models::GetCustomerResponseProfiles>, stats: crate::models::GetCustomerResponseStats) -> GetCustomerResponse {
+    pub fn new(normalized_handle: String, platforms: Vec<String>, total_orders: f32, total_spent: f32, orders: Vec<crate::models::GetCustomerResponseOrders>, contact: crate::models::GetCustomerResponseContact, profiles: Vec<crate::models::GetCustomerResponseProfiles>, stats: crate::models::GetCustomerResponseStats, notes: String) -> GetCustomerResponse {
         GetCustomerResponse {
             normalized_handle,
             platforms,
@@ -42,6 +46,8 @@ impl GetCustomerResponse {
             contact: Box::new(contact),
             profiles,
             stats: Box::new(stats),
+            notes,
+            notes_updated_at: None,
         }
     }
 }

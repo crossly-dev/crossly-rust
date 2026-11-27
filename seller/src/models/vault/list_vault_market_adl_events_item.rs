@@ -66,15 +66,15 @@ impl ListVaultMarketAdlEventsItem {
 /// 'unit' = closed at the bankruptcy price against an opposite position; 'cash' = a settlement-time loss covered from a profit.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "unit")]
-    Unit,
     #[serde(rename = "cash")]
     Cash,
+    #[serde(rename = "unit")]
+    Unit,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Unit
+        Self::Cash
     }
 }
 /// 'bankrupt' = your position went under water; 'counterparty' = yours was first in line.
@@ -94,15 +94,15 @@ impl Default for Role {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Side {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Side {
     fn default() -> Side {
-        Self::Long
+        Self::Short
     }
 }
 

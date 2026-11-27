@@ -17,21 +17,21 @@ pub struct ListBuyerAuctionsItem {
     pub title: String,
     #[serde(rename = "bidCount")]
     pub bid_count: f32,
-    #[serde(rename = "paid")]
-    pub paid: bool,
     #[serde(rename = "leading")]
     pub leading: bool,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
-    #[serde(rename = "endsAt", skip_serializing_if = "Option::is_none")]
-    pub ends_at: Option<String>,
+    #[serde(rename = "paid")]
+    pub paid: bool,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
+    #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
+    pub thumbnail: Option<String>,
+    #[serde(rename = "endsAt", skip_serializing_if = "Option::is_none")]
+    pub ends_at: Option<String>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
     /// Current high bid, in cents.
     #[serde(rename = "currentCents", skip_serializing_if = "Option::is_none")]
     pub current_cents: Option<f32>,
-    #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
-    pub thumbnail: Option<String>,
     /// Your highest maximum (proxy) bid, in cents.
     #[serde(rename = "myMaxCents", skip_serializing_if = "Option::is_none")]
     pub my_max_cents: Option<f32>,
@@ -41,17 +41,17 @@ pub struct ListBuyerAuctionsItem {
 }
 
 impl ListBuyerAuctionsItem {
-    pub fn new(title: String, bid_count: f32, paid: bool, leading: bool) -> ListBuyerAuctionsItem {
+    pub fn new(title: String, bid_count: f32, leading: bool, paid: bool) -> ListBuyerAuctionsItem {
         ListBuyerAuctionsItem {
             title,
             bid_count,
-            paid,
             leading,
-            status: None,
-            ends_at: None,
+            paid,
             slug: None,
-            current_cents: None,
             thumbnail: None,
+            ends_at: None,
+            status: None,
+            current_cents: None,
             my_max_cents: None,
             winning_cents: None,
         }

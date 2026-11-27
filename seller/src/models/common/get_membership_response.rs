@@ -21,6 +21,8 @@ pub struct GetMembershipResponse {
     pub started_at: Option<String>,
     #[serde(rename = "endsAt", skip_serializing_if = "Option::is_none")]
     pub ends_at: Option<String>,
+    #[serde(rename = "benefits", skip_serializing_if = "Option::is_none")]
+    pub benefits: Option<Box<crate::models::GetMembershipResponseBenefits>>,
 }
 
 impl GetMembershipResponse {
@@ -30,6 +32,7 @@ impl GetMembershipResponse {
             active,
             started_at: None,
             ends_at: None,
+            benefits: None,
         }
     }
 }
@@ -37,15 +40,15 @@ impl GetMembershipResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
-    #[serde(rename = "classic")]
-    Classic,
     #[serde(rename = "pro")]
     Pro,
+    #[serde(rename = "classic")]
+    Classic,
 }
 
 impl Default for Tier {
     fn default() -> Tier {
-        Self::Classic
+        Self::Pro
     }
 }
 

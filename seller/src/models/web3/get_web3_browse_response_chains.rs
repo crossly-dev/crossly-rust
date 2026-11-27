@@ -34,8 +34,6 @@ impl GetWeb3BrowseResponseChains {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Key {
-    #[serde(rename = "solana")]
-    Solana,
     #[serde(rename = "ethereum")]
     Ethereum,
     #[serde(rename = "base")]
@@ -46,11 +44,13 @@ pub enum Key {
     Arbitrum,
     #[serde(rename = "optimism")]
     Optimism,
+    #[serde(rename = "solana")]
+    Solana,
 }
 
 impl Default for Key {
     fn default() -> Key {
-        Self::Solana
+        Self::Ethereum
     }
 }
 

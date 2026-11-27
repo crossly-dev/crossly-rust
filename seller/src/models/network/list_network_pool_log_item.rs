@@ -17,34 +17,34 @@ pub struct ListNetworkPoolLogItem {
     pub id: String,
     #[serde(rename = "platform")]
     pub platform: String,
-    #[serde(rename = "ruleId", skip_serializing_if = "Option::is_none")]
-    pub rule_id: Option<String>,
     #[serde(rename = "actionType")]
     pub action_type: String,
     #[serde(rename = "targetUserId")]
     pub target_user_id: String,
-    #[serde(rename = "performedAt")]
-    pub performed_at: String,
+    #[serde(rename = "ruleId", skip_serializing_if = "Option::is_none")]
+    pub rule_id: Option<String>,
     #[serde(rename = "engagerUserId")]
     pub engager_user_id: String,
     #[serde(rename = "targetListingId", skip_serializing_if = "Option::is_none")]
     pub target_listing_id: Option<String>,
     #[serde(rename = "targetPlatformListingId", skip_serializing_if = "Option::is_none")]
     pub target_platform_listing_id: Option<String>,
+    #[serde(rename = "performedAt")]
+    pub performed_at: String,
 }
 
 impl ListNetworkPoolLogItem {
-    pub fn new(id: String, platform: String, action_type: String, target_user_id: String, performed_at: String, engager_user_id: String) -> ListNetworkPoolLogItem {
+    pub fn new(id: String, platform: String, action_type: String, target_user_id: String, engager_user_id: String, performed_at: String) -> ListNetworkPoolLogItem {
         ListNetworkPoolLogItem {
             id,
             platform,
-            rule_id: None,
             action_type,
             target_user_id,
-            performed_at,
+            rule_id: None,
             engager_user_id,
             target_listing_id: None,
             target_platform_listing_id: None,
+            performed_at,
         }
     }
 }

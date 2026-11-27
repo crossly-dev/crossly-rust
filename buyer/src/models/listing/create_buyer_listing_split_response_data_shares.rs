@@ -15,18 +15,18 @@
 pub struct CreateBuyerListingSplitResponseDataShares {
     #[serde(rename = "token")]
     pub token: String,
-    #[serde(rename = "position")]
-    pub position: f32,
     #[serde(rename = "shareCents")]
     pub share_cents: f32,
+    #[serde(rename = "position")]
+    pub position: f32,
 }
 
 impl CreateBuyerListingSplitResponseDataShares {
-    pub fn new(token: String, position: f32, share_cents: f32) -> CreateBuyerListingSplitResponseDataShares {
+    pub fn new(token: String, share_cents: f32, position: f32) -> CreateBuyerListingSplitResponseDataShares {
         CreateBuyerListingSplitResponseDataShares {
             token,
-            position,
             share_cents,
+            position,
         }
     }
 }

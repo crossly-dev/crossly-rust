@@ -62,10 +62,10 @@ impl GetBuyerListingCertResponseData {
 pub enum Status {
     #[serde(rename = "verified")]
     Verified,
-    #[serde(rename = "not_found")]
-    NotFound,
     #[serde(rename = "mismatch")]
     Mismatch,
+    #[serde(rename = "not_found")]
+    NotFound,
     #[serde(rename = "unchecked")]
     Unchecked,
 }

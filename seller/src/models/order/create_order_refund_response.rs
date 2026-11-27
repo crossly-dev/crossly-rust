@@ -17,13 +17,25 @@ pub struct CreateOrderRefundResponse {
     pub refund_id: String,
     #[serde(rename = "amount")]
     pub amount: f32,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "totalRefunded")]
+    pub total_refunded: f32,
+    #[serde(rename = "remaining", skip_serializing_if = "Option::is_none")]
+    pub remaining: Option<f32>,
+    #[serde(rename = "replayed")]
+    pub replayed: bool,
 }
 
 impl CreateOrderRefundResponse {
-    pub fn new(refund_id: String, amount: f32) -> CreateOrderRefundResponse {
+    pub fn new(refund_id: String, amount: f32, id: String, total_refunded: f32, replayed: bool) -> CreateOrderRefundResponse {
         CreateOrderRefundResponse {
             refund_id,
             amount,
+            id,
+            total_refunded,
+            remaining: None,
+            replayed,
         }
     }
 }

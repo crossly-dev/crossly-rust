@@ -13,10 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetAnalyticTodayResponseInbox {
-    /// Conversations not yet opened (hidden threads excluded).
+    /// Unread conversations + unopened offers — the Unread tab's rows (services/inbox/attention.ts).
     #[serde(rename = "unread")]
     pub unread: f32,
-    /// Open threads whose newest message is the buyer's.
+    /// Threads and offers waiting on the seller — the Needs reply tab's rows.
     #[serde(rename = "awaitingReply")]
     pub awaiting_reply: f32,
     /// Median hours from a buyer's question to the seller's reply, last 90 days; null below MIN_ANSWERED.

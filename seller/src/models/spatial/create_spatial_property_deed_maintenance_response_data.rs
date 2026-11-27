@@ -13,20 +13,29 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateSpatialPropertyDeedMaintenanceResponseData {
-    #[serde(rename = "paidThrough")]
-    pub paid_through: String,
-    #[serde(rename = "status")]
-    pub status: Status,
-    #[serde(rename = "paidCents")]
-    pub paid_cents: f32,
+    #[serde(rename = "requiresAction", skip_serializing_if = "Option::is_none")]
+    pub requires_action: Option<bool>,
+    #[serde(rename = "paymentId", skip_serializing_if = "Option::is_none")]
+    pub payment_id: Option<String>,
+    #[serde(rename = "clientSecret", skip_serializing_if = "Option::is_none")]
+    pub client_secret: Option<String>,
+    #[serde(rename = "paidThrough", skip_serializing_if = "Option::is_none")]
+    pub paid_through: Option<String>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Status>,
+    #[serde(rename = "paidCents", skip_serializing_if = "Option::is_none")]
+    pub paid_cents: Option<f32>,
 }
 
 impl CreateSpatialPropertyDeedMaintenanceResponseData {
-    pub fn new(paid_through: String, status: Status, paid_cents: f32) -> CreateSpatialPropertyDeedMaintenanceResponseData {
+    pub fn new() -> CreateSpatialPropertyDeedMaintenanceResponseData {
         CreateSpatialPropertyDeedMaintenanceResponseData {
-            paid_through,
-            status,
-            paid_cents,
+            requires_action: None,
+            payment_id: None,
+            client_secret: None,
+            paid_through: None,
+            status: None,
+            paid_cents: None,
         }
     }
 }
@@ -36,12 +45,12 @@ impl CreateSpatialPropertyDeedMaintenanceResponseData {
 pub enum Status {
     #[serde(rename = "active")]
     Active,
-    #[serde(rename = "foreclosed")]
-    Foreclosed,
     #[serde(rename = "grace")]
     Grace,
     #[serde(rename = "delinquent")]
     Delinquent,
+    #[serde(rename = "foreclosed")]
+    Foreclosed,
 }
 
 impl Default for Status {

@@ -15,6 +15,8 @@
 pub struct GetSpatialPropertyResponseDataDeeds {
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(rename = "plotId")]
+    pub plot_id: String,
     #[serde(rename = "address")]
     pub address: String,
     #[serde(rename = "label")]
@@ -36,9 +38,10 @@ pub struct GetSpatialPropertyResponseDataDeeds {
 }
 
 impl GetSpatialPropertyResponseDataDeeds {
-    pub fn new(id: String, address: String, label: String, price_cents: f32, maintenance_weekly_cents: f32, paid_through: String, status: Status, occupied: bool) -> GetSpatialPropertyResponseDataDeeds {
+    pub fn new(id: String, plot_id: String, address: String, label: String, price_cents: f32, maintenance_weekly_cents: f32, paid_through: String, status: Status, occupied: bool) -> GetSpatialPropertyResponseDataDeeds {
         GetSpatialPropertyResponseDataDeeds {
             id,
+            plot_id,
             address,
             label,
             price_cents,
@@ -57,12 +60,12 @@ impl GetSpatialPropertyResponseDataDeeds {
 pub enum Status {
     #[serde(rename = "active")]
     Active,
-    #[serde(rename = "foreclosed")]
-    Foreclosed,
     #[serde(rename = "grace")]
     Grace,
     #[serde(rename = "delinquent")]
     Delinquent,
+    #[serde(rename = "foreclosed")]
+    Foreclosed,
 }
 
 impl Default for Status {

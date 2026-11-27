@@ -19,55 +19,55 @@ pub struct ListVaultMarketSetGoalsItem {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "title")]
-    pub title: String,
     #[serde(rename = "category")]
     pub category: String,
+    #[serde(rename = "title")]
+    pub title: String,
     #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
     pub completed_at: Option<String>,
-    #[serde(rename = "progress")]
-    pub progress: String,
-    #[serde(rename = "brandSlug")]
-    pub brand_slug: String,
-    #[serde(rename = "modelSlug")]
-    pub model_slug: String,
     #[serde(rename = "target")]
     pub target: Box<crate::models::GetVaultMarketSetGoalResponseTarget>,
-    #[serde(rename = "held")]
-    pub held: f32,
-    #[serde(rename = "complete")]
-    pub complete: bool,
-    #[serde(rename = "href")]
-    pub href: String,
     #[serde(rename = "total")]
     pub total: f32,
-    #[serde(rename = "setFound")]
-    pub set_found: bool,
+    #[serde(rename = "href")]
+    pub href: String,
+    #[serde(rename = "brandSlug")]
+    pub brand_slug: String,
+    #[serde(rename = "progress")]
+    pub progress: String,
+    #[serde(rename = "held")]
+    pub held: f32,
+    #[serde(rename = "modelSlug")]
+    pub model_slug: String,
     #[serde(rename = "basket", skip_serializing_if = "Option::is_none")]
     pub basket: Option<Box<crate::models::ListVaultMarketSetGoalsItemBasket>>,
+    #[serde(rename = "complete")]
+    pub complete: bool,
+    #[serde(rename = "setFound")]
+    pub set_found: bool,
     #[serde(rename = "cardSetHref")]
     pub card_set_href: String,
 }
 
 impl ListVaultMarketSetGoalsItem {
-    pub fn new(id: String, created_at: String, status: Status, title: String, category: String, progress: String, brand_slug: String, model_slug: String, target: crate::models::GetVaultMarketSetGoalResponseTarget, held: f32, complete: bool, href: String, total: f32, set_found: bool, card_set_href: String) -> ListVaultMarketSetGoalsItem {
+    pub fn new(id: String, created_at: String, status: Status, category: String, title: String, target: crate::models::GetVaultMarketSetGoalResponseTarget, total: f32, href: String, brand_slug: String, progress: String, held: f32, model_slug: String, complete: bool, set_found: bool, card_set_href: String) -> ListVaultMarketSetGoalsItem {
         ListVaultMarketSetGoalsItem {
             id,
             created_at,
             status,
-            title,
             category,
+            title,
             completed_at: None,
-            progress,
-            brand_slug,
-            model_slug,
             target: Box::new(target),
-            held,
-            complete,
-            href,
             total,
-            set_found,
+            href,
+            brand_slug,
+            progress,
+            held,
+            model_slug,
             basket: None,
+            complete,
+            set_found,
             card_set_href,
         }
     }
@@ -78,10 +78,10 @@ impl ListVaultMarketSetGoalsItem {
 pub enum Status {
     #[serde(rename = "active")]
     Active,
-    #[serde(rename = "complete")]
-    Complete,
     #[serde(rename = "archived")]
     Archived,
+    #[serde(rename = "complete")]
+    Complete,
 }
 
 impl Default for Status {

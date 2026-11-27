@@ -27,6 +27,13 @@ pub struct GetBuyerCatalogListingShippingResponseServices {
     pub min_days: Option<f32>,
     #[serde(rename = "maxDays", skip_serializing_if = "Option::is_none")]
     pub max_days: Option<f32>,
+    /// Buyer pays: calculated: the carrier and service token the label is bought with, and the handling fee inside `cents`.
+    #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
+    pub carrier: Option<String>,
+    #[serde(rename = "carrierService", skip_serializing_if = "Option::is_none")]
+    pub carrier_service: Option<String>,
+    #[serde(rename = "handlingFeeCents", skip_serializing_if = "Option::is_none")]
+    pub handling_fee_cents: Option<f32>,
 }
 
 impl GetBuyerCatalogListingShippingResponseServices {
@@ -39,6 +46,9 @@ impl GetBuyerCatalogListingShippingResponseServices {
             cost_type,
             min_days: None,
             max_days: None,
+            carrier: None,
+            carrier_service: None,
+            handling_fee_cents: None,
         }
     }
 }

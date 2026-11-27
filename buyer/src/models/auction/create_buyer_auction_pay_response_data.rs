@@ -18,10 +18,10 @@ pub struct CreateBuyerAuctionPayResponseData {
     /// Stripe PaymentIntent client secret — confirm it with Stripe on the buyer's device.
     #[serde(rename = "clientSecret", skip_serializing_if = "Option::is_none")]
     pub client_secret: Option<String>,
-    #[serde(rename = "amountCents", skip_serializing_if = "Option::is_none")]
-    pub amount_cents: Option<f32>,
     #[serde(rename = "paymentIntentId", skip_serializing_if = "Option::is_none")]
     pub payment_intent_id: Option<String>,
+    #[serde(rename = "amountCents", skip_serializing_if = "Option::is_none")]
+    pub amount_cents: Option<f32>,
 }
 
 impl CreateBuyerAuctionPayResponseData {
@@ -29,8 +29,8 @@ impl CreateBuyerAuctionPayResponseData {
         CreateBuyerAuctionPayResponseData {
             paid,
             client_secret: None,
-            amount_cents: None,
             payment_intent_id: None,
+            amount_cents: None,
         }
     }
 }

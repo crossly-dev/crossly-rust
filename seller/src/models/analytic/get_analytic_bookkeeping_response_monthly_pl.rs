@@ -23,18 +23,22 @@ pub struct GetAnalyticBookkeepingResponseMonthlyPl {
     pub platform_fees: f32,
     #[serde(rename = "shippingCosts")]
     pub shipping_costs: f32,
+    /// Mileage and manual expenses.
+    #[serde(rename = "otherExpenses")]
+    pub other_expenses: f32,
     #[serde(rename = "netProfit")]
     pub net_profit: f32,
 }
 
 impl GetAnalyticBookkeepingResponseMonthlyPl {
-    pub fn new(month: f32, revenue: f32, cogs: f32, platform_fees: f32, shipping_costs: f32, net_profit: f32) -> GetAnalyticBookkeepingResponseMonthlyPl {
+    pub fn new(month: f32, revenue: f32, cogs: f32, platform_fees: f32, shipping_costs: f32, other_expenses: f32, net_profit: f32) -> GetAnalyticBookkeepingResponseMonthlyPl {
         GetAnalyticBookkeepingResponseMonthlyPl {
             month,
             revenue,
             cogs,
             platform_fees,
             shipping_costs,
+            other_expenses,
             net_profit,
         }
     }

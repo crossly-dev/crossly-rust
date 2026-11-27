@@ -26,7 +26,7 @@ pub struct ListWorldGamesItem {
     #[serde(rename = "mode")]
     pub mode: Mode,
     #[serde(rename = "players")]
-    pub players: Box<crate::models::GetWorldGameResponseDataPlayers>,
+    pub players: Box<crate::models::MinMax>,
     #[serde(rename = "places")]
     pub places: Vec<crate::models::ListWorldGamesItemPlacesItem>,
     #[serde(rename = "rating")]
@@ -48,7 +48,7 @@ pub struct ListWorldGamesItem {
 }
 
 impl ListWorldGamesItem {
-    pub fn new(id: String, slug: String, name: String, version: String, description: String, mode: Mode, players: crate::models::GetWorldGameResponseDataPlayers, places: Vec<crate::models::ListWorldGamesItemPlacesItem>, rating: Rating, rewards: Vec<crate::models::GetWorldGameResponseDataRewards>, piece: crate::models::GetWorldGameResponseDataPiece) -> ListWorldGamesItem {
+    pub fn new(id: String, slug: String, name: String, version: String, description: String, mode: Mode, players: crate::models::MinMax, places: Vec<crate::models::ListWorldGamesItemPlacesItem>, rating: Rating, rewards: Vec<crate::models::GetWorldGameResponseDataRewards>, piece: crate::models::GetWorldGameResponseDataPiece) -> ListWorldGamesItem {
         ListWorldGamesItem {
             id,
             slug,

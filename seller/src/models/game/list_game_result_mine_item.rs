@@ -60,6 +60,8 @@ pub enum Game {
     SpeedTrade,
     #[serde(rename = "break_host")]
     BreakHost,
+    #[serde(rename = "pack_break")]
+    PackBreak,
 }
 
 impl Default for Game {

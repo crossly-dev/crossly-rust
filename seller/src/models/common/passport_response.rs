@@ -14,11 +14,11 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PassportResponse {
     #[serde(rename = "data")]
-    pub data: Box<crate::models::ListPassportsItem>,
+    pub data: Box<crate::models::PassportResponseData>,
 }
 
 impl PassportResponse {
-    pub fn new(data: crate::models::ListPassportsItem) -> PassportResponse {
+    pub fn new(data: crate::models::PassportResponseData) -> PassportResponse {
         PassportResponse {
             data: Box::new(data),
         }

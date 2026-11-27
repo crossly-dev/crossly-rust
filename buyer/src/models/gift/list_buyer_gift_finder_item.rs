@@ -19,10 +19,10 @@ pub struct ListBuyerGiftFinderItem {
     pub price_cents: f32,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    #[serde(rename = "salePriceCents", skip_serializing_if = "Option::is_none")]
-    pub sale_price_cents: Option<f32>,
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
+    #[serde(rename = "salePriceCents", skip_serializing_if = "Option::is_none")]
+    pub sale_price_cents: Option<f32>,
 }
 
 impl ListBuyerGiftFinderItem {
@@ -31,8 +31,8 @@ impl ListBuyerGiftFinderItem {
             slug,
             price_cents,
             title: None,
-            sale_price_cents: None,
             thumbnail: None,
+            sale_price_cents: None,
         }
     }
 }

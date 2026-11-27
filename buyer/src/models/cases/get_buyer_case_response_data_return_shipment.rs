@@ -15,33 +15,33 @@
 pub struct GetBuyerCaseResponseDataReturnShipment {
     #[serde(rename = "trackingCode")]
     pub tracking_code: String,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<String>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
     #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
     pub carrier: Option<String>,
-    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
-    pub delivered_at: Option<String>,
-    #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
-    pub label_url: Option<String>,
     #[serde(rename = "trackingUrl", skip_serializing_if = "Option::is_none")]
     pub tracking_url: Option<String>,
+    #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
+    pub label_url: Option<String>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
     #[serde(rename = "statusDetail", skip_serializing_if = "Option::is_none")]
     pub status_detail: Option<String>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<String>,
+    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
+    pub delivered_at: Option<String>,
 }
 
 impl GetBuyerCaseResponseDataReturnShipment {
     pub fn new(tracking_code: String) -> GetBuyerCaseResponseDataReturnShipment {
         GetBuyerCaseResponseDataReturnShipment {
             tracking_code,
-            updated_at: None,
-            status: None,
             carrier: None,
-            delivered_at: None,
-            label_url: None,
             tracking_url: None,
+            label_url: None,
+            status: None,
             status_detail: None,
+            updated_at: None,
+            delivered_at: None,
         }
     }
 }

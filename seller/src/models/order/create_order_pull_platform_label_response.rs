@@ -13,23 +13,29 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateOrderPullPlatformLabelResponse {
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "persisted")]
-    pub persisted: bool,
-    #[serde(rename = "expiresInSeconds")]
-    pub expires_in_seconds: f32,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "persisted", skip_serializing_if = "Option::is_none")]
+    pub persisted: Option<bool>,
+    #[serde(rename = "expiresInSeconds", skip_serializing_if = "Option::is_none")]
+    pub expires_in_seconds: Option<f32>,
     #[serde(rename = "provenance")]
     pub provenance: Provenance,
+    #[serde(rename = "shippingLabelUrl", skip_serializing_if = "Option::is_none")]
+    pub shipping_label_url: Option<String>,
+    #[serde(rename = "trackingNumber", skip_serializing_if = "Option::is_none")]
+    pub tracking_number: Option<String>,
 }
 
 impl CreateOrderPullPlatformLabelResponse {
-    pub fn new(url: String, persisted: bool, expires_in_seconds: f32, provenance: Provenance) -> CreateOrderPullPlatformLabelResponse {
+    pub fn new(provenance: Provenance) -> CreateOrderPullPlatformLabelResponse {
         CreateOrderPullPlatformLabelResponse {
-            url,
-            persisted,
-            expires_in_seconds,
+            url: None,
+            persisted: None,
+            expires_in_seconds: None,
             provenance,
+            shipping_label_url: None,
+            tracking_number: None,
         }
     }
 }

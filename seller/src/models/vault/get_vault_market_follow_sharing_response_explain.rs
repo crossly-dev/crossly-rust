@@ -17,22 +17,22 @@ pub struct GetVaultMarketFollowSharingResponseExplain {
     pub orders: String,
     #[serde(rename = "sales")]
     pub sales: String,
-    #[serde(rename = "hallLoans")]
-    pub hall_loans: String,
     #[serde(rename = "leaderboard")]
     pub leaderboard: String,
     #[serde(rename = "deposits")]
     pub deposits: String,
+    #[serde(rename = "hallLoans")]
+    pub hall_loans: String,
 }
 
 impl GetVaultMarketFollowSharingResponseExplain {
-    pub fn new(orders: String, sales: String, hall_loans: String, leaderboard: String, deposits: String) -> GetVaultMarketFollowSharingResponseExplain {
+    pub fn new(orders: String, sales: String, leaderboard: String, deposits: String, hall_loans: String) -> GetVaultMarketFollowSharingResponseExplain {
         GetVaultMarketFollowSharingResponseExplain {
             orders,
             sales,
-            hall_loans,
             leaderboard,
             deposits,
+            hall_loans,
         }
     }
 }

@@ -33,10 +33,10 @@ impl CreateVaultMarketEntityKybResponse {
 pub enum KybStatus {
     #[serde(rename = "pending")]
     Pending,
-    #[serde(rename = "approved")]
-    Approved,
     #[serde(rename = "rejected")]
     Rejected,
+    #[serde(rename = "approved")]
+    Approved,
     #[serde(rename = "restricted")]
     Restricted,
 }

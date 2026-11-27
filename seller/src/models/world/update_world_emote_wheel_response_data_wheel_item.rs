@@ -12,6 +12,8 @@
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum UpdateWorldEmoteWheelResponseDataWheelItem {
+    #[serde(rename = "phone")]
+    Phone,
     #[serde(rename = "spin")]
     Spin,
     #[serde(rename = "wave")]
@@ -52,6 +54,60 @@ pub enum UpdateWorldEmoteWheelResponseDataWheelItem {
     HighFive,
     #[serde(rename = "handshake")]
     Handshake,
+    #[serde(rename = "facepalm")]
+    Facepalm,
+    #[serde(rename = "think")]
+    Think,
+    #[serde(rename = "laugh")]
+    Laugh,
+    #[serde(rename = "sigh")]
+    Sigh,
+    #[serde(rename = "no")]
+    No,
+    #[serde(rename = "fist_pump")]
+    FistPump,
+    #[serde(rename = "victory")]
+    Victory,
+    #[serde(rename = "yawn")]
+    Yawn,
+    #[serde(rename = "salute")]
+    Salute,
+    #[serde(rename = "big_wave")]
+    BigWave,
+    #[serde(rename = "beckon")]
+    Beckon,
+    #[serde(rename = "shush")]
+    Shush,
+    #[serde(rename = "kiss")]
+    Kiss,
+    #[serde(rename = "peace")]
+    Peace,
+    #[serde(rename = "heart")]
+    Heart,
+    #[serde(rename = "sway")]
+    Sway,
+    #[serde(rename = "vibe")]
+    Vibe,
+    #[serde(rename = "air_guitar")]
+    AirGuitar,
+    #[serde(rename = "robot")]
+    Robot,
+    #[serde(rename = "disco")]
+    Disco,
+    #[serde(rename = "gavel")]
+    Gavel,
+    #[serde(rename = "haggle")]
+    Haggle,
+    #[serde(rename = "arms_crossed")]
+    ArmsCrossed,
+    #[serde(rename = "hands_on_hips")]
+    HandsOnHips,
+    #[serde(rename = "kneel")]
+    Kneel,
+    #[serde(rename = "fist_bump")]
+    FistBump,
+    #[serde(rename = "dance_off")]
+    DanceOff,
     #[serde(rename = "showoff")]
     Showoff,
     #[serde(rename = "moment:handshake")]
@@ -66,6 +122,7 @@ pub enum UpdateWorldEmoteWheelResponseDataWheelItem {
 impl ToString for UpdateWorldEmoteWheelResponseDataWheelItem {
     fn to_string(&self) -> String {
         match self {
+            Self::Phone => String::from("phone"),
             Self::Spin => String::from("spin"),
             Self::Wave => String::from("wave"),
             Self::Point => String::from("point"),
@@ -86,6 +143,33 @@ impl ToString for UpdateWorldEmoteWheelResponseDataWheelItem {
             Self::Hug => String::from("hug"),
             Self::HighFive => String::from("high_five"),
             Self::Handshake => String::from("handshake"),
+            Self::Facepalm => String::from("facepalm"),
+            Self::Think => String::from("think"),
+            Self::Laugh => String::from("laugh"),
+            Self::Sigh => String::from("sigh"),
+            Self::No => String::from("no"),
+            Self::FistPump => String::from("fist_pump"),
+            Self::Victory => String::from("victory"),
+            Self::Yawn => String::from("yawn"),
+            Self::Salute => String::from("salute"),
+            Self::BigWave => String::from("big_wave"),
+            Self::Beckon => String::from("beckon"),
+            Self::Shush => String::from("shush"),
+            Self::Kiss => String::from("kiss"),
+            Self::Peace => String::from("peace"),
+            Self::Heart => String::from("heart"),
+            Self::Sway => String::from("sway"),
+            Self::Vibe => String::from("vibe"),
+            Self::AirGuitar => String::from("air_guitar"),
+            Self::Robot => String::from("robot"),
+            Self::Disco => String::from("disco"),
+            Self::Gavel => String::from("gavel"),
+            Self::Haggle => String::from("haggle"),
+            Self::ArmsCrossed => String::from("arms_crossed"),
+            Self::HandsOnHips => String::from("hands_on_hips"),
+            Self::Kneel => String::from("kneel"),
+            Self::FistBump => String::from("fist_bump"),
+            Self::DanceOff => String::from("dance_off"),
             Self::Showoff => String::from("showoff"),
             Self::Momenthandshake => String::from("moment:handshake"),
             Self::Momentunbox => String::from("moment:unbox"),
@@ -96,7 +180,7 @@ impl ToString for UpdateWorldEmoteWheelResponseDataWheelItem {
 
 impl Default for UpdateWorldEmoteWheelResponseDataWheelItem {
     fn default() -> UpdateWorldEmoteWheelResponseDataWheelItem {
-        Self::Spin
+        Self::Phone
     }
 }
 

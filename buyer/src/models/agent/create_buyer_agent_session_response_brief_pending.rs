@@ -45,17 +45,17 @@ impl CreateBuyerAgentSessionResponseBriefPending {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "dispute")]
-    Dispute,
-    #[serde(rename = "cancel")]
-    Cancel,
     #[serde(rename = "return")]
     _Return,
+    #[serde(rename = "cancel")]
+    Cancel,
+    #[serde(rename = "dispute")]
+    Dispute,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Dispute
+        Self::_Return
     }
 }
 

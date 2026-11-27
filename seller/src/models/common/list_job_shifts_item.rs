@@ -20,7 +20,7 @@ pub struct ListJobShiftsItem {
     #[serde(rename = "title")]
     pub title: String,
     #[serde(rename = "place")]
-    pub place: Box<crate::models::SlugName>,
+    pub place: Box<crate::models::NameSlug>,
     #[serde(rename = "startsAt")]
     pub starts_at: String,
     #[serde(rename = "endsAt")]
@@ -47,7 +47,7 @@ pub struct ListJobShiftsItem {
 }
 
 impl ListJobShiftsItem {
-    pub fn new(id: String, role: Role, title: String, place: crate::models::SlugName, starts_at: String, ends_at: String, pay_cents: f32, rail: Rail, status: Status, present_seconds: f32, required_seconds: f32, claimed_by_you: bool, posted_by_you: bool, paid: bool) -> ListJobShiftsItem {
+    pub fn new(id: String, role: Role, title: String, place: crate::models::NameSlug, starts_at: String, ends_at: String, pay_cents: f32, rail: Rail, status: Status, present_seconds: f32, required_seconds: f32, claimed_by_you: bool, posted_by_you: bool, paid: bool) -> ListJobShiftsItem {
         ListJobShiftsItem {
             id,
             role,
@@ -85,24 +85,24 @@ impl Default for Role {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Rail {
-    #[serde(rename = "bucks")]
-    Bucks,
     #[serde(rename = "cbx")]
     Cbx,
+    #[serde(rename = "bucks")]
+    Bucks,
 }
 
 impl Default for Rail {
     fn default() -> Rail {
-        Self::Bucks
+        Self::Cbx
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "open")]
-    Open,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "open")]
+    Open,
     #[serde(rename = "paid")]
     Paid,
     #[serde(rename = "claimed")]
@@ -115,7 +115,7 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Open
+        Self::Cancelled
     }
 }
 

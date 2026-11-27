@@ -15,6 +15,14 @@
 pub struct GetAnalyticItemResponseItems {
     #[serde(rename = "saleId")]
     pub sale_id: String,
+    #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
+    pub inventory_item_id: Option<String>,
+    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
+    pub listing_id: Option<String>,
+    #[serde(rename = "platformListingId", skip_serializing_if = "Option::is_none")]
+    pub platform_listing_id: Option<String>,
+    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "platformOrderId", skip_serializing_if = "Option::is_none")]
@@ -25,6 +33,8 @@ pub struct GetAnalyticItemResponseItems {
     pub item_brand: Option<String>,
     #[serde(rename = "itemSku", skip_serializing_if = "Option::is_none")]
     pub item_sku: Option<String>,
+    #[serde(rename = "detailsPending")]
+    pub details_pending: bool,
     #[serde(rename = "salePrice", skip_serializing_if = "Option::is_none")]
     pub sale_price: Option<f32>,
     #[serde(rename = "platformFee", skip_serializing_if = "Option::is_none")]
@@ -35,8 +45,8 @@ pub struct GetAnalyticItemResponseItems {
     pub cost_of_goods: Option<f32>,
     #[serde(rename = "netProfit", skip_serializing_if = "Option::is_none")]
     pub net_profit: Option<f32>,
-    #[serde(rename = "marginPct")]
-    pub margin_pct: f32,
+    #[serde(rename = "marginPct", skip_serializing_if = "Option::is_none")]
+    pub margin_pct: Option<f32>,
     #[serde(rename = "daysToSell", skip_serializing_if = "Option::is_none")]
     pub days_to_sell: Option<f32>,
     #[serde(rename = "detectedAt")]
@@ -44,20 +54,25 @@ pub struct GetAnalyticItemResponseItems {
 }
 
 impl GetAnalyticItemResponseItems {
-    pub fn new(sale_id: String, platform: String, margin_pct: f32, detected_at: String) -> GetAnalyticItemResponseItems {
+    pub fn new(sale_id: String, platform: String, details_pending: bool, detected_at: String) -> GetAnalyticItemResponseItems {
         GetAnalyticItemResponseItems {
             sale_id,
+            inventory_item_id: None,
+            listing_id: None,
+            platform_listing_id: None,
+            image_url: None,
             platform,
             platform_order_id: None,
             item_title: None,
             item_brand: None,
             item_sku: None,
+            details_pending,
             sale_price: None,
             platform_fee: None,
             shipping_cost: None,
             cost_of_goods: None,
             net_profit: None,
-            margin_pct,
+            margin_pct: None,
             days_to_sell: None,
             detected_at,
         }

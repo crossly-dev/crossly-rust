@@ -18,11 +18,11 @@ pub struct GetAnalyticDashboardResponseAvgSalePriceByPlatform {
     #[serde(rename = "avgPrice")]
     pub avg_price: f32,
     #[serde(rename = "count")]
-    pub count: String,
+    pub count: f32,
 }
 
 impl GetAnalyticDashboardResponseAvgSalePriceByPlatform {
-    pub fn new(platform: String, avg_price: f32, count: String) -> GetAnalyticDashboardResponseAvgSalePriceByPlatform {
+    pub fn new(platform: String, avg_price: f32, count: f32) -> GetAnalyticDashboardResponseAvgSalePriceByPlatform {
         GetAnalyticDashboardResponseAvgSalePriceByPlatform {
             platform,
             avg_price,

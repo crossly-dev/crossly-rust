@@ -16,26 +16,29 @@ pub struct ListInsightByPlatformItem {
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "sales")]
-    pub sales: String,
+    pub sales: f32,
     #[serde(rename = "gross_cents")]
-    pub gross_cents: String,
-    #[serde(rename = "avg_days_to_sale")]
-    pub avg_days_to_sale: f32,
-    #[serde(rename = "avg_sale_cents")]
-    pub avg_sale_cents: f32,
+    pub gross_cents: f32,
+    #[serde(rename = "avg_days_to_sale", skip_serializing_if = "Option::is_none")]
+    pub avg_days_to_sale: Option<f32>,
+    #[serde(rename = "avg_sale_cents", skip_serializing_if = "Option::is_none")]
+    pub avg_sale_cents: Option<f32>,
     #[serde(rename = "net_cents")]
-    pub net_cents: String,
+    pub net_cents: f32,
+    #[serde(rename = "net_profit_cents", skip_serializing_if = "Option::is_none")]
+    pub net_profit_cents: Option<f32>,
 }
 
 impl ListInsightByPlatformItem {
-    pub fn new(platform: String, sales: String, gross_cents: String, avg_days_to_sale: f32, avg_sale_cents: f32, net_cents: String) -> ListInsightByPlatformItem {
+    pub fn new(platform: String, sales: f32, gross_cents: f32, net_cents: f32) -> ListInsightByPlatformItem {
         ListInsightByPlatformItem {
             platform,
             sales,
             gross_cents,
-            avg_days_to_sale,
-            avg_sale_cents,
+            avg_days_to_sale: None,
+            avg_sale_cents: None,
             net_cents,
+            net_profit_cents: None,
         }
     }
 }

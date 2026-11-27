@@ -15,6 +15,8 @@
 pub struct ListVaultMarketSupplyDepositsItem {
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "vaultItemId")]
     pub vault_item_id: String,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
@@ -61,6 +63,7 @@ impl ListVaultMarketSupplyDepositsItem {
     pub fn new(id: String, vault_item_id: String, book_key: String, status: Status, unit_status: String, lend_enabled: bool, lend_when_idle: bool, created_at: String) -> ListVaultMarketSupplyDepositsItem {
         ListVaultMarketSupplyDepositsItem {
             id,
+            storefront_id: None,
             vault_item_id,
             inventory_item_id: None,
             batch_id: None,
@@ -90,18 +93,18 @@ impl ListVaultMarketSupplyDepositsItem {
 pub enum Status {
     #[serde(rename = "stored")]
     Stored,
-    #[serde(rename = "listed")]
-    Listed,
-    #[serde(rename = "inbound")]
-    Inbound,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "listed")]
+    Listed,
+    #[serde(rename = "shipped")]
+    Shipped,
+    #[serde(rename = "inbound")]
+    Inbound,
     #[serde(rename = "sold_on_book")]
     SoldOnBook,
     #[serde(rename = "channel_sold")]
     ChannelSold,
-    #[serde(rename = "shipped")]
-    Shipped,
 }
 
 impl Default for Status {

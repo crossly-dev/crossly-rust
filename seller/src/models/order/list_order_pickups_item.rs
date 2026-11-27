@@ -23,43 +23,43 @@ pub struct ListOrderPickupsItem {
     pub status: String,
     #[serde(rename = "carrier")]
     pub carrier: String,
-    #[serde(rename = "orderIds")]
-    pub order_ids: Vec<String>,
-    #[serde(rename = "shippoPickupId")]
-    pub shippo_pickup_id: String,
     #[serde(rename = "confirmation", skip_serializing_if = "Option::is_none")]
     pub confirmation: Option<String>,
-    #[serde(rename = "pickupDate")]
-    pub pickup_date: String,
+    #[serde(rename = "orderIds")]
+    pub order_ids: Vec<String>,
     #[serde(rename = "minTime")]
     pub min_time: String,
     #[serde(rename = "maxTime")]
     pub max_time: String,
+    #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
+    pub instructions: Option<String>,
+    #[serde(rename = "shippoPickupId")]
+    pub shippo_pickup_id: String,
+    #[serde(rename = "pickupDate")]
+    pub pickup_date: String,
     #[serde(rename = "confirmedStart", skip_serializing_if = "Option::is_none")]
     pub confirmed_start: Option<String>,
     #[serde(rename = "confirmedEnd", skip_serializing_if = "Option::is_none")]
     pub confirmed_end: Option<String>,
-    #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
-    pub instructions: Option<String>,
 }
 
 impl ListOrderPickupsItem {
-    pub fn new(id: String, created_at: String, user_id: String, status: String, carrier: String, order_ids: Vec<String>, shippo_pickup_id: String, pickup_date: String, min_time: String, max_time: String) -> ListOrderPickupsItem {
+    pub fn new(id: String, created_at: String, user_id: String, status: String, carrier: String, order_ids: Vec<String>, min_time: String, max_time: String, shippo_pickup_id: String, pickup_date: String) -> ListOrderPickupsItem {
         ListOrderPickupsItem {
             id,
             created_at,
             user_id,
             status,
             carrier,
-            order_ids,
-            shippo_pickup_id,
             confirmation: None,
-            pickup_date,
+            order_ids,
             min_time,
             max_time,
+            instructions: None,
+            shippo_pickup_id,
+            pickup_date,
             confirmed_start: None,
             confirmed_end: None,
-            instructions: None,
         }
     }
 }

@@ -15,6 +15,8 @@
 pub struct GetVaultMarketPortfolioResponse {
     #[serde(rename = "holdings")]
     pub holdings: Vec<crate::models::GetVaultMarketPortfolioResponseHoldings>,
+    #[serde(rename = "shares")]
+    pub shares: Box<crate::models::GetVaultMarketPortfolioResponseShares>,
     #[serde(rename = "onLoan")]
     pub on_loan: Vec<crate::models::GetVaultMarketPortfolioResponseOnLoan>,
     #[serde(rename = "totals")]
@@ -22,9 +24,10 @@ pub struct GetVaultMarketPortfolioResponse {
 }
 
 impl GetVaultMarketPortfolioResponse {
-    pub fn new(holdings: Vec<crate::models::GetVaultMarketPortfolioResponseHoldings>, on_loan: Vec<crate::models::GetVaultMarketPortfolioResponseOnLoan>, totals: crate::models::GetVaultMarketPortfolioResponseTotals) -> GetVaultMarketPortfolioResponse {
+    pub fn new(holdings: Vec<crate::models::GetVaultMarketPortfolioResponseHoldings>, shares: crate::models::GetVaultMarketPortfolioResponseShares, on_loan: Vec<crate::models::GetVaultMarketPortfolioResponseOnLoan>, totals: crate::models::GetVaultMarketPortfolioResponseTotals) -> GetVaultMarketPortfolioResponse {
         GetVaultMarketPortfolioResponse {
             holdings,
+            shares: Box::new(shares),
             on_loan,
             totals: Box::new(totals),
         }

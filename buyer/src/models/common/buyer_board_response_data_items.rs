@@ -13,20 +13,18 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BuyerBoardResponseDataItems {
-    #[serde(rename = "available")]
-    pub available: bool,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
-    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    #[serde(rename = "available")]
+    pub available: bool,
     #[serde(rename = "x")]
     pub x: f32,
     #[serde(rename = "y")]
@@ -35,22 +33,24 @@ pub struct BuyerBoardResponseDataItems {
     pub w: f32,
     #[serde(rename = "z")]
     pub z: f32,
+    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
 }
 
 impl BuyerBoardResponseDataItems {
-    pub fn new(available: bool, platform_listing_id: String, price_cents: f32, x: f32, y: f32, w: f32, z: f32) -> BuyerBoardResponseDataItems {
+    pub fn new(platform_listing_id: String, price_cents: f32, available: bool, x: f32, y: f32, w: f32, z: f32) -> BuyerBoardResponseDataItems {
         BuyerBoardResponseDataItems {
-            available,
-            title: None,
             platform_listing_id,
             slug: None,
+            title: None,
             price_cents,
-            note: None,
             image_url: None,
+            available,
             x,
             y,
             w,
             z,
+            note: None,
         }
     }
 }

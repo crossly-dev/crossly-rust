@@ -40,19 +40,19 @@ impl CreateWorldDecorRetractResponseDataInventorySpaces {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "shop")]
-    Shop,
     #[serde(rename = "home")]
     Home,
     #[serde(rename = "street")]
     Street,
+    #[serde(rename = "shop")]
+    Shop,
     #[serde(rename = "stall")]
     Stall,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Shop
+        Self::Home
     }
 }
 

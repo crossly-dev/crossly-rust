@@ -23,16 +23,19 @@ pub struct GetVaultMarketDigestPreviewResponse {
     pub offers: Vec<crate::models::GetVaultMarketDigestPreviewResponseOffers>,
     #[serde(rename = "firstMarks")]
     pub first_marks: Vec<crate::models::GetVaultMarketDigestPreviewResponseFirstMarks>,
+    #[serde(rename = "learn")]
+    pub learn: Box<crate::models::GetVaultMarketDigestPreviewResponseLearn>,
 }
 
 impl GetVaultMarketDigestPreviewResponse {
-    pub fn new(lines: Vec<String>, week: String, value: crate::models::GetVaultMarketDigestPreviewResponseValue, offers: Vec<crate::models::GetVaultMarketDigestPreviewResponseOffers>, first_marks: Vec<crate::models::GetVaultMarketDigestPreviewResponseFirstMarks>) -> GetVaultMarketDigestPreviewResponse {
+    pub fn new(lines: Vec<String>, week: String, value: crate::models::GetVaultMarketDigestPreviewResponseValue, offers: Vec<crate::models::GetVaultMarketDigestPreviewResponseOffers>, first_marks: Vec<crate::models::GetVaultMarketDigestPreviewResponseFirstMarks>, learn: crate::models::GetVaultMarketDigestPreviewResponseLearn) -> GetVaultMarketDigestPreviewResponse {
         GetVaultMarketDigestPreviewResponse {
             lines,
             week,
             value: Box::new(value),
             offers,
             first_marks,
+            learn: Box::new(learn),
         }
     }
 }

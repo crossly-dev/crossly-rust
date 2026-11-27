@@ -45,6 +45,8 @@ pub struct GetVaultMarketStatementByMonthResponse {
     pub activity: Option<Vec<crate::models::ListVaultMarketConfirmationsItem>>,
     #[serde(rename = "fees", skip_serializing_if = "Option::is_none")]
     pub fees: Option<Box<crate::models::GetVaultMarketStatementByMonthResponseOneOf1Fees>>,
+    #[serde(rename = "cash", skip_serializing_if = "Option::is_none")]
+    pub cash: Option<serde_json::Value>,
     #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
     pub notes: Option<Vec<String>>,
 }
@@ -68,6 +70,7 @@ impl GetVaultMarketStatementByMonthResponse {
             pledges: None,
             activity: None,
             fees: None,
+            cash: None,
             notes: None,
         }
     }

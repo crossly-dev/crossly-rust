@@ -64,17 +64,17 @@ impl CreateVaultMarketPortfolioMarginEnrollResponseOneOfCurrent {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum State {
-    #[serde(rename = "buy_in")]
-    BuyIn,
     #[serde(rename = "healthy")]
     Healthy,
     #[serde(rename = "call")]
     Call,
+    #[serde(rename = "buy_in")]
+    BuyIn,
 }
 
 impl Default for State {
     fn default() -> State {
-        Self::BuyIn
+        Self::Healthy
     }
 }
 

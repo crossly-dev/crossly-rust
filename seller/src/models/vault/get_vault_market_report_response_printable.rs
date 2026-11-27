@@ -13,9 +13,6 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetVaultMarketReportResponsePrintable {
-    /// Closing paragraphs, small and grey.
-    #[serde(rename = "notes")]
-    pub notes: Vec<String>,
     #[serde(rename = "title")]
     pub title: String,
     /// Small grey lines under the title (order id, date, seller…).
@@ -24,6 +21,9 @@ pub struct GetVaultMarketReportResponsePrintable {
     /// Labelled blocks: \"Shipped to\" + its lines.
     #[serde(rename = "sections")]
     pub sections: Vec<crate::models::GetVaultMarketOrderHandlingResponseSections>,
+    /// Closing paragraphs, small and grey.
+    #[serde(rename = "notes")]
+    pub notes: Vec<String>,
     #[serde(rename = "paper")]
     pub paper: Paper,
     #[serde(rename = "table", skip_serializing_if = "Option::is_none")]
@@ -33,12 +33,12 @@ pub struct GetVaultMarketReportResponsePrintable {
 }
 
 impl GetVaultMarketReportResponsePrintable {
-    pub fn new(notes: Vec<String>, title: String, meta: Vec<String>, sections: Vec<crate::models::GetVaultMarketOrderHandlingResponseSections>, paper: Paper) -> GetVaultMarketReportResponsePrintable {
+    pub fn new(title: String, meta: Vec<String>, sections: Vec<crate::models::GetVaultMarketOrderHandlingResponseSections>, notes: Vec<String>, paper: Paper) -> GetVaultMarketReportResponsePrintable {
         GetVaultMarketReportResponsePrintable {
-            notes,
             title,
             meta,
             sections,
+            notes,
             paper,
             table: None,
             qr: None,

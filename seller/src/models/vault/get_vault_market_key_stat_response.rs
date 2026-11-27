@@ -15,12 +15,15 @@
 pub struct GetVaultMarketKeyStatResponse {
     #[serde(rename = "bookKey")]
     pub book_key: String,
+    #[serde(rename = "gemRate")]
+    pub gem_rate: Box<crate::models::GetVaultMarketKeyStatResponseGemRate>,
 }
 
 impl GetVaultMarketKeyStatResponse {
-    pub fn new(book_key: String) -> GetVaultMarketKeyStatResponse {
+    pub fn new(book_key: String, gem_rate: crate::models::GetVaultMarketKeyStatResponseGemRate) -> GetVaultMarketKeyStatResponse {
         GetVaultMarketKeyStatResponse {
             book_key,
+            gem_rate: Box::new(gem_rate),
         }
     }
 }

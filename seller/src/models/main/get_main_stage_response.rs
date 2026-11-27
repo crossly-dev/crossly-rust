@@ -28,10 +28,12 @@ pub struct GetMainStageResponse {
     pub upcoming: Vec<crate::models::GetMainStageResponseUpcoming>,
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<Box<crate::models::GetMainStageResponseStream>>,
+    #[serde(rename = "house")]
+    pub house: Box<crate::models::GetMainStageResponseHouse>,
 }
 
 impl GetMainStageResponse {
-    pub fn new(slug: String, name: String, capacity: f32, here: f32, upcoming: Vec<crate::models::GetMainStageResponseUpcoming>) -> GetMainStageResponse {
+    pub fn new(slug: String, name: String, capacity: f32, here: f32, upcoming: Vec<crate::models::GetMainStageResponseUpcoming>, house: crate::models::GetMainStageResponseHouse) -> GetMainStageResponse {
         GetMainStageResponse {
             slug,
             name,
@@ -40,6 +42,7 @@ impl GetMainStageResponse {
             live: None,
             upcoming,
             stream: None,
+            house: Box::new(house),
         }
     }
 }

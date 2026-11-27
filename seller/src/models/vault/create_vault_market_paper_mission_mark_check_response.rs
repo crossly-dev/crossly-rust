@@ -43,33 +43,33 @@ impl CreateVaultMarketPaperMissionMarkCheckResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Answer {
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Answer {
     fn default() -> Answer {
-        Self::A
+        Self::C
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Quality {
     fn default() -> Quality {
-        Self::A
+        Self::C
     }
 }
 

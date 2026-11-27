@@ -72,10 +72,10 @@ impl CreateBuyerIdentifyResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
-    #[serde(rename = "identifier")]
-    Identifier,
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "identifier")]
+    Identifier,
     #[serde(rename = "visual")]
     Visual,
     #[serde(rename = "vision")]
@@ -84,7 +84,7 @@ pub enum Tier {
 
 impl Default for Tier {
     fn default() -> Tier {
-        Self::Identifier
+        Self::None
     }
 }
 /// 

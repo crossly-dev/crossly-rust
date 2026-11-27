@@ -15,24 +15,24 @@
 pub struct ListBuyerPacksItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(rename = "title")]
-    pub title: String,
     #[serde(rename = "slug")]
     pub slug: String,
-    #[serde(rename = "priceCents")]
-    pub price_cents: f32,
+    #[serde(rename = "title")]
+    pub title: String,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
-    #[serde(rename = "tiers")]
-    pub tiers: Vec<crate::models::ListBuyerPacksItemTiers>,
+    #[serde(rename = "priceCents")]
+    pub price_cents: f32,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "buybackBps")]
     pub buyback_bps: f32,
     #[serde(rename = "buybackDays")]
     pub buyback_days: f32,
+    #[serde(rename = "tiers")]
+    pub tiers: Vec<crate::models::ListBuyerPacksItemTiers>,
     #[serde(rename = "expectedValueCents")]
     pub expected_value_cents: f32,
     #[serde(rename = "openable")]
@@ -42,18 +42,18 @@ pub struct ListBuyerPacksItem {
 }
 
 impl ListBuyerPacksItem {
-    pub fn new(id: String, status: String, title: String, slug: String, price_cents: f32, tiers: Vec<crate::models::ListBuyerPacksItemTiers>, buyback_bps: f32, buyback_days: f32, expected_value_cents: f32, openable: bool, chase: Vec<crate::models::ListBuyerPacksItemChase>) -> ListBuyerPacksItem {
+    pub fn new(id: String, slug: String, title: String, price_cents: f32, status: String, buyback_bps: f32, buyback_days: f32, tiers: Vec<crate::models::ListBuyerPacksItemTiers>, expected_value_cents: f32, openable: bool, chase: Vec<crate::models::ListBuyerPacksItemChase>) -> ListBuyerPacksItem {
         ListBuyerPacksItem {
             id,
-            status,
-            description: None,
-            title,
             slug,
-            price_cents,
+            title,
+            description: None,
             image_url: None,
-            tiers,
+            price_cents,
+            status,
             buyback_bps,
             buyback_days,
+            tiers,
             expected_value_cents,
             openable,
             chase,

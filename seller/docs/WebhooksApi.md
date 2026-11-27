@@ -5,9 +5,11 @@ All URIs are relative to *https://crossly.net/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_webhook**](WebhooksApi.md#create_webhook) | **POST** /v1/webhooks | Register a webhook endpoint (returns the signing secret once).
-[**create_webhook_test**](WebhooksApi.md#create_webhook_test) | **POST** /v1/webhooks/{id}/test | Fire a synthetic test.ping delivery to one webhook.
+[**create_webhook_delivery_redeliver**](WebhooksApi.md#create_webhook_delivery_redeliver) | **POST** /v1/webhooks/{id}/deliveries/{deliveryId}/redeliver | Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+[**create_webhook_test**](WebhooksApi.md#create_webhook_test) | **POST** /v1/webhooks/{id}/test | Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
 [**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /v1/webhooks/{id} | Delete a webhook endpoint.
 [**get_webhook_stream**](WebhooksApi.md#get_webhook_stream) | **GET** /v1/webhooks/stream | Stream this account's webhook events as they happen (SSE).
+[**list_webhook_deliveries**](WebhooksApi.md#list_webhook_deliveries) | **GET** /v1/webhooks/{id}/deliveries | List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
 [**list_webhooks**](WebhooksApi.md#list_webhooks) | **GET** /v1/webhooks | List your registered webhook endpoints.
 
 
@@ -37,10 +39,39 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## create_webhook_delivery_redeliver
+
+> crate::models::CreateWebhookDeliveryRedeliverResponse create_webhook_delivery_redeliver(id, delivery_id)
+Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+**delivery_id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateWebhookDeliveryRedeliverResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## create_webhook_test
 
 > crate::models::CreateWebhookTestResponse create_webhook_test(id)
-Fire a synthetic test.ping delivery to one webhook.
+Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
 
 ### Parameters
 
@@ -116,6 +147,36 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: text/event-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_webhook_deliveries
+
+> crate::models::ListWebhookDeliveriesResponse list_webhook_deliveries(id, status, limit)
+List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+**status** | Option<**String**> |  |  |
+**limit** | Option<**i32**> |  |  |[default to 25]
+
+### Return type
+
+**crate::models::ListWebhookDeliveriesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

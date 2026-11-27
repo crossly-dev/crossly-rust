@@ -16,7 +16,7 @@ pub struct GetVaultMarketPositionResponse {
     #[serde(rename = "loans")]
     pub loans: Vec<crate::models::GetVaultMarketPositionResponseLoans>,
     #[serde(rename = "auctions")]
-    pub auctions: Vec<serde_json::Value>,
+    pub auctions: Vec<crate::models::GetVaultMarketPositionResponseAuctionsItem>,
     #[serde(rename = "instructions")]
     pub instructions: Vec<crate::models::GetVaultMarketPositionResponseInstructions>,
     #[serde(rename = "legs")]
@@ -95,7 +95,7 @@ pub struct GetVaultMarketPositionResponse {
 }
 
 impl GetVaultMarketPositionResponse {
-    pub fn new(loans: Vec<crate::models::GetVaultMarketPositionResponseLoans>, auctions: Vec<serde_json::Value>, instructions: Vec<crate::models::GetVaultMarketPositionResponseInstructions>, legs: Vec<crate::models::GetVaultMarketPositionResponseLegs>, splits: Vec<crate::models::GetVaultMarketPositionResponseSplits>, id: String, kind: Kind, status: String, book_key: String, variant_id: String, condition: String, units: f32, leverage_x100: f32, collateral_usd_cents: f32, collateral_cbx_value_cents: f32, collateral_cbx_base_units: String, loan_cents: f32, proceeds_cents: f32, fees_owed_cents: f32, fees_paid_cents: f32, interest_owed_cents: f32, interest_paid_cents: f32, collateral_state: String, settled: bool, needs_ops: bool, shortfall_unpaid_cents: f32, created_at: String) -> GetVaultMarketPositionResponse {
+    pub fn new(loans: Vec<crate::models::GetVaultMarketPositionResponseLoans>, auctions: Vec<crate::models::GetVaultMarketPositionResponseAuctionsItem>, instructions: Vec<crate::models::GetVaultMarketPositionResponseInstructions>, legs: Vec<crate::models::GetVaultMarketPositionResponseLegs>, splits: Vec<crate::models::GetVaultMarketPositionResponseSplits>, id: String, kind: Kind, status: String, book_key: String, variant_id: String, condition: String, units: f32, leverage_x100: f32, collateral_usd_cents: f32, collateral_cbx_value_cents: f32, collateral_cbx_base_units: String, loan_cents: f32, proceeds_cents: f32, fees_owed_cents: f32, fees_paid_cents: f32, interest_owed_cents: f32, interest_paid_cents: f32, collateral_state: String, settled: bool, needs_ops: bool, shortfall_unpaid_cents: f32, created_at: String) -> GetVaultMarketPositionResponse {
         GetVaultMarketPositionResponse {
             loans,
             auctions,
@@ -143,15 +143,15 @@ impl GetVaultMarketPositionResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Long
+        Self::Short
     }
 }
 

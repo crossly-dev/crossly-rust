@@ -14,10 +14,10 @@
 pub enum GetWorldGameResponseDataContestsEntryItem {
     #[serde(rename = "free")]
     Free,
-    #[serde(rename = "sponsored")]
-    Sponsored,
     #[serde(rename = "paid")]
     Paid,
+    #[serde(rename = "sponsored")]
+    Sponsored,
 
 }
 
@@ -25,8 +25,8 @@ impl ToString for GetWorldGameResponseDataContestsEntryItem {
     fn to_string(&self) -> String {
         match self {
             Self::Free => String::from("free"),
-            Self::Sponsored => String::from("sponsored"),
             Self::Paid => String::from("paid"),
+            Self::Sponsored => String::from("sponsored"),
         }
     }
 }

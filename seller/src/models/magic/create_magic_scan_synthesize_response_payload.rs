@@ -23,7 +23,7 @@ pub struct CreateMagicScanSynthesizeResponsePayload {
     #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
     pub condition: Option<Condition>,
     #[serde(rename = "grading", skip_serializing_if = "Option::is_none")]
-    pub grading: Option<Box<crate::models::ListGradingSubmissionsItemGrading>>,
+    pub grading: Option<Box<crate::models::CreateBulkBatchItemResponseGrading>>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
     #[serde(rename = "material", skip_serializing_if = "Option::is_none")]
@@ -165,10 +165,10 @@ impl CreateMagicScanSynthesizeResponsePayload {
 pub enum Condition {
     #[serde(rename = "new")]
     New,
-    #[serde(rename = "fair")]
-    Fair,
     #[serde(rename = "good")]
     Good,
+    #[serde(rename = "fair")]
+    Fair,
     #[serde(rename = "like_new")]
     LikeNew,
     #[serde(rename = "poor")]
@@ -199,15 +199,15 @@ impl Default for ShippingPaidBy {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ReturnsAccepted {
-    #[serde(rename = "yes")]
-    Yes,
     #[serde(rename = "no")]
     No,
+    #[serde(rename = "yes")]
+    Yes,
 }
 
 impl Default for ReturnsAccepted {
     fn default() -> ReturnsAccepted {
-        Self::Yes
+        Self::No
     }
 }
 

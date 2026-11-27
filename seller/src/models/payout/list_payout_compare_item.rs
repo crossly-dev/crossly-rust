@@ -68,10 +68,10 @@ impl Default for FeeSource {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ShippingSource {
-    #[serde(rename = "none")]
-    None,
     #[serde(rename = "unknown")]
     Unknown,
+    #[serde(rename = "none")]
+    None,
     #[serde(rename = "quoted")]
     Quoted,
     #[serde(rename = "platform_label")]
@@ -82,7 +82,7 @@ pub enum ShippingSource {
 
 impl Default for ShippingSource {
     fn default() -> ShippingSource {
-        Self::None
+        Self::Unknown
     }
 }
 

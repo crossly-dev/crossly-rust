@@ -13,8 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateOrderWhatnotPackageQuoteResponse {
+    /// Cents the platform charges for the change; 0 = free.
     #[serde(rename = "costCents")]
     pub cost_cents: f32,
+    /// The platform's refusal of this package, when it gives one.
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
 }

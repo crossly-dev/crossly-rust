@@ -109,21 +109,21 @@ impl ListWorldDecorCatalogueItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Surface {
-    #[serde(rename = "shop")]
-    Shop,
     #[serde(rename = "home")]
     Home,
     #[serde(rename = "street")]
     Street,
-    #[serde(rename = "stall")]
-    Stall,
+    #[serde(rename = "shop")]
+    Shop,
     #[serde(rename = "avatar")]
     Avatar,
+    #[serde(rename = "stall")]
+    Stall,
 }
 
 impl Default for Surface {
     fn default() -> Surface {
-        Self::Shop
+        Self::Home
     }
 }
 

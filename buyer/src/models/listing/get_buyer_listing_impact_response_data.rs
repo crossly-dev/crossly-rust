@@ -13,26 +13,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerListingImpactResponseData {
-    #[serde(rename = "source")]
-    pub source: String,
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "key")]
     pub key: String,
+    #[serde(rename = "label")]
+    pub label: String,
     #[serde(rename = "co2Kg", skip_serializing_if = "Option::is_none")]
     pub co2_kg: Option<f32>,
     #[serde(rename = "waterL", skip_serializing_if = "Option::is_none")]
     pub water_l: Option<f32>,
+    #[serde(rename = "source")]
+    pub source: String,
 }
 
 impl GetBuyerListingImpactResponseData {
-    pub fn new(source: String, label: String, key: String) -> GetBuyerListingImpactResponseData {
+    pub fn new(key: String, label: String, source: String) -> GetBuyerListingImpactResponseData {
         GetBuyerListingImpactResponseData {
-            source,
-            label,
             key,
+            label,
             co2_kg: None,
             water_l: None,
+            source,
         }
     }
 }

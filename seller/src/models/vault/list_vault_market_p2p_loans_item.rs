@@ -124,24 +124,24 @@ impl Default for Role {
 pub enum Status {
     #[serde(rename = "active")]
     Active,
-    #[serde(rename = "funding")]
-    Funding,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "funding")]
+    Funding,
     #[serde(rename = "auction")]
     Auction,
+    #[serde(rename = "repaid")]
+    Repaid,
+    #[serde(rename = "foreclosed")]
+    Foreclosed,
     #[serde(rename = "repaying")]
     Repaying,
     #[serde(rename = "refinancing")]
     Refinancing,
     #[serde(rename = "refi_pending")]
     RefiPending,
-    #[serde(rename = "repaid")]
-    Repaid,
     #[serde(rename = "refinanced")]
     Refinanced,
-    #[serde(rename = "foreclosed")]
-    Foreclosed,
 }
 
 impl Default for Status {

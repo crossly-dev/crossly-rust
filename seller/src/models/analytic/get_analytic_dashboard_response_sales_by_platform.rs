@@ -16,13 +16,13 @@ pub struct GetAnalyticDashboardResponseSalesByPlatform {
     #[serde(rename = "platform")]
     pub platform: String,
     #[serde(rename = "count")]
-    pub count: String,
+    pub count: f32,
     #[serde(rename = "revenue")]
     pub revenue: f32,
 }
 
 impl GetAnalyticDashboardResponseSalesByPlatform {
-    pub fn new(platform: String, count: String, revenue: f32) -> GetAnalyticDashboardResponseSalesByPlatform {
+    pub fn new(platform: String, count: f32, revenue: f32) -> GetAnalyticDashboardResponseSalesByPlatform {
         GetAnalyticDashboardResponseSalesByPlatform {
             platform,
             count,

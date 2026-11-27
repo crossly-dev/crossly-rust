@@ -13,26 +13,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerSellerClubJoinResponseDataMember {
-    #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
-    pub tier: Option<String>,
-    #[serde(rename = "joinedAt")]
-    pub joined_at: String,
-    #[serde(rename = "discountBps")]
-    pub discount_bps: f32,
     #[serde(rename = "spendCents")]
     pub spend_cents: f32,
+    #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
+    pub tier: Option<String>,
+    #[serde(rename = "discountBps")]
+    pub discount_bps: f32,
     #[serde(rename = "next", skip_serializing_if = "Option::is_none")]
     pub next: Option<Box<crate::models::CreateBuyerSellerClubJoinResponseDataMemberNext>>,
+    #[serde(rename = "joinedAt")]
+    pub joined_at: String,
 }
 
 impl CreateBuyerSellerClubJoinResponseDataMember {
-    pub fn new(joined_at: String, discount_bps: f32, spend_cents: f32) -> CreateBuyerSellerClubJoinResponseDataMember {
+    pub fn new(spend_cents: f32, discount_bps: f32, joined_at: String) -> CreateBuyerSellerClubJoinResponseDataMember {
         CreateBuyerSellerClubJoinResponseDataMember {
-            tier: None,
-            joined_at,
-            discount_bps,
             spend_cents,
+            tier: None,
+            discount_bps,
             next: None,
+            joined_at,
         }
     }
 }

@@ -23,16 +23,16 @@ pub struct CreateNftMarketListingResponseListing {
     pub status: String,
     #[serde(rename = "soldAt", skip_serializing_if = "Option::is_none")]
     pub sold_at: Option<String>,
-    #[serde(rename = "sellerUserId", skip_serializing_if = "Option::is_none")]
-    pub seller_user_id: Option<String>,
     #[serde(rename = "buyerUserId", skip_serializing_if = "Option::is_none")]
     pub buyer_user_id: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
-    #[serde(rename = "merchantId")]
-    pub merchant_id: String,
+    #[serde(rename = "sellerUserId", skip_serializing_if = "Option::is_none")]
+    pub seller_user_id: Option<String>,
     #[serde(rename = "cosmeticId")]
     pub cosmetic_id: String,
+    #[serde(rename = "merchantId")]
+    pub merchant_id: String,
     #[serde(rename = "ownershipId")]
     pub ownership_id: String,
     #[serde(rename = "sellerSubjectId")]
@@ -42,18 +42,18 @@ pub struct CreateNftMarketListingResponseListing {
 }
 
 impl CreateNftMarketListingResponseListing {
-    pub fn new(id: String, created_at: String, updated_at: String, status: String, price_cents: f32, merchant_id: String, cosmetic_id: String, ownership_id: String, seller_subject_id: String) -> CreateNftMarketListingResponseListing {
+    pub fn new(id: String, created_at: String, updated_at: String, status: String, price_cents: f32, cosmetic_id: String, merchant_id: String, ownership_id: String, seller_subject_id: String) -> CreateNftMarketListingResponseListing {
         CreateNftMarketListingResponseListing {
             id,
             created_at,
             updated_at,
             status,
             sold_at: None,
-            seller_user_id: None,
             buyer_user_id: None,
             price_cents,
-            merchant_id,
+            seller_user_id: None,
             cosmetic_id,
+            merchant_id,
             ownership_id,
             seller_subject_id,
             tx_sig: None,

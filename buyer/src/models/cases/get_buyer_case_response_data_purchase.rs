@@ -15,10 +15,10 @@
 pub struct GetBuyerCaseResponseDataPurchase {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "buyerPaidCents")]
     pub buyer_paid_cents: f32,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "refundStatus", skip_serializing_if = "Option::is_none")]
     pub refund_status: Option<String>,
     #[serde(rename = "refundAmountCents", skip_serializing_if = "Option::is_none")]
@@ -26,11 +26,11 @@ pub struct GetBuyerCaseResponseDataPurchase {
 }
 
 impl GetBuyerCaseResponseDataPurchase {
-    pub fn new(id: String, status: String, buyer_paid_cents: f32) -> GetBuyerCaseResponseDataPurchase {
+    pub fn new(id: String, buyer_paid_cents: f32, status: String) -> GetBuyerCaseResponseDataPurchase {
         GetBuyerCaseResponseDataPurchase {
             id,
-            status,
             buyer_paid_cents,
+            status,
             refund_status: None,
             refund_amount_cents: None,
         }

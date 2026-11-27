@@ -13,6 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetAnalyticBookkeepingResponseAnnualTotals {
+    #[serde(rename = "grossSales")]
+    pub gross_sales: f32,
+    #[serde(rename = "refunds")]
+    pub refunds: f32,
     #[serde(rename = "revenue")]
     pub revenue: f32,
     #[serde(rename = "cogs")]
@@ -21,17 +25,25 @@ pub struct GetAnalyticBookkeepingResponseAnnualTotals {
     pub platform_fees: f32,
     #[serde(rename = "shippingCosts")]
     pub shipping_costs: f32,
+    #[serde(rename = "mileage")]
+    pub mileage: f32,
+    #[serde(rename = "otherExpenses")]
+    pub other_expenses: f32,
     #[serde(rename = "netProfit")]
     pub net_profit: f32,
 }
 
 impl GetAnalyticBookkeepingResponseAnnualTotals {
-    pub fn new(revenue: f32, cogs: f32, platform_fees: f32, shipping_costs: f32, net_profit: f32) -> GetAnalyticBookkeepingResponseAnnualTotals {
+    pub fn new(gross_sales: f32, refunds: f32, revenue: f32, cogs: f32, platform_fees: f32, shipping_costs: f32, mileage: f32, other_expenses: f32, net_profit: f32) -> GetAnalyticBookkeepingResponseAnnualTotals {
         GetAnalyticBookkeepingResponseAnnualTotals {
+            gross_sales,
+            refunds,
             revenue,
             cogs,
             platform_fees,
             shipping_costs,
+            mileage,
+            other_expenses,
             net_profit,
         }
     }

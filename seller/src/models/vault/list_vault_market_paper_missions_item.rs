@@ -58,8 +58,6 @@ impl ListVaultMarketPaperMissionsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Key {
-    #[serde(rename = "round_trip")]
-    RoundTrip,
     #[serde(rename = "first_fill")]
     FirstFill,
     #[serde(rename = "read_mark")]
@@ -72,13 +70,23 @@ pub enum Key {
     InstantExit,
     #[serde(rename = "price_watch")]
     PriceWatch,
+    #[serde(rename = "round_trip")]
+    RoundTrip,
     #[serde(rename = "mini_set")]
     MiniSet,
+    #[serde(rename = "share_first")]
+    ShareFirst,
+    #[serde(rename = "share_queue")]
+    ShareQueue,
+    #[serde(rename = "option_first")]
+    OptionFirst,
+    #[serde(rename = "option_expiry")]
+    OptionExpiry,
 }
 
 impl Default for Key {
     fn default() -> Key {
-        Self::RoundTrip
+        Self::FirstFill
     }
 }
 /// 
@@ -86,14 +94,14 @@ impl Default for Key {
 pub enum Action {
     #[serde(rename = "market")]
     Market,
-    #[serde(rename = "assistant")]
-    Assistant,
     #[serde(rename = "paper")]
     Paper,
-    #[serde(rename = "mark_check")]
-    MarkCheck,
+    #[serde(rename = "assistant")]
+    Assistant,
     #[serde(rename = "sets")]
     Sets,
+    #[serde(rename = "mark_check")]
+    MarkCheck,
 }
 
 impl Default for Action {
@@ -108,6 +116,8 @@ pub enum Learn {
     InstantExit,
     #[serde(rename = "marks")]
     Marks,
+    #[serde(rename = "vault-shares")]
+    VaultShares,
 }
 
 impl Default for Learn {

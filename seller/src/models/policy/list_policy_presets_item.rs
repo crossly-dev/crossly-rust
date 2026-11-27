@@ -13,6 +13,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListPolicyPresetsItem {
+    #[serde(rename = "summary")]
+    pub summary: String,
+    #[serde(rename = "incomplete")]
+    pub incomplete: bool,
+    #[serde(rename = "listingCount")]
+    pub listing_count: f32,
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "name")]
@@ -27,11 +33,18 @@ pub struct ListPolicyPresetsItem {
     pub is_default: bool,
     #[serde(rename = "kind")]
     pub kind: String,
+    #[serde(rename = "revision")]
+    pub revision: f32,
+    #[serde(rename = "hasDomesticRules")]
+    pub has_domestic_rules: bool,
 }
 
 impl ListPolicyPresetsItem {
-    pub fn new(id: String, name: String, created_at: String, updated_at: String, user_id: String, is_default: bool, kind: String) -> ListPolicyPresetsItem {
+    pub fn new(summary: String, incomplete: bool, listing_count: f32, id: String, name: String, created_at: String, updated_at: String, user_id: String, is_default: bool, kind: String, revision: f32, has_domestic_rules: bool) -> ListPolicyPresetsItem {
         ListPolicyPresetsItem {
+            summary,
+            incomplete,
+            listing_count,
             id,
             name,
             created_at,
@@ -39,6 +52,8 @@ impl ListPolicyPresetsItem {
             user_id,
             is_default,
             kind,
+            revision,
+            has_domestic_rules,
         }
     }
 }

@@ -13,25 +13,72 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateOrderCancelResponse {
-    #[serde(rename = "orderId")]
-    pub order_id: String,
+    /// The marketplace outcome, or already_cancelled when the order was cancelled before this call.
+    #[serde(rename = "platformCancel")]
+    pub platform_cancel: PlatformCancel,
+    #[serde(rename = "refund", skip_serializing_if = "Option::is_none")]
+    pub refund: Option<Box<crate::models::CreateOrderCancelResponseRefund>>,
     #[serde(rename = "platform")]
     pub platform: String,
+    #[serde(rename = "orderId")]
+    pub order_id: String,
+    /// The platform's error, VERBATIM. Deliberately not summarised — the marketplace names what it objected to, and summarising throws that away. eBay reason codes are now fetched per order via checkCancelEligibility rather than guessed, but a rejection can still happen (order state changed between the probe and the cancel), and this is how it gets diagnosed.
+    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    /// Cookie track only.
+    #[serde(rename = "jobId", skip_serializing_if = "Option::is_none")]
+    pub job_id: Option<String>,
+    /// True unless the cancel was relayed to the managing app (then false until it completes).
     #[serde(rename = "cancelledInCrossly")]
     pub cancelled_in_crossly: bool,
-    #[serde(rename = "platformCancel")]
-    pub platform_cancel: String,
+    /// platformCancel 'relayed': the app command tracking it.
+    #[serde(rename = "commandId", skip_serializing_if = "Option::is_none")]
+    pub command_id: Option<String>,
+    /// Platform payload (e.g. eBay's cancellationId) when it answered.
+    #[serde(rename = "platformResult", skip_serializing_if = "Option::is_none")]
+    pub platform_result: Option<::std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl CreateOrderCancelResponse {
-    pub fn new(order_id: String, platform: String, cancelled_in_crossly: bool, platform_cancel: String) -> CreateOrderCancelResponse {
+    pub fn new(platform_cancel: PlatformCancel, platform: String, order_id: String, cancelled_in_crossly: bool) -> CreateOrderCancelResponse {
         CreateOrderCancelResponse {
-            order_id,
-            platform,
-            cancelled_in_crossly,
             platform_cancel,
+            refund: None,
+            platform,
+            order_id,
+            error: None,
+            job_id: None,
+            cancelled_in_crossly,
+            command_id: None,
+            platform_result: None,
         }
     }
 }
 
+/// The marketplace outcome, or already_cancelled when the order was cancelled before this call.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum PlatformCancel {
+    #[serde(rename = "sent")]
+    Sent,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "queued")]
+    Queued,
+    #[serde(rename = "relayed")]
+    Relayed,
+    #[serde(rename = "unsupported")]
+    Unsupported,
+    #[serde(rename = "no_platform_order_id")]
+    NoPlatformOrderId,
+    #[serde(rename = "recorded_only")]
+    RecordedOnly,
+    #[serde(rename = "already_cancelled")]
+    AlreadyCancelled,
+}
+
+impl Default for PlatformCancel {
+    fn default() -> PlatformCancel {
+        Self::Sent
+    }
+}
 

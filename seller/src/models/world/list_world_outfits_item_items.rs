@@ -42,10 +42,10 @@ impl ListWorldOutfitsItemItems {
 pub enum Door {
     #[serde(rename = "receipt")]
     Receipt,
-    #[serde(rename = "cosmetic")]
-    Cosmetic,
     #[serde(rename = "stock")]
     Stock,
+    #[serde(rename = "cosmetic")]
+    Cosmetic,
 }
 
 impl Default for Door {

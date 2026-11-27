@@ -39,15 +39,15 @@ impl GetVariationGroupPublishPlanResponsePlans {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {
-    #[serde(rename = "grouped")]
-    Grouped,
     #[serde(rename = "separate")]
     Separate,
+    #[serde(rename = "grouped")]
+    Grouped,
 }
 
 impl Default for Mode {
     fn default() -> Mode {
-        Self::Grouped
+        Self::Separate
     }
 }
 

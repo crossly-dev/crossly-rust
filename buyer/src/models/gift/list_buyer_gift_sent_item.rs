@@ -15,39 +15,39 @@
 pub struct ListBuyerGiftSentItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "openedAt", skip_serializing_if = "Option::is_none")]
-    pub opened_at: Option<String>,
-    #[serde(rename = "revealedAt", skip_serializing_if = "Option::is_none")]
-    pub revealed_at: Option<String>,
-    #[serde(rename = "recipientEmail")]
-    pub recipient_email: String,
     #[serde(rename = "recipientName")]
     pub recipient_name: String,
+    #[serde(rename = "recipientEmail")]
+    pub recipient_email: String,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "teaserSentAt", skip_serializing_if = "Option::is_none")]
     pub teaser_sent_at: Option<String>,
+    #[serde(rename = "revealedAt", skip_serializing_if = "Option::is_none")]
+    pub revealed_at: Option<String>,
+    #[serde(rename = "openedAt", skip_serializing_if = "Option::is_none")]
+    pub opened_at: Option<String>,
     #[serde(rename = "thanksMessage", skip_serializing_if = "Option::is_none")]
     pub thanks_message: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    #[serde(rename = "url")]
+    pub url: String,
 }
 
 impl ListBuyerGiftSentItem {
-    pub fn new(id: String, created_at: String, status: String, url: String, recipient_email: String, recipient_name: String) -> ListBuyerGiftSentItem {
+    pub fn new(id: String, recipient_name: String, recipient_email: String, status: String, created_at: String, url: String) -> ListBuyerGiftSentItem {
         ListBuyerGiftSentItem {
             id,
-            created_at,
-            status,
-            url,
-            opened_at: None,
-            revealed_at: None,
-            recipient_email,
             recipient_name,
+            recipient_email,
+            status,
             teaser_sent_at: None,
+            revealed_at: None,
+            opened_at: None,
             thanks_message: None,
+            created_at,
+            url,
         }
     }
 }

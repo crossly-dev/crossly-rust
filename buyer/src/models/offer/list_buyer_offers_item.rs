@@ -15,14 +15,6 @@
 pub struct ListBuyerOffersItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "expiresAt")]
-    pub expires_at: String,
-    #[serde(rename = "isBundle")]
-    pub is_bundle: bool,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
     #[serde(rename = "sellerUserId")]
@@ -30,56 +22,64 @@ pub struct ListBuyerOffersItem {
     /// The offer amount for the whole set, in cents.
     #[serde(rename = "amountCents")]
     pub amount_cents: f32,
-    #[serde(rename = "expired")]
-    pub expired: bool,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "expiresAt")]
+    pub expires_at: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
     #[serde(rename = "items")]
     pub items: Vec<crate::models::ListBuyerOffersItemItems>,
-    /// A seller counter waiting on YOU: accept, decline or counter back.
-    #[serde(rename = "awaitingBuyer")]
-    pub awaiting_buyer: bool,
+    #[serde(rename = "isBundle")]
+    pub is_bundle: bool,
     /// Accepted, unpaid, unexpired and every item still live — pay for it now.
     #[serde(rename = "redeemable")]
     pub redeemable: bool,
-    #[serde(rename = "decidedAt", skip_serializing_if = "Option::is_none")]
-    pub decided_at: Option<String>,
+    #[serde(rename = "expired")]
+    pub expired: bool,
+    /// A seller counter waiting on YOU: accept, decline or counter back.
+    #[serde(rename = "awaitingBuyer")]
+    pub awaiting_buyer: bool,
+    #[serde(rename = "platformListingIds", skip_serializing_if = "Option::is_none")]
+    pub platform_listing_ids: Option<Vec<String>>,
+    /// Asking-price total when the offer was made, in cents.
+    #[serde(rename = "listedTotalCents", skip_serializing_if = "Option::is_none")]
+    pub listed_total_cents: Option<f32>,
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     #[serde(rename = "parentOfferId", skip_serializing_if = "Option::is_none")]
     pub parent_offer_id: Option<String>,
-    #[serde(rename = "platformListingIds", skip_serializing_if = "Option::is_none")]
-    pub platform_listing_ids: Option<Vec<String>>,
-    #[serde(rename = "consumedAt", skip_serializing_if = "Option::is_none")]
-    pub consumed_at: Option<String>,
-    /// Asking-price total when the offer was made, in cents.
-    #[serde(rename = "listedTotalCents", skip_serializing_if = "Option::is_none")]
-    pub listed_total_cents: Option<f32>,
     /// null = you made it; seller_counter / buyer_counter / second_chance / seller_offer (to watchers) / live_auction otherwise.
     #[serde(rename = "origin", skip_serializing_if = "Option::is_none")]
     pub origin: Option<String>,
+    #[serde(rename = "decidedAt", skip_serializing_if = "Option::is_none")]
+    pub decided_at: Option<String>,
+    #[serde(rename = "consumedAt", skip_serializing_if = "Option::is_none")]
+    pub consumed_at: Option<String>,
 }
 
 impl ListBuyerOffersItem {
-    pub fn new(id: String, created_at: String, status: String, expires_at: String, is_bundle: bool, platform_listing_id: String, seller_user_id: String, amount_cents: f32, expired: bool, items: Vec<crate::models::ListBuyerOffersItemItems>, awaiting_buyer: bool, redeemable: bool) -> ListBuyerOffersItem {
+    pub fn new(id: String, platform_listing_id: String, seller_user_id: String, amount_cents: f32, status: String, expires_at: String, created_at: String, items: Vec<crate::models::ListBuyerOffersItemItems>, is_bundle: bool, redeemable: bool, expired: bool, awaiting_buyer: bool) -> ListBuyerOffersItem {
         ListBuyerOffersItem {
             id,
-            created_at,
-            status,
-            expires_at,
-            is_bundle,
             platform_listing_id,
             seller_user_id,
             amount_cents,
-            expired,
+            status,
+            expires_at,
+            created_at,
             items,
-            awaiting_buyer,
+            is_bundle,
             redeemable,
-            decided_at: None,
+            expired,
+            awaiting_buyer,
+            platform_listing_ids: None,
+            listed_total_cents: None,
             message: None,
             parent_offer_id: None,
-            platform_listing_ids: None,
-            consumed_at: None,
-            listed_total_cents: None,
             origin: None,
+            decided_at: None,
+            consumed_at: None,
         }
     }
 }

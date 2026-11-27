@@ -23,6 +23,8 @@ pub struct ListBuyerCartItem {
     pub quantity: f32,
     #[serde(rename = "unitPriceCents")]
     pub unit_price_cents: f32,
+    #[serde(rename = "listingVariantId", skip_serializing_if = "Option::is_none")]
+    pub listing_variant_id: Option<String>,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
@@ -39,6 +41,7 @@ impl ListBuyerCartItem {
             platform_listing_id,
             quantity,
             unit_price_cents,
+            listing_variant_id: None,
             slug: None,
             title: None,
             listing_status: None,

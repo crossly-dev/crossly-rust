@@ -46,25 +46,25 @@ impl CreateCbxDisbursementRuleCheckResponseData {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Outcome {
-    #[serde(rename = "fired")]
-    Fired,
     #[serde(rename = "coverage")]
     Coverage,
-    #[serde(rename = "no_price")]
-    NoPrice,
-    #[serde(rename = "below_threshold")]
-    BelowThreshold,
     #[serde(rename = "cadence")]
     Cadence,
-    #[serde(rename = "no_recipients")]
-    NoRecipients,
+    #[serde(rename = "no_price")]
+    NoPrice,
     #[serde(rename = "inactive")]
     Inactive,
+    #[serde(rename = "fired")]
+    Fired,
+    #[serde(rename = "below_threshold")]
+    BelowThreshold,
+    #[serde(rename = "no_recipients")]
+    NoRecipients,
 }
 
 impl Default for Outcome {
     fn default() -> Outcome {
-        Self::Fired
+        Self::Coverage
     }
 }
 

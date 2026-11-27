@@ -14,11 +14,11 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct UpdateInboxConversationResponse {
     #[serde(rename = "conversation")]
-    pub conversation: Box<crate::models::ListInboxItem>,
+    pub conversation: Box<crate::models::UpdateInboxConversationResponseConversation>,
 }
 
 impl UpdateInboxConversationResponse {
-    pub fn new(conversation: crate::models::ListInboxItem) -> UpdateInboxConversationResponse {
+    pub fn new(conversation: crate::models::UpdateInboxConversationResponseConversation) -> UpdateInboxConversationResponse {
         UpdateInboxConversationResponse {
             conversation: Box::new(conversation),
         }

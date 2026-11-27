@@ -1,3 +1,7 @@
+pub mod create_variation_group_generate_matrix_response;
+pub use self::create_variation_group_generate_matrix_response::CreateVariationGroupGenerateMatrixResponse;
+pub mod create_variation_group_generate_matrix_response_data;
+pub use self::create_variation_group_generate_matrix_response_data::CreateVariationGroupGenerateMatrixResponseData;
 pub mod create_variation_group_generate_response;
 pub use self::create_variation_group_generate_response::CreateVariationGroupGenerateResponse;
 pub mod create_variation_group_generate_response_data;

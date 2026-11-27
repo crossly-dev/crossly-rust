@@ -41,7 +41,7 @@ This endpoint does not need any parameter.
 
 ## create_break_cancel
 
-> crate::models::CreateBreakCancelResponse create_break_cancel(id)
+> crate::models::UpdateGroupBuyResponse create_break_cancel(id)
 Cancel a break before any spot is paid for; after that, refund those orders instead (409).
 
 ### Parameters
@@ -53,7 +53,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**crate::models::CreateBreakCancelResponse**
+**crate::models::UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_break_opened
 
-> crate::models::CreateBreakCancelResponse create_break_opened(id)
+> crate::models::UpdateGroupBuyResponse create_break_opened(id)
 Mark the product opened on stream.
 
 ### Parameters
@@ -109,7 +109,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**crate::models::CreateBreakCancelResponse**
+**crate::models::UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_break_spot_hit
 
-> crate::models::CreateBreakCancelResponse create_break_spot_hit(id, spot_id)
+> crate::models::UpdateGroupBuyResponse create_break_spot_hit(id, spot_id)
 Record what a spot pulled.
 
 ### Parameters
@@ -138,7 +138,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**crate::models::CreateBreakCancelResponse**
+**crate::models::UpdateGroupBuyResponse**
 
 ### Authorization
 

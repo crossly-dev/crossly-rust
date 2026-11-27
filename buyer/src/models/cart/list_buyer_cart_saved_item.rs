@@ -15,46 +15,58 @@
 pub struct ListBuyerCartSavedItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "quantity")]
-    pub quantity: f32,
-    #[serde(rename = "title")]
-    pub title: String,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
     #[serde(rename = "slug")]
     pub slug: String,
+    #[serde(rename = "title")]
+    pub title: String,
     /// The listing's price NOW, in cents — what moving it back would charge.
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
+    #[serde(rename = "quantity")]
+    pub quantity: f32,
     #[serde(rename = "inStock")]
     pub in_stock: bool,
     #[serde(rename = "availableQuantity")]
     pub available_quantity: f32,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
     #[serde(rename = "savedAt")]
     pub saved_at: String,
-    #[serde(rename = "sellerDisplayName", skip_serializing_if = "Option::is_none")]
-    pub seller_display_name: Option<String>,
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
+    #[serde(rename = "sellerDisplayName", skip_serializing_if = "Option::is_none")]
+    pub seller_display_name: Option<String>,
+    /// The option it was saved as (catalog `variants[].id`), restored on move-to-cart; null otherwise.
+    #[serde(rename = "listingVariantId", skip_serializing_if = "Option::is_none")]
+    pub listing_variant_id: Option<String>,
+    /// That option's label (\"M\").
+    #[serde(rename = "variantName", skip_serializing_if = "Option::is_none")]
+    pub variant_name: Option<String>,
+    /// The listing has options and this item names none: add it again with an option (move-to-cart refuses).
+    #[serde(rename = "needsOption", skip_serializing_if = "Option::is_none")]
+    pub needs_option: Option<bool>,
 }
 
 impl ListBuyerCartSavedItem {
-    pub fn new(id: String, quantity: f32, title: String, platform_listing_id: String, seller_user_id: String, slug: String, price_cents: f32, in_stock: bool, available_quantity: f32, saved_at: String) -> ListBuyerCartSavedItem {
+    pub fn new(id: String, platform_listing_id: String, slug: String, title: String, price_cents: f32, quantity: f32, in_stock: bool, available_quantity: f32, seller_user_id: String, saved_at: String) -> ListBuyerCartSavedItem {
         ListBuyerCartSavedItem {
             id,
-            quantity,
-            title,
             platform_listing_id,
-            seller_user_id,
             slug,
+            title,
             price_cents,
+            quantity,
             in_stock,
             available_quantity,
+            seller_user_id,
             saved_at,
-            seller_display_name: None,
             thumbnail: None,
+            seller_display_name: None,
+            listing_variant_id: None,
+            variant_name: None,
+            needs_option: None,
         }
     }
 }

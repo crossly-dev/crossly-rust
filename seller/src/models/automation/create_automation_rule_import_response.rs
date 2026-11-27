@@ -14,13 +14,13 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateAutomationRuleImportResponse {
     #[serde(rename = "created")]
-    pub created: Vec<crate::models::CreateAutomationRuleImportResponseCreated>,
+    pub created: Vec<crate::models::IdName>,
     #[serde(rename = "errors")]
     pub errors: Vec<crate::models::CreateAutomationRuleImportResponseErrors>,
 }
 
 impl CreateAutomationRuleImportResponse {
-    pub fn new(created: Vec<crate::models::CreateAutomationRuleImportResponseCreated>, errors: Vec<crate::models::CreateAutomationRuleImportResponseErrors>) -> CreateAutomationRuleImportResponse {
+    pub fn new(created: Vec<crate::models::IdName>, errors: Vec<crate::models::CreateAutomationRuleImportResponseErrors>) -> CreateAutomationRuleImportResponse {
         CreateAutomationRuleImportResponse {
             created,
             errors,

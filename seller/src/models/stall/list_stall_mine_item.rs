@@ -51,6 +51,10 @@ pub struct ListStallMineItem {
     pub cancellable: bool,
     #[serde(rename = "listingIds")]
     pub listing_ids: Vec<String>,
+    #[serde(rename = "boothKind")]
+    pub booth_kind: BoothKind,
+    #[serde(rename = "capacity")]
+    pub capacity: f32,
     #[serde(rename = "awning", skip_serializing_if = "Option::is_none")]
     pub awning: Option<Box<crate::models::ColourPattern>>,
     #[serde(rename = "booth", skip_serializing_if = "Option::is_none")]
@@ -64,7 +68,7 @@ pub struct ListStallMineItem {
 }
 
 impl ListStallMineItem {
-    pub fn new(stats: crate::models::ListStallMineItemStats, upcoming: bool, booth_trimmed: Vec<crate::models::ListStallMineItemBoothTrimmed>, id: String, street: String, spot_index: f32, unit: Unit, units: Vec<crate::models::CreateStallBookResponseBookingUnits>, starts_at: String, ends_at: String, status: Status, rail: Rail, owner: crate::models::CreateStallBookResponseBookingOwner, quote: crate::models::ListStallMineItemQuote, total_cents: f32, refunded_cents: f32, cancellable: bool, listing_ids: Vec<String>, attendant: bool, created_at: String) -> ListStallMineItem {
+    pub fn new(stats: crate::models::ListStallMineItemStats, upcoming: bool, booth_trimmed: Vec<crate::models::ListStallMineItemBoothTrimmed>, id: String, street: String, spot_index: f32, unit: Unit, units: Vec<crate::models::CreateStallBookResponseBookingUnits>, starts_at: String, ends_at: String, status: Status, rail: Rail, owner: crate::models::CreateStallBookResponseBookingOwner, quote: crate::models::ListStallMineItemQuote, total_cents: f32, refunded_cents: f32, cancellable: bool, listing_ids: Vec<String>, booth_kind: BoothKind, capacity: f32, attendant: bool, created_at: String) -> ListStallMineItem {
         ListStallMineItem {
             stats: Box::new(stats),
             upcoming,
@@ -85,6 +89,8 @@ impl ListStallMineItem {
             refunded_cents,
             cancellable,
             listing_ids,
+            booth_kind,
+            capacity,
             awning: None,
             booth: None,
             sign: None,
@@ -97,15 +103,15 @@ impl ListStallMineItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Unit {
-    #[serde(rename = "event")]
-    Event,
     #[serde(rename = "day")]
     Day,
+    #[serde(rename = "event")]
+    Event,
 }
 
 impl Default for Unit {
     fn default() -> Unit {
-        Self::Event
+        Self::Day
     }
 }
 /// 
@@ -131,15 +137,31 @@ impl Default for Status {
 pub enum Rail {
     #[serde(rename = "card")]
     Card,
-    #[serde(rename = "bucks")]
-    Bucks,
     #[serde(rename = "cbx")]
     Cbx,
+    #[serde(rename = "bucks")]
+    Bucks,
 }
 
 impl Default for Rail {
     fn default() -> Rail {
         Self::Card
+    }
+}
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum BoothKind {
+    #[serde(rename = "booth")]
+    Booth,
+    #[serde(rename = "cart")]
+    Cart,
+    #[serde(rename = "pavilion")]
+    Pavilion,
+}
+
+impl Default for BoothKind {
+    fn default() -> BoothKind {
+        Self::Booth
     }
 }
 

@@ -14,21 +14,21 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetAutomationRuleExportByIdResponseMetadata {
-    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<String>>,
-    #[serde(rename = "sourceUrl", skip_serializing_if = "Option::is_none")]
-    pub source_url: Option<String>,
     #[serde(rename = "author", skip_serializing_if = "Option::is_none")]
     pub author: Option<String>,
+    #[serde(rename = "sourceUrl", skip_serializing_if = "Option::is_none")]
+    pub source_url: Option<String>,
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
 }
 
 impl GetAutomationRuleExportByIdResponseMetadata {
     /// Community-library metadata. Server ignores; UI may render.
     pub fn new() -> GetAutomationRuleExportByIdResponseMetadata {
         GetAutomationRuleExportByIdResponseMetadata {
-            tags: None,
-            source_url: None,
             author: None,
+            source_url: None,
+            tags: None,
         }
     }
 }

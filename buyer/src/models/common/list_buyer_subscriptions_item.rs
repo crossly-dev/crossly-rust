@@ -17,28 +17,28 @@ pub struct ListBuyerSubscriptionsItem {
     pub id: String,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
-    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
-    pub slug: Option<String>,
-    #[serde(rename = "nextRunAt")]
-    pub next_run_at: String,
     #[serde(rename = "intervalDays")]
     pub interval_days: f32,
     #[serde(rename = "discountBps")]
     pub discount_bps: f32,
+    #[serde(rename = "nextRunAt")]
+    pub next_run_at: String,
+    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
 }
 
 impl ListBuyerSubscriptionsItem {
-    pub fn new(id: String, status: String, next_run_at: String, interval_days: f32, discount_bps: f32) -> ListBuyerSubscriptionsItem {
+    pub fn new(id: String, status: String, interval_days: f32, discount_bps: f32, next_run_at: String) -> ListBuyerSubscriptionsItem {
         ListBuyerSubscriptionsItem {
             id,
             status,
-            title: None,
-            slug: None,
-            next_run_at,
             interval_days,
             discount_bps,
+            next_run_at,
+            slug: None,
+            title: None,
         }
     }
 }

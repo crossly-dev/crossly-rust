@@ -19,23 +19,23 @@ pub struct GetVaultMarketIndexMethodologyResponseDailyMinPriced {
     pub brand: f32,
     #[serde(rename = "category")]
     pub category: f32,
+    #[serde(rename = "segment")]
+    pub segment: f32,
     #[serde(rename = "curated")]
     pub curated: f32,
     #[serde(rename = "composite")]
     pub composite: f32,
-    #[serde(rename = "segment")]
-    pub segment: f32,
 }
 
 impl GetVaultMarketIndexMethodologyResponseDailyMinPriced {
-    pub fn new(custom: f32, brand: f32, category: f32, curated: f32, composite: f32, segment: f32) -> GetVaultMarketIndexMethodologyResponseDailyMinPriced {
+    pub fn new(custom: f32, brand: f32, category: f32, segment: f32, curated: f32, composite: f32) -> GetVaultMarketIndexMethodologyResponseDailyMinPriced {
         GetVaultMarketIndexMethodologyResponseDailyMinPriced {
             custom,
             brand,
             category,
+            segment,
             curated,
             composite,
-            segment,
         }
     }
 }

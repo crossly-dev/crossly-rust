@@ -47,14 +47,14 @@ impl GetSpatialSpaceResponseDataWarehouseUnits {
 pub enum SegmentKind {
     #[serde(rename = "level")]
     Level,
+    #[serde(rename = "bin")]
+    Bin,
     #[serde(rename = "zone")]
     Zone,
     #[serde(rename = "aisle")]
     Aisle,
     #[serde(rename = "bay")]
     Bay,
-    #[serde(rename = "bin")]
-    Bin,
 }
 
 impl Default for SegmentKind {

@@ -13,14 +13,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerPriceGuideResponseData {
+    #[serde(rename = "count")]
+    pub count: f32,
     #[serde(rename = "medianCents", skip_serializing_if = "Option::is_none")]
     pub median_cents: Option<f32>,
     #[serde(rename = "p25Cents", skip_serializing_if = "Option::is_none")]
     pub p25_cents: Option<f32>,
     #[serde(rename = "p75Cents", skip_serializing_if = "Option::is_none")]
     pub p75_cents: Option<f32>,
-    #[serde(rename = "count")]
-    pub count: f32,
     #[serde(rename = "byMonth")]
     pub by_month: Vec<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "recent")]
@@ -30,10 +30,10 @@ pub struct GetBuyerPriceGuideResponseData {
 impl GetBuyerPriceGuideResponseData {
     pub fn new(count: f32, by_month: Vec<::std::collections::HashMap<String, serde_json::Value>>, recent: Vec<::std::collections::HashMap<String, serde_json::Value>>) -> GetBuyerPriceGuideResponseData {
         GetBuyerPriceGuideResponseData {
+            count,
             median_cents: None,
             p25_cents: None,
             p75_cents: None,
-            count,
             by_month,
             recent,
         }

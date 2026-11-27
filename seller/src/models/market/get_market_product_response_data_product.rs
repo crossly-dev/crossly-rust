@@ -27,12 +27,16 @@ pub struct GetMarketProductResponseDataProduct {
     pub status: String,
     #[serde(rename = "retailCents", skip_serializing_if = "Option::is_none")]
     pub retail_cents: Option<f32>,
-    #[serde(rename = "categorySlug")]
-    pub category_slug: String,
-    #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
-    pub external_id: Option<String>,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    #[serde(rename = "categorySlug")]
+    pub category_slug: String,
+    #[serde(rename = "approvedByUserId", skip_serializing_if = "Option::is_none")]
+    pub approved_by_user_id: Option<String>,
+    #[serde(rename = "approvedAt", skip_serializing_if = "Option::is_none")]
+    pub approved_at: Option<String>,
+    #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
+    pub external_id: Option<String>,
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(rename = "colorway", skip_serializing_if = "Option::is_none")]
@@ -43,10 +47,6 @@ pub struct GetMarketProductResponseDataProduct {
     pub release_date: Option<String>,
     #[serde(rename = "submittedByUserId", skip_serializing_if = "Option::is_none")]
     pub submitted_by_user_id: Option<String>,
-    #[serde(rename = "approvedByUserId", skip_serializing_if = "Option::is_none")]
-    pub approved_by_user_id: Option<String>,
-    #[serde(rename = "approvedAt", skip_serializing_if = "Option::is_none")]
-    pub approved_at: Option<String>,
     #[serde(rename = "rejectionReason", skip_serializing_if = "Option::is_none")]
     pub rejection_reason: Option<String>,
     #[serde(rename = "proposedVariants")]
@@ -105,16 +105,16 @@ impl GetMarketProductResponseDataProduct {
             created_at,
             status,
             retail_cents: None,
-            category_slug,
-            external_id: None,
             image_url: None,
+            category_slug,
+            approved_by_user_id: None,
+            approved_at: None,
+            external_id: None,
             model: None,
             colorway: None,
             style_code: None,
             release_date: None,
             submitted_by_user_id: None,
-            approved_by_user_id: None,
-            approved_at: None,
             rejection_reason: None,
             proposed_variants,
             verification,

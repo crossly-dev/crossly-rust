@@ -15,33 +15,33 @@
 pub struct ListBuyerListingSellerReviewsItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "item")]
-    pub item: Box<crate::models::ListBuyerListingSellerReviewsItemItem>,
-    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
-    pub body: Option<String>,
     #[serde(rename = "rating")]
     pub rating: f32,
-    #[serde(rename = "sellerReply", skip_serializing_if = "Option::is_none")]
-    pub seller_reply: Option<String>,
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
     #[serde(rename = "media")]
     pub media: Vec<crate::models::ListBuyerListingSellerReviewsItemMedia>,
+    #[serde(rename = "sellerReply", skip_serializing_if = "Option::is_none")]
+    pub seller_reply: Option<String>,
     #[serde(rename = "reviewer", skip_serializing_if = "Option::is_none")]
     pub reviewer: Option<String>,
+    #[serde(rename = "item")]
+    pub item: Box<crate::models::ListBuyerListingSellerReviewsItemItem>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
 }
 
 impl ListBuyerListingSellerReviewsItem {
-    pub fn new(id: String, created_at: String, item: crate::models::ListBuyerListingSellerReviewsItemItem, rating: f32, media: Vec<crate::models::ListBuyerListingSellerReviewsItemMedia>) -> ListBuyerListingSellerReviewsItem {
+    pub fn new(id: String, rating: f32, media: Vec<crate::models::ListBuyerListingSellerReviewsItemMedia>, item: crate::models::ListBuyerListingSellerReviewsItemItem, created_at: String) -> ListBuyerListingSellerReviewsItem {
         ListBuyerListingSellerReviewsItem {
             id,
-            created_at,
-            item: Box::new(item),
-            body: None,
             rating,
-            seller_reply: None,
+            body: None,
             media,
+            seller_reply: None,
             reviewer: None,
+            item: Box::new(item),
+            created_at,
         }
     }
 }

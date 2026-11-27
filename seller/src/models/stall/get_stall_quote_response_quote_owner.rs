@@ -33,10 +33,10 @@ impl GetStallQuoteResponseQuoteOwner {
 pub enum Kind {
     #[serde(rename = "platform")]
     Platform,
-    #[serde(rename = "street")]
-    Street,
     #[serde(rename = "plot")]
     Plot,
+    #[serde(rename = "street")]
+    Street,
 }
 
 impl Default for Kind {

@@ -15,26 +15,26 @@
 pub struct ListBuyerTryOnsItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "listingId")]
     pub listing_id: String,
     #[serde(rename = "resultUrl", skip_serializing_if = "Option::is_none")]
     pub result_url: Option<String>,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
     #[serde(rename = "listingTitle", skip_serializing_if = "Option::is_none")]
     pub listing_title: Option<String>,
 }
 
 impl ListBuyerTryOnsItem {
-    pub fn new(id: String, created_at: String, status: String, listing_id: String) -> ListBuyerTryOnsItem {
+    pub fn new(id: String, listing_id: String, status: String, created_at: String) -> ListBuyerTryOnsItem {
         ListBuyerTryOnsItem {
             id,
-            created_at,
-            status,
             listing_id,
             result_url: None,
+            status,
+            created_at,
             listing_title: None,
         }
     }

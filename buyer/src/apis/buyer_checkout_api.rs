@@ -55,7 +55,7 @@ pub enum UpdateBuyerCheckoutControlError {
 }
 
 
-/// An Idempotency-Key header is REQUIRED — this endpoint refuses without one, because a retried request would otherwise buy the item twice and a retry is the most likely thing an automated buyer does. Derive the key from what you are buying and reuse it across retries; a fresh random value per attempt satisfies the check and keeps the bug. The item is QUOTED first and the delivered total is checked against both your maxTotalCents and this key's limits before anything is charged. Pass shippingServiceId to choose the shipping speed (default: the cheapest). A card that demands 3-D Secure cannot be charged unattended; that answers 402 with `authentication_required` and the purchase must be finished on Crossly. Optional payInCurrency (e.g. \"eur\") charges the card in that currency at the rate quoted in this request, including a 3% conversion charge; the response then carries chargeCurrency + chargeAmountMinor. Limits and maxTotalCents stay in USD cents. Pre-orders cannot be paid in another currency (422 currency_unavailable).
+/// An Idempotency-Key header is REQUIRED — this endpoint refuses without one, because a retried request would otherwise buy the item twice and a retry is the most likely thing an automated buyer does. Derive the key from what you are buying and reuse it across retries; a fresh random value per attempt satisfies the check and keeps the bug. The item is QUOTED first and the delivered total is checked against both your maxTotalCents and this key's limits before anything is charged. Pass shippingServiceId to choose the shipping speed (default: the cheapest). On a listing with options (catalog detail `variants`), pass listingVariantId: without one the quote is refused and `details.options` names them. A card that demands 3-D Secure cannot be charged unattended; that answers 402 with `authentication_required` and the purchase must be finished on Crossly. Optional payInCurrency (e.g. \"eur\") charges the card in that currency at the rate quoted in this request, including a 3% conversion charge; the response then carries chargeCurrency + chargeAmountMinor. Limits and maxTotalCents stay in USD cents. Pre-orders cannot be paid in another currency (422 currency_unavailable).
 pub async fn create_buyer_checkout(configuration: &configuration::Configuration, ) -> Result<crate::models::CreateBuyerCheckoutResponse, Error<CreateBuyerCheckoutError>> {
     let local_var_configuration = configuration;
 
@@ -72,7 +72,7 @@ pub async fn create_buyer_checkout(configuration: &configuration::Configuration,
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -103,7 +103,7 @@ pub async fn get_buyer_checkout_control(configuration: &configuration::Configura
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;
@@ -134,7 +134,7 @@ pub async fn update_buyer_checkout_control(configuration: &configuration::Config
     };
 
     let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
+    let local_var_resp = crate::client::execute(local_var_configuration, local_var_req).await?;
 
     let local_var_status = local_var_resp.status();
     let local_var_content = local_var_resp.text().await?;

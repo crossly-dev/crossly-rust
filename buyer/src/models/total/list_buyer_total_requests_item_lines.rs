@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerTotalRequestsItemLines {
-    #[serde(rename = "quantity")]
-    pub quantity: f32,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
+    #[serde(rename = "quantity")]
+    pub quantity: f32,
 }
 
 impl ListBuyerTotalRequestsItemLines {
-    pub fn new(quantity: f32, platform_listing_id: String) -> ListBuyerTotalRequestsItemLines {
+    pub fn new(platform_listing_id: String, quantity: f32) -> ListBuyerTotalRequestsItemLines {
         ListBuyerTotalRequestsItemLines {
-            quantity,
             platform_listing_id,
+            quantity,
         }
     }
 }

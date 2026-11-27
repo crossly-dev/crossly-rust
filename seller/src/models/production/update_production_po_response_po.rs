@@ -19,18 +19,18 @@ pub struct UpdateProductionPoResponsePo {
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
-    pub notes: Option<String>,
     #[serde(rename = "status")]
     pub status: String,
+    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
+    pub notes: Option<String>,
+    #[serde(rename = "supplierName", skip_serializing_if = "Option::is_none")]
+    pub supplier_name: Option<String>,
+    #[serde(rename = "trackingCode", skip_serializing_if = "Option::is_none")]
+    pub tracking_code: Option<String>,
     #[serde(rename = "merchantId")]
     pub merchant_id: String,
     #[serde(rename = "candidateId")]
     pub candidate_id: String,
-    #[serde(rename = "trackingCode", skip_serializing_if = "Option::is_none")]
-    pub tracking_code: Option<String>,
-    #[serde(rename = "supplierName", skip_serializing_if = "Option::is_none")]
-    pub supplier_name: Option<String>,
     #[serde(rename = "supplierContact", skip_serializing_if = "Option::is_none")]
     pub supplier_contact: Option<String>,
     #[serde(rename = "freightMode", skip_serializing_if = "Option::is_none")]
@@ -67,12 +67,12 @@ impl UpdateProductionPoResponsePo {
             id,
             created_at,
             updated_at,
-            notes: None,
             status,
+            notes: None,
+            supplier_name: None,
+            tracking_code: None,
             merchant_id,
             candidate_id,
-            tracking_code: None,
-            supplier_name: None,
             supplier_contact: None,
             freight_mode: None,
             estimate_landed_cents: None,

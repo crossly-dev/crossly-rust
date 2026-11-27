@@ -60,6 +60,8 @@ pub enum Concept {
     Indexes,
     #[serde(rename = "marks")]
     Marks,
+    #[serde(rename = "vault-shares")]
+    VaultShares,
 }
 
 impl Default for Concept {

@@ -34,17 +34,17 @@ impl CreateInboxReplyResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum DeliveryStatus {
-    #[serde(rename = "failed")]
-    Failed,
-    #[serde(rename = "sent")]
-    Sent,
     #[serde(rename = "sending")]
     Sending,
+    #[serde(rename = "sent")]
+    Sent,
+    #[serde(rename = "failed")]
+    Failed,
 }
 
 impl Default for DeliveryStatus {
     fn default() -> DeliveryStatus {
-        Self::Failed
+        Self::Sending
     }
 }
 

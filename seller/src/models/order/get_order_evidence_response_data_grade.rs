@@ -40,10 +40,10 @@ impl GetOrderEvidenceResponseDataGrade {
 pub enum Grade {
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "strong")]
-    Strong,
     #[serde(rename = "basic")]
     Basic,
+    #[serde(rename = "strong")]
+    Strong,
     #[serde(rename = "conclusive")]
     Conclusive,
 }

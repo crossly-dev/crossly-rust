@@ -32,6 +32,8 @@ pub struct ListWorldOutfitsItemAppearance {
     /// A body shape (BODY_SHAPES). Optional, like the face presets.
     #[serde(rename = "shape", skip_serializing_if = "Option::is_none")]
     pub shape: Option<String>,
+    #[serde(rename = "outfit", skip_serializing_if = "Option::is_none")]
+    pub outfit: Option<Box<crate::models::ListWorldOutfitsItemAppearanceOutfit>>,
 }
 
 impl ListWorldOutfitsItemAppearance {
@@ -46,6 +48,7 @@ impl ListWorldOutfitsItemAppearance {
             brows: None,
             mouth: None,
             shape: None,
+            outfit: None,
         }
     }
 }

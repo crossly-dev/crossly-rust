@@ -15,30 +15,25 @@
 pub struct ListBuyerCasesItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
+    #[serde(rename = "purchaseId")]
+    pub purchase_id: String,
     /// inr, snad, counterfeit, damaged, wrong_item, other.
     #[serde(rename = "reason")]
     pub reason: String,
     #[serde(rename = "state")]
     pub state: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
     /// not_received | return | problem.
     #[serde(rename = "kind")]
     pub kind: String,
-    #[serde(rename = "purchaseId")]
-    pub purchase_id: String,
     #[serde(rename = "closed")]
     pub closed: bool,
     /// The case is waiting on you.
     #[serde(rename = "yourTurn")]
     pub your_turn: bool,
-    #[serde(rename = "resolvedAt", skip_serializing_if = "Option::is_none")]
-    pub resolved_at: Option<String>,
-    /// What you paid for the order, in cents.
-    #[serde(rename = "buyerPaidCents", skip_serializing_if = "Option::is_none")]
-    pub buyer_paid_cents: Option<f32>,
     #[serde(rename = "awaitingParty", skip_serializing_if = "Option::is_none")]
     pub awaiting_party: Option<String>,
     #[serde(rename = "escalateAfter", skip_serializing_if = "Option::is_none")]
@@ -48,6 +43,8 @@ pub struct ListBuyerCasesItem {
     pub offered_refund_cents: Option<f32>,
     #[serde(rename = "resolvedRefundCents", skip_serializing_if = "Option::is_none")]
     pub resolved_refund_cents: Option<f32>,
+    #[serde(rename = "resolvedAt", skip_serializing_if = "Option::is_none")]
+    pub resolved_at: Option<String>,
     #[serde(rename = "returnLabelUrl", skip_serializing_if = "Option::is_none")]
     pub return_label_url: Option<String>,
     #[serde(rename = "returnTrackingCode", skip_serializing_if = "Option::is_none")]
@@ -58,6 +55,9 @@ pub struct ListBuyerCasesItem {
     pub return_tracking_status: Option<String>,
     #[serde(rename = "returnDeliveredAt", skip_serializing_if = "Option::is_none")]
     pub return_delivered_at: Option<String>,
+    /// What you paid for the order, in cents.
+    #[serde(rename = "buyerPaidCents", skip_serializing_if = "Option::is_none")]
+    pub buyer_paid_cents: Option<f32>,
     #[serde(rename = "itemTitle", skip_serializing_if = "Option::is_none")]
     pub item_title: Option<String>,
     #[serde(rename = "itemThumbnail", skip_serializing_if = "Option::is_none")]
@@ -67,28 +67,28 @@ pub struct ListBuyerCasesItem {
 }
 
 impl ListBuyerCasesItem {
-    pub fn new(id: String, created_at: String, updated_at: String, reason: String, state: String, kind: String, purchase_id: String, closed: bool, your_turn: bool) -> ListBuyerCasesItem {
+    pub fn new(id: String, purchase_id: String, reason: String, state: String, created_at: String, updated_at: String, kind: String, closed: bool, your_turn: bool) -> ListBuyerCasesItem {
         ListBuyerCasesItem {
             id,
-            created_at,
-            updated_at,
+            purchase_id,
             reason,
             state,
+            created_at,
+            updated_at,
             kind,
-            purchase_id,
             closed,
             your_turn,
-            resolved_at: None,
-            buyer_paid_cents: None,
             awaiting_party: None,
             escalate_after: None,
             offered_refund_cents: None,
             resolved_refund_cents: None,
+            resolved_at: None,
             return_label_url: None,
             return_tracking_code: None,
             return_tracking_carrier: None,
             return_tracking_status: None,
             return_delivered_at: None,
+            buyer_paid_cents: None,
             item_title: None,
             item_thumbnail: None,
             seller_name: None,

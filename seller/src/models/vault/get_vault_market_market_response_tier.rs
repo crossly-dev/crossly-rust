@@ -65,10 +65,10 @@ impl GetVaultMarketMarketResponseTier {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
-    #[serde(rename = "standard")]
-    Standard,
     #[serde(rename = "closed")]
     Closed,
+    #[serde(rename = "standard")]
+    Standard,
     #[serde(rename = "deep")]
     Deep,
     #[serde(rename = "thin")]
@@ -77,25 +77,25 @@ pub enum Tier {
 
 impl Default for Tier {
     fn default() -> Tier {
-        Self::Standard
+        Self::Closed
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum LiquidityTier {
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
     #[serde(rename = "D")]
     D,
 }
 
 impl Default for LiquidityTier {
     fn default() -> LiquidityTier {
-        Self::A
+        Self::C
     }
 }
 

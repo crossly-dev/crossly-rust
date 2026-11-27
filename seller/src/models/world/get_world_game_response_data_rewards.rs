@@ -42,12 +42,12 @@ impl GetWorldGameResponseDataRewards {
 pub enum Grant {
     #[serde(rename = "item")]
     Item,
+    #[serde(rename = "cosm")]
+    Cosm,
     #[serde(rename = "decor")]
     Decor,
     #[serde(rename = "cbx")]
     Cbx,
-    #[serde(rename = "cosm")]
-    Cosm,
     #[serde(rename = "pin")]
     Pin,
     #[serde(rename = "emote")]

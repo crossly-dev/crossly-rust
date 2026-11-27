@@ -23,10 +23,12 @@ pub struct GetWeb3CollectionResponseCollection {
     pub category: Option<String>,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    #[serde(rename = "hiddenAt", skip_serializing_if = "Option::is_none")]
-    pub hidden_at: Option<String>,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    #[serde(rename = "verified")]
+    pub verified: bool,
+    #[serde(rename = "hiddenAt", skip_serializing_if = "Option::is_none")]
+    pub hidden_at: Option<String>,
     #[serde(rename = "refreshedAt")]
     pub refreshed_at: String,
     #[serde(rename = "externalUrl", skip_serializing_if = "Option::is_none")]
@@ -35,22 +37,20 @@ pub struct GetWeb3CollectionResponseCollection {
     pub chain: String,
     #[serde(rename = "contract")]
     pub contract: String,
-    #[serde(rename = "firstSeenAt")]
-    pub first_seen_at: String,
     #[serde(rename = "tokenType", skip_serializing_if = "Option::is_none")]
     pub token_type: Option<String>,
     #[serde(rename = "totalSupply", skip_serializing_if = "Option::is_none")]
     pub total_supply: Option<String>,
     #[serde(rename = "featuredRank", skip_serializing_if = "Option::is_none")]
     pub featured_rank: Option<f32>,
+    #[serde(rename = "firstSeenAt")]
+    pub first_seen_at: String,
     #[serde(rename = "bannerUrl", skip_serializing_if = "Option::is_none")]
     pub banner_url: Option<String>,
     #[serde(rename = "twitter", skip_serializing_if = "Option::is_none")]
     pub twitter: Option<String>,
     #[serde(rename = "discord", skip_serializing_if = "Option::is_none")]
     pub discord: Option<String>,
-    #[serde(rename = "verified")]
-    pub verified: bool,
     #[serde(rename = "deployedBlock", skip_serializing_if = "Option::is_none")]
     pub deployed_block: Option<f32>,
     #[serde(rename = "collectors")]
@@ -76,27 +76,27 @@ pub struct GetWeb3CollectionResponseCollection {
 }
 
 impl GetWeb3CollectionResponseCollection {
-    pub fn new(refreshed_at: String, chain: String, contract: String, first_seen_at: String, verified: bool, collectors: f32) -> GetWeb3CollectionResponseCollection {
+    pub fn new(verified: bool, refreshed_at: String, chain: String, contract: String, first_seen_at: String, collectors: f32) -> GetWeb3CollectionResponseCollection {
         GetWeb3CollectionResponseCollection {
             symbol: None,
             name: None,
             description: None,
             category: None,
             slug: None,
-            hidden_at: None,
             image_url: None,
+            verified,
+            hidden_at: None,
             refreshed_at,
             external_url: None,
             chain,
             contract,
-            first_seen_at,
             token_type: None,
             total_supply: None,
             featured_rank: None,
+            first_seen_at,
             banner_url: None,
             twitter: None,
             discord: None,
-            verified,
             deployed_block: None,
             collectors,
             indexed_at: None,

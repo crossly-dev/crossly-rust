@@ -17,18 +17,18 @@ pub struct CreateWorldGamePackageResponseDataVersion {
     pub id: String,
     #[serde(rename = "semver")]
     pub semver: String,
-    #[serde(rename = "designVersion")]
-    pub design_version: f32,
+    #[serde(rename = "designVersion", skip_serializing_if = "Option::is_none")]
+    pub design_version: Option<f32>,
     #[serde(rename = "state")]
     pub state: String,
 }
 
 impl CreateWorldGamePackageResponseDataVersion {
-    pub fn new(id: String, semver: String, design_version: f32, state: String) -> CreateWorldGamePackageResponseDataVersion {
+    pub fn new(id: String, semver: String, state: String) -> CreateWorldGamePackageResponseDataVersion {
         CreateWorldGamePackageResponseDataVersion {
             id,
             semver,
-            design_version,
+            design_version: None,
             state,
         }
     }

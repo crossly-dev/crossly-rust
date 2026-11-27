@@ -15,20 +15,18 @@
 pub struct GetBuyerCaseResponseDataCase {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
+    #[serde(rename = "purchaseId")]
+    pub purchase_id: String,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
     #[serde(rename = "reason")]
     pub reason: String,
     #[serde(rename = "state")]
     pub state: String,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
-    #[serde(rename = "purchaseId")]
-    pub purchase_id: String,
-    #[serde(rename = "resolvedAt", skip_serializing_if = "Option::is_none")]
-    pub resolved_at: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
     #[serde(rename = "buyerNote", skip_serializing_if = "Option::is_none")]
     pub buyer_note: Option<String>,
     #[serde(rename = "photoUrls", skip_serializing_if = "Option::is_none")]
@@ -43,19 +41,20 @@ pub struct GetBuyerCaseResponseDataCase {
     pub resolved_refund_cents: Option<f32>,
     #[serde(rename = "resolvedDecision", skip_serializing_if = "Option::is_none")]
     pub resolved_decision: Option<String>,
+    #[serde(rename = "resolvedAt", skip_serializing_if = "Option::is_none")]
+    pub resolved_at: Option<String>,
 }
 
 impl GetBuyerCaseResponseDataCase {
-    pub fn new(id: String, created_at: String, updated_at: String, reason: String, state: String, seller_user_id: String, purchase_id: String) -> GetBuyerCaseResponseDataCase {
+    pub fn new(id: String, purchase_id: String, seller_user_id: String, reason: String, state: String, created_at: String, updated_at: String) -> GetBuyerCaseResponseDataCase {
         GetBuyerCaseResponseDataCase {
             id,
-            created_at,
-            updated_at,
+            purchase_id,
+            seller_user_id,
             reason,
             state,
-            seller_user_id,
-            purchase_id,
-            resolved_at: None,
+            created_at,
+            updated_at,
             buyer_note: None,
             photo_urls: None,
             awaiting_party: None,
@@ -63,6 +62,7 @@ impl GetBuyerCaseResponseDataCase {
             offered_refund_cents: None,
             resolved_refund_cents: None,
             resolved_decision: None,
+            resolved_at: None,
         }
     }
 }

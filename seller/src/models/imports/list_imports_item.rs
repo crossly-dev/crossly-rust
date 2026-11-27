@@ -19,16 +19,14 @@ pub struct ListImportsItem {
     pub created_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "platform")]
     pub platform: String,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "lastError", skip_serializing_if = "Option::is_none")]
     pub last_error: Option<String>,
     #[serde(rename = "startedAt", skip_serializing_if = "Option::is_none")]
     pub started_at: Option<String>,
-    #[serde(rename = "batchId", skip_serializing_if = "Option::is_none")]
-    pub batch_id: Option<String>,
     #[serde(rename = "finishedAt", skip_serializing_if = "Option::is_none")]
     pub finished_at: Option<String>,
     #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]
@@ -49,6 +47,8 @@ pub struct ListImportsItem {
     pub skipped_count: f32,
     #[serde(rename = "errorCount")]
     pub error_count: f32,
+    #[serde(rename = "batchId", skip_serializing_if = "Option::is_none")]
+    pub batch_id: Option<String>,
     #[serde(rename = "listOnCrossly")]
     pub list_on_crossly: bool,
     #[serde(rename = "crosslyListedAt", skip_serializing_if = "Option::is_none")]
@@ -56,16 +56,15 @@ pub struct ListImportsItem {
 }
 
 impl ListImportsItem {
-    pub fn new(id: String, created_at: String, user_id: String, status: String, platform: String, import_mode: String, include_inactive: bool, merge_into_existing_listing: bool, merge_into_existing_inventory: bool, total_count: f32, imported_count: f32, skipped_count: f32, error_count: f32, list_on_crossly: bool) -> ListImportsItem {
+    pub fn new(id: String, created_at: String, user_id: String, platform: String, status: String, import_mode: String, include_inactive: bool, merge_into_existing_listing: bool, merge_into_existing_inventory: bool, total_count: f32, imported_count: f32, skipped_count: f32, error_count: f32, list_on_crossly: bool) -> ListImportsItem {
         ListImportsItem {
             id,
             created_at,
             user_id,
-            status,
             platform,
+            status,
             last_error: None,
             started_at: None,
-            batch_id: None,
             finished_at: None,
             filters: None,
             import_mode,
@@ -76,6 +75,7 @@ impl ListImportsItem {
             imported_count,
             skipped_count,
             error_count,
+            batch_id: None,
             list_on_crossly,
             crossly_listed_at: None,
         }

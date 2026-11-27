@@ -23,18 +23,24 @@ pub struct ListWorldGamePackagesItem {
     pub design_id: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
+    #[serde(rename = "unpublishedAt", skip_serializing_if = "Option::is_none")]
+    pub unpublished_at: Option<String>,
     #[serde(rename = "versions")]
     pub versions: Vec<crate::models::GetWorldGamePackageResponseDataVersions>,
 }
 
 impl ListWorldGamePackagesItem {
-    pub fn new(id: String, slug: String, name: String, design_id: String, created_at: String, versions: Vec<crate::models::GetWorldGamePackageResponseDataVersions>) -> ListWorldGamePackagesItem {
+    pub fn new(id: String, slug: String, name: String, design_id: String, created_at: String, updated_at: String, versions: Vec<crate::models::GetWorldGamePackageResponseDataVersions>) -> ListWorldGamePackagesItem {
         ListWorldGamePackagesItem {
             id,
             slug,
             name,
             design_id,
             created_at,
+            updated_at,
+            unpublished_at: None,
             versions,
         }
     }

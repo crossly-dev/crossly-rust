@@ -19,20 +19,30 @@ pub struct CreateWorldConventionResponseData {
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "title")]
     pub title: String,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "endsAt")]
     pub ends_at: String,
-    #[serde(rename = "categorySlug", skip_serializing_if = "Option::is_none")]
-    pub category_slug: Option<String>,
-    #[serde(rename = "hostUserId")]
-    pub host_user_id: String,
     #[serde(rename = "startsAt")]
     pub starts_at: String,
+    #[serde(rename = "timezone")]
+    pub timezone: String,
+    #[serde(rename = "categorySlug", skip_serializing_if = "Option::is_none")]
+    pub category_slug: Option<String>,
+    #[serde(rename = "theme")]
+    pub theme: String,
+    #[serde(rename = "sellerEventId", skip_serializing_if = "Option::is_none")]
+    pub seller_event_id: Option<String>,
     #[serde(rename = "sceneId")]
     pub scene_id: String,
+    #[serde(rename = "hostUserId")]
+    pub host_user_id: String,
     #[serde(rename = "entryModel")]
     pub entry_model: EntryModel,
     #[serde(rename = "entryFeeCents", skip_serializing_if = "Option::is_none")]
@@ -41,25 +51,48 @@ pub struct CreateWorldConventionResponseData {
     pub revenue_share_bps: Option<f32>,
     #[serde(rename = "tableCount")]
     pub table_count: f32,
+    #[serde(rename = "venueBookingId", skip_serializing_if = "Option::is_none")]
+    pub venue_booking_id: Option<String>,
+    #[serde(rename = "opensHour")]
+    pub opens_hour: f32,
+    #[serde(rename = "closesHour")]
+    pub closes_hour: f32,
+    #[serde(rename = "floorPlanVersion")]
+    pub floor_plan_version: f32,
+    #[serde(rename = "bookingMode")]
+    pub booking_mode: String,
+    #[serde(rename = "walkIns")]
+    pub walk_ins: f32,
 }
 
 impl CreateWorldConventionResponseData {
-    pub fn new(id: String, created_at: String, updated_at: String, status: Status, title: String, ends_at: String, host_user_id: String, starts_at: String, scene_id: String, entry_model: EntryModel, table_count: f32) -> CreateWorldConventionResponseData {
+    pub fn new(id: String, created_at: String, updated_at: String, status: Status, title: String, ends_at: String, starts_at: String, timezone: String, theme: String, scene_id: String, host_user_id: String, entry_model: EntryModel, table_count: f32, opens_hour: f32, closes_hour: f32, floor_plan_version: f32, booking_mode: String, walk_ins: f32) -> CreateWorldConventionResponseData {
         CreateWorldConventionResponseData {
             id,
             created_at,
             updated_at,
+            description: None,
             status,
             title,
+            storefront_id: None,
             ends_at,
-            category_slug: None,
-            host_user_id,
             starts_at,
+            timezone,
+            category_slug: None,
+            theme,
+            seller_event_id: None,
             scene_id,
+            host_user_id,
             entry_model,
             entry_fee_cents: None,
             revenue_share_bps: None,
             table_count,
+            venue_booking_id: None,
+            opens_hour,
+            closes_hour,
+            floor_plan_version,
+            booking_mode,
+            walk_ins,
         }
     }
 }
@@ -67,21 +100,21 @@ impl CreateWorldConventionResponseData {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "live")]
-    Live,
     #[serde(rename = "draft")]
     Draft,
-    #[serde(rename = "open")]
-    Open,
+    #[serde(rename = "live")]
+    Live,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "open")]
+    Open,
     #[serde(rename = "ended")]
     Ended,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Live
+        Self::Draft
     }
 }
 /// 
@@ -89,10 +122,10 @@ impl Default for Status {
 pub enum EntryModel {
     #[serde(rename = "free")]
     Free,
-    #[serde(rename = "invite")]
-    Invite,
     #[serde(rename = "fee")]
     Fee,
+    #[serde(rename = "invite")]
+    Invite,
     #[serde(rename = "revenue_share")]
     RevenueShare,
 }

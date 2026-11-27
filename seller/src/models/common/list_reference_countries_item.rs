@@ -32,7 +32,7 @@ pub struct ListReferenceCountriesItem {
     #[serde(rename = "stateLabel")]
     pub state_label: String,
     #[serde(rename = "subdivisions", skip_serializing_if = "Option::is_none")]
-    pub subdivisions: Option<Vec<crate::models::ListReferenceCountriesItemSubdivisions>>,
+    pub subdivisions: Option<Vec<crate::models::CodeName>>,
     #[serde(rename = "embargoed")]
     pub embargoed: bool,
 }

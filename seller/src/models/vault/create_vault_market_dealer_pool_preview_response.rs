@@ -46,12 +46,12 @@ impl CreateVaultMarketDealerPoolPreviewResponse {
 pub enum BidLimit {
     #[serde(rename = "floor")]
     Floor,
+    #[serde(rename = "ceiling")]
+    Ceiling,
     #[serde(rename = "no_units")]
     NoUnits,
     #[serde(rename = "no_cash")]
     NoCash,
-    #[serde(rename = "ceiling")]
-    Ceiling,
     #[serde(rename = "curve_end")]
     CurveEnd,
 }
@@ -66,12 +66,12 @@ impl Default for BidLimit {
 pub enum AskLimit {
     #[serde(rename = "floor")]
     Floor,
+    #[serde(rename = "ceiling")]
+    Ceiling,
     #[serde(rename = "no_units")]
     NoUnits,
     #[serde(rename = "no_cash")]
     NoCash,
-    #[serde(rename = "ceiling")]
-    Ceiling,
     #[serde(rename = "curve_end")]
     CurveEnd,
 }

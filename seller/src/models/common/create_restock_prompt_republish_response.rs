@@ -21,18 +21,18 @@ pub struct CreateRestockPromptRepublishResponse {
     pub remaining_platforms: Vec<String>,
     #[serde(rename = "jobIds")]
     pub job_ids: Vec<String>,
-    #[serde(rename = "bulkJobId")]
-    pub bulk_job_id: String,
+    #[serde(rename = "bulkJobId", skip_serializing_if = "Option::is_none")]
+    pub bulk_job_id: Option<String>,
 }
 
 impl CreateRestockPromptRepublishResponse {
-    pub fn new(message: String, platforms: Vec<String>, remaining_platforms: Vec<String>, job_ids: Vec<String>, bulk_job_id: String) -> CreateRestockPromptRepublishResponse {
+    pub fn new(message: String, platforms: Vec<String>, remaining_platforms: Vec<String>, job_ids: Vec<String>) -> CreateRestockPromptRepublishResponse {
         CreateRestockPromptRepublishResponse {
             message,
             platforms,
             remaining_platforms,
             job_ids,
-            bulk_job_id,
+            bulk_job_id: None,
         }
     }
 }

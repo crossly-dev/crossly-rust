@@ -1,0 +1,14 @@
+pub mod create_print_mail_job_confirm_response;
+pub use self::create_print_mail_job_confirm_response::CreatePrintMailJobConfirmResponse;
+pub mod create_print_mail_job_response;
+pub use self::create_print_mail_job_response::CreatePrintMailJobResponse;
+pub mod create_print_mail_job_response_data;
+pub use self::create_print_mail_job_response_data::CreatePrintMailJobResponseData;
+pub mod create_print_mail_job_response_data_estimate;
+pub use self::create_print_mail_job_response_data_estimate::CreatePrintMailJobResponseDataEstimate;
+pub mod create_print_mail_job_response_data_skipped;
+pub use self::create_print_mail_job_response_data_skipped::CreatePrintMailJobResponseDataSkipped;
+pub mod list_print_mail_jobs_item;
+pub use self::list_print_mail_jobs_item::ListPrintMailJobsItem;
+pub mod list_print_mail_jobs_response;
+pub use self::list_print_mail_jobs_response::ListPrintMailJobsResponse;

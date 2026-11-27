@@ -23,10 +23,10 @@ pub struct ListVaultMarketRecurringRunsItem {
     pub user_id: String,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<String>,
     #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
     pub order_id: Option<String>,
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
     #[serde(rename = "markCents", skip_serializing_if = "Option::is_none")]
     pub mark_cents: Option<f32>,
     #[serde(rename = "limitCents", skip_serializing_if = "Option::is_none")]
@@ -47,8 +47,8 @@ impl ListVaultMarketRecurringRunsItem {
             id,
             user_id,
             status,
-            reason: None,
             order_id: None,
+            reason: None,
             mark_cents: None,
             limit_cents: None,
             filled_cents: None,

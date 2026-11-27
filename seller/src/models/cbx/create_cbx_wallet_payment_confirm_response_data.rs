@@ -58,17 +58,17 @@ impl CreateCbxWalletPaymentConfirmResponseData {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ReleaseDecision {
-    #[serde(rename = "review")]
-    Review,
     #[serde(rename = "release")]
     Release,
+    #[serde(rename = "review")]
+    Review,
     #[serde(rename = "refuse")]
     Refuse,
 }
 
 impl Default for ReleaseDecision {
     fn default() -> ReleaseDecision {
-        Self::Review
+        Self::Release
     }
 }
 

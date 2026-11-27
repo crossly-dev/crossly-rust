@@ -21,21 +21,27 @@ pub struct CreateWorkflowChainToggleResponseChain {
     pub name: String,
     #[serde(rename = "triggerId")]
     pub trigger_id: String,
+    #[serde(rename = "triggerConfig")]
+    pub trigger_config: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "isActive")]
     pub is_active: bool,
     #[serde(rename = "createdAt")]
     pub created_at: String,
+    #[serde(rename = "workflowId")]
+    pub workflow_id: String,
 }
 
 impl CreateWorkflowChainToggleResponseChain {
-    pub fn new(id: String, user_id: String, name: String, trigger_id: String, is_active: bool, created_at: String) -> CreateWorkflowChainToggleResponseChain {
+    pub fn new(id: String, user_id: String, name: String, trigger_id: String, trigger_config: ::std::collections::HashMap<String, serde_json::Value>, is_active: bool, created_at: String, workflow_id: String) -> CreateWorkflowChainToggleResponseChain {
         CreateWorkflowChainToggleResponseChain {
             id,
             user_id,
             name,
             trigger_id,
+            trigger_config,
             is_active,
             created_at,
+            workflow_id,
         }
     }
 }

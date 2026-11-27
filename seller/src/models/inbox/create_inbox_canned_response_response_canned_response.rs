@@ -23,22 +23,25 @@ pub struct CreateInboxCannedResponseResponseCannedResponse {
     pub user_id: String,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    #[serde(rename = "surface")]
-    pub surface: String,
     #[serde(rename = "body")]
     pub body: String,
+    #[serde(rename = "surface")]
+    pub surface: String,
+    #[serde(rename = "sortOrder")]
+    pub sort_order: f32,
 }
 
 impl CreateInboxCannedResponseResponseCannedResponse {
-    pub fn new(id: String, name: String, created_at: String, user_id: String, surface: String, body: String) -> CreateInboxCannedResponseResponseCannedResponse {
+    pub fn new(id: String, name: String, created_at: String, user_id: String, body: String, surface: String, sort_order: f32) -> CreateInboxCannedResponseResponseCannedResponse {
         CreateInboxCannedResponseResponseCannedResponse {
             id,
             name,
             created_at,
             user_id,
             title: None,
-            surface,
             body,
+            surface,
+            sort_order,
         }
     }
 }

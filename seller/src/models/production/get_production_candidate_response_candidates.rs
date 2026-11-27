@@ -23,18 +23,18 @@ pub struct GetProductionCandidateResponseCandidates {
     pub status: String,
     #[serde(rename = "retailPriceCents", skip_serializing_if = "Option::is_none")]
     pub retail_price_cents: Option<f32>,
-    #[serde(rename = "creatorUserId", skip_serializing_if = "Option::is_none")]
-    pub creator_user_id: Option<String>,
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<String>,
     #[serde(rename = "acceptedAt", skip_serializing_if = "Option::is_none")]
     pub accepted_at: Option<String>,
+    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
+    pub completed_at: Option<String>,
+    #[serde(rename = "creatorUserId", skip_serializing_if = "Option::is_none")]
+    pub creator_user_id: Option<String>,
+    #[serde(rename = "cosmeticId")]
+    pub cosmetic_id: String,
     #[serde(rename = "merchantId")]
     pub merchant_id: String,
     #[serde(rename = "creatorSubjectId")]
     pub creator_subject_id: String,
-    #[serde(rename = "cosmeticId")]
-    pub cosmetic_id: String,
     #[serde(rename = "editionSize", skip_serializing_if = "Option::is_none")]
     pub edition_size: Option<f32>,
     #[serde(rename = "unitCostCents", skip_serializing_if = "Option::is_none")]
@@ -64,19 +64,19 @@ pub struct GetProductionCandidateResponseCandidates {
 }
 
 impl GetProductionCandidateResponseCandidates {
-    pub fn new(id: String, created_at: String, updated_at: String, status: String, merchant_id: String, creator_subject_id: String, cosmetic_id: String, designer_royalty_bps: f32, funding_at_eligible_cents: f32, distinct_holders_at_eligible: f32, holder_priority: bool) -> GetProductionCandidateResponseCandidates {
+    pub fn new(id: String, created_at: String, updated_at: String, status: String, cosmetic_id: String, merchant_id: String, creator_subject_id: String, designer_royalty_bps: f32, funding_at_eligible_cents: f32, distinct_holders_at_eligible: f32, holder_priority: bool) -> GetProductionCandidateResponseCandidates {
         GetProductionCandidateResponseCandidates {
             id,
             created_at,
             updated_at,
             status,
             retail_price_cents: None,
-            creator_user_id: None,
-            completed_at: None,
             accepted_at: None,
+            completed_at: None,
+            creator_user_id: None,
+            cosmetic_id,
             merchant_id,
             creator_subject_id,
-            cosmetic_id,
             edition_size: None,
             unit_cost_cents: None,
             run_cost_cents: None,

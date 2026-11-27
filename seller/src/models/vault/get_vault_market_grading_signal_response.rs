@@ -20,7 +20,7 @@ pub struct GetVaultMarketGradingSignalResponse {
     #[serde(rename = "rawMarkQuality")]
     pub raw_mark_quality: RawMarkQuality,
     #[serde(rename = "graded")]
-    pub graded: Vec<crate::models::GetVaultMarketKeyStatResponse>,
+    pub graded: Vec<crate::models::GetVaultMarketGradingSignalResponseGraded>,
     #[serde(rename = "graders")]
     pub graders: Vec<crate::models::GetVaultMarketGradingSignalResponseGraders>,
     #[serde(rename = "worthIt")]
@@ -32,10 +32,12 @@ pub struct GetVaultMarketGradingSignalResponse {
     pub my_units: Vec<String>,
     #[serde(rename = "myRawUnits")]
     pub my_raw_units: f32,
+    #[serde(rename = "cta", skip_serializing_if = "Option::is_none")]
+    pub cta: Option<Box<crate::models::GetVaultMarketGradingSignalResponseCta>>,
 }
 
 impl GetVaultMarketGradingSignalResponse {
-    pub fn new(book_key: String, raw_mark_quality: RawMarkQuality, graded: Vec<crate::models::GetVaultMarketKeyStatResponse>, graders: Vec<crate::models::GetVaultMarketGradingSignalResponseGraders>, worth_it: bool, raw_tier: RawTier, my_units: Vec<String>, my_raw_units: f32) -> GetVaultMarketGradingSignalResponse {
+    pub fn new(book_key: String, raw_mark_quality: RawMarkQuality, graded: Vec<crate::models::GetVaultMarketGradingSignalResponseGraded>, graders: Vec<crate::models::GetVaultMarketGradingSignalResponseGraders>, worth_it: bool, raw_tier: RawTier, my_units: Vec<String>, my_raw_units: f32) -> GetVaultMarketGradingSignalResponse {
         GetVaultMarketGradingSignalResponse {
             book_key,
             raw_mark_cents: None,
@@ -46,6 +48,7 @@ impl GetVaultMarketGradingSignalResponse {
             raw_tier,
             my_units,
             my_raw_units,
+            cta: None,
         }
     }
 }
@@ -55,12 +58,12 @@ impl GetVaultMarketGradingSignalResponse {
 pub enum RawMarkQuality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for RawMarkQuality {
@@ -71,10 +74,10 @@ impl Default for RawMarkQuality {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum RawTier {
-    #[serde(rename = "standard")]
-    Standard,
     #[serde(rename = "closed")]
     Closed,
+    #[serde(rename = "standard")]
+    Standard,
     #[serde(rename = "deep")]
     Deep,
     #[serde(rename = "thin")]
@@ -83,7 +86,7 @@ pub enum RawTier {
 
 impl Default for RawTier {
     fn default() -> RawTier {
-        Self::Standard
+        Self::Closed
     }
 }
 

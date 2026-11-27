@@ -17,24 +17,24 @@ pub struct CreateWorldSpaceEventResponseData {
     pub id: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
-    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
-    pub cancelled_at: Option<String>,
     #[serde(rename = "title")]
     pub title: String,
     #[serde(rename = "endsAt")]
     pub ends_at: String,
+    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
+    pub cancelled_at: Option<String>,
     #[serde(rename = "kind")]
     pub kind: String,
     #[serde(rename = "startsAt")]
     pub starts_at: String,
-    #[serde(rename = "remindedAt", skip_serializing_if = "Option::is_none")]
-    pub reminded_at: Option<String>,
     #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
     #[serde(rename = "about", skip_serializing_if = "Option::is_none")]
     pub about: Option<String>,
     #[serde(rename = "spaceId")]
     pub space_id: String,
+    #[serde(rename = "remindedAt", skip_serializing_if = "Option::is_none")]
+    pub reminded_at: Option<String>,
     #[serde(rename = "clubOnly")]
     pub club_only: bool,
 }
@@ -44,15 +44,15 @@ impl CreateWorldSpaceEventResponseData {
         CreateWorldSpaceEventResponseData {
             id,
             created_at,
-            cancelled_at: None,
             title,
             ends_at,
+            cancelled_at: None,
             kind,
             starts_at,
-            reminded_at: None,
             created_by: None,
             about: None,
             space_id,
+            reminded_at: None,
             club_only,
         }
     }

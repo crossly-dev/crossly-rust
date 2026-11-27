@@ -35,13 +35,13 @@ pub struct GetVaultMarketCapacityResponse {
     #[serde(rename = "unpriced")]
     pub unpriced: Vec<String>,
     #[serde(rename = "perKey")]
-    pub per_key: Vec<serde_json::Value>,
+    pub per_key: Vec<crate::models::GetVaultMarketCapacityResponsePerKeyItem>,
     #[serde(rename = "notes")]
     pub notes: Vec<String>,
 }
 
 impl GetVaultMarketCapacityResponse {
-    pub fn new(index: String, notional_cents: f32, band_bps: f32, participation: f32, constituents: f32, fillable_now_cents: f32, fillable_now_bps: f32, planned_cents: f32, days_to_complete: f32, unpriced: Vec<String>, per_key: Vec<serde_json::Value>, notes: Vec<String>) -> GetVaultMarketCapacityResponse {
+    pub fn new(index: String, notional_cents: f32, band_bps: f32, participation: f32, constituents: f32, fillable_now_cents: f32, fillable_now_bps: f32, planned_cents: f32, days_to_complete: f32, unpriced: Vec<String>, per_key: Vec<crate::models::GetVaultMarketCapacityResponsePerKeyItem>, notes: Vec<String>) -> GetVaultMarketCapacityResponse {
         GetVaultMarketCapacityResponse {
             index,
             notional_cents,

@@ -15,12 +15,12 @@
 pub struct GetBuyerAuctionMeResponseData {
     #[serde(rename = "bidding")]
     pub bidding: bool,
-    #[serde(rename = "won", skip_serializing_if = "Option::is_none")]
-    pub won: Option<bool>,
     #[serde(rename = "myMaxCents", skip_serializing_if = "Option::is_none")]
     pub my_max_cents: Option<f32>,
     #[serde(rename = "leading", skip_serializing_if = "Option::is_none")]
     pub leading: Option<bool>,
+    #[serde(rename = "won", skip_serializing_if = "Option::is_none")]
+    pub won: Option<bool>,
     /// Won, and the charge at close did not go through — call pay.
     #[serde(rename = "needsPayment", skip_serializing_if = "Option::is_none")]
     pub needs_payment: Option<bool>,
@@ -30,9 +30,9 @@ impl GetBuyerAuctionMeResponseData {
     pub fn new(bidding: bool) -> GetBuyerAuctionMeResponseData {
         GetBuyerAuctionMeResponseData {
             bidding,
-            won: None,
             my_max_cents: None,
             leading: None,
+            won: None,
             needs_payment: None,
         }
     }

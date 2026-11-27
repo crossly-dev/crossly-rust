@@ -33,6 +33,9 @@ pub struct ListConnectedAppsItem {
     pub developer_name: Option<String>,
     #[serde(rename = "developerEmail")]
     pub developer_email: String,
+    /// The share of take-home THIS install agreed to (frozen at consent), not the app's current terms. Null = free.
+    #[serde(rename = "revShareBps", skip_serializing_if = "Option::is_none")]
+    pub rev_share_bps: Option<f32>,
 }
 
 impl ListConnectedAppsItem {
@@ -48,6 +51,7 @@ impl ListConnectedAppsItem {
             homepage_url: None,
             developer_name: None,
             developer_email,
+            rev_share_bps: None,
         }
     }
 }

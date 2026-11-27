@@ -14,11 +14,11 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetPatScopeResponse {
     #[serde(rename = "scopes")]
-    pub scopes: Vec<crate::models::GetPatScopeResponseScopes>,
+    pub scopes: Vec<crate::models::ListAppsItemCapabilities>,
 }
 
 impl GetPatScopeResponse {
-    pub fn new(scopes: Vec<crate::models::GetPatScopeResponseScopes>) -> GetPatScopeResponse {
+    pub fn new(scopes: Vec<crate::models::ListAppsItemCapabilities>) -> GetPatScopeResponse {
         GetPatScopeResponse {
             scopes,
         }

@@ -13,32 +13,38 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListWorkflowChainsItem {
-    #[serde(rename = "steps")]
-    pub steps: Vec<crate::models::GetWorkflowChainResponseSteps>,
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "name")]
-    pub name: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
-    #[serde(rename = "isActive")]
-    pub is_active: bool,
+    #[serde(rename = "name")]
+    pub name: String,
     #[serde(rename = "triggerId")]
     pub trigger_id: String,
+    #[serde(rename = "triggerConfig")]
+    pub trigger_config: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "isActive")]
+    pub is_active: bool,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    #[serde(rename = "workflowId")]
+    pub workflow_id: String,
+    #[serde(rename = "steps")]
+    pub steps: Vec<crate::models::GetWorkflowChainResponseSteps>,
 }
 
 impl ListWorkflowChainsItem {
-    pub fn new(steps: Vec<crate::models::GetWorkflowChainResponseSteps>, id: String, name: String, created_at: String, user_id: String, is_active: bool, trigger_id: String) -> ListWorkflowChainsItem {
+    pub fn new(id: String, user_id: String, name: String, trigger_id: String, trigger_config: ::std::collections::HashMap<String, serde_json::Value>, is_active: bool, created_at: String, workflow_id: String, steps: Vec<crate::models::GetWorkflowChainResponseSteps>) -> ListWorkflowChainsItem {
         ListWorkflowChainsItem {
-            steps,
             id,
-            name,
-            created_at,
             user_id,
-            is_active,
+            name,
             trigger_id,
+            trigger_config,
+            is_active,
+            created_at,
+            workflow_id,
+            steps,
         }
     }
 }

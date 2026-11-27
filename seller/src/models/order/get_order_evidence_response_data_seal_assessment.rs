@@ -37,10 +37,10 @@ impl GetOrderEvidenceResponseDataSealAssessment {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Verdict {
-    #[serde(rename = "opened")]
-    Opened,
     #[serde(rename = "unknown")]
     Unknown,
+    #[serde(rename = "opened")]
+    Opened,
     #[serde(rename = "intact")]
     Intact,
     #[serde(rename = "suspect")]
@@ -49,7 +49,7 @@ pub enum Verdict {
 
 impl Default for Verdict {
     fn default() -> Verdict {
-        Self::Opened
+        Self::Unknown
     }
 }
 

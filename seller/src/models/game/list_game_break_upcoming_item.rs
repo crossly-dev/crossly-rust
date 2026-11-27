@@ -24,10 +24,13 @@ pub struct ListGameBreakUpcomingItem {
     /// Scheduled start (ISO), and whether the seller is breaking right now.
     #[serde(rename = "startsAt", skip_serializing_if = "Option::is_none")]
     pub starts_at: Option<String>,
+    /// When the viewer gets in (ISO): the start, or earlier for a loyalty member with the seller's `live_early_entry` perk. Null with no start. Optional: a board read without a viewer leaves it at the start.
+    #[serde(rename = "doorsOpenAt", skip_serializing_if = "Option::is_none")]
+    pub doors_open_at: Option<String>,
     #[serde(rename = "live")]
     pub live: bool,
     #[serde(rename = "shop")]
-    pub shop: Box<crate::models::SlugName>,
+    pub shop: Box<crate::models::NameSlug>,
     /// The listing the spots are bought through, on crossly.net. Never a world checkout.
     #[serde(rename = "buyUrl", skip_serializing_if = "Option::is_none")]
     pub buy_url: Option<String>,
@@ -40,13 +43,14 @@ pub struct ListGameBreakUpcomingItem {
 }
 
 impl ListGameBreakUpcomingItem {
-    pub fn new(break_id: String, title: String, status: String, live: bool, shop: crate::models::SlugName, spots_left: f32, spots: Vec<crate::models::ListGameBreakUpcomingItemSpots>, hits: Vec<crate::models::ListGameBreakUpcomingItemHits>) -> ListGameBreakUpcomingItem {
+    pub fn new(break_id: String, title: String, status: String, live: bool, shop: crate::models::NameSlug, spots_left: f32, spots: Vec<crate::models::ListGameBreakUpcomingItemSpots>, hits: Vec<crate::models::ListGameBreakUpcomingItemHits>) -> ListGameBreakUpcomingItem {
         ListGameBreakUpcomingItem {
             break_id,
             title,
             product: None,
             status,
             starts_at: None,
+            doors_open_at: None,
             live,
             shop: Box::new(shop),
             buy_url: None,

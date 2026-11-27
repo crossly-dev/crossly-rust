@@ -19,14 +19,17 @@ pub struct GetAnalyticDashboardResponseRevenue {
     pub previous: f32,
     #[serde(rename = "pctChange", skip_serializing_if = "Option::is_none")]
     pub pct_change: Option<f32>,
+    #[serde(rename = "delta")]
+    pub delta: Box<crate::models::GetAnalyticOverviewResponseDataKpisNetSalesDelta>,
 }
 
 impl GetAnalyticDashboardResponseRevenue {
-    pub fn new(current: f32, previous: f32) -> GetAnalyticDashboardResponseRevenue {
+    pub fn new(current: f32, previous: f32, delta: crate::models::GetAnalyticOverviewResponseDataKpisNetSalesDelta) -> GetAnalyticDashboardResponseRevenue {
         GetAnalyticDashboardResponseRevenue {
             current,
             previous,
             pct_change: None,
+            delta: Box::new(delta),
         }
     }
 }

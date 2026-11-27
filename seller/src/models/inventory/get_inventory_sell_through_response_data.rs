@@ -14,22 +14,25 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetInventorySellThroughResponseData {
     #[serde(rename = "current")]
-    pub current: Box<crate::models::GetAnalyticDashboardResponseSellThrough>,
+    pub current: Box<crate::models::GetInventorySellThroughResponseDataCurrent>,
     #[serde(rename = "previous")]
-    pub previous: Box<crate::models::GetAnalyticDashboardResponseSellThrough>,
+    pub previous: Box<crate::models::GetInventorySellThroughResponseDataCurrent>,
     #[serde(rename = "comparison")]
     pub comparison: Box<crate::models::GetInventorySellThroughResponseDataComparison>,
     #[serde(rename = "window")]
-    pub window: Box<crate::models::GetInventorySellThroughResponseDataWindow>,
+    pub window: Box<crate::models::StartEnd>,
+    #[serde(rename = "cohort")]
+    pub cohort: Box<crate::models::GetAnalyticDashboardResponseSellThroughCohort>,
 }
 
 impl GetInventorySellThroughResponseData {
-    pub fn new(current: crate::models::GetAnalyticDashboardResponseSellThrough, previous: crate::models::GetAnalyticDashboardResponseSellThrough, comparison: crate::models::GetInventorySellThroughResponseDataComparison, window: crate::models::GetInventorySellThroughResponseDataWindow) -> GetInventorySellThroughResponseData {
+    pub fn new(current: crate::models::GetInventorySellThroughResponseDataCurrent, previous: crate::models::GetInventorySellThroughResponseDataCurrent, comparison: crate::models::GetInventorySellThroughResponseDataComparison, window: crate::models::StartEnd, cohort: crate::models::GetAnalyticDashboardResponseSellThroughCohort) -> GetInventorySellThroughResponseData {
         GetInventorySellThroughResponseData {
             current: Box::new(current),
             previous: Box::new(previous),
             comparison: Box::new(comparison),
             window: Box::new(window),
+            cohort: Box::new(cohort),
         }
     }
 }

@@ -78,12 +78,12 @@ impl GetVaultMarketTaxLossSuggestionResponseSuggestions {
 pub enum MarkQuality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for MarkQuality {
@@ -94,15 +94,15 @@ impl Default for MarkQuality {
 /// If it were sold today. Null when the acquisition day is not known.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Term {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
 }
 
 impl Default for Term {
     fn default() -> Term {
-        Self::Long
+        Self::Short
     }
 }
 

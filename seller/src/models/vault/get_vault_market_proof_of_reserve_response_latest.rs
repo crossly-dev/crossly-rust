@@ -31,10 +31,12 @@ pub struct GetVaultMarketProofOfReserveResponseLatest {
     pub total_insured_cents: f32,
     #[serde(rename = "memo")]
     pub memo: String,
+    #[serde(rename = "anchor")]
+    pub anchor: Box<crate::models::GetVaultMarketProofOfReserveResponseLatestAnchor>,
 }
 
 impl GetVaultMarketProofOfReserveResponseLatest {
-    pub fn new(day: String, root: String, leaf_count: f32, method_version: f32, built_at: String, units: crate::models::GetVaultMarketProofOfReserveByDayResponseUnits, loans_open: f32, total_insured_cents: f32, memo: String) -> GetVaultMarketProofOfReserveResponseLatest {
+    pub fn new(day: String, root: String, leaf_count: f32, method_version: f32, built_at: String, units: crate::models::GetVaultMarketProofOfReserveByDayResponseUnits, loans_open: f32, total_insured_cents: f32, memo: String, anchor: crate::models::GetVaultMarketProofOfReserveResponseLatestAnchor) -> GetVaultMarketProofOfReserveResponseLatest {
         GetVaultMarketProofOfReserveResponseLatest {
             day,
             root,
@@ -45,6 +47,7 @@ impl GetVaultMarketProofOfReserveResponseLatest {
             loans_open,
             total_insured_cents,
             memo,
+            anchor: Box::new(anchor),
         }
     }
 }

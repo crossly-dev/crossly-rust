@@ -40,10 +40,10 @@ impl GetVaultMarketHealthResponseConcentrationByCategory {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Band {
-    #[serde(rename = "spread")]
-    Spread,
     #[serde(rename = "moderate")]
     Moderate,
+    #[serde(rename = "spread")]
+    Spread,
     #[serde(rename = "empty")]
     Empty,
     #[serde(rename = "concentrated")]
@@ -52,7 +52,7 @@ pub enum Band {
 
 impl Default for Band {
     fn default() -> Band {
-        Self::Spread
+        Self::Moderate
     }
 }
 

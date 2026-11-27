@@ -40,8 +40,6 @@ impl GetVaultMarketLiquidityResponseComponents {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Name {
-    #[serde(rename = "spreadBps")]
-    SpreadBps,
     #[serde(rename = "trades30d")]
     Trades30d,
     #[serde(rename = "trades90d")]
@@ -50,6 +48,8 @@ pub enum Name {
     Counterparties90d,
     #[serde(rename = "medianGapDays")]
     MedianGapDays,
+    #[serde(rename = "spreadBps")]
+    SpreadBps,
     #[serde(rename = "twoSidedShare")]
     TwoSidedShare,
     #[serde(rename = "depthCents")]
@@ -62,21 +62,21 @@ pub enum Name {
 
 impl Default for Name {
     fn default() -> Name {
-        Self::SpreadBps
+        Self::Trades30d
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Better {
-    #[serde(rename = "high")]
-    High,
     #[serde(rename = "low")]
     Low,
+    #[serde(rename = "high")]
+    High,
 }
 
 impl Default for Better {
     fn default() -> Better {
-        Self::High
+        Self::Low
     }
 }
 

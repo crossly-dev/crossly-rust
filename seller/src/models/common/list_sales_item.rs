@@ -13,42 +13,46 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListSalesItem {
+    #[serde(rename = "appShare", skip_serializing_if = "Option::is_none")]
+    pub app_share: Option<Box<crate::models::GetOrderResponseAppShare>>,
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "userId")]
     pub user_id: String,
     #[serde(rename = "platform")]
     pub platform: String,
-    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
-    pub cancelled_at: Option<String>,
-    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
-    pub order_id: Option<String>,
-    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
-    pub listing_id: Option<String>,
+    #[serde(rename = "netProfit", skip_serializing_if = "Option::is_none")]
+    pub net_profit: Option<String>,
+    #[serde(rename = "shippingCost", skip_serializing_if = "Option::is_none")]
+    pub shipping_cost: Option<String>,
+    #[serde(rename = "shippingCharged", skip_serializing_if = "Option::is_none")]
+    pub shipping_charged: Option<String>,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
     pub inventory_item_id: Option<String>,
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<String>,
+    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
+    pub listing_id: Option<String>,
     #[serde(rename = "platformListingId", skip_serializing_if = "Option::is_none")]
     pub platform_listing_id: Option<String>,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "platformOrderId", skip_serializing_if = "Option::is_none")]
     pub platform_order_id: Option<String>,
     #[serde(rename = "costOfGoods", skip_serializing_if = "Option::is_none")]
     pub cost_of_goods: Option<String>,
+    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
+    pub cancelled_at: Option<String>,
     #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
     pub deleted_at: Option<String>,
+    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
+    pub order_id: Option<String>,
     #[serde(rename = "salePrice", skip_serializing_if = "Option::is_none")]
     pub sale_price: Option<String>,
     #[serde(rename = "platformFee", skip_serializing_if = "Option::is_none")]
     pub platform_fee: Option<String>,
-    #[serde(rename = "shippingCost", skip_serializing_if = "Option::is_none")]
-    pub shipping_cost: Option<String>,
-    #[serde(rename = "netProfit", skip_serializing_if = "Option::is_none")]
-    pub net_profit: Option<String>,
     #[serde(rename = "taxCollected", skip_serializing_if = "Option::is_none")]
     pub tax_collected: Option<String>,
-    #[serde(rename = "shippingCharged", skip_serializing_if = "Option::is_none")]
-    pub shipping_charged: Option<String>,
     #[serde(rename = "feeSource", skip_serializing_if = "Option::is_none")]
     pub fee_source: Option<String>,
     #[serde(rename = "detectedBy")]
@@ -59,34 +63,45 @@ pub struct ListSalesItem {
     pub documents: Option<Vec<crate::models::ListSalesItemDocuments>>,
     #[serde(rename = "refundedAmount", skip_serializing_if = "Option::is_none")]
     pub refunded_amount: Option<String>,
+    #[serde(rename = "detailsPending")]
+    pub details_pending: bool,
+    #[serde(rename = "variantSku", skip_serializing_if = "Option::is_none")]
+    pub variant_sku: Option<String>,
+    #[serde(rename = "variantId", skip_serializing_if = "Option::is_none")]
+    pub variant_id: Option<String>,
 }
 
 impl ListSalesItem {
-    pub fn new(id: String, user_id: String, platform: String, detected_by: String, detected_at: String) -> ListSalesItem {
+    pub fn new(id: String, user_id: String, platform: String, detected_by: String, detected_at: String, details_pending: bool) -> ListSalesItem {
         ListSalesItem {
+            app_share: None,
             id,
             user_id,
             platform,
-            cancelled_at: None,
-            order_id: None,
-            listing_id: None,
+            net_profit: None,
+            shipping_cost: None,
+            shipping_charged: None,
             inventory_item_id: None,
             currency: None,
+            listing_id: None,
             platform_listing_id: None,
+            storefront_id: None,
             platform_order_id: None,
             cost_of_goods: None,
+            cancelled_at: None,
             deleted_at: None,
+            order_id: None,
             sale_price: None,
             platform_fee: None,
-            shipping_cost: None,
-            net_profit: None,
             tax_collected: None,
-            shipping_charged: None,
             fee_source: None,
             detected_by,
             detected_at,
             documents: None,
             refunded_amount: None,
+            details_pending,
+            variant_sku: None,
+            variant_id: None,
         }
     }
 }

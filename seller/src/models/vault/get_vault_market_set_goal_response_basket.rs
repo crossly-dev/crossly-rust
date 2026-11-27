@@ -76,19 +76,19 @@ impl GetVaultMarketSetGoalResponseBasket {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
+    #[serde(rename = "completed")]
+    Completed,
     #[serde(rename = "cancelled")]
     Cancelled,
     #[serde(rename = "ended")]
     Ended,
     #[serde(rename = "working")]
     Working,
-    #[serde(rename = "completed")]
-    Completed,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Cancelled
+        Self::Completed
     }
 }
 /// 

@@ -37,15 +37,15 @@ impl CreateVaultMarketInstantExitResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "filled")]
-    Filled,
     #[serde(rename = "missed")]
     Missed,
+    #[serde(rename = "filled")]
+    Filled,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Filled
+        Self::Missed
     }
 }
 

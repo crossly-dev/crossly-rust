@@ -32,7 +32,7 @@ pub struct GetWorldGameResponseData {
     #[serde(rename = "mode")]
     pub mode: Mode,
     #[serde(rename = "players")]
-    pub players: Box<crate::models::GetWorldGameResponseDataPlayers>,
+    pub players: Box<crate::models::MinMax>,
     #[serde(rename = "places")]
     pub places: Vec<crate::models::GetWorldGameResponseDataPlacesItem>,
     #[serde(rename = "rating")]
@@ -54,7 +54,7 @@ pub struct GetWorldGameResponseData {
 }
 
 impl GetWorldGameResponseData {
-    pub fn new(stars: crate::models::AverageCount, store: Vec<crate::models::GetWorldGameResponseDataStore>, id: String, slug: String, name: String, version: String, description: String, mode: Mode, players: crate::models::GetWorldGameResponseDataPlayers, places: Vec<crate::models::GetWorldGameResponseDataPlacesItem>, rating: Rating, rewards: Vec<crate::models::GetWorldGameResponseDataRewards>, piece: crate::models::GetWorldGameResponseDataPiece) -> GetWorldGameResponseData {
+    pub fn new(stars: crate::models::AverageCount, store: Vec<crate::models::GetWorldGameResponseDataStore>, id: String, slug: String, name: String, version: String, description: String, mode: Mode, players: crate::models::MinMax, places: Vec<crate::models::GetWorldGameResponseDataPlacesItem>, rating: Rating, rewards: Vec<crate::models::GetWorldGameResponseDataRewards>, piece: crate::models::GetWorldGameResponseDataPiece) -> GetWorldGameResponseData {
         GetWorldGameResponseData {
             stars: Box::new(stars),
             my_stars: None,

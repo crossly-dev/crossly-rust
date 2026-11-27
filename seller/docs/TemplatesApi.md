@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**delete_me_template_share**](TemplatesApi.md#delete_me_template_share) | **DELETE** /v1/me/templates/{id}/share | Revoke a template share link.
 [**get_me_template**](TemplatesApi.md#get_me_template) | **GET** /v1/me/templates/{id} | Fetch one template in full.
 [**get_me_template_suggest**](TemplatesApi.md#get_me_template_suggest) | **GET** /v1/me/templates/suggest | The seller's default template for a category.
+[**get_public_template**](TemplatesApi.md#get_public_template) | **GET** /v1/public/templates/{token} | A shared template by its share token (public, no auth).
 [**list_me_templates**](TemplatesApi.md#list_me_templates) | **GET** /v1/me/templates | List the seller's templates.
 [**update_me_template**](TemplatesApi.md#update_me_template) | **PATCH** /v1/me/templates/{id} | Patch a template.
 
@@ -229,6 +230,34 @@ This endpoint does not need any parameter.
 ### Authorization
 
 [PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_public_template
+
+> crate::models::GetPublicTemplateResponse get_public_template(token)
+A shared template by its share token (public, no auth).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**token** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetPublicTemplateResponse**
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

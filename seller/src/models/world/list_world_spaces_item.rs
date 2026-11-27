@@ -46,6 +46,8 @@ impl ListWorldSpacesItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Venue {
+    #[serde(rename = "stage")]
+    Stage,
     #[serde(rename = "gallery")]
     Gallery,
     #[serde(rename = "card_club")]
@@ -54,15 +56,13 @@ pub enum Venue {
     SneakerMeet,
     #[serde(rename = "vintage_market")]
     VintageMarket,
-    #[serde(rename = "stage")]
-    Stage,
     #[serde(rename = "clubhouse")]
     Clubhouse,
 }
 
 impl Default for Venue {
     fn default() -> Venue {
-        Self::Gallery
+        Self::Stage
     }
 }
 

@@ -17,21 +17,27 @@ pub struct GetMileageSummaryResponse {
     pub year: f32,
     #[serde(rename = "ratePerMile")]
     pub rate_per_mile: f32,
+    #[serde(rename = "rates")]
+    pub rates: Vec<crate::models::GetMileageSummaryResponseRates>,
     #[serde(rename = "totalMiles")]
     pub total_miles: f32,
     #[serde(rename = "deduction")]
     pub deduction: f32,
+    #[serde(rename = "deductionCents")]
+    pub deduction_cents: f32,
     #[serde(rename = "entryCount")]
     pub entry_count: f32,
 }
 
 impl GetMileageSummaryResponse {
-    pub fn new(year: f32, rate_per_mile: f32, total_miles: f32, deduction: f32, entry_count: f32) -> GetMileageSummaryResponse {
+    pub fn new(year: f32, rate_per_mile: f32, rates: Vec<crate::models::GetMileageSummaryResponseRates>, total_miles: f32, deduction: f32, deduction_cents: f32, entry_count: f32) -> GetMileageSummaryResponse {
         GetMileageSummaryResponse {
             year,
             rate_per_mile,
+            rates,
             total_miles,
             deduction,
+            deduction_cents,
             entry_count,
         }
     }

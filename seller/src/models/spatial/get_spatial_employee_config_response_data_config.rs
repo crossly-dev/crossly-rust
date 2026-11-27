@@ -53,17 +53,19 @@ impl GetSpatialEmployeeConfigResponseDataConfig {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BrainKind {
-    #[serde(rename = "idle")]
-    Idle,
     #[serde(rename = "rules")]
     Rules,
+    #[serde(rename = "idle")]
+    Idle,
     #[serde(rename = "agent")]
     Agent,
+    #[serde(rename = "byok")]
+    Byok,
 }
 
 impl Default for BrainKind {
     fn default() -> BrainKind {
-        Self::Idle
+        Self::Rules
     }
 }
 

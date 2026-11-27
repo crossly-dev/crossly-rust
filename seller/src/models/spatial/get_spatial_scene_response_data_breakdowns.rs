@@ -33,38 +33,38 @@ impl GetSpatialSceneResponseDataBreakdowns {
 pub enum Facet {
     #[serde(rename = "brand")]
     brand,
+    #[serde(rename = "label")]
+    label,
+    #[serde(rename = "status")]
+    status,
+    #[serde(rename = "age")]
+    age,
     #[serde(rename = "condition")]
     condition,
     #[serde(rename = "size")]
     size,
-    #[serde(rename = "status")]
-    status,
-    #[serde(rename = "label")]
-    label,
     #[serde(rename = "title")]
     title,
     #[serde(rename = "value")]
     valueOption,
+    #[serde(rename = "set")]
+    set,
+    #[serde(rename = "team")]
+    team,
     #[serde(rename = "year")]
     year,
     #[serde(rename = "grade")]
     grade,
     #[serde(rename = "game")]
     game,
-    #[serde(rename = "set")]
-    set,
     #[serde(rename = "franchise")]
     franchise,
-    #[serde(rename = "team")]
-    team,
     #[serde(rename = "era")]
     era,
     #[serde(rename = "genre")]
     genre,
     #[serde(rename = "colour")]
     colour,
-    #[serde(rename = "age")]
-    age,
     #[serde(rename = "exhibitor")]
     exhibitor,
 }

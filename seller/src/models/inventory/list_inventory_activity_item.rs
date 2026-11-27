@@ -21,12 +21,12 @@ pub struct ListInventoryActivityItem {
     pub user_id: String,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
-    #[serde(rename = "type")]
-    pub _type: String,
-    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
-    pub order_id: Option<String>,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
     pub inventory_item_id: Option<String>,
+    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
+    pub order_id: Option<String>,
+    #[serde(rename = "type")]
+    pub _type: String,
     #[serde(rename = "delta", skip_serializing_if = "Option::is_none")]
     pub delta: Option<f32>,
     #[serde(rename = "quantityBefore", skip_serializing_if = "Option::is_none")]
@@ -44,9 +44,9 @@ impl ListInventoryActivityItem {
             created_at,
             user_id,
             platform: None,
-            _type,
-            order_id: None,
             inventory_item_id: None,
+            order_id: None,
+            _type,
             delta: None,
             quantity_before: None,
             quantity_after: None,

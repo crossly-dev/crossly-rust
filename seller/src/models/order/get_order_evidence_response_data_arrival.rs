@@ -44,21 +44,21 @@ impl GetOrderEvidenceResponseDataArrival {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum State {
-    #[serde(rename = "awaiting")]
-    Awaiting,
-    #[serde(rename = "submitted")]
-    Submitted,
     #[serde(rename = "declined")]
     Declined,
+    #[serde(rename = "submitted")]
+    Submitted,
     #[serde(rename = "not_requested")]
     NotRequested,
+    #[serde(rename = "awaiting")]
+    Awaiting,
     #[serde(rename = "window_closed")]
     WindowClosed,
 }
 
 impl Default for State {
     fn default() -> State {
-        Self::Awaiting
+        Self::Declined
     }
 }
 

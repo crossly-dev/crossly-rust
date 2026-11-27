@@ -61,10 +61,10 @@ impl CreateBuyerDropJoinResponseMe {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Outcome {
-    #[serde(rename = "won")]
-    Won,
     #[serde(rename = "expired")]
     Expired,
+    #[serde(rename = "won")]
+    Won,
     #[serde(rename = "waitlist")]
     Waitlist,
     #[serde(rename = "claimed")]
@@ -73,7 +73,7 @@ pub enum Outcome {
 
 impl Default for Outcome {
     fn default() -> Outcome {
-        Self::Won
+        Self::Expired
     }
 }
 

@@ -14,10 +14,10 @@
 pub enum GetStallQuoteResponseQuoteRailsItem {
     #[serde(rename = "card")]
     Card,
-    #[serde(rename = "bucks")]
-    Bucks,
     #[serde(rename = "cbx")]
     Cbx,
+    #[serde(rename = "bucks")]
+    Bucks,
 
 }
 
@@ -25,8 +25,8 @@ impl ToString for GetStallQuoteResponseQuoteRailsItem {
     fn to_string(&self) -> String {
         match self {
             Self::Card => String::from("card"),
-            Self::Bucks => String::from("bucks"),
             Self::Cbx => String::from("cbx"),
+            Self::Bucks => String::from("bucks"),
         }
     }
 }

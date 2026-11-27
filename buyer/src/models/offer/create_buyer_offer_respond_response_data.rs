@@ -16,20 +16,20 @@ pub struct CreateBuyerOfferRespondResponseData {
     /// accepted | declined | countered.
     #[serde(rename = "status")]
     pub status: String,
-    /// Countered: the id of YOUR new offer, now waiting on the seller.
-    #[serde(rename = "offerId", skip_serializing_if = "Option::is_none")]
-    pub offer_id: Option<String>,
     /// Accepted: you can now pay for it (48 hours).
     #[serde(rename = "redeemable", skip_serializing_if = "Option::is_none")]
     pub redeemable: Option<bool>,
+    /// Countered: the id of YOUR new offer, now waiting on the seller.
+    #[serde(rename = "offerId", skip_serializing_if = "Option::is_none")]
+    pub offer_id: Option<String>,
 }
 
 impl CreateBuyerOfferRespondResponseData {
     pub fn new(status: String) -> CreateBuyerOfferRespondResponseData {
         CreateBuyerOfferRespondResponseData {
             status,
-            offer_id: None,
             redeemable: None,
+            offer_id: None,
         }
     }
 }

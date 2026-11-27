@@ -15,18 +15,18 @@
 pub struct CreateAutomationRuleValidateRecipeResponse {
     #[serde(rename = "valid")]
     pub valid: bool,
-    #[serde(rename = "error")]
-    pub error: String,
-    #[serde(rename = "details")]
-    pub details: Box<crate::models::CreateAutomationRuleValidateRecipeResponseDetails>,
+    #[serde(rename = "count")]
+    pub count: f32,
+    #[serde(rename = "results")]
+    pub results: Vec<crate::models::CreateAutomationRuleValidateRecipeResponseResults>,
 }
 
 impl CreateAutomationRuleValidateRecipeResponse {
-    pub fn new(valid: bool, error: String, details: crate::models::CreateAutomationRuleValidateRecipeResponseDetails) -> CreateAutomationRuleValidateRecipeResponse {
+    pub fn new(valid: bool, count: f32, results: Vec<crate::models::CreateAutomationRuleValidateRecipeResponseResults>) -> CreateAutomationRuleValidateRecipeResponse {
         CreateAutomationRuleValidateRecipeResponse {
             valid,
-            error,
-            details: Box::new(details),
+            count,
+            results,
         }
     }
 }

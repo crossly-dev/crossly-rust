@@ -1,7 +1,3 @@
-pub mod create_buyer_purchase_download_response;
-pub use self::create_buyer_purchase_download_response::CreateBuyerPurchaseDownloadResponse;
-pub mod create_buyer_purchase_download_response_data;
-pub use self::create_buyer_purchase_download_response_data::CreateBuyerPurchaseDownloadResponseData;
 pub mod get_buyer_purchase_delivery_response;
 pub use self::get_buyer_purchase_delivery_response::GetBuyerPurchaseDeliveryResponse;
 pub mod get_buyer_purchase_delivery_response_data;

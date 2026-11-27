@@ -49,17 +49,17 @@ impl GetVaultMarketPositionResponseSplits {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Reason {
-    #[serde(rename = "auction")]
-    Auction,
     #[serde(rename = "close")]
     Close,
+    #[serde(rename = "auction")]
+    Auction,
     #[serde(rename = "recall")]
     Recall,
 }
 
 impl Default for Reason {
     fn default() -> Reason {
-        Self::Auction
+        Self::Close
     }
 }
 /// 
@@ -83,15 +83,15 @@ impl Default for Status {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Action {
-    #[serde(rename = "auction")]
-    Auction,
     #[serde(rename = "close")]
     Close,
+    #[serde(rename = "auction")]
+    Auction,
 }
 
 impl Default for Action {
     fn default() -> Action {
-        Self::Auction
+        Self::Close
     }
 }
 

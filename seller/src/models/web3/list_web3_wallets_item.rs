@@ -25,12 +25,15 @@ pub struct ListWeb3WalletsItem {
     pub verified_at: Option<String>,
     #[serde(rename = "lastSyncedAt", skip_serializing_if = "Option::is_none")]
     pub last_synced_at: Option<String>,
+    /// A sync adds new NFTs to inventory (migration 0740); off, it only refreshes the ones already there.
+    #[serde(rename = "autoImport")]
+    pub auto_import: bool,
     #[serde(rename = "createdAt")]
     pub created_at: String,
 }
 
 impl ListWeb3WalletsItem {
-    pub fn new(id: String, family: Family, address: String, created_at: String) -> ListWeb3WalletsItem {
+    pub fn new(id: String, family: Family, address: String, auto_import: bool, created_at: String) -> ListWeb3WalletsItem {
         ListWeb3WalletsItem {
             id,
             family,
@@ -38,6 +41,7 @@ impl ListWeb3WalletsItem {
             label: None,
             verified_at: None,
             last_synced_at: None,
+            auto_import,
             created_at,
         }
     }
@@ -46,15 +50,15 @@ impl ListWeb3WalletsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Family {
-    #[serde(rename = "evm")]
-    Evm,
     #[serde(rename = "solana")]
     Solana,
+    #[serde(rename = "evm")]
+    Evm,
 }
 
 impl Default for Family {
     fn default() -> Family {
-        Self::Evm
+        Self::Solana
     }
 }
 

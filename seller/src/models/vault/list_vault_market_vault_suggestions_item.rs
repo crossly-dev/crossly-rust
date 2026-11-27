@@ -56,6 +56,8 @@ pub struct ListVaultMarketVaultSuggestionsItem {
     /// Where the market lives on the web (the buyer-side market page).
     #[serde(rename = "marketPath")]
     pub market_path: String,
+    #[serde(rename = "fractionalize", skip_serializing_if = "Option::is_none")]
+    pub fractionalize: Option<Box<crate::models::GetVaultMarketVaultSuggestionItemResponseSuggestionFractionalize>>,
 }
 
 impl ListVaultMarketVaultSuggestionsItem {
@@ -81,6 +83,7 @@ impl ListVaultMarketVaultSuggestionsItem {
             parts: Box::new(parts),
             reasons,
             market_path,
+            fractionalize: None,
         }
     }
 }

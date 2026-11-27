@@ -60,12 +60,12 @@ impl GetWeb3ProfileResponseListings {
 pub enum Kind {
     #[serde(rename = "bundle")]
     Bundle,
+    #[serde(rename = "offer")]
+    Offer,
     #[serde(rename = "listing")]
     Listing,
     #[serde(rename = "private_listing")]
     PrivateListing,
-    #[serde(rename = "offer")]
-    Offer,
     #[serde(rename = "collection_offer")]
     CollectionOffer,
     #[serde(rename = "trait_offer")]

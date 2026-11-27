@@ -32,10 +32,12 @@ pub struct GetVaultMarketHealthResponse {
     /// The items a what-if can be run on, largest first.
     #[serde(rename = "items")]
     pub items: Vec<crate::models::GetVaultMarketHealthResponseItems>,
+    #[serde(rename = "hedges")]
+    pub hedges: Box<crate::models::GetVaultMarketHealthResponseHedges>,
 }
 
 impl GetVaultMarketHealthResponse {
-    pub fn new(as_of: String, disclosure: String, totals: crate::models::GetVaultMarketHealthResponseTotals, concentration: crate::models::GetVaultMarketHealthResponseConcentration, liquidity: crate::models::GetVaultMarketHealthResponseLiquidity, stress: crate::models::GetVaultMarketHealthResponseStress, marks: crate::models::GetVaultMarketHealthResponseMarks, notes: Vec<String>, items: Vec<crate::models::GetVaultMarketHealthResponseItems>) -> GetVaultMarketHealthResponse {
+    pub fn new(as_of: String, disclosure: String, totals: crate::models::GetVaultMarketHealthResponseTotals, concentration: crate::models::GetVaultMarketHealthResponseConcentration, liquidity: crate::models::GetVaultMarketHealthResponseLiquidity, stress: crate::models::GetVaultMarketHealthResponseStress, marks: crate::models::GetVaultMarketHealthResponseMarks, notes: Vec<String>, items: Vec<crate::models::GetVaultMarketHealthResponseItems>, hedges: crate::models::GetVaultMarketHealthResponseHedges) -> GetVaultMarketHealthResponse {
         GetVaultMarketHealthResponse {
             as_of,
             disclosure,
@@ -46,6 +48,7 @@ impl GetVaultMarketHealthResponse {
             marks: Box::new(marks),
             notes,
             items,
+            hedges: Box::new(hedges),
         }
     }
 }

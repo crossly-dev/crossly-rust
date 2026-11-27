@@ -72,16 +72,16 @@ impl GetConnectionHealthResponseAccounts {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum State {
-    #[serde(rename = "stale")]
-    Stale,
     #[serde(rename = "unknown")]
     Unknown,
-    #[serde(rename = "healthy")]
-    Healthy,
     #[serde(rename = "unmonitored")]
     Unmonitored,
     #[serde(rename = "disconnected")]
     Disconnected,
+    #[serde(rename = "healthy")]
+    Healthy,
+    #[serde(rename = "stale")]
+    Stale,
     #[serde(rename = "partial_blank")]
     PartialBlank,
     #[serde(rename = "blank_credential")]
@@ -96,27 +96,27 @@ pub enum State {
 
 impl Default for State {
     fn default() -> State {
-        Self::Stale
+        Self::Unknown
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Severity {
-    #[serde(rename = "error")]
-    Error,
-    #[serde(rename = "unknown")]
-    Unknown,
-    #[serde(rename = "ok")]
-    Ok,
-    #[serde(rename = "warn")]
-    Warn,
     #[serde(rename = "info")]
     Info,
+    #[serde(rename = "unknown")]
+    Unknown,
+    #[serde(rename = "error")]
+    Error,
+    #[serde(rename = "warn")]
+    Warn,
+    #[serde(rename = "ok")]
+    Ok,
 }
 
 impl Default for Severity {
     fn default() -> Severity {
-        Self::Error
+        Self::Info
     }
 }
 /// 

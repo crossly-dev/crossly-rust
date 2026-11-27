@@ -44,15 +44,15 @@ impl GetWeb3ProfileResponse {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Family {
-    #[serde(rename = "evm")]
-    Evm,
     #[serde(rename = "solana")]
     Solana,
+    #[serde(rename = "evm")]
+    Evm,
 }
 
 impl Default for Family {
     fn default() -> Family {
-        Self::Evm
+        Self::Solana
     }
 }
 

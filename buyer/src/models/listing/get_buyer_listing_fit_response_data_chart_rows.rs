@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerListingFitResponseDataChartRows {
-    #[serde(rename = "label")]
-    pub label: String,
     #[serde(rename = "key")]
     pub key: String,
+    #[serde(rename = "label")]
+    pub label: String,
     #[serde(rename = "inches")]
     pub inches: f32,
 }
 
 impl GetBuyerListingFitResponseDataChartRows {
-    pub fn new(label: String, key: String, inches: f32) -> GetBuyerListingFitResponseDataChartRows {
+    pub fn new(key: String, label: String, inches: f32) -> GetBuyerListingFitResponseDataChartRows {
         GetBuyerListingFitResponseDataChartRows {
-            label,
             key,
+            label,
             inches,
         }
     }

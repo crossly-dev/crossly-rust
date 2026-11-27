@@ -28,6 +28,8 @@ Method | HTTP request | Description
 > crate::models::ListAutomationRulesItem create_automation_rule()
 Create an automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Parameters
 
 This endpoint does not need any parameter.
@@ -52,6 +54,8 @@ This endpoint does not need any parameter.
 
 > crate::models::CreateAutomationRuleImportResponse create_automation_rule_import(activate)
 Import one or more rules from recipe JSON (single or bundle).
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Parameters
 
@@ -81,6 +85,8 @@ Name | Type | Description  | Required | Notes
 > crate::models::CreateAutomationRuleRunNowResponse create_automation_rule_run_now(id)
 Fire an automation rule immediately.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Parameters
 
 
@@ -106,8 +112,10 @@ Name | Type | Description  | Required | Notes
 
 ## create_automation_rule_toggle
 
-> crate::models::UpdateAutomationRuleResponse create_automation_rule_toggle(id)
+> crate::models::GetAutomationRuleResponse create_automation_rule_toggle(id)
 Flip an automation rule between active and inactive.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Parameters
 
@@ -118,7 +126,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**crate::models::UpdateAutomationRuleResponse**
+**crate::models::GetAutomationRuleResponse**
 
 ### Authorization
 
@@ -136,6 +144,8 @@ Name | Type | Description  | Required | Notes
 
 > crate::models::CreateAutomationRuleValidateRecipeResponse create_automation_rule_validate_recipe()
 Dry-run validate one or more recipes against the live catalog.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Parameters
 
@@ -218,6 +228,8 @@ Name | Type | Description  | Required | Notes
 > crate::models::OkResponse delete_automation_rule(id)
 Delete an automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Parameters
 
 
@@ -271,6 +283,8 @@ This endpoint does not need any parameter.
 > crate::models::GetAutomationRuleResponse get_automation_rule(id)
 Get a single automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Parameters
 
 
@@ -299,6 +313,8 @@ Name | Type | Description  | Required | Notes
 > crate::models::GetAutomationRuleExportResponse get_automation_rule_export()
 Export the user's full rule library as a portable recipe bundle.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Parameters
 
 This endpoint does not need any parameter.
@@ -323,6 +339,8 @@ This endpoint does not need any parameter.
 
 > crate::models::GetAutomationRuleExportByIdResponse get_automation_rule_export_by_id(id)
 Export a single automation rule as a portable recipe.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Parameters
 
@@ -352,6 +370,8 @@ Name | Type | Description  | Required | Notes
 > crate::models::ListAutomationRulesResponse list_automation_rules()
 List automation rules.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Parameters
 
 This endpoint does not need any parameter.
@@ -376,6 +396,8 @@ This endpoint does not need any parameter.
 
 > crate::models::ListAutomationRunsResponse list_automation_runs(rule_id, chain_id, limit)
 Per-fire history for automation rules and workflow chain runs.
+
+Deprecated: use /v1/workflow-runs.
 
 ### Parameters
 
@@ -429,8 +451,10 @@ This endpoint does not need any parameter.
 
 ## update_automation_rule
 
-> crate::models::UpdateAutomationRuleResponse update_automation_rule(id)
+> crate::models::GetAutomationRuleResponse update_automation_rule(id)
 Update an automation rule (full replace).
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Parameters
 
@@ -441,7 +465,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**crate::models::UpdateAutomationRuleResponse**
+**crate::models::GetAutomationRuleResponse**
 
 ### Authorization
 

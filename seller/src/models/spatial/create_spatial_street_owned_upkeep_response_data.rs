@@ -36,12 +36,12 @@ impl CreateSpatialStreetOwnedUpkeepResponseData {
 pub enum Upkeep {
     #[serde(rename = "active")]
     Active,
-    #[serde(rename = "foreclosed")]
-    Foreclosed,
     #[serde(rename = "grace")]
     Grace,
     #[serde(rename = "delinquent")]
     Delinquent,
+    #[serde(rename = "foreclosed")]
+    Foreclosed,
 }
 
 impl Default for Upkeep {

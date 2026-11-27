@@ -48,12 +48,12 @@ pub enum Source {
     Crossly,
     #[serde(rename = "card")]
     Card,
-    #[serde(rename = "tensor")]
-    Tensor,
-    #[serde(rename = "magic_eden")]
-    MagicEden,
     #[serde(rename = "rarible")]
     Rarible,
+    #[serde(rename = "magic_eden")]
+    MagicEden,
+    #[serde(rename = "tensor")]
+    Tensor,
 }
 
 impl Default for Source {

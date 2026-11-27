@@ -25,12 +25,16 @@ pub struct GetWorldGamePackageResponseData {
     pub design_id: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
+    #[serde(rename = "unpublishedAt", skip_serializing_if = "Option::is_none")]
+    pub unpublished_at: Option<String>,
     #[serde(rename = "versions")]
     pub versions: Vec<crate::models::GetWorldGamePackageResponseDataVersions>,
 }
 
 impl GetWorldGamePackageResponseData {
-    pub fn new(id: String, slug: String, name: String, design_id: String, created_at: String, versions: Vec<crate::models::GetWorldGamePackageResponseDataVersions>) -> GetWorldGamePackageResponseData {
+    pub fn new(id: String, slug: String, name: String, design_id: String, created_at: String, updated_at: String, versions: Vec<crate::models::GetWorldGamePackageResponseDataVersions>) -> GetWorldGamePackageResponseData {
         GetWorldGamePackageResponseData {
             stats: None,
             id,
@@ -38,6 +42,8 @@ impl GetWorldGamePackageResponseData {
             name,
             design_id,
             created_at,
+            updated_at,
+            unpublished_at: None,
             versions,
         }
     }

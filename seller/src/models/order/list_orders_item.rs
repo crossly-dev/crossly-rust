@@ -13,48 +13,83 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListOrdersItem {
-    #[serde(rename = "id")]
-    pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
-    #[serde(rename = "userId")]
-    pub user_id: String,
+    #[serde(rename = "appShare", skip_serializing_if = "Option::is_none")]
+    pub app_share: Option<Box<crate::models::GetOrderResponseAppShare>>,
+    #[serde(rename = "trade", skip_serializing_if = "Option::is_none")]
+    pub trade: Option<Box<crate::models::GetOrderResponseTrade>>,
+    /// DOLLARS (numbers, as order.created sends them). null = not known (no sale row, or details pending).
+    #[serde(rename = "salePrice", skip_serializing_if = "Option::is_none")]
+    pub sale_price: Option<f32>,
+    #[serde(rename = "platformFee", skip_serializing_if = "Option::is_none")]
+    pub platform_fee: Option<f32>,
+    #[serde(rename = "taxCollected", skip_serializing_if = "Option::is_none")]
+    pub tax_collected: Option<f32>,
+    #[serde(rename = "shippingCharged", skip_serializing_if = "Option::is_none")]
+    pub shipping_charged: Option<f32>,
+    /// 'exact' (the marketplace's charged fee) | 'estimated'.
+    #[serde(rename = "feeSource", skip_serializing_if = "Option::is_none")]
+    pub fee_source: Option<String>,
+    #[serde(rename = "detailsPending")]
+    pub details_pending: bool,
+    /// The listing's SKU (order.created `sku`).
+    #[serde(rename = "sku", skip_serializing_if = "Option::is_none")]
+    pub sku: Option<String>,
+    /// Units purchased in this order (default 1). Drives how many units the Available→Reserved→Sold state machine moves. See migration 0139. Units on the order (order.created `quantity`).
     #[serde(rename = "quantity")]
     pub quantity: f32,
-    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
-    pub notes: Option<String>,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "platform")]
-    pub platform: String,
-    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
-    pub cancelled_at: Option<String>,
-    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
-    pub listing_id: Option<String>,
+    #[serde(rename = "lineItems", skip_serializing_if = "Option::is_none")]
+    pub line_items: Option<Vec<crate::models::GetOrderResponseLineItems>>,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "userId")]
+    pub user_id: String,
     #[serde(rename = "inventoryItemId", skip_serializing_if = "Option::is_none")]
     pub inventory_item_id: Option<String>,
+    #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
+    pub listing_id: Option<String>,
     #[serde(rename = "platformListingId", skip_serializing_if = "Option::is_none")]
     pub platform_listing_id: Option<String>,
-    #[serde(rename = "handlingTimeDays", skip_serializing_if = "Option::is_none")]
-    pub handling_time_days: Option<f32>,
+    #[serde(rename = "platform")]
+    pub platform: String,
     #[serde(rename = "platformOrderId", skip_serializing_if = "Option::is_none")]
     pub platform_order_id: Option<String>,
+    /// 1066 (order relay): the developer app that reported this order through an inbound item.sold (FK oauth_apps.id ON DELETE SET NULL in SQL). Null for every order Crossly detected itself. Read by action authority.
+    #[serde(rename = "reportedByAppId", skip_serializing_if = "Option::is_none")]
+    pub reported_by_app_id: Option<String>,
+    /// Crossly orders only: the seller's storefront this sale came from. Null for every non-crossly platform. See db/schema/storefronts.ts.
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "buyerUsername", skip_serializing_if = "Option::is_none")]
     pub buyer_username: Option<String>,
+    /// C8 (0448): the carrier location the parcel is held at — services/pickup-points.ts.
     #[serde(rename = "pickupPoint", skip_serializing_if = "Option::is_none")]
     pub pickup_point: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    /// D4 (0448): set when this seller ships to the consolidation hub, not the buyer — services/hub/.
     #[serde(rename = "consolidationId", skip_serializing_if = "Option::is_none")]
     pub consolidation_id: Option<String>,
+    /// X4 (0479): import duties + taxes + fees the buyer paid at checkout for this parcel (services/landed-cost/); the label ships DDP.
     #[serde(rename = "dutiesCents")]
     pub duties_cents: f32,
+    /// X4: refunded because the order never shipped.
     #[serde(rename = "dutiesRefundedAt", skip_serializing_if = "Option::is_none")]
     pub duties_refunded_at: Option<String>,
+    #[serde(rename = "status")]
+    pub status: String,
+    /// Where the sale happened, as distinct from which platform it was on.  Shopify POS orders arrive through the same Orders API as web orders, so before this they were detected as ordinary online sales and landed in `needs_fulfillment` — queued for a shipment that will never happen, because the customer already walked out with the item.  'online' for everything else, which is what every pre-existing row is.
     #[serde(rename = "salesChannel")]
     pub sales_channel: String,
+    /// POS location that rang it up. Null for online sales.
     #[serde(rename = "channelLocationId", skip_serializing_if = "Option::is_none")]
     pub channel_location_id: Option<String>,
+    /// 1121 — which BUSINESS channel sold it: retail | wholesale | auction | live | world | pos (@crosslister/shared/wholesale ORDER_CHANNELS). Orthogonal to `salesChannel` (online vs in person): a wholesale order is usually online. Written at sale record time (sale/detect/order-write.ts).
+    #[serde(rename = "channel")]
+    pub channel: String,
+    /// 1121 — the on-account invoice this order was placed on (crossly_invoices.id).
+    #[serde(rename = "invoiceId", skip_serializing_if = "Option::is_none")]
+    pub invoice_id: Option<String>,
+    /// 1121 — the buyer company (W7 crossly_buyer_companies; no FK until that table exists).
+    #[serde(rename = "buyerCompanyId", skip_serializing_if = "Option::is_none")]
+    pub buyer_company_id: Option<String>,
     #[serde(rename = "packagePresetId", skip_serializing_if = "Option::is_none")]
     pub package_preset_id: Option<String>,
     #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
@@ -83,10 +118,13 @@ pub struct ListOrdersItem {
     pub carrier_status: Option<String>,
     #[serde(rename = "carrierStatusDetail", skip_serializing_if = "Option::is_none")]
     pub carrier_status_detail: Option<String>,
+    /// Every carrier scan, newest first (migration 0243).  The two columns above are the CURRENT state, overwritten on each refresh. For a dispute that proves nothing: \"delivered\" with no date, no location and no chain of scans is a claim, not evidence. Shippo returns the full history on every track call; it used to be discarded.
     #[serde(rename = "trackingHistory", skip_serializing_if = "Option::is_none")]
-    pub tracking_history: Option<Vec<crate::models::ListOrdersItemTrackingHistory>>,
+    pub tracking_history: Option<Vec<crate::models::GetOrderResponseTrackingHistory>>,
+    /// Where the carrier says it was left, when they say.
     #[serde(rename = "deliveryLocation", skip_serializing_if = "Option::is_none")]
     pub delivery_location: Option<String>,
+    /// Signature name, where the service captured one. Most residential deliveries have none — absence is not evidence of non-delivery.
     #[serde(rename = "deliverySignature", skip_serializing_if = "Option::is_none")]
     pub delivery_signature: Option<String>,
     #[serde(rename = "trackingSubmittedAt", skip_serializing_if = "Option::is_none")]
@@ -101,14 +139,19 @@ pub struct ListOrdersItem {
     pub requested_carrier: Option<String>,
     #[serde(rename = "requestedService", skip_serializing_if = "Option::is_none")]
     pub requested_service: Option<String>,
+    #[serde(rename = "handlingTimeDays", skip_serializing_if = "Option::is_none")]
+    pub handling_time_days: Option<f32>,
     #[serde(rename = "shipByAt", skip_serializing_if = "Option::is_none")]
     pub ship_by_at: Option<String>,
     #[serde(rename = "shipByAlertedAt", skip_serializing_if = "Option::is_none")]
     pub ship_by_alerted_at: Option<String>,
+    /// Units this order could NOT be covered from stock — an oversell (0 = normal). Set at detection by recordSale's shortfall; the seller must cancel or refund. See migration 0156.
     #[serde(rename = "oversoldBy")]
     pub oversold_by: f32,
+    /// Last time this order's status was reconciled against the platform. NULL = never. Drives the targeted sweeper for orders that fall off page 1 of the sold-list walk. See migration 0157.
     #[serde(rename = "lastStatusCheckAt", skip_serializing_if = "Option::is_none")]
     pub last_status_check_at: Option<String>,
+    /// Last time this order's platform CHAT thread was pulled. NULL = never. Separate from lastStatusCheckAt because the cadences differ by an order of magnitude — a buyer question needs answering in minutes, a status reconcile can wait an hour. See migration 0158.
     #[serde(rename = "lastChatCheckAt", skip_serializing_if = "Option::is_none")]
     pub last_chat_check_at: Option<String>,
     #[serde(rename = "isDisputed")]
@@ -127,52 +170,85 @@ pub struct ListOrdersItem {
     pub refund_platform_id: Option<String>,
     #[serde(rename = "refundedAt", skip_serializing_if = "Option::is_none")]
     pub refunded_at: Option<String>,
+    #[serde(rename = "cancelledAt", skip_serializing_if = "Option::is_none")]
+    pub cancelled_at: Option<String>,
     #[serde(rename = "cancellationReason", skip_serializing_if = "Option::is_none")]
     pub cancellation_reason: Option<String>,
+    #[serde(rename = "notes", skip_serializing_if = "Option::is_none")]
+    pub notes: Option<String>,
+    /// The arrival-condition ask, recorded on the ORDER rather than read off the seller's toggle at review time. The seller can flip that toggle later; what a reviewer needs is what was asked of THIS buyer on THIS delivery — including that they were asked and declined.
     #[serde(rename = "arrivalConditionRequestedAt", skip_serializing_if = "Option::is_none")]
     pub arrival_condition_requested_at: Option<String>,
     #[serde(rename = "arrivalConditionSubmittedAt", skip_serializing_if = "Option::is_none")]
     pub arrival_condition_submitted_at: Option<String>,
     #[serde(rename = "arrivalConditionDeclinedAt", skip_serializing_if = "Option::is_none")]
     pub arrival_condition_declined_at: Option<String>,
+    /// The courier's proof-of-delivery photo, when one can be obtained. Third-party provenance, which makes it the strongest seal frame we can get — see services/evidence/delivery-photo.ts.
     #[serde(rename = "deliveryPhotoUrl", skip_serializing_if = "Option::is_none")]
     pub delivery_photo_url: Option<String>,
+    /// Where it came from: 'carrier_api:ups' | 'trackified' | 'platform:<p>' | 'pasted' | 'uploaded' (shared delivery-photo-source.ts).
+    #[serde(rename = "deliveryPhotoSource", skip_serializing_if = "Option::is_none")]
+    pub delivery_photo_source: Option<String>,
+    /// The buyer's OWN purchase-order reference.  A trade buyer's accounts department reconciles on their number, not ours. An order without it is one somebody has to chase by hand, which is the difference between getting paid on day 30 and day 75.
     #[serde(rename = "purchaseOrderRef", skip_serializing_if = "Option::is_none")]
     pub purchase_order_ref: Option<String>,
+    /// Buyer's arrival photos. Always read as a set, for one delivery.
     #[serde(rename = "arrivalConditionPhotos")]
     pub arrival_condition_photos: Vec<String>,
     #[serde(rename = "buyerEmail", skip_serializing_if = "Option::is_none")]
     pub buyer_email: Option<String>,
+    /// `'ship'` | `'pickup'` | `'mixed'` — a DERIVED summary of this order's lines, for reads that only need the headline.  The authority is `crossly_order_items.fulfillment_method`: a buyer can collect part of one seller's order and have the rest posted, so the order-level value is 'mixed' whenever its lines disagree. Anything that acts on the difference — buying a label, packing a parcel — must read the lines, not this (migrations 0219, 0220).
     #[serde(rename = "fulfillmentMethod")]
     pub fulfillment_method: String,
+    /// 1074 — 'email' = the sale was found by the email monitor, not reported by the platform: the order is incomplete (no buyer address, label or confirmed fees) until the platform reports it. NULL = platform-reported.
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    /// 1074 — when the platform itself reported this email-found order (same order id). Clears the banner.
+    #[serde(rename = "platformConfirmedAt", skip_serializing_if = "Option::is_none")]
+    pub platform_confirmed_at: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
+    /// Soft-delete tombstone for bulk-delete on /orders. UI list + count queries filter WHERE deleted_at IS NULL.
     #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
     pub deleted_at: Option<String>,
 }
 
 impl ListOrdersItem {
-    pub fn new(id: String, created_at: String, updated_at: String, user_id: String, quantity: f32, status: String, platform: String, duties_cents: f32, sales_channel: String, oversold_by: f32, is_disputed: bool, arrival_condition_photos: Vec<String>, fulfillment_method: String) -> ListOrdersItem {
+    pub fn new(details_pending: bool, quantity: f32, id: String, user_id: String, platform: String, duties_cents: f32, status: String, sales_channel: String, channel: String, oversold_by: f32, is_disputed: bool, arrival_condition_photos: Vec<String>, fulfillment_method: String, created_at: String, updated_at: String) -> ListOrdersItem {
         ListOrdersItem {
-            id,
-            created_at,
-            updated_at,
-            user_id,
+            app_share: None,
+            trade: None,
+            sale_price: None,
+            platform_fee: None,
+            tax_collected: None,
+            shipping_charged: None,
+            fee_source: None,
+            details_pending,
+            sku: None,
             quantity,
-            notes: None,
-            status,
-            platform,
-            cancelled_at: None,
-            listing_id: None,
+            line_items: None,
+            id,
+            user_id,
             inventory_item_id: None,
+            listing_id: None,
             platform_listing_id: None,
-            handling_time_days: None,
+            platform,
             platform_order_id: None,
+            reported_by_app_id: None,
+            storefront_id: None,
             buyer_username: None,
             pickup_point: None,
             consolidation_id: None,
             duties_cents,
             duties_refunded_at: None,
+            status,
             sales_channel,
             channel_location_id: None,
+            channel,
+            invoice_id: None,
+            buyer_company_id: None,
             package_preset_id: None,
             carrier: None,
             service: None,
@@ -196,6 +272,7 @@ impl ListOrdersItem {
             cost_of_goods: None,
             requested_carrier: None,
             requested_service: None,
+            handling_time_days: None,
             ship_by_at: None,
             ship_by_alerted_at: None,
             oversold_by,
@@ -209,15 +286,22 @@ impl ListOrdersItem {
             refund_reason: None,
             refund_platform_id: None,
             refunded_at: None,
+            cancelled_at: None,
             cancellation_reason: None,
+            notes: None,
             arrival_condition_requested_at: None,
             arrival_condition_submitted_at: None,
             arrival_condition_declined_at: None,
             delivery_photo_url: None,
+            delivery_photo_source: None,
             purchase_order_ref: None,
             arrival_condition_photos,
             buyer_email: None,
             fulfillment_method,
+            source: None,
+            platform_confirmed_at: None,
+            created_at,
+            updated_at,
             deleted_at: None,
         }
     }

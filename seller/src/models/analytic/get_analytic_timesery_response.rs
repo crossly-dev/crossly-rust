@@ -15,17 +15,36 @@
 pub struct GetAnalyticTimeseryResponse {
     #[serde(rename = "days")]
     pub days: f32,
+    #[serde(rename = "granularity")]
+    pub granularity: Granularity,
     #[serde(rename = "series")]
     pub series: Vec<crate::models::GetAnalyticTimeseryResponseSeries>,
 }
 
 impl GetAnalyticTimeseryResponse {
-    pub fn new(days: f32, series: Vec<crate::models::GetAnalyticTimeseryResponseSeries>) -> GetAnalyticTimeseryResponse {
+    pub fn new(days: f32, granularity: Granularity, series: Vec<crate::models::GetAnalyticTimeseryResponseSeries>) -> GetAnalyticTimeseryResponse {
         GetAnalyticTimeseryResponse {
             days,
+            granularity,
             series,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Granularity {
+    #[serde(rename = "day")]
+    Day,
+    #[serde(rename = "week")]
+    Week,
+    #[serde(rename = "month")]
+    Month,
+}
+
+impl Default for Granularity {
+    fn default() -> Granularity {
+        Self::Day
+    }
+}
 

@@ -17,13 +17,16 @@ pub struct GetVaultMarketAccountResponseIdentity {
     pub verified: bool,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
+    #[serde(rename = "retry")]
+    pub retry: bool,
 }
 
 impl GetVaultMarketAccountResponseIdentity {
-    pub fn new(verified: bool) -> GetVaultMarketAccountResponseIdentity {
+    pub fn new(verified: bool, retry: bool) -> GetVaultMarketAccountResponseIdentity {
         GetVaultMarketAccountResponseIdentity {
             verified,
             status: None,
+            retry,
         }
     }
 }

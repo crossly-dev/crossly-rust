@@ -18,14 +18,14 @@ pub struct ListBuyerOffersItemItems {
     /// Listing price now, in cents.
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "thumbnail", skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
 }
 
 impl ListBuyerOffersItemItems {
@@ -33,10 +33,10 @@ impl ListBuyerOffersItemItems {
         ListBuyerOffersItemItems {
             id,
             price_cents,
-            status: None,
-            title: None,
             slug: None,
+            title: None,
             thumbnail: None,
+            status: None,
         }
     }
 }

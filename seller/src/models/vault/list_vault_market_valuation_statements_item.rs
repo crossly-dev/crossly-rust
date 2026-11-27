@@ -55,15 +55,15 @@ impl ListVaultMarketValuationStatementsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Purpose {
-    #[serde(rename = "insurance")]
-    Insurance,
     #[serde(rename = "appraisal")]
     Appraisal,
+    #[serde(rename = "insurance")]
+    Insurance,
 }
 
 impl Default for Purpose {
     fn default() -> Purpose {
-        Self::Insurance
+        Self::Appraisal
     }
 }
 

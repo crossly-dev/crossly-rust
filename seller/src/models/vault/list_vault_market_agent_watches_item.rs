@@ -64,19 +64,19 @@ impl ListVaultMarketAgentWatchesItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Metric {
-    #[serde(rename = "mark")]
-    Mark,
     #[serde(rename = "ask")]
     Ask,
-    #[serde(rename = "bid")]
-    Bid,
     #[serde(rename = "last")]
     Last,
+    #[serde(rename = "mark")]
+    Mark,
+    #[serde(rename = "bid")]
+    Bid,
 }
 
 impl Default for Metric {
     fn default() -> Metric {
-        Self::Mark
+        Self::Ask
     }
 }
 /// 

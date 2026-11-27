@@ -13,26 +13,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetVaultAttestationResponseLatest {
-    #[serde(rename = "physical_count", skip_serializing_if = "Option::is_none")]
-    pub physical_count: Option<Box<crate::models::GetVaultAttestationResponseLatestPhysicalCount>>,
-    #[serde(rename = "insurance_certificate", skip_serializing_if = "Option::is_none")]
-    pub insurance_certificate: Option<Box<crate::models::GetVaultAttestationResponseLatestPhysicalCount>>,
-    #[serde(rename = "soc1_type2", skip_serializing_if = "Option::is_none")]
-    pub soc1_type2: Option<Box<crate::models::GetVaultAttestationResponseLatestPhysicalCount>>,
-    #[serde(rename = "soc2", skip_serializing_if = "Option::is_none")]
-    pub soc2: Option<Box<crate::models::GetVaultAttestationResponseLatestPhysicalCount>>,
     #[serde(rename = "other", skip_serializing_if = "Option::is_none")]
-    pub other: Option<Box<crate::models::GetVaultAttestationResponseLatestPhysicalCount>>,
+    pub other: Option<Box<crate::models::GetVaultAttestationResponseLatestOther>>,
+    #[serde(rename = "physical_count", skip_serializing_if = "Option::is_none")]
+    pub physical_count: Option<Box<crate::models::GetVaultAttestationResponseLatestOther>>,
+    #[serde(rename = "insurance_certificate", skip_serializing_if = "Option::is_none")]
+    pub insurance_certificate: Option<Box<crate::models::GetVaultAttestationResponseLatestOther>>,
+    #[serde(rename = "soc1_type2", skip_serializing_if = "Option::is_none")]
+    pub soc1_type2: Option<Box<crate::models::GetVaultAttestationResponseLatestOther>>,
+    #[serde(rename = "soc2", skip_serializing_if = "Option::is_none")]
+    pub soc2: Option<Box<crate::models::GetVaultAttestationResponseLatestOther>>,
 }
 
 impl GetVaultAttestationResponseLatest {
     pub fn new() -> GetVaultAttestationResponseLatest {
         GetVaultAttestationResponseLatest {
+            other: None,
             physical_count: None,
             insurance_certificate: None,
             soc1_type2: None,
             soc2: None,
-            other: None,
         }
     }
 }

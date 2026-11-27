@@ -85,24 +85,24 @@ impl Default for Role {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Rail {
-    #[serde(rename = "bucks")]
-    Bucks,
     #[serde(rename = "cbx")]
     Cbx,
+    #[serde(rename = "bucks")]
+    Bucks,
 }
 
 impl Default for Rail {
     fn default() -> Rail {
-        Self::Bucks
+        Self::Cbx
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "open")]
-    Open,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "open")]
+    Open,
     #[serde(rename = "paid")]
     Paid,
     #[serde(rename = "claimed")]
@@ -115,7 +115,7 @@ pub enum Status {
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Open
+        Self::Cancelled
     }
 }
 

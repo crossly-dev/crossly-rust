@@ -12,25 +12,25 @@
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ListWorldDecorCatalogueItemBuyWithItem {
-    #[serde(rename = "cbx")]
-    Cbx,
     #[serde(rename = "cosm")]
     Cosm,
+    #[serde(rename = "cbx")]
+    Cbx,
 
 }
 
 impl ToString for ListWorldDecorCatalogueItemBuyWithItem {
     fn to_string(&self) -> String {
         match self {
-            Self::Cbx => String::from("cbx"),
             Self::Cosm => String::from("cosm"),
+            Self::Cbx => String::from("cbx"),
         }
     }
 }
 
 impl Default for ListWorldDecorCatalogueItemBuyWithItem {
     fn default() -> ListWorldDecorCatalogueItemBuyWithItem {
-        Self::Cbx
+        Self::Cosm
     }
 }
 

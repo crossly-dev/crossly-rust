@@ -38,17 +38,17 @@ impl CreateOrderImportResponseResults {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Reason {
-    #[serde(rename = "unsupported_platform")]
-    UnsupportedPlatform,
     #[serde(rename = "not_connected")]
     NotConnected,
     #[serde(rename = "unknown_platform")]
     UnknownPlatform,
+    #[serde(rename = "unsupported_platform")]
+    UnsupportedPlatform,
 }
 
 impl Default for Reason {
     fn default() -> Reason {
-        Self::UnsupportedPlatform
+        Self::NotConnected
     }
 }
 

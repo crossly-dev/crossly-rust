@@ -13,20 +13,20 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerAuctionBidsItem {
-    #[serde(rename = "amountCents")]
-    pub amount_cents: f32,
     /// \"You\" for your own bids; otherwise anonymised, e.g. \"a***e (12)\".
     #[serde(rename = "bidder")]
     pub bidder: String,
+    #[serde(rename = "amountCents")]
+    pub amount_cents: f32,
     #[serde(rename = "placedAt", skip_serializing_if = "Option::is_none")]
     pub placed_at: Option<String>,
 }
 
 impl ListBuyerAuctionBidsItem {
-    pub fn new(amount_cents: f32, bidder: String) -> ListBuyerAuctionBidsItem {
+    pub fn new(bidder: String, amount_cents: f32) -> ListBuyerAuctionBidsItem {
         ListBuyerAuctionBidsItem {
-            amount_cents,
             bidder,
+            amount_cents,
             placed_at: None,
         }
     }

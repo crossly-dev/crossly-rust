@@ -48,10 +48,10 @@ impl ListVaultMarketIndexJudgmentsItem {
 pub enum Action {
     #[serde(rename = "method")]
     Method,
-    #[serde(rename = "halt")]
-    Halt,
     #[serde(rename = "resume")]
     Resume,
+    #[serde(rename = "halt")]
+    Halt,
     #[serde(rename = "exclude_key")]
     ExcludeKey,
     #[serde(rename = "void_trade")]

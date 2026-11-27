@@ -13,20 +13,20 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerMarketPurchaseOptionResponseData {
+    #[serde(rename = "vaultStock")]
+    pub vault_stock: bool,
     #[serde(rename = "fastShipCents")]
     pub fast_ship_cents: f32,
     #[serde(rename = "gradingRuns")]
     pub grading_runs: Vec<crate::models::GetBuyerMarketPurchaseOptionResponseDataGradingRuns>,
-    #[serde(rename = "vaultStock")]
-    pub vault_stock: bool,
 }
 
 impl GetBuyerMarketPurchaseOptionResponseData {
-    pub fn new(fast_ship_cents: f32, grading_runs: Vec<crate::models::GetBuyerMarketPurchaseOptionResponseDataGradingRuns>, vault_stock: bool) -> GetBuyerMarketPurchaseOptionResponseData {
+    pub fn new(vault_stock: bool, fast_ship_cents: f32, grading_runs: Vec<crate::models::GetBuyerMarketPurchaseOptionResponseDataGradingRuns>) -> GetBuyerMarketPurchaseOptionResponseData {
         GetBuyerMarketPurchaseOptionResponseData {
+            vault_stock,
             fast_ship_cents,
             grading_runs,
-            vault_stock,
         }
     }
 }

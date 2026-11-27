@@ -19,6 +19,8 @@ pub struct GetMarketProductResponseDataVariants {
     pub label: String,
     #[serde(rename = "sortKey")]
     pub sort_key: f32,
+    #[serde(rename = "skuId")]
+    pub sku_id: String,
     #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
     pub external_id: Option<String>,
     #[serde(rename = "externalSource", skip_serializing_if = "Option::is_none")]
@@ -29,8 +31,6 @@ pub struct GetMarketProductResponseDataVariants {
     pub last_sale_cents: Option<f32>,
     #[serde(rename = "tradesCount")]
     pub trades_count: f32,
-    #[serde(rename = "skuId")]
-    pub sku_id: String,
     #[serde(rename = "lastSaleAt", skip_serializing_if = "Option::is_none")]
     pub last_sale_at: Option<String>,
     #[serde(rename = "bestBidCents", skip_serializing_if = "Option::is_none")]
@@ -40,17 +40,17 @@ pub struct GetMarketProductResponseDataVariants {
 }
 
 impl GetMarketProductResponseDataVariants {
-    pub fn new(id: String, label: String, sort_key: f32, trades_count: f32, sku_id: String) -> GetMarketProductResponseDataVariants {
+    pub fn new(id: String, label: String, sort_key: f32, sku_id: String, trades_count: f32) -> GetMarketProductResponseDataVariants {
         GetMarketProductResponseDataVariants {
             id,
             label,
             sort_key,
+            sku_id,
             external_id: None,
             external_source: None,
             external_synced_at: None,
             last_sale_cents: None,
             trades_count,
-            sku_id,
             last_sale_at: None,
             best_bid_cents: None,
             best_ask_cents: None,

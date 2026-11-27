@@ -15,6 +15,8 @@
 pub struct ListBuyerOrdersItem {
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(rename = "orderNumber", skip_serializing_if = "Option::is_none")]
+    pub order_number: Option<String>,
     #[serde(rename = "status")]
     pub status: String,
     #[serde(rename = "buyerPaidCents")]
@@ -27,6 +29,7 @@ impl ListBuyerOrdersItem {
     pub fn new(id: String, status: String, buyer_paid_cents: f32, created_at: String) -> ListBuyerOrdersItem {
         ListBuyerOrdersItem {
             id,
+            order_number: None,
             status,
             buyer_paid_cents,
             created_at,

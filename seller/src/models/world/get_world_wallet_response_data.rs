@@ -15,12 +15,18 @@
 pub struct GetWorldWalletResponseData {
     #[serde(rename = "bucksCents")]
     pub bucks_cents: f32,
+    #[serde(rename = "cbx")]
+    pub cbx: Box<crate::models::GetWorldWalletResponseDataCbx>,
+    #[serde(rename = "cosm")]
+    pub cosm: Box<crate::models::GetWorldWalletResponseDataCosm>,
 }
 
 impl GetWorldWalletResponseData {
-    pub fn new(bucks_cents: f32) -> GetWorldWalletResponseData {
+    pub fn new(bucks_cents: f32, cbx: crate::models::GetWorldWalletResponseDataCbx, cosm: crate::models::GetWorldWalletResponseDataCosm) -> GetWorldWalletResponseData {
         GetWorldWalletResponseData {
             bucks_cents,
+            cbx: Box::new(cbx),
+            cosm: Box::new(cosm),
         }
     }
 }

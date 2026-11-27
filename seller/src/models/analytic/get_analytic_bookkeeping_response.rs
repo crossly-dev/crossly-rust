@@ -21,15 +21,23 @@ pub struct GetAnalyticBookkeepingResponse {
     pub annual_totals: Box<crate::models::GetAnalyticBookkeepingResponseAnnualTotals>,
     #[serde(rename = "platformBreakdown")]
     pub platform_breakdown: Vec<crate::models::GetAnalyticBookkeepingResponsePlatformBreakdown>,
+    /// Sales of the year whose price and buyer are not known yet: in no line above. \"N sales pending details\".
+    #[serde(rename = "pendingDetailsCount")]
+    pub pending_details_count: f32,
+    /// The books timezone the year was cut in.
+    #[serde(rename = "tz")]
+    pub tz: String,
 }
 
 impl GetAnalyticBookkeepingResponse {
-    pub fn new(year: f32, monthly_pl: Vec<crate::models::GetAnalyticBookkeepingResponseMonthlyPl>, annual_totals: crate::models::GetAnalyticBookkeepingResponseAnnualTotals, platform_breakdown: Vec<crate::models::GetAnalyticBookkeepingResponsePlatformBreakdown>) -> GetAnalyticBookkeepingResponse {
+    pub fn new(year: f32, monthly_pl: Vec<crate::models::GetAnalyticBookkeepingResponseMonthlyPl>, annual_totals: crate::models::GetAnalyticBookkeepingResponseAnnualTotals, platform_breakdown: Vec<crate::models::GetAnalyticBookkeepingResponsePlatformBreakdown>, pending_details_count: f32, tz: String) -> GetAnalyticBookkeepingResponse {
         GetAnalyticBookkeepingResponse {
             year,
             monthly_pl,
             annual_totals: Box::new(annual_totals),
             platform_breakdown,
+            pending_details_count,
+            tz,
         }
     }
 }

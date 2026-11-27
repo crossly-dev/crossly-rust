@@ -16,6 +16,8 @@ Method | HTTP request | Description
 [**create_vault_market_auction_lot**](VaultMarketsApi.md#create_vault_market_auction_lot) | **POST** /v1/vault-markets/auctions/lots | Consign a stored, authenticated unit to the next weekly or premier event, with an optional opening price and reserve. The unit is held until the close. Returns `{ lotId, eventId, endsAt }`.
 [**create_vault_market_auction_lot_bid**](VaultMarketsApi.md#create_vault_market_auction_lot_bid) | **POST** /v1/vault-markets/auctions/lots/{id}/bids | Leave or raise your maximum on a lot; the system bids for you up to it. A bid in the last 2 minutes extends the lot by 2 minutes. The winner's saved card is charged at the close through the order book. ID needed above $10,000.
 [**create_vault_market_auction_lot_withdraw**](VaultMarketsApi.md#create_vault_market_auction_lot_withdraw) | **POST** /v1/vault-markets/auctions/lots/{id}/withdraw | Withdraw your lot before any bid; the unit goes back on your shelf. Returns `{ ok }`.
+[**create_vault_market_auto_buy_pause**](VaultMarketsApi.md#create_vault_market_auto_buy_pause) | **POST** /v1/vault-markets/auto-buy/pause | Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+[**create_vault_market_auto_buy_resume**](VaultMarketsApi.md#create_vault_market_auto_buy_resume) | **POST** /v1/vault-markets/auto-buy/resume | Resume Auto-buy with payouts: payouts released from now on count.
 [**create_vault_market_block**](VaultMarketsApi.md#create_vault_market_block) | **POST** /v1/vault-markets/blocks | Place a block buy for an entity: one order booked to the first sub-account in `plan` (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share's cash moves between the entity's own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
 [**create_vault_market_block_allocate**](VaultMarketsApi.md#create_vault_market_block_allocate) | **POST** /v1/vault-markets/blocks/{orderId}/allocate | Allocate a done block now (the keeper does it too). Returns `{ outcome, block }`: allocated, waiting (a payment or transfer is not settled yet), nothing_filled or none.
 [**create_vault_market_bullion_family_peg**](VaultMarketsApi.md#create_vault_market_bullion_family_peg) | **POST** /v1/vault-markets/bullion/family-pegs | Set a family-wide spot-pegged quote: one \"any 1 oz gold coin\" quote resting on each product book of a bullion family at the chosen condition (DS, VNDS or Used). When any leg fills it comes off the others and goes back on only for what is left; two fills at once are settled one at a time against what is left. A bid pays from your custodian account. Replaces your live family quote on the same family, condition and side. ID required.
@@ -93,6 +95,32 @@ Method | HTTP request | Description
 [**create_vault_market_mm_mass_cancel**](VaultMarketsApi.md#create_vault_market_mm_mass_cancel) | **POST** /v1/vault-markets/mm/mass-cancel | Cancel every open order (one key, or only quotes) and every resting leg in one statement: nothing fills between the first cancel and the last.
 [**create_vault_market_mm_mmp_reset**](VaultMarketsApi.md#create_vault_market_mm_mmp_reset) | **POST** /v1/vault-markets/mm/mmp/reset | End a market-maker protection freeze early.
 [**create_vault_market_opening_waitlist**](VaultMarketsApi.md#create_vault_market_opening_waitlist) | **POST** /v1/vault-markets/opening/{slug}/waitlist | Join a key's waitlist, optionally with a friend's invite code (`ref`). Inviting moves you up the queue; nobody is paid. Returns your place and your own code.
+[**create_vault_market_option_combo**](VaultMarketsApi.md#create_vault_market_option_combo) | **POST** /v1/vault-markets/options/combos | Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+[**create_vault_market_option_combo_cancel**](VaultMarketsApi.md#create_vault_market_option_combo_cancel) | **POST** /v1/vault-markets/options/combos/{id}/cancel | Cancel a working strategy.
+[**create_vault_market_option_combo_rfq**](VaultMarketsApi.md#create_vault_market_option_combo_rfq) | **POST** /v1/vault-markets/options/combos/rfq | Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+[**create_vault_market_option_combo_rfq_accept**](VaultMarketsApi.md#create_vault_market_option_combo_rfq_accept) | **POST** /v1/vault-markets/options/combos/rfq/{id}/accept | Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+[**create_vault_market_option_combo_rfq_cancel**](VaultMarketsApi.md#create_vault_market_option_combo_rfq_cancel) | **POST** /v1/vault-markets/options/combos/rfq/{id}/cancel | Cancel your open strategy quote request.
+[**create_vault_market_option_combo_rfq_respond**](VaultMarketsApi.md#create_vault_market_option_combo_rfq_respond) | **POST** /v1/vault-markets/options/combos/rfq/{id}/respond | Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+[**create_vault_market_option_combo_rfq_response_withdraw**](VaultMarketsApi.md#create_vault_market_option_combo_rfq_response_withdraw) | **POST** /v1/vault-markets/options/combos/rfq/responses/{id}/withdraw | Withdraw your live answer to a strategy quote request.
+[**create_vault_market_option_covered_call**](VaultMarketsApi.md#create_vault_market_option_covered_call) | **POST** /v1/vault-markets/options/covered-calls | Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+[**create_vault_market_option_covered_call_release**](VaultMarketsApi.md#create_vault_market_option_covered_call_release) | **POST** /v1/vault-markets/options/covered-calls/{id}/release | Free a covered call's vault unit once the call it covers is closed (or covered by other units).
+[**create_vault_market_option_mm_heartbeat**](VaultMarketsApi.md#create_vault_market_option_mm_heartbeat) | **POST** /v1/vault-markets/options/mm/heartbeat | Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+[**create_vault_market_option_mm_quote**](VaultMarketsApi.md#create_vault_market_option_mm_quote) | **POST** /v1/vault-markets/options/mm/quotes | Set (replace) a two-sided quote on an option contract: `bid` and / or `ask` each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+[**create_vault_market_option_mm_quote_pull**](VaultMarketsApi.md#create_vault_market_option_mm_quote_pull) | **POST** /v1/vault-markets/options/mm/quotes/pull | Pull your option quotes on one contract (`contractId`) or all of them.
+[**create_vault_market_option_order**](VaultMarketsApi.md#create_vault_market_option_order) | **POST** /v1/vault-markets/options/orders | Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
+[**create_vault_market_option_order_cancel**](VaultMarketsApi.md#create_vault_market_option_order_cancel) | **POST** /v1/vault-markets/options/orders/{id}/cancel | Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+[**create_vault_market_option_practice_combo**](VaultMarketsApi.md#create_vault_market_option_practice_combo) | **POST** /v1/vault-markets/options/practice/combos | A practice strategy (play money): the same ticket as a real one, filled at the practice maker's quotes when the net is inside the limit.
+[**create_vault_market_option_practice_order**](VaultMarketsApi.md#create_vault_market_option_practice_order) | **POST** /v1/vault-markets/options/practice/orders | Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+[**create_vault_market_option_practice_order_cancel**](VaultMarketsApi.md#create_vault_market_option_practice_order_cancel) | **POST** /v1/vault-markets/options/practice/orders/{id}/cancel | Cancel a working practice options order.
+[**create_vault_market_option_practice_reset**](VaultMarketsApi.md#create_vault_market_option_practice_reset) | **POST** /v1/vault-markets/options/practice/reset | Start the options practice account again with $10,000: positions and working orders are cleared.
+[**create_vault_market_option_quote**](VaultMarketsApi.md#create_vault_market_option_quote) | **POST** /v1/vault-markets/options/quote | Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+[**create_vault_market_option_rfq**](VaultMarketsApi.md#create_vault_market_option_rfq) | **POST** /v1/vault-markets/options/rfq | Ask for a quote on an option contract: `side`, `quantity` in contracts, an optional `limitCents` (never shown). Makers quoting the series, the underlying's DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+[**create_vault_market_option_rfq_accept**](VaultMarketsApi.md#create_vault_market_option_rfq_accept) | **POST** /v1/vault-markets/options/rfq/{id}/accept | Take a live answer (`responseId`) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+[**create_vault_market_option_rfq_cancel**](VaultMarketsApi.md#create_vault_market_option_rfq_cancel) | **POST** /v1/vault-markets/options/rfq/{id}/cancel | Cancel your open option quote request.
+[**create_vault_market_option_rfq_respond**](VaultMarketsApi.md#create_vault_market_option_rfq_respond) | **POST** /v1/vault-markets/options/rfq/{id}/respond | Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+[**create_vault_market_option_rfq_response_withdraw**](VaultMarketsApi.md#create_vault_market_option_rfq_response_withdraw) | **POST** /v1/vault-markets/options/rfq/responses/{id}/withdraw | Withdraw your live answer to an option quote request.
+[**create_vault_market_option_roll**](VaultMarketsApi.md#create_vault_market_option_roll) | **POST** /v1/vault-markets/options/roll | Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
+[**create_vault_market_option_strategy_preview**](VaultMarketsApi.md#create_vault_market_option_strategy_preview) | **POST** /v1/vault-markets/options/strategies/preview | Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null = unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
 [**create_vault_market_p2p_loan_call**](VaultMarketsApi.md#create_vault_market_p2p_loan_call) | **POST** /v1/vault-markets/p2p/loans/{id}/call | Lender: call the loan (once it is a day old). A refinancing auction runs for about 30 hours, the rate a new lender gets climbing to the ceiling; repaid or refinanced, you are paid in full; neither by the end, the unit moves to your vault.
 [**create_vault_market_p2p_loan_cancel_call**](VaultMarketsApi.md#create_vault_market_p2p_loan_cancel_call) | **POST** /v1/vault-markets/p2p/loans/{id}/cancel-call | Lender: take back your call before any other lender has taken the loan over. The refinancing auction stops and the loan carries on as before on its terms.
 [**create_vault_market_p2p_loan_refi_auction**](VaultMarketsApi.md#create_vault_market_p2p_loan_refi_auction) | **POST** /v1/vault-markets/p2p/loans/{id}/refi-auction | Borrower: look for a cheaper lender. A refinancing auction runs for `hours` (1-72, default 24); the rate a new lender gets climbs from `startAprBps` (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
@@ -117,6 +145,34 @@ Method | HTTP request | Description
 [**create_vault_market_position_close**](VaultMarketsApi.md#create_vault_market_position_close) | **POST** /v1/vault-markets/positions/{id}/close | Close a leveraged long: all its units, or `units` of them, each sold for at least `minCents`; each sale repays the pool first.
 [**create_vault_market_position_collateral**](VaultMarketsApi.md#create_vault_market_position_collateral) | **POST** /v1/vault-markets/positions/{id}/collateral | Answer a margin call: a short posts more collateral (USD, or CBX at half value); a leveraged long pays down its pool loan. Returns the position.
 [**create_vault_market_position_cover**](VaultMarketsApi.md#create_vault_market_position_cover) | **POST** /v1/vault-markets/positions/{id}/cover | Cover a short: all its units, or `units` of them, each buying any unit of the key into the vault for up to `maxCents`; each goes back to its lender.
+[**create_vault_market_prediction_account**](VaultMarketsApi.md#create_vault_market_prediction_account) | **POST** /v1/vault-markets/predictions/account | Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns `{ venue, status, opened }`.
+[**create_vault_market_prediction_alert**](VaultMarketsApi.md#create_vault_market_prediction_alert) | **POST** /v1/vault-markets/predictions/alerts | Tell me when a market's probability crosses a level: `{ marketId, levelPercent, direction }`. Returns the alert.
+[**create_vault_market_prediction_card**](VaultMarketsApi.md#create_vault_market_prediction_card) | **POST** /v1/vault-markets/predictions/cards | Make an \"I called it\" share card for a position of yours that settled in your favour (`showAmounts` to include what you paid and won). Returns the card with its public URL.
+[**create_vault_market_prediction_combo_rfq**](VaultMarketsApi.md#create_vault_market_prediction_combo_rfq) | **POST** /v1/vault-markets/predictions/combos/rfqs | Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. `venue` paper or live.
+[**create_vault_market_prediction_combo_rfq_accept**](VaultMarketsApi.md#create_vault_market_prediction_combo_rfq_accept) | **POST** /v1/vault-markets/predictions/combos/rfqs/{id}/accept | Take one live, firm answer to your combo request (`quoteId`): both stakes are locked and the combo opens. Returns the combo.
+[**create_vault_market_prediction_combo_rfq_cancel**](VaultMarketsApi.md#create_vault_market_prediction_combo_rfq_cancel) | **POST** /v1/vault-markets/predictions/combos/rfqs/{id}/cancel | Withdraw your combo request; its answers are withdrawn too.
+[**create_vault_market_prediction_combo_rfq_quote**](VaultMarketsApi.md#create_vault_market_prediction_combo_rfq_quote) | **POST** /v1/vault-markets/predictions/combos/rfqs/{id}/quotes | Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+[**create_vault_market_prediction_comment**](VaultMarketsApi.md#create_vault_market_prediction_comment) | **POST** /v1/vault-markets/predictions/comments | Comment on a market or a series, or reply to a comment (`parentId`). Moderated like every comment on Crossly.
+[**create_vault_market_prediction_comment_report**](VaultMarketsApi.md#create_vault_market_prediction_comment_report) | **POST** /v1/vault-markets/predictions/comments/{id}/report | Report a comment with a reason; enough reports hide it until ops look.
+[**create_vault_market_prediction_conversion**](VaultMarketsApi.md#create_vault_market_prediction_conversion) | **POST** /v1/vault-markets/predictions/conversions | Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. `venue` paper or live. Returns the conversion and the event after it.
+[**create_vault_market_prediction_forecast**](VaultMarketsApi.md#create_vault_market_prediction_forecast) | **POST** /v1/vault-markets/predictions/forecasts | Forecast a market: `probabilityPercent` 0 to 100. The one standing when trading closes is scored (Brier).
+[**create_vault_market_prediction_forecaster_follow**](VaultMarketsApi.md#create_vault_market_prediction_forecaster_follow) | **POST** /v1/vault-markets/predictions/forecasters/{id}/follow | Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+[**create_vault_market_prediction_maker**](VaultMarketsApi.md#create_vault_market_prediction_maker) | **POST** /v1/vault-markets/predictions/makers | Apply to make markets in prediction ladders (one series, or all with `seriesId` null). Needs the ID check; ops approve. Returns the application.
+[**create_vault_market_prediction_maker_quote**](VaultMarketsApi.md#create_vault_market_prediction_maker_quote) | **POST** /v1/vault-markets/predictions/makers/quotes | Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+[**create_vault_market_prediction_order**](VaultMarketsApi.md#create_vault_market_prediction_order) | **POST** /v1/vault-markets/predictions/orders | Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action's own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. `venue` paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+[**create_vault_market_prediction_order_amend**](VaultMarketsApi.md#create_vault_market_prediction_order_amend) | **POST** /v1/vault-markets/predictions/orders/{id}/amend | Amend a resting order's price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with `keptPriority`.
+[**create_vault_market_prediction_order_batch**](VaultMarketsApi.md#create_vault_market_prediction_order_batch) | **POST** /v1/vault-markets/predictions/orders/batch | Place up to 20 orders in one call; each answers on its own (`results[]`), one refused never stops the rest.
+[**create_vault_market_prediction_order_batch_cancel**](VaultMarketsApi.md#create_vault_market_prediction_order_batch_cancel) | **POST** /v1/vault-markets/predictions/orders/batch-cancel | Cancel up to 20 orders in one call; each answers on its own.
+[**create_vault_market_prediction_order_cancel**](VaultMarketsApi.md#create_vault_market_prediction_order_cancel) | **POST** /v1/vault-markets/predictions/orders/{id}/cancel | Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+[**create_vault_market_prediction_order_cancel_all**](VaultMarketsApi.md#create_vault_market_prediction_order_cancel_all) | **POST** /v1/vault-markets/predictions/orders/cancel-all | Cancel every working prediction order you have, or only those on one market (`marketId`). Returns `{ cancelled }`.
+[**create_vault_market_prediction_paper_reset**](VaultMarketsApi.md#create_vault_market_prediction_paper_reset) | **POST** /v1/vault-markets/predictions/paper/reset | Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+[**create_vault_market_prediction_position_close**](VaultMarketsApi.md#create_vault_market_prediction_position_close) | **POST** /v1/vault-markets/predictions/positions/close | Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at `priceCents`. Returns the sell order.
+[**create_vault_market_prediction_position_close_all**](VaultMarketsApi.md#create_vault_market_prediction_position_close_all) | **POST** /v1/vault-markets/predictions/positions/close-all | Sell all: close every open position on a venue, or only one event's (`eventId`). Each answers on its own.
+[**create_vault_market_prediction_proposal**](VaultMarketsApi.md#create_vault_market_prediction_proposal) | **POST** /v1/vault-markets/predictions/proposals | Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly's take on its fees.
+[**create_vault_market_prediction_proposal_check**](VaultMarketsApi.md#create_vault_market_prediction_proposal_check) | **POST** /v1/vault-markets/predictions/proposals/check | Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+[**create_vault_market_prediction_proposal_withdraw**](VaultMarketsApi.md#create_vault_market_prediction_proposal_withdraw) | **POST** /v1/vault-markets/predictions/proposals/{id}/withdraw | Withdraw a proposal still waiting for review.
+[**create_vault_market_prediction_settlement_dispute**](VaultMarketsApi.md#create_vault_market_prediction_settlement_dispute) | **POST** /v1/vault-markets/predictions/settlements/{id}/dispute | Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue's decision. Returns `{ settlementId, status }`.
+[**create_vault_market_prediction_term**](VaultMarketsApi.md#create_vault_market_prediction_term) | **POST** /v1/vault-markets/predictions/terms | Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns `{ termsVersion, venue }`.
 [**create_vault_market_price_widget**](VaultMarketsApi.md#create_vault_market_price_widget) | **POST** /v1/vault-markets/price-widgets | Make a price widget for one vault market (`kind` mark + `bookKey`) or one public index (`kind` index + `indexSlug`): range, layout (compact or chart), theme (auto, light, dark), optionally your own affiliate code for the link back and the sites allowed to show it (empty = any). Returns the widget with its snippets.
 [**create_vault_market_price_widget_preview**](VaultMarketsApi.md#create_vault_market_price_widget_preview) | **POST** /v1/vault-markets/price-widgets/preview | What a widget would show before you save it: `view` (value, move, quality, n, as-of, link back) and `html`, the exact page the iframe serves. Nothing is stored.
 [**create_vault_market_pro_bracket**](VaultMarketsApi.md#create_vault_market_pro_bracket) | **POST** /v1/vault-markets/pro/brackets | A buy order with a take-profit and/or stop-loss attached; the exits arm as an OCO pair for what the entry fills.
@@ -139,11 +195,43 @@ Method | HTTP request | Description
 [**create_vault_market_set_goal**](VaultMarketsApi.md#create_vault_market_set_goal) | **POST** /v1/vault-markets/set-goals | Start a goal on a catalogue set (category, brandSlug, modelSlug from the set search), optionally with a target: one condition, and any grade, ungraded, or one exact grade. One live goal per set.
 [**create_vault_market_set_goal_basket**](VaultMarketsApi.md#create_vault_market_set_goal_basket) | **POST** /v1/vault-markets/set-goals/{id}/basket | Place the \"complete my set\" basket bid: one GTC limit buy per missing piece, under a hard budget, paid by one of your saved cards or your custodian account. Every leg passes pre-trade risk and the ID line like any order. Idempotent on clientBasketId. One working basket per goal; its legs are cancelled once the set is complete.
 [**create_vault_market_set_goal_basket_cancel**](VaultMarketsApi.md#create_vault_market_set_goal_basket_cancel) | **POST** /v1/vault-markets/set-goals/{id}/basket/cancel | Cancel the goal working basket bid: every working leg comes off the book; what already filled stays in your vault.
+[**create_vault_market_share_auto_invest**](VaultMarketsApi.md#create_vault_market_share_auto_invest) | **POST** /v1/vault-markets/shares/auto-invest | Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
+[**create_vault_market_share_auto_invest_run**](VaultMarketsApi.md#create_vault_market_share_auto_invest_run) | **POST** /v1/vault-markets/shares/auto-invest/{id}/run | Run a plan now (once a minute at most); the schedule does not move.
+[**create_vault_market_share_auto_invest_update**](VaultMarketsApi.md#create_vault_market_share_auto_invest_update) | **POST** /v1/vault-markets/shares/auto-invest/{id}/update | Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
+[**create_vault_market_share_basket_buy**](VaultMarketsApi.md#create_vault_market_share_basket_buy) | **POST** /v1/vault-markets/shares/baskets/{id}/buy | Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
+[**create_vault_market_share_buyout_fund**](VaultMarketsApi.md#create_vault_market_share_buyout_fund) | **POST** /v1/vault-markets/shares/buyouts/{id}/fund | Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+[**create_vault_market_share_buyout_vote**](VaultMarketsApi.md#create_vault_market_share_buyout_vote) | **POST** /v1/vault-markets/shares/buyouts/{id}/vote | Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+[**create_vault_market_share_buyout_withdraw**](VaultMarketsApi.md#create_vault_market_share_buyout_withdraw) | **POST** /v1/vault-markets/shares/buyouts/{id}/withdraw | Withdraw your buyout bid before its vote opens; the escrow is refunded.
 [**create_vault_market_share_card**](VaultMarketsApi.md#create_vault_market_share_card) | **POST** /v1/vault-markets/share-cards | Make a verified share card of a position, a vault unit, a public index or your portfolio (`kind`, `refId`). The % on it is the price move since your real fill; amounts stay hidden unless `showAmounts`.
+[**create_vault_market_share_gift_accept**](VaultMarketsApi.md#create_vault_market_share_gift_accept) | **POST** /v1/vault-markets/shares/gifts/{id}/accept | Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+[**create_vault_market_share_gift_cancel**](VaultMarketsApi.md#create_vault_market_share_gift_cancel) | **POST** /v1/vault-markets/shares/gifts/{id}/cancel | Cancel a gift you offered, before it is accepted: the shares are free again.
+[**create_vault_market_share_gift_decline**](VaultMarketsApi.md#create_vault_market_share_gift_decline) | **POST** /v1/vault-markets/shares/gifts/{id}/decline | Decline a share gift offered to you.
+[**create_vault_market_share_investor**](VaultMarketsApi.md#create_vault_market_share_investor) | **POST** /v1/vault-markets/shares/investor | Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+[**create_vault_market_share_order_cancel**](VaultMarketsApi.md#create_vault_market_share_order_cancel) | **POST** /v1/vault-markets/shares/orders/{id}/cancel | Cancel one of your open share-book orders.
+[**create_vault_market_share_paper_order_cancel**](VaultMarketsApi.md#create_vault_market_share_paper_order_cancel) | **POST** /v1/vault-markets/shares/paper/orders/{id}/cancel | Cancel an open practice order.
+[**create_vault_market_share_paper_reset**](VaultMarketsApi.md#create_vault_market_share_paper_reset) | **POST** /v1/vault-markets/shares/paper/reset | Start the practice account over with fresh play money (once a day).
+[**create_vault_market_share_paper_sery_order**](VaultMarketsApi.md#create_vault_market_share_paper_sery_order) | **POST** /v1/vault-markets/shares/paper/series/{id}/orders | Place a practice order (play money) with the same rules as the real share book.
+[**create_vault_market_share_paper_sery_subscribe**](VaultMarketsApi.md#create_vault_market_share_paper_sery_subscribe) | **POST** /v1/vault-markets/shares/paper/series/{id}/subscribe | Subscribe with play money to a practice series’ offering.
+[**create_vault_market_share_room_hide**](VaultMarketsApi.md#create_vault_market_share_room_hide) | **POST** /v1/vault-markets/shares/room/{id}/hide | Take down one of your own holder-room posts (`reason`).
+[**create_vault_market_share_sery**](VaultMarketsApi.md#create_vault_market_share_sery) | **POST** /v1/vault-markets/shares/series | Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
+[**create_vault_market_share_sery_buyout**](VaultMarketsApi.md#create_vault_market_share_sery_buyout) | **POST** /v1/vault-markets/shares/series/{id}/buyouts | Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+[**create_vault_market_share_sery_gift**](VaultMarketsApi.md#create_vault_market_share_sery_gift) | **POST** /v1/vault-markets/shares/series/{id}/gifts | Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+[**create_vault_market_share_sery_order**](VaultMarketsApi.md#create_vault_market_share_sery_order) | **POST** /v1/vault-markets/shares/series/{id}/orders | Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
+[**create_vault_market_share_sery_recombine**](VaultMarketsApi.md#create_vault_market_share_sery_recombine) | **POST** /v1/vault-markets/shares/series/{id}/recombine | You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+[**create_vault_market_share_sery_room**](VaultMarketsApi.md#create_vault_market_share_sery_room) | **POST** /v1/vault-markets/shares/series/{id}/room | Post in the holder room (shareholders only), up to 1,000 characters.
+[**create_vault_market_share_sery_subscribe**](VaultMarketsApi.md#create_vault_market_share_sery_subscribe) | **POST** /v1/vault-markets/shares/series/{id}/subscribe | Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
+[**create_vault_market_share_sery_unwatch**](VaultMarketsApi.md#create_vault_market_share_sery_unwatch) | **POST** /v1/vault-markets/shares/series/{id}/unwatch | Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
+[**create_vault_market_share_sery_update**](VaultMarketsApi.md#create_vault_market_share_sery_update) | **POST** /v1/vault-markets/shares/series/{id}/updates | Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
+[**create_vault_market_share_sery_watch**](VaultMarketsApi.md#create_vault_market_share_sery_watch) | **POST** /v1/vault-markets/shares/series/{id}/watch | Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
+[**create_vault_market_share_sery_withdraw_proposal**](VaultMarketsApi.md#create_vault_market_share_sery_withdraw_proposal) | **POST** /v1/vault-markets/shares/series/{id}/withdraw-proposal | Withdraw your own proposal before its offering opens.
+[**create_vault_market_share_subscription_cancel**](VaultMarketsApi.md#create_vault_market_share_subscription_cancel) | **POST** /v1/vault-markets/shares/subscriptions/{id}/cancel | Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+[**create_vault_market_share_viewing_book**](VaultMarketsApi.md#create_vault_market_share_viewing_book) | **POST** /v1/vault-markets/shares/viewings/{id}/book | Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
+[**create_vault_market_share_viewing_booking_cancel**](VaultMarketsApi.md#create_vault_market_share_viewing_booking_cancel) | **POST** /v1/vault-markets/shares/viewing-bookings/{id}/cancel | Cancel your viewing-day booking.
 [**create_vault_market_short**](VaultMarketsApi.md#create_vault_market_short) | **POST** /v1/vault-markets/shorts | Short a book key: borrow `units` lent units (default 1; at most 25/10/3/1 by liquidity tier A/B/C/D) and sell each at `limitCents` or better, posting collateral for all of them (50% of the mark each; CBX counts at half, up to 30%). All units are borrowed or none unless `allowPartial`. A partial sale opens with the units sold. Returns `{ positionId, matched, units }`.
 [**create_vault_market_supply_batch_label**](VaultMarketsApi.md#create_vault_market_supply_batch_label) | **POST** /v1/vault-markets/supply/batches/{id}/label | Buy a box's prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
 [**create_vault_market_supply_invite**](VaultMarketsApi.md#create_vault_market_supply_invite) | **POST** /v1/vault-markets/supply/invites/{id} | Accept or decline a Market Open invite (`accept`).
 [**create_vault_market_supply_send**](VaultMarketsApi.md#create_vault_market_supply_send) | **POST** /v1/vault-markets/supply/send | Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
+[**create_vault_market_supply_send_in**](VaultMarketsApi.md#create_vault_market_supply_send_in) | **POST** /v1/vault-markets/supply/send-in | Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
 [**create_vault_market_term**](VaultMarketsApi.md#create_vault_market_term) | **POST** /v1/vault-markets/terms | Accept the current lending terms (needed to lend or short). Returns `{ termsVersion }`.
 [**create_vault_market_tod_claim_object**](VaultMarketsApi.md#create_vault_market_tod_claim_object) | **POST** /v1/vault-markets/tod/claims/{id}/object | Stop a transfer-on-death claim made on your own account. Returns `{ id, status, estateUnlocked }`.
 [**create_vault_market_tod_my_claim**](VaultMarketsApi.md#create_vault_market_tod_my_claim) | **POST** /v1/vault-markets/tod/my-claims | Start a claim as a named beneficiary (ID first), naming the account holder by @username or email. It stays a draft until you add documents and submit. Returns `{ id, status, existing }`.
@@ -163,6 +251,7 @@ Method | HTTP request | Description
 [**create_vault_receipt_token_wallet_allow**](VaultMarketsApi.md#create_vault_receipt_token_wallet_allow) | **POST** /v1/vault/receipt-tokens/wallets/allow | Put one of your verified Solana wallets (`wallet`) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
 [**delete_vault_market_agent_watch**](VaultMarketsApi.md#delete_vault_market_agent_watch) | **DELETE** /v1/vault-markets/agent/watches/{id} | Cancel a live price watch. Returns the watch.
 [**delete_vault_market_alert**](VaultMarketsApi.md#delete_vault_market_alert) | **DELETE** /v1/vault-markets/alerts/{id} | Delete a price alert. Returns `{ ok }`.
+[**delete_vault_market_auto_buy**](VaultMarketsApi.md#delete_vault_market_auto_buy) | **DELETE** /v1/vault-markets/auto-buy | Stop Auto-buy with payouts. The history stays.
 [**delete_vault_market_bullion_family_peg**](VaultMarketsApi.md#delete_vault_market_bullion_family_peg) | **DELETE** /v1/vault-markets/bullion/family-pegs/{id} | Stop a family-wide quote: every leg order comes off the book; what filled stays filled.
 [**delete_vault_market_bullion_peg**](VaultMarketsApi.md#delete_vault_market_bullion_peg) | **DELETE** /v1/vault-markets/bullion/pegs/{id} | Stop a spot-pegged quote: its resting order comes off the book; what filled stays filled.
 [**delete_vault_market_dealer_band**](VaultMarketsApi.md#delete_vault_market_dealer_band) | **DELETE** /v1/vault-markets/dealer/bands | Stop a band on a key; its standing bid comes off.
@@ -171,6 +260,10 @@ Method | HTTP request | Description
 [**delete_vault_market_index**](VaultMarketsApi.md#delete_vault_market_index) | **DELETE** /v1/vault-markets/indexes/{slug} | Delete an index of your own. Returns `{ ok }`.
 [**delete_vault_market_locate**](VaultMarketsApi.md#delete_vault_market_locate) | **DELETE** /v1/vault-markets/locates/{id} | Release a live locate before it lapses.
 [**delete_vault_market_opening_waitlist**](VaultMarketsApi.md#delete_vault_market_opening_waitlist) | **DELETE** /v1/vault-markets/opening/{slug}/waitlist | Leave a key's waitlist.
+[**delete_vault_market_prediction_alert**](VaultMarketsApi.md#delete_vault_market_prediction_alert) | **DELETE** /v1/vault-markets/predictions/alerts/{id} | Remove a probability alert. Returns `{ ok }`.
+[**delete_vault_market_prediction_card**](VaultMarketsApi.md#delete_vault_market_prediction_card) | **DELETE** /v1/vault-markets/predictions/cards/{id} | Take an \"I called it\" card down; its link stops working. Returns `{ ok }`.
+[**delete_vault_market_prediction_comment**](VaultMarketsApi.md#delete_vault_market_prediction_comment) | **DELETE** /v1/vault-markets/predictions/comments/{id} | Delete your comment.
+[**delete_vault_market_prediction_forecaster_follow**](VaultMarketsApi.md#delete_vault_market_prediction_forecaster_follow) | **DELETE** /v1/vault-markets/predictions/forecasters/{id}/follow | Stop following a forecaster.
 [**delete_vault_market_price_widget**](VaultMarketsApi.md#delete_vault_market_price_widget) | **DELETE** /v1/vault-markets/price-widgets/{id} | Delete a widget. Pages that still paste it show that it is no longer available. Returns `{ id, archived }`.
 [**delete_vault_market_pro_quote**](VaultMarketsApi.md#delete_vault_market_pro_quote) | **DELETE** /v1/vault-markets/pro/quotes | Pull your quote on a book key, or every quote. Returns `{ pulled }`.
 [**delete_vault_market_profile_follow**](VaultMarketsApi.md#delete_vault_market_profile_follow) | **DELETE** /v1/vault-markets/profiles/{handle}/follow | Stop following someone.
@@ -191,6 +284,7 @@ Method | HTTP request | Description
 [**get_vault_market_alert_pref**](VaultMarketsApi.md#get_vault_market_alert_pref) | **GET** /v1/vault-markets/alert-prefs | Your vault alert settings: every kind (price, fill, margin_call, adl, p2p_loan, auction, market_open, receipt_token, set_goal, follow, account), every channel (push, telegram, terminal, email, webhook) with whether it is set up, the full on/off grid, the locked switches (a critical kind always pushes) and quiet hours.
 [**get_vault_market_auction_lot**](VaultMarketsApi.md#get_vault_market_auction_lot) | **GET** /v1/vault-markets/auctions/lots/{id} | One lot: the price showing, the next minimum bid, whether a reserve exists and is met, the end (extended by late bids), the bid history and your standing.
 [**get_vault_market_auction_mine**](VaultMarketsApi.md#get_vault_market_auction_mine) | **GET** /v1/vault-markets/auctions/mine | Lots you consigned (with your reserve) and lots you bid on (with your maximum and whether you lead).
+[**get_vault_market_auto_buy**](VaultMarketsApi.md#get_vault_market_auto_buy) | **GET** /v1/vault-markets/auto-buy | Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. `autoBuy` is null when it is not set up.
 [**get_vault_market_block**](VaultMarketsApi.md#get_vault_market_block) | **GET** /v1/vault-markets/blocks/{orderId} | One block order: its order, plan lines (planned and allocated units, average price, cash share, status).
 [**get_vault_market_bullion_for**](VaultMarketsApi.md#get_vault_market_bullion_for) | **GET** /v1/vault-markets/bullion/for | The bullion key families one book key belongs to, with spot for its metal as a labelled reference and its melt value at that spot. Empty families when the item is not keyed bullion.
 [**get_vault_market_bullion_key**](VaultMarketsApi.md#get_vault_market_bullion_key) | **GET** /v1/vault-markets/bullion/keys/{slug} | One bullion key family: its catalogue products, every live book key with best bid, best ask, vault units and its mark (from the book only), live pegged quote counts, and spot as a labelled reference.
@@ -229,6 +323,8 @@ Method | HTTP request | Description
 [**get_vault_market_hall_loan**](VaultMarketsApi.md#get_vault_market_hall_loan) | **GET** /v1/vault-markets/hall/loans | Your Hall of Grails desk: this week's exhibition, the rules (maxLive loans, shownPerHolder per exhibition, repPoints per exhibition shown), reputation (exhibitions finished), your loans (status active, ending or ended; onShowNow, showingUntil, exhibitions, the next exhibition it fits, the Lent to the Hall badge) and the vault units you could lend (canLend, or the blocker in words, and the next exhibition each fits). Display only.
 [**get_vault_market_health**](VaultMarketsApi.md#get_vault_market_health) | **GET** /v1/vault-markets/health | Portfolio health of your vault holdings at Crossly marks: concentration by single item, category, grade and grader (shares, HHI on 0 to 10000, its band and effective number of holdings), value by liquidity tier, the stress grid (each category and everything down 10, 20 and 30 percent), value by mark quality, plain observations, and the held items a what-if can run on. Information only, not advice.
 [**get_vault_market_health_what_if**](VaultMarketsApi.md#get_vault_market_health_what_if) | **GET** /v1/vault-markets/health/what-if | What if one held item moved by moveBps (-10000 to 10000 basis points of its mark): the item, your vault total, the item and its category share of the vault, and the single-item HHI, before and after. A scenario on the mark, not a price you could sell at.
+[**get_vault_market_holding_inventory_item**](VaultMarketsApi.md#get_vault_market_holding_inventory_item) | **GET** /v1/vault-markets/holdings/{id}/inventory-item | The inventory item a vault unit of yours came from (null for a unit bought on the book).
+[**get_vault_market_holding_withdraw_quote**](VaultMarketsApi.md#get_vault_market_holding_withdraw_quote) | **GET** /v1/vault-markets/holdings/{id}/withdraw-quote | What shipping one unit you own home would charge now, for `standard` and `expedited`: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
 [**get_vault_market_home_unit**](VaultMarketsApi.md#get_vault_market_home_unit) | **GET** /v1/vault-markets/home/units | \"Show my vault\": the vault units you hold, the ones standing in your Crossly World home first. Each: vaultItemId, title, grade, imageUrl, bookKey (its market), inHome, visitors (visitors to your home see it). Also your home (slug, privacy, path), max units one home shows, shown, visitorsSee and a note on who sees what. Your home is made on first read. No prices.
 [**get_vault_market_index**](VaultMarketsApi.md#get_vault_market_index) | **GET** /v1/vault-markets/indexes/{slug} | One index with its daily closes (oldest first) and its level now.
 [**get_vault_market_index_calendar**](VaultMarketsApi.md#get_vault_market_index_calendar) | **GET** /v1/vault-markets/index-calendar | The next four quarterly reviews: reference day (2nd Friday of Mar/Jun/Sep/Dec), announcement day, last close under the old membership and the effective day; June and December also review the Blue-chip 50.
@@ -240,6 +336,7 @@ Method | HTTP request | Description
 [**get_vault_market_index_licence_usage**](VaultMarketsApi.md#get_vault_market_index_licence_usage) | **GET** /v1/vault-markets/index-licence/usage | Your licensed index feed reads over `days`, per index and endpoint (licence-usage report).
 [**get_vault_market_index_methodology**](VaultMarketsApi.md#get_vault_market_index_methodology) | **GET** /v1/vault-markets/index-methodology | The index method in machine-readable form: version (semver), inputs, weightings and caps, the family and its screens, the engines and their publication gate, revisions and the settlement series, the calendar, governance and limitations.
 [**get_vault_market_instant_exit**](VaultMarketsApi.md#get_vault_market_instant_exit) | **GET** /v1/vault-markets/instant-exit | The Instant Exit quote for one vault unit you hold: the best resting bid on its book key (anyone's, dealers' included), its share of the mark, the bid depth, and whether it can be taken now.
+[**get_vault_market_item_location**](VaultMarketsApi.md#get_vault_market_item_location) | **GET** /v1/vault-markets/items/{inventoryItemId}/location | Where one inventory item's units are: in your own stock (warehouse) and in the vault per location, each vault unit's status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
 [**get_vault_market_joint**](VaultMarketsApi.md#get_vault_market_joint) | **GET** /v1/vault-markets/joint | Your joint vaults and the invitations waiting for you, with the gate (open, missing env), the joint terms in words and what each right allows. A JointVaultsHome object, not a collection.
 [**get_vault_market_joint_by_id**](VaultMarketsApi.md#get_vault_market_joint_by_id) | **GET** /v1/vault-markets/joint/{id} | One joint vault (active members only): members and rights, the units in it at the mark with each owner of record, totals, recent joint trades, and the activity from the audit trail.
 [**get_vault_market_key_stat**](VaultMarketsApi.md#get_vault_market_key_stat) | **GET** /v1/vault-markets/key-stats/{bookKey} | Everything derived about one book key in one read: the Crossly Estimate, the liquidity score, risk statistics and the gem rate. A part that cannot be read is `{ error }`.
@@ -262,6 +359,23 @@ Method | HTTP request | Description
 [**get_vault_market_nav**](VaultMarketsApi.md#get_vault_market_nav) | **GET** /v1/vault-markets/nav | Mark NAV, bid NAV (the resting bids) and liquidation NAV (the bids at 20% of ADV for 10 days), holding by holding, each with its ASC 820 level, mark quality and source, and your administrator's price when uploaded.
 [**get_vault_market_nav_file**](VaultMarketsApi.md#get_vault_market_nav_file) | **GET** /v1/vault-markets/nav/file/{format} | The NAV as a csv, pdf or json file.
 [**get_vault_market_opening**](VaultMarketsApi.md#get_vault_market_opening) | **GET** /v1/vault-markets/opening/{slug} | One opening key.
+[**get_vault_market_option**](VaultMarketsApi.md#get_vault_market_option) | **GET** /v1/vault-markets/options | Fractional options: the venue mode (self = Crossly is the venue and clearing house, partner = routed to the index DCM, paper = practice only) with the env each mode still needs, the active series and the rule book in force.
+[**get_vault_market_option_analytic**](VaultMarketsApi.md#get_vault_market_option_analytic) | **GET** /v1/vault-markets/options/analytics/{underlying} | Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry's smile (`expiry`), IV rank and percentile against the series' own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying's own published series. Every implied vol is derived and display only.
+[**get_vault_market_option_auto_close**](VaultMarketsApi.md#get_vault_market_option_auto_close) | **GET** /v1/vault-markets/options/auto-close | Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+[**get_vault_market_option_chain**](VaultMarketsApi.md#get_vault_market_option_chain) | **GET** /v1/vault-markets/options/chain/{underlying} | The option chain for an underlying (index slug or book key): its expiries, and for one expiry (`expiry`, default the nearest) each strike's call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+[**get_vault_market_option_combo_book**](VaultMarketsApi.md#get_vault_market_option_combo_book) | **GET** /v1/vault-markets/options/combos/book | One strategy's combo book by its canonical key (`key`, from the preview or an order): bids and asks by net price and recent strategy trades.
+[**get_vault_market_option_combo_rfq**](VaultMarketsApi.md#get_vault_market_option_combo_rfq) | **GET** /v1/vault-markets/options/combos/rfq/{id} | One strategy quote request and its answers (all of them to the requester, your own to a responder).
+[**get_vault_market_option_contract**](VaultMarketsApi.md#get_vault_market_option_contract) | **GET** /v1/vault-markets/options/contracts/{id} | One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+[**get_vault_market_option_contract_book**](VaultMarketsApi.md#get_vault_market_option_contract_book) | **GET** /v1/vault-markets/options/contracts/{id}/book | A contract's order book on the Crossly venue (`levels`, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+[**get_vault_market_option_contract_settlement**](VaultMarketsApi.md#get_vault_market_option_contract_settlement) | **GET** /v1/vault-markets/options/contracts/{id}/settlement | A settled contract's settlement: the value (cents per unit of the underlying), its source (the index's frozen 7-day TWAP, the item's expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+[**get_vault_market_option_hedge**](VaultMarketsApi.md#get_vault_market_option_hedge) | **GET** /v1/vault-markets/options/hedges | Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+[**get_vault_market_option_iv**](VaultMarketsApi.md#get_vault_market_option_iv) | **GET** /v1/vault-markets/options/iv/{underlying} | The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+[**get_vault_market_option_margin**](VaultMarketsApi.md#get_vault_market_option_margin) | **GET** /v1/vault-markets/options/margin | Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner's figure decides and this is an estimate.
+[**get_vault_market_option_payoff**](VaultMarketsApi.md#get_vault_market_option_payoff) | **GET** /v1/vault-markets/options/payoff | Your whole options position on one `underlying` at expiry: the P&L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+[**get_vault_market_option_position**](VaultMarketsApi.md#get_vault_market_option_position) | **GET** /v1/vault-markets/options/positions | Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. `status` open (default) / all, `subaccountId`.
+[**get_vault_market_option_practice**](VaultMarketsApi.md#get_vault_market_option_practice) | **GET** /v1/vault-markets/options/practice | Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker's price, equity and P&L.
+[**get_vault_market_option_rfq**](VaultMarketsApi.md#get_vault_market_option_rfq) | **GET** /v1/vault-markets/options/rfq/{id} | One option quote request: yours with every answer, or one you were sent with your own answer.
+[**get_vault_market_option_risk**](VaultMarketsApi.md#get_vault_market_option_risk) | **GET** /v1/vault-markets/options/risk | Your options portfolio's Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario's P&L (`priceShift`, `volShift`, `daysForward`), a price x vol P&L grid, and the beta-weighted delta against an index (`betaIndex`, default the deepest). `book` live (default) or practice.
 [**get_vault_market_oracle**](VaultMarketsApi.md#get_vault_market_oracle) | **GET** /v1/vault-markets/oracle | Crossly as an oracle publisher (needs CROSSLY_ORACLE_PUBLISHER_KEY + CROSSLY_ORACLE_NETWORK): the network (pyth or switchboard), the ed25519 key every value is signed with, each published index feed with its latest attempt, and 24 h counts of published, skipped and failed. Only built-in indexes priced from A/B marks are published; Crossly never reads its own feed back.
 [**get_vault_market_oracle_by_slug**](VaultMarketsApi.md#get_vault_market_oracle_by_slug) | **GET** /v1/vault-markets/oracle/{slug} | The latest published oracle value for an index: level, fixed-point price and confidence at the feed exponent, confidence in bps, staleness in seconds, coverage, the exact signed message and its ed25519 signature with the signer key, and whether it is fresh.
 [**get_vault_market_order_handling**](VaultMarketsApi.md#get_vault_market_order_handling) | **GET** /v1/vault-markets/order-handling | How orders are handled (the 606/607-style disclosure): one book, self-trade prevention, protected market orders, liquidations by auction, halts, dealers and fees.
@@ -269,7 +383,7 @@ Method | HTTP request | Description
 [**get_vault_market_p2p_loan**](VaultMarketsApi.md#get_vault_market_p2p_loan) | **GET** /v1/vault-markets/p2p/loans/{id} | One P2P loan with its money log (fund, repay, refinance). A loan in a running refinancing auction can be read by any lender, without the log.
 [**get_vault_market_paper**](VaultMarketsApi.md#get_vault_market_paper) | **GET** /v1/vault-markets/paper | Your paper trading account (play money only, never real or convertible; opened at $10,000 the first time): play cash, buying power, paper positions at the real marks, P&L, working paper orders, recent paper fills and this week on the leaderboard.
 [**get_vault_market_paper_quote**](VaultMarketsApi.md#get_vault_market_paper_quote) | **GET** /v1/vault-markets/paper/quote | What a paper order would fill against the real book now, without placing it: units fillable inside the limit (a market order uses the 5% protection band around the mark), average price, simulated fee, and the queue ahead of any rest.
-[**get_vault_market_partner_me**](VaultMarketsApi.md#get_vault_market_partner_me) | **GET** /v1/vault-markets/partners/me | Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+[**get_vault_market_partner_me**](VaultMarketsApi.md#get_vault_market_partner_me) | **GET** /v1/vault-markets/partners/me | Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
 [**get_vault_market_pool**](VaultMarketsApi.md#get_vault_market_pool) | **GET** /v1/vault-markets/pool | The CBX market staking pool: size, value, what it lends, utilisation, rate, insurance fund.
 [**get_vault_market_pop_report**](VaultMarketsApi.md#get_vault_market_pop_report) | **GET** /v1/vault-markets/pop-reports | Grading population report for one market (`bookKey`): focus (on a graded market: its grade, pop = copies graded at exactly that grade, higher = copies graded better by the same grader, total, asOf and source), graders (each grader ladder for the card, best grade first, from one report: the newest, the population feed over a hand entry on the same date), provider.connected, and status (ok, not_synced, no_report or no_source) with explain, which says in plain words what is missing. source is provider (the population feed) or ops (entered by Crossly from the grader published report). Counts only, never a price.
 [**get_vault_market_portfolio**](VaultMarketsApi.md#get_vault_market_portfolio) | **GET** /v1/vault-markets/portfolio | Your vault holdings at the market price, with cost and P&L, and units you have out on loan.
@@ -278,6 +392,30 @@ Method | HTTP request | Description
 [**get_vault_market_position**](VaultMarketsApi.md#get_vault_market_position) | **GET** /v1/vault-markets/positions/{id} | One position with its loans, auctions and custodian instruction log.
 [**get_vault_market_position_exit**](VaultMarketsApi.md#get_vault_market_position_exit) | **GET** /v1/vault-markets/positions/{id}/exits | A position's take-profit / stop-loss, if set.
 [**get_vault_market_position_risk**](VaultMarketsApi.md#get_vault_market_position_risk) | **GET** /v1/vault-markets/positions/{id}/risk | One position's call and liquidation marks.
+[**get_vault_market_prediction**](VaultMarketsApi.md#get_vault_market_prediction) | **GET** /v1/vault-markets/predictions | The prediction markets home: the busiest and soonest-expiring \"Will it hit?\" markets with their probability (each market's own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+[**get_vault_market_prediction_account**](VaultMarketsApi.md#get_vault_market_prediction_account) | **GET** /v1/vault-markets/predictions/account | Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+[**get_vault_market_prediction_board**](VaultMarketsApi.md#get_vault_market_prediction_board) | **GET** /v1/vault-markets/predictions/board | The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+[**get_vault_market_prediction_combo**](VaultMarketsApi.md#get_vault_market_prediction_combo) | **GET** /v1/vault-markets/predictions/combos/{id} | One of your combos.
+[**get_vault_market_prediction_combo_rfq**](VaultMarketsApi.md#get_vault_market_prediction_combo_rfq) | **GET** /v1/vault-markets/predictions/combos/rfqs/{id} | One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+[**get_vault_market_prediction_daily_price**](VaultMarketsApi.md#get_vault_market_prediction_daily_price) | **GET** /v1/vault-markets/predictions/daily-prices | The published daily settlement price of every listed market for a day (default yesterday): the last hour's volume-weighted Yes price, else the book mid, else the prior day's, with volume and open interest.
+[**get_vault_market_prediction_event**](VaultMarketsApi.md#get_vault_market_prediction_event) | **GET** /v1/vault-markets/predictions/events/{id} | One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. `venue` paper or live.
+[**get_vault_market_prediction_forecaster**](VaultMarketsApi.md#get_vault_market_prediction_forecaster) | **GET** /v1/vault-markets/predictions/forecaster | Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+[**get_vault_market_prediction_forecaster_by_id**](VaultMarketsApi.md#get_vault_market_prediction_forecaster_by_id) | **GET** /v1/vault-markets/predictions/forecasters/{id} | A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+[**get_vault_market_prediction_leaderboard**](VaultMarketsApi.md#get_vault_market_prediction_leaderboard) | **GET** /v1/vault-markets/predictions/leaderboard | Opt-in forecaster leaderboards: `period` week, month or all; `metric` pnl, accuracy or brier; `venue` live or paper (practice has its own board).
+[**get_vault_market_prediction_limit**](VaultMarketsApi.md#get_vault_market_prediction_limit) | **GET** /v1/vault-markets/predictions/limits | Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+[**get_vault_market_prediction_market**](VaultMarketsApi.md#get_vault_market_prediction_market) | **GET** /v1/vault-markets/predictions/markets/{id} | One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+[**get_vault_market_prediction_market_forecast**](VaultMarketsApi.md#get_vault_market_prediction_market_forecast) | **GET** /v1/vault-markets/predictions/markets/{id}/forecasts | How many people forecast a market and their median probability (no names).
+[**get_vault_market_prediction_market_history**](VaultMarketsApi.md#get_vault_market_prediction_market_history) | **GET** /v1/vault-markets/predictions/markets/{id}/history | A market's history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over `range` 1d, 1w, 1m or all; `venue` live or paper.
+[**get_vault_market_prediction_market_stream**](VaultMarketsApi.md#get_vault_market_prediction_market_stream) | **GET** /v1/vault-markets/predictions/markets/{id}/stream | A server-sent event stream for one prediction market: `snapshot` first, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement` as they change.
+[**get_vault_market_prediction_market_trade**](VaultMarketsApi.md#get_vault_market_prediction_market_trade) | **GET** /v1/vault-markets/predictions/markets/{id}/trades | The trade tape, newest first: Yes price, size, which side took, venue. Page with `before` (the last `seq`).
+[**get_vault_market_prediction_me_stream**](VaultMarketsApi.md#get_vault_market_prediction_me_stream) | **GET** /v1/vault-markets/predictions/me/stream | A server-sent event stream of your own prediction events: `pm_order` (placed, filled, amended, cancelled, expired), `pm_fill` (your side, price and fee), `pm_position`, `pm_combo` and `pm_conversion`.
+[**get_vault_market_prediction_mission**](VaultMarketsApi.md#get_vault_market_prediction_mission) | **GET** /v1/vault-markets/predictions/missions | The two \"Will it hit?\" practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+[**get_vault_market_prediction_paper**](VaultMarketsApi.md#get_vault_market_prediction_paper) | **GET** /v1/vault-markets/predictions/paper | Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+[**get_vault_market_prediction_quote**](VaultMarketsApi.md#get_vault_market_prediction_quote) | **GET** /v1/vault-markets/predictions/quote | What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi's formula), the money it would lock, and the most it could pay out.
+[**get_vault_market_prediction_rulebook**](VaultMarketsApi.md#get_vault_market_prediction_rulebook) | **GET** /v1/vault-markets/predictions/rulebook | The prediction venue's rule book now and every version, each hashed and chained to the one before (`chainOk`).
+[**get_vault_market_prediction_stream**](VaultMarketsApi.md#get_vault_market_prediction_stream) | **GET** /v1/vault-markets/predictions/stream | A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
+[**get_vault_market_prediction_venue**](VaultMarketsApi.md#get_vault_market_prediction_venue) | **GET** /v1/vault-markets/predictions/venue | Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+[**get_vault_market_prediction_will_it_hit**](VaultMarketsApi.md#get_vault_market_prediction_will_it_hit) | **GET** /v1/vault-markets/predictions/will-it-hit | The \"Will it hit?\" panel for a key (`bookKey`) or an index (`index` slug): its open markets grouped by expiry, each with its probability. `eligible` is false when nothing is listed on it.
 [**get_vault_market_press**](VaultMarketsApi.md#get_vault_market_press) | **GET** /v1/vault-markets/press | The press kit: each built-in index with level, quality, n, CSV link and a \"cite as\" line, plus the methodology links.
 [**get_vault_market_price_widget**](VaultMarketsApi.md#get_vault_market_price_widget) | **GET** /v1/vault-markets/price-widgets/{id} | One of your price widgets, with its iframe and script-tag snippets and URLs.
 [**get_vault_market_pro_depth**](VaultMarketsApi.md#get_vault_market_pro_depth) | **GET** /v1/vault-markets/pro/depth | The L2 depth ladder: price levels and units per side, best first; asks show how many units are authenticated vault stock.
@@ -297,17 +435,34 @@ Method | HTTP request | Description
 [**get_vault_market_risk_stat**](VaultMarketsApi.md#get_vault_market_risk_stat) | **GET** /v1/vault-markets/risk-stats/{bookKey} | Risk statistics for a book key (weekly returns from A-quality marks only) or an index slug (its closes): annualised volatility raw and Geltner-desmoothed (labelled), max drawdown and beta to the Composite. Needs 26 weekly returns, else no numbers.
 [**get_vault_market_set_goal**](VaultMarketsApi.md#get_vault_market_set_goal) | **GET** /v1/vault-markets/set-goals/{id} | One set goal: every piece in the set order, held (with the vault unit) or missing (with the cheapest marked book key that meets the target and its mark), the conditions and grades seen, and the working basket bid with its legs.
 [**get_vault_market_set_goal_basket_plan**](VaultMarketsApi.md#get_vault_market_set_goal_basket_plan) | **GET** /v1/vault-markets/set-goals/{id}/basket-plan | What a basket bid would place now, without placing it: one leg per missing piece (cheapest first, the mark plus maxBpsOverMark as the limit), the pieces skipped and why, and the most it can cost (limits plus the worst-case buyer fee), never more than budgetCents.
+[**get_vault_market_setting**](VaultMarketsApi.md#get_vault_market_setting) | **GET** /v1/vault-markets/settings | Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+[**get_vault_market_share**](VaultMarketsApi.md#get_vault_market_share) | **GET** /v1/vault-markets/shares | Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+[**get_vault_market_share_basket**](VaultMarketsApi.md#get_vault_market_share_basket) | **GET** /v1/vault-markets/shares/baskets/{id} | One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
 [**get_vault_market_share_card**](VaultMarketsApi.md#get_vault_market_share_card) | **GET** /v1/vault-markets/share-cards/{id} | One share card as the public sees it, with its image and link paths.
+[**get_vault_market_share_investor**](VaultMarketsApi.md#get_vault_market_share_investor) | **GET** /v1/vault-markets/shares/investor | Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+[**get_vault_market_share_me**](VaultMarketsApi.md#get_vault_market_share_me) | **GET** /v1/vault-markets/shares/me | Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+[**get_vault_market_share_paper**](VaultMarketsApi.md#get_vault_market_share_paper) | **GET** /v1/vault-markets/shares/paper | Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+[**get_vault_market_share_paper_sery_book**](VaultMarketsApi.md#get_vault_market_share_paper_sery_book) | **GET** /v1/vault-markets/shares/paper/series/{id}/book | A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+[**get_vault_market_share_preview**](VaultMarketsApi.md#get_vault_market_share_preview) | **GET** /v1/vault-markets/shares/preview | Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+[**get_vault_market_share_sery**](VaultMarketsApi.md#get_vault_market_share_sery) | **GET** /v1/vault-markets/shares/series/{id} | One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+[**get_vault_market_share_sery_book**](VaultMarketsApi.md#get_vault_market_share_sery_book) | **GET** /v1/vault-markets/shares/series/{id}/book | A share book’s depth: whole shares per price level (integer cents a share), best first.
+[**get_vault_market_share_sery_history**](VaultMarketsApi.md#get_vault_market_share_sery_history) | **GET** /v1/vault-markets/shares/series/{id}/history | A series’ full price history: OHLC candles of every share-book fill (`interval` 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+[**get_vault_market_share_sery_perk**](VaultMarketsApi.md#get_vault_market_share_sery_perk) | **GET** /v1/vault-markets/shares/series/{id}/perks | Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+[**get_vault_market_share_sery_room**](VaultMarketsApi.md#get_vault_market_share_sery_room) | **GET** /v1/vault-markets/shares/series/{id}/room | The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. `before` pages back.
 [**get_vault_market_statement**](VaultMarketsApi.md#get_vault_market_statement) | **GET** /v1/vault-markets/statements | The last 24 months with whether each statement is issued (frozen, with its sha256).
 [**get_vault_market_statement_by_month**](VaultMarketsApi.md#get_vault_market_statement_by_month) | **GET** /v1/vault-markets/statements/{month} | A monthly statement (`month` like 2026-10): units held at month end, loans, pledges, positions, fills, fees, storage, and cash quoted from the custodian and labelled as its record. Issued (frozen) once the month ends.
 [**get_vault_market_statement_file**](VaultMarketsApi.md#get_vault_market_statement_file) | **GET** /v1/vault-markets/statements/{month}/file/{format} | A monthly statement as a csv, pdf or json file.
 [**get_vault_market_supply**](VaultMarketsApi.md#get_vault_market_supply) | **GET** /v1/vault-markets/supply | A book key's units in the vault and authentications passed, by day (oldest first, today live).
 [**get_vault_market_supply_batch**](VaultMarketsApi.md#get_vault_market_supply_batch) | **GET** /v1/vault-markets/supply/batches/{id} | A box sent to the vault: its prepaid label and tracking, or why it has no label.
 [**get_vault_market_supply_round_up**](VaultMarketsApi.md#get_vault_market_supply_round_up) | **GET** /v1/vault-markets/supply/round-up | Your seller round-up: the share of each payout that sets a vault buy's budget, the budget so far and what it is doing. `roundUp` is null when none is set.
+[**get_vault_market_supply_shipment**](VaultMarketsApi.md#get_vault_market_supply_shipment) | **GET** /v1/vault-markets/supply/shipments/{id} | One shipment into the vault, with each unit and whether it was received.
 [**get_vault_market_tax**](VaultMarketsApi.md#get_vault_market_tax) | **GET** /v1/vault-markets/tax | Your tax year on the vault markets: units bought and sold with cost, proceeds, gain and term; lending fees, staking interest (estimate), market-maker rewards; closed positions. Links to the CSV and PDF.
 [**get_vault_market_tax_csv**](VaultMarketsApi.md#get_vault_market_tax_csv) | **GET** /v1/vault-markets/tax.csv | The tax year as a CSV: one row per sale, purchase, gift, income line and closed position.
 [**get_vault_market_tax_loss_suggestion**](VaultMarketsApi.md#get_vault_market_tax_loss_suggestion) | **GET** /v1/vault-markets/tax/loss-suggestions | Tax-loss suggestions: the units you hold whose mark is below your cost, each with its lot (acquired when and how, cost in cents), short or long term if sold today and the day a short lot turns long, the estimated loss at the mark before selling fees, mark quality, what stops a sale, and a link to the ordinary sell ticket. With totals by term, the gains realised so far this year, and a not-tax-advice disclosure. Never sells.
+[**get_vault_market_tax_option**](VaultMarketsApi.md#get_vault_market_tax_option) | **GET** /v1/vault-markets/tax/options | Your fractional options tax lots for a calendar year (`year`, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
 [**get_vault_market_tax_pdf**](VaultMarketsApi.md#get_vault_market_tax_pdf) | **GET** /v1/vault-markets/tax.pdf | The tax year as a PDF summary.
+[**get_vault_market_tax_prediction**](VaultMarketsApi.md#get_vault_market_tax_prediction) | **GET** /v1/vault-markets/tax/predictions | Your prediction-market results for a calendar year (`year`), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+[**get_vault_market_tax_share**](VaultMarketsApi.md#get_vault_market_tax_share) | **GET** /v1/vault-markets/tax/shares | Your Vault Shares tax lots for a calendar year (`year`): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
 [**get_vault_market_tca**](VaultMarketsApi.md#get_vault_market_tca) | **GET** /v1/vault-markets/tca | Your pro orders in a window (`from`, `to`; default 90 days) with arrival mark and mid, average fill, implementation shortfall, slippage, fill rate and time to fill.
 [**get_vault_market_tca_by_order_id**](VaultMarketsApi.md#get_vault_market_tca_by_order_id) | **GET** /v1/vault-markets/tca/{orderId} | One order's TCA, including slippage against the VWAP of eligible trades while it worked.
 [**get_vault_market_tod**](VaultMarketsApi.md#get_vault_market_tod) | **GET** /v1/vault-markets/tod | Your transfer-on-death setup: the gate and terms, whether you accepted them, your beneficiaries and shares, units with their designations and who the plan gives them to today, and open claims on your account (which you can stop). A TodOverview object, not a collection.
@@ -326,6 +481,7 @@ Method | HTTP request | Description
 [**get_vault_market_widget_mark**](VaultMarketsApi.md#get_vault_market_widget_mark) | **GET** /v1/vault-markets/widgets/mark | What the <crossly-mark> widget shows for `bookKey`: mark, quality, trades over 30 days, as-of, sparkline, or `insufficient`.
 [**get_vault_market_widget_summary**](VaultMarketsApi.md#get_vault_market_widget_summary) | **GET** /v1/vault-markets/widget/summary | The home-screen widget summary: portfolio value at the mark with its move since the previous marks (cents and bps) and the share resting on reliable A/B marks, the three biggest movers among what you hold (the market movers when you hold nothing; `movers.source` says which), and one watchlist key (`?key=` a book key on your watchlist; else your newest watch) with a 14-day sparkline. Every price is from the Crossly order book and carries its mark quality (A, B, C or none). Cached for five minutes.
 [**get_vault_market_world_floor**](VaultMarketsApi.md#get_vault_market_world_floor) | **GET** /v1/vault-markets/world/floor | The Trading Floor in Crossly World: trades (the newest trades on every vault book in the last day, at most 40, newest first: bookKey, name, priceCents, priceText, side -- buy when a buyer took an ask, sell when a seller hit a bid, cross for an auction -- and ageS), tickers (the big board: the most-traded markets, each with its last trade price, the change from the last trade before today in basis points, trades today and the display mark with its quality), bell (Market Open: ringing for ten minutes after a new key opens, with the key and its market link, and what opens next) and trades24h. Every price is a trade on the Crossly order book; it never shows who traded. Nothing can be traded in the room.
+[**get_vault_market_world_floor_board**](VaultMarketsApi.md#get_vault_market_world_floor_board) | **GET** /v1/vault-markets/world/floor/boards | The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \"Will it hit?\" markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
 [**get_vault_market_world_lounge**](VaultMarketsApi.md#get_vault_market_world_lounge) | **GET** /v1/vault-markets/world/lounge | The Vault Holders Lounge: the rule to join (held value at reliable marks, or a unit count), whether you may join now and what you hold toward it. Anyone may look in; only holders are seen there. No perks, nothing to trade.
 [**get_vault_market_world_place_vault_gate**](VaultMarketsApi.md#get_vault_market_world_place_vault_gate) | **GET** /v1/vault-markets/world/places/{place}/vault-gate | The vault-holder door on a Crossly World room or Space, by its presence slug (a room share slug, or space-<slug>): the rule (minValueCents held at reliable A/B marks and/or minUnits units, mode any or all, optionally one product, bullion family or category), the rule in words, and whether you may join now with what you hold toward it. gate is null when the place has no vault door. Anyone may look in; only holders join.
 [**get_vault_market_worth**](VaultMarketsApi.md#get_vault_market_worth) | **GET** /v1/vault-markets/worth | What one book key (variantId:condition:gradeKey, `bookKey`) is worth: the mark in cents with its quality (A from trades, B from firm quotes, C indicative, none) and band, what Instant Exit would pay for one unit now from the best resting bid (yours left out), and your units: how many you hold, how many are free to sell, their value at the mark and what selling every free one now would fetch from today’s bids. Plain-words `headline` and `lines`. Read only.
@@ -368,6 +524,7 @@ Method | HTTP request | Description
 [**list_vault_market_grade_to_vault**](VaultMarketsApi.md#list_vault_market_grade_to_vault) | **GET** /v1/vault-markets/grade-to-vault | Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. `live=1` for those still going.
 [**list_vault_market_grading**](VaultMarketsApi.md#list_vault_market_grading) | **GET** /v1/vault-markets/grading | Your vault units sent to grading: where each card is in its run, and the grade once it is back.
 [**list_vault_market_hall_lenders**](VaultMarketsApi.md#list_vault_market_hall_lenders) | **GET** /v1/vault-markets/hall/lenders | The vault units lent to this week's Hall of Grails exhibition and on show now, in plinth order: the item (skuId, name, imageUrl, grade), the lender as the plate names them (a display name, or \"a collector\"), the plate lines and how many exhibitions the unit has stood in. meta.exhibition is the week (key, title, endsAt). Names no ids and no amounts.
+[**list_vault_market_holdings**](VaultMarketsApi.md#list_vault_market_holdings) | **GET** /v1/vault-markets/holdings | Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (`valueCents` with `valueSource` mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (`actions`). Units sold or shipped home in the last 90 days have `past: true`. `meta` carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
 [**list_vault_market_index_committee_minutes**](VaultMarketsApi.md#list_vault_market_index_committee_minutes) | **GET** /v1/vault-markets/index-committee/minutes | Published Index Committee minutes, newest first: attendees (names and roles), quorum, agenda, minutes and decisions.
 [**list_vault_market_index_complaints**](VaultMarketsApi.md#list_vault_market_index_complaints) | **GET** /v1/vault-markets/index-complaints | Your complaints and their answers, newest first.
 [**list_vault_market_index_constituents**](VaultMarketsApi.md#list_vault_market_index_constituents) | **GET** /v1/vault-markets/indexes/{slug}/constituents | The book keys in an index with their weight, move since the last close and contribution to the index's move (basis points).
@@ -392,6 +549,20 @@ Method | HTTP request | Description
 [**list_vault_market_nav_history**](VaultMarketsApi.md#list_vault_market_nav_history) | **GET** /v1/vault-markets/nav/history | Daily NAV snapshots (mark, bid, liquidation, Level 2 / Level 3).
 [**list_vault_market_offers**](VaultMarketsApi.md#list_vault_market_offers) | **GET** /v1/vault-markets/offers | The offers inbox: for each book key you hold, the best bid from someone else, units at it, the top bid levels, the mark, and your alert.
 [**list_vault_market_opening**](VaultMarketsApi.md#list_vault_market_opening) | **GET** /v1/vault-markets/opening | Keys opening soon on the vault book (and just opened): units on the shelf, dealers quoting, the waitlist, the mark when the book has one, and your place.
+[**list_vault_market_option_combo_rfq**](VaultMarketsApi.md#list_vault_market_option_combo_rfq) | **GET** /v1/vault-markets/options/combos/rfq | Your strategy quote requests, newest first.
+[**list_vault_market_option_combo_rfq_inbox**](VaultMarketsApi.md#list_vault_market_option_combo_rfq_inbox) | **GET** /v1/vault-markets/options/combos/rfq/inbox | Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+[**list_vault_market_option_combos**](VaultMarketsApi.md#list_vault_market_option_combos) | **GET** /v1/vault-markets/options/combos | Your strategies: `status` working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+[**list_vault_market_option_contract_daily**](VaultMarketsApi.md#list_vault_market_option_contract_daily) | **GET** /v1/vault-markets/options/contracts/{id}/daily | A contract's published daily settlement prices, newest first (`days`, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row's chain hash.
+[**list_vault_market_option_mm_quotes**](VaultMarketsApi.md#list_vault_market_option_mm_quotes) | **GET** /v1/vault-markets/options/mm/quotes | Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+[**list_vault_market_option_notices**](VaultMarketsApi.md#list_vault_market_option_notices) | **GET** /v1/vault-markets/options/notices | Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+[**list_vault_market_option_orders**](VaultMarketsApi.md#list_vault_market_option_orders) | **GET** /v1/vault-markets/options/orders | Your options orders, newest first: `status` working (default) / done / all, `limit`, `subaccountId`.
+[**list_vault_market_option_practice_combos**](VaultMarketsApi.md#list_vault_market_option_practice_combos) | **GET** /v1/vault-markets/options/practice/combos | Your practice strategies.
+[**list_vault_market_option_practice_fills**](VaultMarketsApi.md#list_vault_market_option_practice_fills) | **GET** /v1/vault-markets/options/practice/fills | Your practice options fills, newest first (`limit`).
+[**list_vault_market_option_practice_orders**](VaultMarketsApi.md#list_vault_market_option_practice_orders) | **GET** /v1/vault-markets/options/practice/orders | Your practice options orders: `status` working (default) / done / all, `limit`.
+[**list_vault_market_option_rfq**](VaultMarketsApi.md#list_vault_market_option_rfq) | **GET** /v1/vault-markets/options/rfq | Your option quote requests, newest first.
+[**list_vault_market_option_rfq_inbox**](VaultMarketsApi.md#list_vault_market_option_rfq_inbox) | **GET** /v1/vault-markets/options/rfq/inbox | Open option quote requests you can answer.
+[**list_vault_market_option_series**](VaultMarketsApi.md#list_vault_market_option_series) | **GET** /v1/vault-markets/options/series | Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. `status`: active (default) or all.
+[**list_vault_market_option_strategies**](VaultMarketsApi.md#list_vault_market_option_strategies) | **GET** /v1/vault-markets/options/strategies | The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
 [**list_vault_market_oracle_history**](VaultMarketsApi.md#list_vault_market_oracle_history) | **GET** /v1/vault-markets/oracle/{slug}/history | Recent publish attempts for an index over 30 days, newest first: published, skipped (with the reason: too few items priced, stale marks, confidence too wide...) or failed (with the error). Filter with `status`, cap with `limit` (default 100).
 [**list_vault_market_p2p_auctions**](VaultMarketsApi.md#list_vault_market_p2p_auctions) | **GET** /v1/vault-markets/p2p/auctions | Running refinancing auctions, soonest to end first: lenders calls (`auction`) and borrowers looking for a cheaper lender (`refiAuction`). The payoff now, the rate a new lender gets now, when it ends, and the item.
 [**list_vault_market_p2p_loans**](VaultMarketsApi.md#list_vault_market_p2p_loans) | **GET** /v1/vault-markets/p2p/loans | Your P2P loans as borrower and/or lender (`role`), live by default (`status`): what is owed now, daily interest, the refinancing auction when called, and the item mark for information only (it never triggers anything).
@@ -403,11 +574,26 @@ Method | HTTP request | Description
 [**list_vault_market_paper_missions**](VaultMarketsApi.md#list_vault_market_paper_missions) | **GET** /v1/vault-markets/paper/missions | Your paper-trading missions (play money only): each mission with what to do, your count toward its target, whether it is done and when, plus a suggested market for the \"Read the mark\" mission. Progress is observed by the server from your paper orders and fills, price watches, set goals and graded mark checks. Missions earn world quest progress and cosmetic pins, never money.
 [**list_vault_market_paper_orders**](VaultMarketsApi.md#list_vault_market_paper_orders) | **GET** /v1/vault-markets/paper/orders | Your paper orders since your last reset, newest first: working, done (filled, cancelled, expired) or all. Play money only.
 [**list_vault_market_partner_accruals**](VaultMarketsApi.md#list_vault_market_partner_accruals) | **GET** /v1/vault-markets/partners/accruals | Your partner fee shares, newest first: accrued on a unit's first sale, paid in Bucks once the sale is final, void if it was refunded.
+[**list_vault_market_partner_finder**](VaultMarketsApi.md#list_vault_market_partner_finder) | **GET** /v1/vault-markets/partners/finder | Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
 [**list_vault_market_pool_stakes**](VaultMarketsApi.md#list_vault_market_pool_stakes) | **GET** /v1/vault-markets/pool/stakes | Your stakes in the market pool and what each redeems for now.
 [**list_vault_market_portfolio_margin_history**](VaultMarketsApi.md#list_vault_market_portfolio_margin_history) | **GET** /v1/vault-markets/portfolio-margin/history | The 5-minute portfolio margin recalculations for a firm sub-account over the last `hours` (default 24, at most 720), newest first: equity, requirement, excess, scenario and floor figures, gross and state.
 [**list_vault_market_position_units**](VaultMarketsApi.md#list_vault_market_position_units) | **GET** /v1/vault-markets/positions/{id}/units | The vault units of one of your positions that you hold (a leveraged long's collateral), each with its story link.
 [**list_vault_market_positions**](VaultMarketsApi.md#list_vault_market_positions) | **GET** /v1/vault-markets/positions | Your positions, live (default) or closed.
 [**list_vault_market_positions_risk**](VaultMarketsApi.md#list_vault_market_positions_risk) | **GET** /v1/vault-markets/positions-risk | For each live position: its tier, health, margin state, the mark at which it is called and the mark at which it is liquidated, and the distance to it.
+[**list_vault_market_prediction_alerts**](VaultMarketsApi.md#list_vault_market_prediction_alerts) | **GET** /v1/vault-markets/predictions/alerts | Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+[**list_vault_market_prediction_combo_my_rfqs**](VaultMarketsApi.md#list_vault_market_prediction_combo_my_rfqs) | **GET** /v1/vault-markets/predictions/combos/my-rfqs | Your combo requests with every answer they got.
+[**list_vault_market_prediction_combo_rfqs**](VaultMarketsApi.md#list_vault_market_prediction_combo_rfqs) | **GET** /v1/vault-markets/predictions/combos/rfqs | Open combo requests makers can answer: legs, size and the legs' own combined price; never who asked. Your own answers are shown on them.
+[**list_vault_market_prediction_combos**](VaultMarketsApi.md#list_vault_market_prediction_combos) | **GET** /v1/vault-markets/predictions/combos | Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+[**list_vault_market_prediction_comments**](VaultMarketsApi.md#list_vault_market_prediction_comments) | **GET** /v1/vault-markets/predictions/comments | A discussion thread on a market (`marketId`) or a series (`seriesId`): comments newest first with their replies. A commenter's side shows only when their forecaster profile is public.
+[**list_vault_market_prediction_conversions**](VaultMarketsApi.md#list_vault_market_prediction_conversions) | **GET** /v1/vault-markets/predictions/conversions | Your bucket-set conversions (split, merge, convert), newest first.
+[**list_vault_market_prediction_following**](VaultMarketsApi.md#list_vault_market_prediction_following) | **GET** /v1/vault-markets/predictions/following | The forecasters you follow.
+[**list_vault_market_prediction_forecasts**](VaultMarketsApi.md#list_vault_market_prediction_forecasts) | **GET** /v1/vault-markets/predictions/forecasts | Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+[**list_vault_market_prediction_makers**](VaultMarketsApi.md#list_vault_market_prediction_makers) | **GET** /v1/vault-markets/predictions/makers | Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+[**list_vault_market_prediction_markets**](VaultMarketsApi.md#list_vault_market_prediction_markets) | **GET** /v1/vault-markets/predictions/markets | Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+[**list_vault_market_prediction_orders**](VaultMarketsApi.md#list_vault_market_prediction_orders) | **GET** /v1/vault-markets/predictions/orders | Your prediction orders, newest first: working, done or all; practice, live or all.
+[**list_vault_market_prediction_positions**](VaultMarketsApi.md#list_vault_market_prediction_positions) | **GET** /v1/vault-markets/predictions/positions | Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&L, payout or refund once settled, and the share card if you made one.
+[**list_vault_market_prediction_proposal_listed**](VaultMarketsApi.md#list_vault_market_prediction_proposal_listed) | **GET** /v1/vault-markets/predictions/proposals/listed | The markets you proposed that are listed: volume, status and what the creator share has earned you.
+[**list_vault_market_prediction_proposals**](VaultMarketsApi.md#list_vault_market_prediction_proposals) | **GET** /v1/vault-markets/predictions/proposals | Your market proposals and where each stands (pending, listed, rejected, withdrawn).
 [**list_vault_market_price_widgets**](VaultMarketsApi.md#list_vault_market_price_widgets) | **GET** /v1/vault-markets/price-widgets | Your price widgets, newest first, each with its iframe and script-tag snippets. `meta.codes` lists your affiliate codes a widget can link through; `meta.max` is the cap on live widgets.
 [**list_vault_market_pro_candles**](VaultMarketsApi.md#list_vault_market_pro_candles) | **GET** /v1/vault-markets/pro/candles | OHLCV candles (1m, 5m, 15m, 1h, 4h, 1d) from the trades on a book key.
 [**list_vault_market_pro_events**](VaultMarketsApi.md#list_vault_market_pro_events) | **GET** /v1/vault-markets/pro/events | Your order event log after a sequence number (new, leg, fill, replaced, cancelled, expired, done): a replayable drop copy.
@@ -426,9 +612,24 @@ Method | HTTP request | Description
 [**list_vault_market_set_goal_baskets**](VaultMarketsApi.md#list_vault_market_set_goal_baskets) | **GET** /v1/vault-markets/set-goals/{id}/baskets | A set goal basket bids, newest first, each with its budget, what it committed and spent, and every leg (piece, book key, limit, pro order id, status).
 [**list_vault_market_set_goal_sets**](VaultMarketsApi.md#list_vault_market_set_goal_sets) | **GET** /v1/vault-markets/set-goals/sets | Sets to start a goal on. With q (2+ characters): a word-start search of every catalogue set. Without: the sets you hold pieces of in the vault, then the collections you are building. Each with your live goal on it, if any.
 [**list_vault_market_set_goals**](VaultMarketsApi.md#list_vault_market_set_goals) | **GET** /v1/vault-markets/set-goals | Your set goals: the set, the target a piece must meet, pieces held of the total (from your vault), and the working basket bid.
+[**list_vault_market_share_auto_invest**](VaultMarketsApi.md#list_vault_market_share_auto_invest) | **GET** /v1/vault-markets/shares/auto-invest | Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+[**list_vault_market_share_auto_invest_runs**](VaultMarketsApi.md#list_vault_market_share_auto_invest_runs) | **GET** /v1/vault-markets/shares/auto-invest/{id}/runs | A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+[**list_vault_market_share_baskets**](VaultMarketsApi.md#list_vault_market_share_baskets) | **GET** /v1/vault-markets/shares/baskets | Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
 [**list_vault_market_share_cards**](VaultMarketsApi.md#list_vault_market_share_cards) | **GET** /v1/vault-markets/share-cards | Your share cards (not taken down), each as the public sees it.
+[**list_vault_market_share_drops**](VaultMarketsApi.md#list_vault_market_share_drops) | **GET** /v1/vault-markets/shares/drops | The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+[**list_vault_market_share_gifts**](VaultMarketsApi.md#list_vault_market_share_gifts) | **GET** /v1/vault-markets/shares/gifts | Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+[**list_vault_market_share_orders**](VaultMarketsApi.md#list_vault_market_share_orders) | **GET** /v1/vault-markets/shares/orders | Your share-book orders, newest first; `seriesId` and `open` narrow it.
+[**list_vault_market_share_series**](VaultMarketsApi.md#list_vault_market_share_series) | **GET** /v1/vault-markets/shares/series | Vault Shares series: open offerings first, then trading, then the rest. `status` and `bookKey` narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+[**list_vault_market_share_sery_appraisals**](VaultMarketsApi.md#list_vault_market_share_sery_appraisals) | **GET** /v1/vault-markets/shares/series/{id}/appraisals | The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+[**list_vault_market_share_sery_tape**](VaultMarketsApi.md#list_vault_market_share_sery_tape) | **GET** /v1/vault-markets/shares/series/{id}/tape | The latest fills on a share book, newest first, with which side made the market.
+[**list_vault_market_share_sery_updates**](VaultMarketsApi.md#list_vault_market_share_sery_updates) | **GET** /v1/vault-markets/shares/series/{id}/updates | The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+[**list_vault_market_share_subscriptions**](VaultMarketsApi.md#list_vault_market_share_subscriptions) | **GET** /v1/vault-markets/shares/subscriptions | Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+[**list_vault_market_share_world**](VaultMarketsApi.md#list_vault_market_share_world) | **GET** /v1/vault-markets/shares/world | The world vault home’s fractional tiles: each item you own a share of, with \"you own 3.2%\".
+[**list_vault_market_supply_declared_values**](VaultMarketsApi.md#list_vault_market_supply_declared_values) | **GET** /v1/vault-markets/supply/declared-values | What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
 [**list_vault_market_supply_deposits**](VaultMarketsApi.md#list_vault_market_supply_deposits) | **GET** /v1/vault-markets/supply/deposits | Your units sent to the vault, newest first, each with its state and its key's Instant Exit line (\"Instant Exit now: $X (N% of mark)\" or \"No market yet\"). Filter with `inventoryItemIds` (comma-separated).
+[**list_vault_market_supply_eligibility**](VaultMarketsApi.md#list_vault_market_supply_eligibility) | **GET** /v1/vault-markets/supply/eligibility | Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
 [**list_vault_market_supply_invites**](VaultMarketsApi.md#list_vault_market_supply_invites) | **GET** /v1/vault-markets/supply/invites | Market Open invites to you as a dealer: keys Crossly is opening and asks you to quote.
+[**list_vault_market_supply_shipments**](VaultMarketsApi.md#list_vault_market_supply_shipments) | **GET** /v1/vault-markets/supply/shipments | Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
 [**list_vault_market_valuation_statements**](VaultMarketsApi.md#list_vault_market_valuation_statements) | **GET** /v1/vault-markets/valuation-statements | The insurance and appraisal statements you issued, newest first: purpose, date, units, total at the marks, hash and verify link.
 [**list_vault_market_vault_suggestions**](VaultMarketsApi.md#list_vault_market_vault_suggestions) | **GET** /v1/vault-markets/vault-suggestions | What to send to the vault: your inventory items whose book key has a liquid vault market (tier A, B or C), best first. Each has a score (0 to 100) and its reasons, the market (tier, mark and its quality, best bid, best vault ask, spread), Instant Exit now, your list price, days listed without selling, and the vault fee. `meta.summary` counts what was left out and why. Inform only; send with POST /api/v1/vault-markets/supply/send.
 [**list_vault_market_watchlist**](VaultMarketsApi.md#list_vault_market_watchlist) | **GET** /v1/vault-markets/watchlist | Your watched book keys with mark, 24 h and 7 d change, and the last 30 daily marks (sparkline).
@@ -441,6 +642,7 @@ Method | HTTP request | Description
 [**list_vault_receipts**](VaultMarketsApi.md#list_vault_receipts) | **GET** /v1/vault/receipts | Your warehouse receipts (documents of title for your vault units), live first. meta.receipts says whether receipts are registered (VAULT_WAREHOUSE_ISSUER) and their terms version.
 [**list_vault_unit_list**](VaultMarketsApi.md#list_vault_unit_list) | **GET** /v1/vault/unit-list | The published unit list (bar-list equivalent): every unit on a vault shelf with its warehouse receipt number (when receipts are registered), book key, shelf location code, insured value, status, pledged / on-loan flags and a per-receipt hashed holder (never a name or id). Filter with `bookKey`; pages with `page` / `limit`.
 [**update_vault_market_alert_pref**](VaultMarketsApi.md#update_vault_market_alert_pref) | **PUT** /v1/vault-markets/alert-prefs | Change vault alert settings: `matrix` ({ kind: { channel: true|false } }, merged onto what is set), `quietHours` ({ start: \"HH:MM\", end: \"HH:MM\", tz } or null to clear) and `telegram` (the Telegram master switch). Locked switches are ignored. Returns the new settings.
+[**update_vault_market_auto_buy**](VaultMarketsApi.md#update_vault_market_auto_buy) | **PUT** /v1/vault-markets/auto-buy | Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
 [**update_vault_market_block_allocation**](VaultMarketsApi.md#update_vault_market_block_allocation) | **PUT** /v1/vault-markets/blocks/{orderId}/allocation | Post-trade allocation: set or replace the plan for a buy you placed for one of the entity's sub-accounts (that sub-account leads). Refused once any share has moved.
 [**update_vault_market_channel**](VaultMarketsApi.md#update_vault_market_channel) | **PUT** /v1/vault-markets/channels | Change the switches: `telegramAlerts`, `telegramDigest`, `pushCapPerDay` (0 to 20). Margin calls and recalls are never capped. Returns the new view.
 [**update_vault_market_dealer_band**](VaultMarketsApi.md#update_vault_market_dealer_band) | **PUT** /v1/vault-markets/dealer/bands | Commit to an Instant Exit band on a key: a standing bid for `units` kept at `bandBps` of the mark, never above `maxPriceCents`, re-quoted as the mark moves.
@@ -452,16 +654,23 @@ Method | HTTP request | Description
 [**update_vault_market_follow_sharing**](VaultMarketsApi.md#update_vault_market_follow_sharing) | **PUT** /v1/vault-markets/follows/sharing | Turn sharing switches on or off (`isPublic`, `showBuys`, `deposits`, `sales`, `hallLoans`, `orders`, `leaderboard`). A switch shows only what happens after it goes on; all but the profile itself need the profile public.
 [**update_vault_market_home_unit**](VaultMarketsApi.md#update_vault_market_home_unit) | **PUT** /v1/vault-markets/home/units | Show exactly these vault units in your Crossly World home: { units: [{ vaultItemId, visitors }] }. Units left out come out of their cases; units already standing stay where they are; new ones go into a free display-case or shelf slot, else a glass case of their own along a wall. visitors: true lets people who may enter your home see that unit (default false: only you). Returns placed, unplaced (no free case: the home is full), refused (with why) and the desk. Display only: nothing moves.
 [**update_vault_market_index**](VaultMarketsApi.md#update_vault_market_index) | **PATCH** /v1/vault-markets/indexes/{slug} | Rename, re-weight, share or change the keys of an index of your own; its level carries on.
+[**update_vault_market_item_sell_from**](VaultMarketsApi.md#update_vault_market_item_sell_from) | **PUT** /v1/vault-markets/items/{inventoryItemId}/sell-from | Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
 [**update_vault_market_lending_election**](VaultMarketsApi.md#update_vault_market_lending_election) | **PUT** /v1/vault-markets/lending/election | Change your lender election (applies to loans opened after the change). Needs lending.
 [**update_vault_market_mm_mmp**](VaultMarketsApi.md#update_vault_market_mm_mmp) | **PUT** /v1/vault-markets/mm/mmp | Set market-maker protection: N units or $X filled on your quotes within T seconds pulls every quote and freezes quoting for a set time.
 [**update_vault_market_mode**](VaultMarketsApi.md#update_vault_market_mode) | **PUT** /v1/vault-markets/mode | Choose your Vault Markets mode: `mode` simple or pro. Remembered for you on the web and in the app. A display preference only: it places nothing and moves no money.
 [**update_vault_market_offer_alert**](VaultMarketsApi.md#update_vault_market_offer_alert) | **PUT** /v1/vault-markets/offers/alert | Set (or clear with null) the bid price that should always notify you on a key you hold, and mute or unmute offer notices on it.
+[**update_vault_market_option_auto_close**](VaultMarketsApi.md#update_vault_market_option_auto_close) | **PUT** /v1/vault-markets/options/auto-close | Set your auto-close rule: `enabled`, `minutesBefore` (30 to 10080), `onlyItm`, `maxSlippageBps` (0 to 2000).
 [**update_vault_market_paper_leaderboard**](VaultMarketsApi.md#update_vault_market_paper_leaderboard) | **PUT** /v1/vault-markets/paper/leaderboard | Join or leave the weekly paper leaderboard. Joining needs a display name (2 to 24 letters, numbers, spaces, dots, dashes or underscores), never your real name. Returns `{ optIn, displayName }`.
+[**update_vault_market_partner_me**](VaultMarketsApi.md#update_vault_market_partner_me) | **PATCH** /v1/vault-markets/partners/me | Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
 [**update_vault_market_position_exit**](VaultMarketsApi.md#update_vault_market_position_exit) | **PUT** /v1/vault-markets/positions/{id}/exits | Set a position's take-profit / stop-loss: a long is closed, a short covered, when the last trade reaches one. Both null clears them.
+[**update_vault_market_prediction_comment**](VaultMarketsApi.md#update_vault_market_prediction_comment) | **PATCH** /v1/vault-markets/predictions/comments/{id} | Edit your comment.
+[**update_vault_market_prediction_forecaster**](VaultMarketsApi.md#update_vault_market_prediction_forecaster) | **PUT** /v1/vault-markets/predictions/forecaster | Go public under a display name (`public: true`), rename, or go private (`public: false`: nothing is shown again).
+[**update_vault_market_prediction_limit**](VaultMarketsApi.md#update_vault_market_prediction_limit) | **PUT** /v1/vault-markets/predictions/limits | Set your daily loss limit (`dailyLossLimitCents`, null = none) or exclude yourself (`excludeDays`, `excludedUntil` or \"forever\"). Tighter takes effect at once; looser waits 24 hours.
 [**update_vault_market_price_widget**](VaultMarketsApi.md#update_vault_market_price_widget) | **PATCH** /v1/vault-markets/price-widgets/{id} | Change a widget: name, range, layout, theme, affiliate code (null for none) or allowed sites. The market or index it shows never changes: make a new widget for another.
 [**update_vault_market_profile**](VaultMarketsApi.md#update_vault_market_profile) | **PUT** /v1/vault-markets/profile | Turn your public vault profile on or off (`isPublic`) and whether followers see your new buys (`showBuys`). It shows weights by market, never dollars.
 [**update_vault_market_recurring**](VaultMarketsApi.md#update_vault_market_recurring) | **PATCH** /v1/vault-markets/recurring/{id} | Change a recurring buy's schedule, caps, cards or auto-lend, or pause / resume it.
 [**update_vault_market_set_goal**](VaultMarketsApi.md#update_vault_market_set_goal) | **PATCH** /v1/vault-markets/set-goals/{id} | Change what a piece must be to count (condition, grade mode, grade). Refused while a basket bid works: cancel it first.
+[**update_vault_market_setting**](VaultMarketsApi.md#update_vault_market_setting) | **PUT** /v1/vault-markets/settings | Change your vault defaults; send only the fields you change.
 [**update_vault_market_share_card**](VaultMarketsApi.md#update_vault_market_share_card) | **PATCH** /v1/vault-markets/share-cards/{id} | Show or hide the dollar amounts on one of your share cards (`showAmounts`).
 [**update_vault_market_supply_deposit**](VaultMarketsApi.md#update_vault_market_supply_deposit) | **PATCH** /v1/vault-markets/supply/deposits/{id} | Change a deposit's toggles: `autoListBps` (list at that share of the mark once stored; null = do not) and `lendWhenIdle`.
 [**update_vault_market_supply_round_up**](VaultMarketsApi.md#update_vault_market_supply_round_up) | **PUT** /v1/vault-markets/supply/round-up | Set the round-up: `shareBps` (1%-50%) of each payout released to you adds to a budget; when it covers the cheapest vault unit on `bookKey`, one unit is bought with your saved card, never above the budget.
@@ -774,6 +983,56 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::OkResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_auto_buy_pause
+
+> crate::models::CreateVaultMarketAutoBuyPauseResponse create_vault_market_auto_buy_pause()
+Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketAutoBuyPauseResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_auto_buy_resume
+
+> crate::models::CreateVaultMarketAutoBuyResumeResponse create_vault_market_auto_buy_resume()
+Resume Auto-buy with payouts: payouts released from now on count.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketAutoBuyResumeResponse**
 
 ### Authorization
 
@@ -2854,6 +3113,692 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## create_vault_market_option_combo
+
+> crate::models::CreateVaultMarketOptionComboResponse create_vault_market_option_combo()
+Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionComboResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_combo_cancel
+
+> crate::models::ListVaultMarketOptionCombosItem create_vault_market_option_combo_cancel(id)
+Cancel a working strategy.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketOptionCombosItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_combo_rfq
+
+> crate::models::CreateVaultMarketOptionComboRfqResponse create_vault_market_option_combo_rfq()
+Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_combo_rfq_accept
+
+> crate::models::CreateVaultMarketOptionComboRfqAcceptResponse create_vault_market_option_combo_rfq_accept(id)
+Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionComboRfqAcceptResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_combo_rfq_cancel
+
+> crate::models::IdStatusResponse create_vault_market_option_combo_rfq_cancel(id)
+Cancel your open strategy quote request.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::IdStatusResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_combo_rfq_respond
+
+> crate::models::CreateVaultMarketOptionRfqRespondResponse create_vault_market_option_combo_rfq_respond(id)
+Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionRfqRespondResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_combo_rfq_response_withdraw
+
+> crate::models::IdStatusResponse create_vault_market_option_combo_rfq_response_withdraw(id)
+Withdraw your live answer to a strategy quote request.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::IdStatusResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_covered_call
+
+> crate::models::CreateVaultMarketOptionCoveredCallResponse create_vault_market_option_covered_call()
+Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionCoveredCallResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_covered_call_release
+
+> crate::models::CreateVaultMarketOptionCoveredCallReleaseResponse create_vault_market_option_covered_call_release(id)
+Free a covered call's vault unit once the call it covers is closed (or covered by other units).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionCoveredCallReleaseResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_mm_heartbeat
+
+> crate::models::CreateVaultMarketOptionMmHeartbeatResponse create_vault_market_option_mm_heartbeat()
+Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionMmHeartbeatResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_mm_quote
+
+> crate::models::CreateVaultMarketOptionMmQuoteResponse create_vault_market_option_mm_quote()
+Set (replace) a two-sided quote on an option contract: `bid` and / or `ask` each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionMmQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_mm_quote_pull
+
+> crate::models::DeleteVaultMarketProQuoteResponse create_vault_market_option_mm_quote_pull()
+Pull your option quotes on one contract (`contractId`) or all of them.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::DeleteVaultMarketProQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_order
+
+> crate::models::CreateVaultMarketOptionOrderResponse create_vault_market_option_order()
+Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_order_cancel
+
+> crate::models::CreateVaultMarketOptionOrderCancelResponse create_vault_market_option_order_cancel(id)
+Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionOrderCancelResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_practice_combo
+
+> crate::models::CreateVaultMarketOptionPracticeComboResponse create_vault_market_option_practice_combo()
+A practice strategy (play money): the same ticket as a real one, filled at the practice maker's quotes when the net is inside the limit.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionPracticeComboResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_practice_order
+
+> crate::models::CreateVaultMarketOptionPracticeOrderResponse create_vault_market_option_practice_order()
+Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionPracticeOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_practice_order_cancel
+
+> crate::models::ListVaultMarketOptionPracticeOrdersItem create_vault_market_option_practice_order_cancel(id)
+Cancel a working practice options order.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketOptionPracticeOrdersItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_practice_reset
+
+> crate::models::GetVaultMarketOptionPracticeResponse create_vault_market_option_practice_reset()
+Start the options practice account again with $10,000: positions and working orders are cleared.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionPracticeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_quote
+
+> crate::models::CreateVaultMarketOptionQuoteResponse create_vault_market_option_quote()
+Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_rfq
+
+> crate::models::CreateVaultMarketRfqResponse create_vault_market_option_rfq()
+Ask for a quote on an option contract: `side`, `quantity` in contracts, an optional `limitCents` (never shown). Makers quoting the series, the underlying's DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_rfq_accept
+
+> crate::models::CreateVaultMarketOptionRfqAcceptResponse create_vault_market_option_rfq_accept(id)
+Take a live answer (`responseId`) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionRfqAcceptResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_rfq_cancel
+
+> crate::models::IdStatusResponse create_vault_market_option_rfq_cancel(id)
+Cancel your open option quote request.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::IdStatusResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_rfq_respond
+
+> crate::models::CreateVaultMarketOptionRfqRespondResponse create_vault_market_option_rfq_respond(id)
+Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionRfqRespondResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_rfq_response_withdraw
+
+> crate::models::IdStatusResponse create_vault_market_option_rfq_response_withdraw(id)
+Withdraw your live answer to an option quote request.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::IdStatusResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_roll
+
+> crate::models::CreateVaultMarketOptionRollResponse create_vault_market_option_roll()
+Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionRollResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_option_strategy_preview
+
+> crate::models::CreateVaultMarketOptionStrategyPreviewResponse create_vault_market_option_strategy_preview()
+Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null = unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketOptionStrategyPreviewResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## create_vault_market_p2p_loan_call
 
 > crate::models::GetVaultMarketP2pLoanResponse create_vault_market_p2p_loan_call(id)
@@ -3496,6 +4441,733 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## create_vault_market_prediction_account
+
+> crate::models::CreateVaultMarketPredictionAccountResponse create_vault_market_prediction_account()
+Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns `{ venue, status, opened }`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionAccountResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_alert
+
+> crate::models::CreateVaultMarketPredictionAlertResponse create_vault_market_prediction_alert()
+Tell me when a market's probability crosses a level: `{ marketId, levelPercent, direction }`. Returns the alert.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionAlertResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_card
+
+> crate::models::CreateVaultMarketPredictionCardResponse create_vault_market_prediction_card()
+Make an \"I called it\" share card for a position of yours that settled in your favour (`showAmounts` to include what you paid and won). Returns the card with its public URL.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionCardResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_combo_rfq
+
+> crate::models::CreateVaultMarketPredictionComboRfqResponse create_vault_market_prediction_combo_rfq()
+Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. `venue` paper or live.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionComboRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_combo_rfq_accept
+
+> crate::models::ListVaultMarketPredictionCombosItem create_vault_market_prediction_combo_rfq_accept(id)
+Take one live, firm answer to your combo request (`quoteId`): both stakes are locked and the combo opens. Returns the combo.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionCombosItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_combo_rfq_cancel
+
+> crate::models::ListVaultMarketPredictionComboRfqsItem create_vault_market_prediction_combo_rfq_cancel(id)
+Withdraw your combo request; its answers are withdrawn too.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionComboRfqsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_combo_rfq_quote
+
+> crate::models::CreateVaultMarketPredictionComboRfqQuoteResponse create_vault_market_prediction_combo_rfq_quote(id)
+Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionComboRfqQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_comment
+
+> crate::models::CreateVaultMarketPredictionCommentResponse create_vault_market_prediction_comment()
+Comment on a market or a series, or reply to a comment (`parentId`). Moderated like every comment on Crossly.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionCommentResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_comment_report
+
+> crate::models::CreateVaultMarketPredictionCommentReportResponse create_vault_market_prediction_comment_report(id)
+Report a comment with a reason; enough reports hide it until ops look.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionCommentReportResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_conversion
+
+> crate::models::CreateVaultMarketPredictionConversionResponse create_vault_market_prediction_conversion()
+Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. `venue` paper or live. Returns the conversion and the event after it.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionConversionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_forecast
+
+> crate::models::CreateVaultMarketPredictionForecastResponse create_vault_market_prediction_forecast()
+Forecast a market: `probabilityPercent` 0 to 100. The one standing when trading closes is scored (Brier).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionForecastResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_forecaster_follow
+
+> crate::models::CreateVaultMarketPredictionForecasterFollowResponse create_vault_market_prediction_forecaster_follow(id)
+Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionForecasterFollowResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_maker
+
+> crate::models::ListVaultMarketPredictionMakersItem create_vault_market_prediction_maker()
+Apply to make markets in prediction ladders (one series, or all with `seriesId` null). Needs the ID check; ops approve. Returns the application.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionMakersItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_maker_quote
+
+> crate::models::CreateVaultMarketPredictionMakerQuoteResponse create_vault_market_prediction_maker_quote()
+Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionMakerQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_order
+
+> crate::models::CreateVaultMarketPredictionOrderResponse create_vault_market_prediction_order()
+Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action's own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. `venue` paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_order_amend
+
+> crate::models::CreateVaultMarketPredictionOrderAmendResponse create_vault_market_prediction_order_amend(id)
+Amend a resting order's price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with `keptPriority`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionOrderAmendResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_order_batch
+
+> crate::models::CreateVaultMarketPredictionOrderBatchResponse create_vault_market_prediction_order_batch()
+Place up to 20 orders in one call; each answers on its own (`results[]`), one refused never stops the rest.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionOrderBatchResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_order_batch_cancel
+
+> crate::models::CreateVaultMarketPredictionOrderBatchCancelResponse create_vault_market_prediction_order_batch_cancel()
+Cancel up to 20 orders in one call; each answers on its own.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionOrderBatchCancelResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_order_cancel
+
+> crate::models::CreateVaultMarketPredictionOrderResponse create_vault_market_prediction_order_cancel(id)
+Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_order_cancel_all
+
+> crate::models::CreateVaultMarketProOrderCancelAllResponse create_vault_market_prediction_order_cancel_all()
+Cancel every working prediction order you have, or only those on one market (`marketId`). Returns `{ cancelled }`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketProOrderCancelAllResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_paper_reset
+
+> crate::models::CreateVaultMarketPredictionPaperResetResponse create_vault_market_prediction_paper_reset()
+Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionPaperResetResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_position_close
+
+> crate::models::CreateVaultMarketPredictionOrderResponse create_vault_market_prediction_position_close()
+Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at `priceCents`. Returns the sell order.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_position_close_all
+
+> crate::models::CreateVaultMarketPredictionPositionCloseAllResponse create_vault_market_prediction_position_close_all()
+Sell all: close every open position on a venue, or only one event's (`eventId`). Each answers on its own.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionPositionCloseAllResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_proposal
+
+> crate::models::ListVaultMarketPredictionProposalsItem create_vault_market_prediction_proposal()
+Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly's take on its fees.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionProposalsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_proposal_check
+
+> crate::models::CreateVaultMarketPredictionProposalCheckResponse create_vault_market_prediction_proposal_check()
+Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionProposalCheckResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_proposal_withdraw
+
+> crate::models::ListVaultMarketPredictionProposalsItem create_vault_market_prediction_proposal_withdraw(id)
+Withdraw a proposal still waiting for review.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionProposalsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_settlement_dispute
+
+> crate::models::CreateVaultMarketPredictionSettlementDisputeResponse create_vault_market_prediction_settlement_dispute(id)
+Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue's decision. Returns `{ settlementId, status }`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionSettlementDisputeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_prediction_term
+
+> crate::models::CreateVaultMarketPredictionTermResponse create_vault_market_prediction_term()
+Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns `{ termsVersion, venue }`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionTermResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## create_vault_market_price_widget
 
 > crate::models::ListVaultMarketPriceWidgetsItem create_vault_market_price_widget()
@@ -3757,7 +5429,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_pro_quote_heartbeat
 
-> crate::models::CreateVaultMarketProQuoteHeartbeatResponse create_vault_market_pro_quote_heartbeat()
+> crate::models::CreateVaultMarketOptionMmHeartbeatResponse create_vault_market_pro_quote_heartbeat()
 Keep your quotes alive (cancel-on-disconnect). Returns `{ quotes, at }`.
 
 ### Parameters
@@ -3766,7 +5438,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**crate::models::CreateVaultMarketProQuoteHeartbeatResponse**
+**crate::models::CreateVaultMarketOptionMmHeartbeatResponse**
 
 ### Authorization
 
@@ -4076,6 +5748,199 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## create_vault_market_share_auto_invest
+
+> crate::models::ListVaultMarketShareAutoInvestItem create_vault_market_share_auto_invest()
+Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareAutoInvestItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_auto_invest_run
+
+> crate::models::CreateVaultMarketShareAutoInvestRunResponse create_vault_market_share_auto_invest_run(id)
+Run a plan now (once a minute at most); the schedule does not move.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareAutoInvestRunResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_auto_invest_update
+
+> crate::models::ListVaultMarketShareAutoInvestItem create_vault_market_share_auto_invest_update(id)
+Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareAutoInvestItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_basket_buy
+
+> crate::models::CreateVaultMarketShareBasketBuyResponse create_vault_market_share_basket_buy(id)
+Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareBasketBuyResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_buyout_fund
+
+> crate::models::CreateVaultMarketShareBuyoutFundResponse create_vault_market_share_buyout_fund(id)
+Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_buyout_vote
+
+> crate::models::CreateVaultMarketShareBuyoutFundResponse create_vault_market_share_buyout_vote(id)
+Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_buyout_withdraw
+
+> crate::models::CreateVaultMarketShareBuyoutFundResponse create_vault_market_share_buyout_withdraw(id)
+Withdraw your buyout bid before its vote opens; the escrow is refunded.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## create_vault_market_share_card
 
 > crate::models::ListVaultMarketShareCardsItem create_vault_market_share_card()
@@ -4088,6 +5953,669 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::ListVaultMarketShareCardsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_gift_accept
+
+> crate::models::ListVaultMarketShareGiftsItem create_vault_market_share_gift_accept(id)
+Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_gift_cancel
+
+> crate::models::ListVaultMarketShareGiftsItem create_vault_market_share_gift_cancel(id)
+Cancel a gift you offered, before it is accepted: the shares are free again.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_gift_decline
+
+> crate::models::ListVaultMarketShareGiftsItem create_vault_market_share_gift_decline(id)
+Decline a share gift offered to you.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_investor
+
+> crate::models::GetVaultMarketShareInvestorResponse create_vault_market_share_investor()
+Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketShareInvestorResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_order_cancel
+
+> crate::models::ListVaultMarketShareOrdersItem create_vault_market_share_order_cancel(id)
+Cancel one of your open share-book orders.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareOrdersItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_paper_order_cancel
+
+> crate::models::CreateVaultMarketSharePaperSeryOrderResponse create_vault_market_share_paper_order_cancel(id)
+Cancel an open practice order.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketSharePaperSeryOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_paper_reset
+
+> crate::models::GetVaultMarketSharePaperResponse create_vault_market_share_paper_reset()
+Start the practice account over with fresh play money (once a day).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketSharePaperResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_paper_sery_order
+
+> crate::models::CreateVaultMarketSharePaperSeryOrderResponse create_vault_market_share_paper_sery_order(id)
+Place a practice order (play money) with the same rules as the real share book.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketSharePaperSeryOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_paper_sery_subscribe
+
+> crate::models::GetVaultMarketSharePaperResponse create_vault_market_share_paper_sery_subscribe(id)
+Subscribe with play money to a practice series’ offering.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketSharePaperResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_room_hide
+
+> crate::models::CreateVaultMarketShareRoomHideResponse create_vault_market_share_room_hide(id)
+Take down one of your own holder-room posts (`reason`).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareRoomHideResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery
+
+> crate::models::ListVaultMarketShareSeriesItem create_vault_market_share_sery()
+Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareSeriesItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_buyout
+
+> crate::models::CreateVaultMarketShareBuyoutFundResponse create_vault_market_share_sery_buyout(id)
+Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_gift
+
+> crate::models::ListVaultMarketShareGiftsItem create_vault_market_share_sery_gift(id)
+Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_order
+
+> crate::models::ListVaultMarketShareOrdersItem create_vault_market_share_sery_order(id)
+Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareOrdersItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_recombine
+
+> crate::models::CreateVaultMarketShareSeryRecombineResponse create_vault_market_share_sery_recombine(id)
+You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareSeryRecombineResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_room
+
+> crate::models::CreateVaultMarketShareSeryRoomResponse create_vault_market_share_sery_room(id)
+Post in the holder room (shareholders only), up to 1,000 characters.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareSeryRoomResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_subscribe
+
+> crate::models::ListVaultMarketShareSubscriptionsItem create_vault_market_share_sery_subscribe(id)
+Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareSubscriptionsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_unwatch
+
+> crate::models::CreateVaultMarketShareSeryWatchResponse create_vault_market_share_sery_unwatch(id)
+Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareSeryWatchResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_update
+
+> crate::models::IdResponse create_vault_market_share_sery_update(id)
+Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::IdResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_watch
+
+> crate::models::CreateVaultMarketShareSeryWatchResponse create_vault_market_share_sery_watch(id)
+Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareSeryWatchResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_sery_withdraw_proposal
+
+> crate::models::ListVaultMarketShareSeriesItem create_vault_market_share_sery_withdraw_proposal(id)
+Withdraw your own proposal before its offering opens.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareSeriesItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_subscription_cancel
+
+> crate::models::ListVaultMarketShareSubscriptionsItem create_vault_market_share_subscription_cancel(id)
+Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareSubscriptionsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_viewing_book
+
+> crate::models::CreateVaultMarketShareViewingBookResponse create_vault_market_share_viewing_book(id)
+Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareViewingBookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_share_viewing_booking_cancel
+
+> crate::models::CreateVaultMarketShareViewingBookingCancelResponse create_vault_market_share_viewing_booking_cancel(id)
+Cancel your viewing-day booking.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketShareViewingBookingCancelResponse**
 
 ### Authorization
 
@@ -4194,6 +6722,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::CreateVaultMarketSupplySendResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## create_vault_market_supply_send_in
+
+> crate::models::CreateVaultMarketSupplySendInResponse create_vault_market_supply_send_in()
+Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::CreateVaultMarketSupplySendInResponse**
 
 ### Authorization
 
@@ -4715,6 +7268,31 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## delete_vault_market_auto_buy
+
+> crate::models::DeleteVaultMarketAutoBuyResponse delete_vault_market_auto_buy()
+Stop Auto-buy with payouts. The history stays.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::DeleteVaultMarketAutoBuyResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## delete_vault_market_bullion_family_peg
 
 > crate::models::ListVaultMarketBullionFamilyPegsItem delete_vault_market_bullion_family_peg(id)
@@ -4924,6 +7502,118 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::DeleteVaultMarketOpeningWaitlistResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## delete_vault_market_prediction_alert
+
+> crate::models::OkResponse delete_vault_market_prediction_alert(id)
+Remove a probability alert. Returns `{ ok }`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::OkResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## delete_vault_market_prediction_card
+
+> crate::models::OkResponse delete_vault_market_prediction_card(id)
+Take an \"I called it\" card down; its link stops working. Returns `{ ok }`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::OkResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## delete_vault_market_prediction_comment
+
+> crate::models::OkResponse delete_vault_market_prediction_comment(id)
+Delete your comment.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::OkResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## delete_vault_market_prediction_forecaster_follow
+
+> crate::models::CreateVaultMarketPredictionForecasterFollowResponse delete_vault_market_prediction_forecaster_follow(id)
+Stop following a forecaster.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionForecasterFollowResponse**
 
 ### Authorization
 
@@ -5455,6 +8145,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::GetVaultMarketAuctionMineResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_auto_buy
+
+> crate::models::GetVaultMarketAutoBuyResponse get_vault_market_auto_buy()
+Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. `autoBuy` is null when it is not set up.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketAutoBuyResponse**
 
 ### Authorization
 
@@ -6464,6 +9179,62 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_vault_market_holding_inventory_item
+
+> crate::models::GetVaultMarketHoldingInventoryItemResponse get_vault_market_holding_inventory_item(id)
+The inventory item a vault unit of yours came from (null for a unit bought on the book).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketHoldingInventoryItemResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_holding_withdraw_quote
+
+> crate::models::GetVaultMarketHoldingWithdrawQuoteResponse get_vault_market_holding_withdraw_quote(id)
+What shipping one unit you own home would charge now, for `standard` and `expedited`: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketHoldingWithdrawQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_vault_market_home_unit
 
 > crate::models::GetVaultMarketHomeUnitResponse get_vault_market_home_unit()
@@ -6744,6 +9515,34 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::GetVaultMarketInstantExitResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_item_location
+
+> crate::models::GetVaultMarketItemLocationResponse get_vault_market_item_location(inventory_item_id)
+Where one inventory item's units are: in your own stock (warehouse) and in the vault per location, each vault unit's status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**inventory_item_id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketItemLocationResponse**
 
 ### Authorization
 
@@ -7335,6 +10134,455 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_vault_market_option
+
+> crate::models::GetVaultMarketOptionResponse get_vault_market_option()
+Fractional options: the venue mode (self = Crossly is the venue and clearing house, partner = routed to the index DCM, paper = practice only) with the env each mode still needs, the active series and the rule book in force.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_analytic
+
+> crate::models::GetVaultMarketOptionAnalyticResponse get_vault_market_option_analytic(underlying)
+Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry's smile (`expiry`), IV rank and percentile against the series' own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying's own published series. Every implied vol is derived and display only.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**underlying** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionAnalyticResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_auto_close
+
+> crate::models::GetVaultMarketOptionAutoCloseResponse get_vault_market_option_auto_close()
+Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionAutoCloseResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_chain
+
+> crate::models::GetVaultMarketOptionChainResponse get_vault_market_option_chain(underlying)
+The option chain for an underlying (index slug or book key): its expiries, and for one expiry (`expiry`, default the nearest) each strike's call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**underlying** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionChainResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_combo_book
+
+> crate::models::GetVaultMarketOptionComboBookResponse get_vault_market_option_combo_book()
+One strategy's combo book by its canonical key (`key`, from the preview or an order): bids and asks by net price and recent strategy trades.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionComboBookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_combo_rfq
+
+> crate::models::GetVaultMarketOptionComboRfqResponse get_vault_market_option_combo_rfq(id)
+One strategy quote request and its answers (all of them to the requester, your own to a responder).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_contract
+
+> crate::models::GetVaultMarketOptionContractResponse get_vault_market_option_contract(id)
+One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionContractResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_contract_book
+
+> crate::models::GetVaultMarketOptionContractBookResponse get_vault_market_option_contract_book(id)
+A contract's order book on the Crossly venue (`levels`, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionContractBookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_contract_settlement
+
+> crate::models::GetVaultMarketOptionContractSettlementResponse get_vault_market_option_contract_settlement(id)
+A settled contract's settlement: the value (cents per unit of the underlying), its source (the index's frozen 7-day TWAP, the item's expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionContractSettlementResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_hedge
+
+> crate::models::GetVaultMarketOptionHedgeResponse get_vault_market_option_hedge()
+Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionHedgeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_iv
+
+> crate::models::GetVaultMarketOptionIvResponse get_vault_market_option_iv(underlying)
+The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**underlying** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionIvResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_margin
+
+> crate::models::GetVaultMarketOptionMarginResponse get_vault_market_option_margin()
+Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner's figure decides and this is an estimate.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionMarginResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_payoff
+
+> crate::models::GetVaultMarketOptionPayoffResponse get_vault_market_option_payoff()
+Your whole options position on one `underlying` at expiry: the P&L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionPayoffResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_position
+
+> crate::models::GetVaultMarketOptionPositionResponse get_vault_market_option_position()
+Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. `status` open (default) / all, `subaccountId`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionPositionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_practice
+
+> crate::models::GetVaultMarketOptionPracticeResponse get_vault_market_option_practice()
+Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker's price, equity and P&L.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionPracticeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_rfq
+
+> crate::models::GetVaultMarketOptionRfqResponse get_vault_market_option_rfq(id)
+One option quote request: yours with every answer, or one you were sent with your own answer.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketOptionRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_option_risk
+
+> crate::models::GetVaultMarketOptionRiskResponse get_vault_market_option_risk()
+Your options portfolio's Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario's P&L (`priceShift`, `volShift`, `daysForward`), a price x vol P&L grid, and the beta-weighted delta against an index (`betaIndex`, default the deepest). `book` live (default) or practice.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionRiskResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_vault_market_oracle
 
 > crate::models::GetVaultMarketOracleResponse get_vault_market_oracle()
@@ -7519,7 +10767,7 @@ This endpoint does not need any parameter.
 ## get_vault_market_partner_me
 
 > crate::models::GetVaultMarketPartnerMeResponse get_vault_market_partner_me()
-Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
 
 ### Parameters
 
@@ -7740,6 +10988,633 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::ListVaultMarketPositionsRiskItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction
+
+> crate::models::GetVaultMarketPredictionResponse get_vault_market_prediction()
+The prediction markets home: the busiest and soonest-expiring \"Will it hit?\" markets with their probability (each market's own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_account
+
+> crate::models::GetVaultMarketPredictionAccountResponse get_vault_market_prediction_account()
+Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionAccountResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_board
+
+> crate::models::GetVaultMarketPredictionBoardResponse get_vault_market_prediction_board()
+The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionBoardResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_combo
+
+> crate::models::ListVaultMarketPredictionCombosItem get_vault_market_prediction_combo(id)
+One of your combos.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionCombosItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_combo_rfq
+
+> crate::models::ListVaultMarketPredictionComboRfqsItem get_vault_market_prediction_combo_rfq(id)
+One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionComboRfqsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_daily_price
+
+> crate::models::GetVaultMarketPredictionDailyPriceResponse get_vault_market_prediction_daily_price()
+The published daily settlement price of every listed market for a day (default yesterday): the last hour's volume-weighted Yes price, else the book mid, else the prior day's, with volume and open interest.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionDailyPriceResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_event
+
+> crate::models::GetVaultMarketPredictionEventResponse get_vault_market_prediction_event(id)
+One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. `venue` paper or live.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionEventResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_forecaster
+
+> crate::models::GetVaultMarketPredictionForecasterResponse get_vault_market_prediction_forecaster()
+Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionForecasterResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_forecaster_by_id
+
+> crate::models::GetVaultMarketPredictionForecasterByIdResponse get_vault_market_prediction_forecaster_by_id(id)
+A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionForecasterByIdResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_leaderboard
+
+> crate::models::GetVaultMarketPredictionLeaderboardResponse get_vault_market_prediction_leaderboard()
+Opt-in forecaster leaderboards: `period` week, month or all; `metric` pnl, accuracy or brier; `venue` live or paper (practice has its own board).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionLeaderboardResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_limit
+
+> crate::models::GetVaultMarketPredictionLimitResponse get_vault_market_prediction_limit()
+Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionLimitResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_market
+
+> crate::models::GetVaultMarketPredictionMarketResponse get_vault_market_prediction_market(id)
+One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionMarketResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_market_forecast
+
+> crate::models::GetVaultMarketPredictionMarketForecastResponse get_vault_market_prediction_market_forecast(id)
+How many people forecast a market and their median probability (no names).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionMarketForecastResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_market_history
+
+> crate::models::GetVaultMarketPredictionMarketHistoryResponse get_vault_market_prediction_market_history(id)
+A market's history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over `range` 1d, 1w, 1m or all; `venue` live or paper.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionMarketHistoryResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_market_stream
+
+> String get_vault_market_prediction_market_stream(id)
+A server-sent event stream for one prediction market: `snapshot` first, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement` as they change.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_market_trade
+
+> crate::models::GetVaultMarketPredictionMarketTradeResponse get_vault_market_prediction_market_trade(id)
+The trade tape, newest first: Yes price, size, which side took, venue. Page with `before` (the last `seq`).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionMarketTradeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_me_stream
+
+> String get_vault_market_prediction_me_stream()
+A server-sent event stream of your own prediction events: `pm_order` (placed, filled, amended, cancelled, expired), `pm_fill` (your side, price and fee), `pm_position`, `pm_combo` and `pm_conversion`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**String**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_mission
+
+> crate::models::GetVaultMarketPredictionMissionResponse get_vault_market_prediction_mission()
+The two \"Will it hit?\" practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionMissionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_paper
+
+> crate::models::GetVaultMarketPredictionPaperResponse get_vault_market_prediction_paper()
+Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionPaperResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_quote
+
+> crate::models::GetVaultMarketPredictionQuoteResponse get_vault_market_prediction_quote()
+What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi's formula), the money it would lock, and the most it could pay out.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_rulebook
+
+> crate::models::GetVaultMarketPredictionRulebookResponse get_vault_market_prediction_rulebook()
+The prediction venue's rule book now and every version, each hashed and chained to the one before (`chainOk`).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionRulebookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_stream
+
+> String get_vault_market_prediction_stream()
+A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**String**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_venue
+
+> crate::models::GetVaultMarketPredictionVenueResponse get_vault_market_prediction_venue()
+Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionVenueResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_prediction_will_it_hit
+
+> crate::models::GetVaultMarketPredictionWillItHitResponse get_vault_market_prediction_will_it_hit()
+The \"Will it hit?\" panel for a key (`bookKey`) or an index (`index` slug): its open markets grouped by expiry, each with its probability. `eligible` is false when nothing is listed on it.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionWillItHitResponse**
 
 ### Authorization
 
@@ -8252,6 +12127,84 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_vault_market_setting
+
+> crate::models::GetVaultMarketSettingResponse get_vault_market_setting()
+Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketSettingResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share
+
+> crate::models::GetVaultMarketShareResponse get_vault_market_share()
+Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketShareResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_basket
+
+> crate::models::GetVaultMarketShareBasketResponse get_vault_market_share_basket(id)
+One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketShareBasketResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_vault_market_share_card
 
 > crate::models::ListVaultMarketShareCardsItem get_vault_market_share_card(id)
@@ -8267,6 +12220,274 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::ListVaultMarketShareCardsItem**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_investor
+
+> crate::models::GetVaultMarketShareInvestorResponse get_vault_market_share_investor()
+Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketShareInvestorResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_me
+
+> crate::models::GetVaultMarketShareMeResponse get_vault_market_share_me()
+Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketShareMeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_paper
+
+> crate::models::GetVaultMarketSharePaperResponse get_vault_market_share_paper()
+Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketSharePaperResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_paper_sery_book
+
+> crate::models::GetVaultMarketSharePaperSeryBookResponse get_vault_market_share_paper_sery_book(id)
+A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketSharePaperSeryBookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_preview
+
+> crate::models::GetVaultMarketSharePreviewResponse get_vault_market_share_preview()
+Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketSharePreviewResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_sery
+
+> crate::models::GetVaultMarketShareSeryResponse get_vault_market_share_sery(id)
+One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketShareSeryResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_sery_book
+
+> crate::models::GetVaultMarketShareSeryBookResponse get_vault_market_share_sery_book(id)
+A share book’s depth: whole shares per price level (integer cents a share), best first.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketShareSeryBookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_sery_history
+
+> crate::models::GetVaultMarketShareSeryHistoryResponse get_vault_market_share_sery_history(id)
+A series’ full price history: OHLC candles of every share-book fill (`interval` 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketShareSeryHistoryResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_sery_perk
+
+> crate::models::GetVaultMarketShareSeryPerkResponse get_vault_market_share_sery_perk(id)
+Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketShareSeryPerkResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_share_sery_room
+
+> crate::models::GetVaultMarketShareSeryRoomResponse get_vault_market_share_sery_room(id)
+The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. `before` pages back.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketShareSeryRoomResponse**
 
 ### Authorization
 
@@ -8440,6 +12661,34 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_vault_market_supply_shipment
+
+> crate::models::GetVaultMarketSupplyShipmentResponse get_vault_market_supply_shipment(id)
+One shipment into the vault, with each unit and whether it was received.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketSupplyShipmentResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_vault_market_tax
 
 > crate::models::GetVaultMarketTaxResponse get_vault_market_tax()
@@ -8515,6 +12764,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## get_vault_market_tax_option
+
+> crate::models::GetVaultMarketTaxOptionResponse get_vault_market_tax_option()
+Your fractional options tax lots for a calendar year (`year`, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketTaxOptionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## get_vault_market_tax_pdf
 
 > std::path::PathBuf get_vault_market_tax_pdf()
@@ -8536,6 +12810,56 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: application/pdf, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_tax_prediction
+
+> crate::models::GetVaultMarketTaxPredictionResponse get_vault_market_tax_prediction()
+Your prediction-market results for a calendar year (`year`), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketTaxPredictionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_tax_share
+
+> crate::models::GetVaultMarketTaxShareResponse get_vault_market_tax_share()
+Your Vault Shares tax lots for a calendar year (`year`): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketTaxShareResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
@@ -9007,6 +13331,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::GetVaultMarketWorldFloorResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## get_vault_market_world_floor_board
+
+> crate::models::GetVaultMarketWorldFloorBoardResponse get_vault_market_world_floor_board()
+The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \"Will it hit?\" markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketWorldFloorBoardResponse**
 
 ### Authorization
 
@@ -10094,6 +14443,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_vault_market_holdings
+
+> crate::models::ListVaultMarketHoldingsResponse list_vault_market_holdings()
+Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (`valueCents` with `valueSource` mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (`actions`). Units sold or shipped home in the last 90 days have `past: true`. `meta` carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketHoldingsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_vault_market_index_committee_minutes
 
 > crate::models::ListVaultMarketIndexCommitteeMinutesResponse list_vault_market_index_committee_minutes()
@@ -10709,6 +15083,359 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_vault_market_option_combo_rfq
+
+> crate::models::ListVaultMarketOptionComboRfqResponse list_vault_market_option_combo_rfq()
+Your strategy quote requests, newest first.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_combo_rfq_inbox
+
+> crate::models::ListVaultMarketOptionComboRfqResponse list_vault_market_option_combo_rfq_inbox()
+Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_combos
+
+> crate::models::ListVaultMarketOptionCombosResponse list_vault_market_option_combos()
+Your strategies: `status` working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionCombosResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_contract_daily
+
+> crate::models::ListVaultMarketOptionContractDailyResponse list_vault_market_option_contract_daily(id)
+A contract's published daily settlement prices, newest first (`days`, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row's chain hash.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketOptionContractDailyResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_mm_quotes
+
+> crate::models::ListVaultMarketOptionMmQuotesResponse list_vault_market_option_mm_quotes()
+Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionMmQuotesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_notices
+
+> crate::models::ListVaultMarketOptionNoticesResponse list_vault_market_option_notices()
+Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionNoticesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_orders
+
+> crate::models::ListVaultMarketOptionOrdersResponse list_vault_market_option_orders()
+Your options orders, newest first: `status` working (default) / done / all, `limit`, `subaccountId`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionOrdersResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_practice_combos
+
+> crate::models::ListVaultMarketOptionCombosResponse list_vault_market_option_practice_combos()
+Your practice strategies.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionCombosResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_practice_fills
+
+> crate::models::ListVaultMarketOptionPracticeFillsResponse list_vault_market_option_practice_fills()
+Your practice options fills, newest first (`limit`).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionPracticeFillsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_practice_orders
+
+> crate::models::ListVaultMarketOptionPracticeOrdersResponse list_vault_market_option_practice_orders()
+Your practice options orders: `status` working (default) / done / all, `limit`.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionPracticeOrdersResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_rfq
+
+> crate::models::ListVaultMarketOptionRfqResponse list_vault_market_option_rfq()
+Your option quote requests, newest first.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_rfq_inbox
+
+> crate::models::ListVaultMarketOptionRfqResponse list_vault_market_option_rfq_inbox()
+Open option quote requests you can answer.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionRfqResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_series
+
+> crate::models::ListVaultMarketOptionSeriesResponse list_vault_market_option_series()
+Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. `status`: active (default) or all.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionSeriesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_option_strategies
+
+> crate::models::ListVaultMarketOptionStrategiesResponse list_vault_market_option_strategies()
+The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketOptionStrategiesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_vault_market_oracle_history
 
 > crate::models::ListVaultMarketOracleHistoryResponse list_vault_market_oracle_history(slug)
@@ -10987,6 +15714,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_vault_market_partner_finder
+
+> crate::models::ListVaultMarketPartnerFinderResponse list_vault_market_partner_finder()
+Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPartnerFinderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_vault_market_pool_stakes
 
 > crate::models::ListVaultMarketPoolStakesResponse list_vault_market_pool_stakes()
@@ -11102,6 +15854,356 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::ListVaultMarketPositionsRiskResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_alerts
+
+> crate::models::ListVaultMarketPredictionAlertsResponse list_vault_market_prediction_alerts()
+Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionAlertsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_combo_my_rfqs
+
+> crate::models::ListVaultMarketPredictionComboRfqsResponse list_vault_market_prediction_combo_my_rfqs()
+Your combo requests with every answer they got.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionComboRfqsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_combo_rfqs
+
+> crate::models::ListVaultMarketPredictionComboRfqsResponse list_vault_market_prediction_combo_rfqs()
+Open combo requests makers can answer: legs, size and the legs' own combined price; never who asked. Your own answers are shown on them.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionComboRfqsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_combos
+
+> crate::models::ListVaultMarketPredictionCombosResponse list_vault_market_prediction_combos()
+Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionCombosResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_comments
+
+> crate::models::ListVaultMarketPredictionCommentsResponse list_vault_market_prediction_comments()
+A discussion thread on a market (`marketId`) or a series (`seriesId`): comments newest first with their replies. A commenter's side shows only when their forecaster profile is public.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionCommentsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_conversions
+
+> crate::models::ListVaultMarketPredictionConversionsResponse list_vault_market_prediction_conversions()
+Your bucket-set conversions (split, merge, convert), newest first.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionConversionsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_following
+
+> crate::models::ListVaultMarketPredictionFollowingResponse list_vault_market_prediction_following()
+The forecasters you follow.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionFollowingResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_forecasts
+
+> crate::models::ListVaultMarketPredictionForecastsResponse list_vault_market_prediction_forecasts()
+Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionForecastsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_makers
+
+> crate::models::ListVaultMarketPredictionMakersResponse list_vault_market_prediction_makers()
+Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionMakersResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_markets
+
+> crate::models::ListVaultMarketPredictionMarketsResponse list_vault_market_prediction_markets()
+Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionMarketsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_orders
+
+> crate::models::ListVaultMarketPredictionOrdersResponse list_vault_market_prediction_orders()
+Your prediction orders, newest first: working, done or all; practice, live or all.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionOrdersResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_positions
+
+> crate::models::ListVaultMarketPredictionPositionsResponse list_vault_market_prediction_positions()
+Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&L, payout or refund once settled, and the share card if you made one.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionPositionsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_proposal_listed
+
+> crate::models::ListVaultMarketPredictionProposalListedResponse list_vault_market_prediction_proposal_listed()
+The markets you proposed that are listed: volume, status and what the creator share has earned you.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionProposalListedResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_prediction_proposals
+
+> crate::models::ListVaultMarketPredictionProposalsResponse list_vault_market_prediction_proposals()
+Your market proposals and where each stands (pending, listed, rejected, withdrawn).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketPredictionProposalsResponse**
 
 ### Authorization
 
@@ -11574,6 +16676,84 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_vault_market_share_auto_invest
+
+> crate::models::ListVaultMarketShareAutoInvestResponse list_vault_market_share_auto_invest()
+Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareAutoInvestResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_auto_invest_runs
+
+> crate::models::ListVaultMarketShareAutoInvestRunsResponse list_vault_market_share_auto_invest_runs(id)
+A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareAutoInvestRunsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_baskets
+
+> crate::models::ListVaultMarketShareBasketsResponse list_vault_market_share_baskets()
+Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareBasketsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_vault_market_share_cards
 
 > crate::models::ListVaultMarketShareCardsResponse list_vault_market_share_cards()
@@ -11586,6 +16766,265 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::ListVaultMarketShareCardsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_drops
+
+> crate::models::ListVaultMarketShareDropsResponse list_vault_market_share_drops()
+The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareDropsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_gifts
+
+> crate::models::ListVaultMarketShareGiftsResponse list_vault_market_share_gifts()
+Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareGiftsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_orders
+
+> crate::models::ListVaultMarketShareOrdersResponse list_vault_market_share_orders()
+Your share-book orders, newest first; `seriesId` and `open` narrow it.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareOrdersResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_series
+
+> crate::models::ListVaultMarketShareSeriesResponse list_vault_market_share_series()
+Vault Shares series: open offerings first, then trading, then the rest. `status` and `bookKey` narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareSeriesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_sery_appraisals
+
+> crate::models::ListVaultMarketShareSeryAppraisalsResponse list_vault_market_share_sery_appraisals(id)
+The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareSeryAppraisalsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_sery_tape
+
+> crate::models::ListVaultMarketShareSeryTapeResponse list_vault_market_share_sery_tape(id)
+The latest fills on a share book, newest first, with which side made the market.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareSeryTapeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_sery_updates
+
+> crate::models::ListVaultMarketShareSeryUpdatesResponse list_vault_market_share_sery_updates(id)
+The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::ListVaultMarketShareSeryUpdatesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_subscriptions
+
+> crate::models::ListVaultMarketShareSubscriptionsResponse list_vault_market_share_subscriptions()
+Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareSubscriptionsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_share_world
+
+> crate::models::ListVaultMarketShareWorldResponse list_vault_market_share_world()
+The world vault home’s fractional tiles: each item you own a share of, with \"you own 3.2%\".
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketShareWorldResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_supply_declared_values
+
+> crate::models::ListVaultMarketSupplyDeclaredValuesResponse list_vault_market_supply_declared_values()
+What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketSupplyDeclaredValuesResponse**
 
 ### Authorization
 
@@ -11624,6 +17063,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## list_vault_market_supply_eligibility
+
+> crate::models::ListVaultMarketSupplyEligibilityResponse list_vault_market_supply_eligibility()
+Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketSupplyEligibilityResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## list_vault_market_supply_invites
 
 > crate::models::ListVaultMarketSupplyInvitesResponse list_vault_market_supply_invites()
@@ -11636,6 +17100,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::ListVaultMarketSupplyInvitesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## list_vault_market_supply_shipments
+
+> crate::models::ListVaultMarketSupplyShipmentsResponse list_vault_market_supply_shipments()
+Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::ListVaultMarketSupplyShipmentsResponse**
 
 ### Authorization
 
@@ -11949,6 +17438,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## update_vault_market_auto_buy
+
+> crate::models::UpdateVaultMarketAutoBuyResponse update_vault_market_auto_buy()
+Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::UpdateVaultMarketAutoBuyResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## update_vault_market_block_allocation
 
 > crate::models::ListVaultMarketBlocksItem update_vault_market_block_allocation(order_id)
@@ -12247,6 +17761,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## update_vault_market_item_sell_from
+
+> crate::models::GetVaultMarketItemLocationResponse update_vault_market_item_sell_from(inventory_item_id)
+Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**inventory_item_id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::GetVaultMarketItemLocationResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## update_vault_market_lending_election
 
 > crate::models::GetVaultMarketLendingElectionResponse update_vault_market_lending_election()
@@ -12347,6 +17889,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
+## update_vault_market_option_auto_close
+
+> crate::models::GetVaultMarketOptionAutoCloseResponse update_vault_market_option_auto_close()
+Set your auto-close rule: `enabled`, `minutesBefore` (30 to 10080), `onlyItm`, `maxSlippageBps` (0 to 2000).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketOptionAutoCloseResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
 ## update_vault_market_paper_leaderboard
 
 > crate::models::UpdateVaultMarketPaperLeaderboardResponse update_vault_market_paper_leaderboard()
@@ -12359,6 +17926,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 **crate::models::UpdateVaultMarketPaperLeaderboardResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## update_vault_market_partner_me
+
+> crate::models::UpdateVaultMarketPartnerMeResponse update_vault_market_partner_me()
+Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::UpdateVaultMarketPartnerMeResponse**
 
 ### Authorization
 
@@ -12387,6 +17979,84 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::UpdateVaultMarketPositionExitResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## update_vault_market_prediction_comment
+
+> crate::models::CreateVaultMarketPredictionCommentResponse update_vault_market_prediction_comment(id)
+Edit your comment.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** |  | [required] |
+
+### Return type
+
+**crate::models::CreateVaultMarketPredictionCommentResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## update_vault_market_prediction_forecaster
+
+> crate::models::GetVaultMarketPredictionForecasterResponse update_vault_market_prediction_forecaster()
+Go public under a display name (`public: true`), rename, or go private (`public: false`: nothing is shown again).
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionForecasterResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## update_vault_market_prediction_limit
+
+> crate::models::GetVaultMarketPredictionLimitResponse update_vault_market_prediction_limit()
+Set your daily loss limit (`dailyLossLimitCents`, null = none) or exclude yourself (`excludeDays`, `excludedUntil` or \"forever\"). Tighter takes effect at once; looser waits 24 hours.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketPredictionLimitResponse**
 
 ### Authorization
 
@@ -12496,6 +18166,31 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **crate::models::GetVaultMarketSetGoalResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
+## update_vault_market_setting
+
+> crate::models::GetVaultMarketSettingResponse update_vault_market_setting()
+Change your vault defaults; send only the fields you change.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**crate::models::GetVaultMarketSettingResponse**
 
 ### Authorization
 

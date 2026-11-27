@@ -15,39 +15,39 @@
 pub struct ListBuyerLiveShipmentsItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "orders")]
-    pub orders: Vec<crate::models::ListBuyerLiveShipmentsItemOrders>,
-    #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
-    pub carrier: Option<String>,
-    #[serde(rename = "trackingNumber", skip_serializing_if = "Option::is_none")]
-    pub tracking_number: Option<String>,
-    #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
-    pub label_url: Option<String>,
     #[serde(rename = "streamId")]
     pub stream_id: String,
-    #[serde(rename = "refundedPostageCents")]
-    pub refunded_postage_cents: f32,
     #[serde(rename = "streamTitle")]
     pub stream_title: String,
+    #[serde(rename = "status")]
+    pub status: String,
     #[serde(rename = "buyerName", skip_serializing_if = "Option::is_none")]
     pub buyer_name: Option<String>,
+    #[serde(rename = "trackingNumber", skip_serializing_if = "Option::is_none")]
+    pub tracking_number: Option<String>,
+    #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
+    pub carrier: Option<String>,
+    #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
+    pub label_url: Option<String>,
+    #[serde(rename = "refundedPostageCents")]
+    pub refunded_postage_cents: f32,
+    #[serde(rename = "orders")]
+    pub orders: Vec<crate::models::ListBuyerLiveShipmentsItemOrders>,
 }
 
 impl ListBuyerLiveShipmentsItem {
-    pub fn new(id: String, status: String, orders: Vec<crate::models::ListBuyerLiveShipmentsItemOrders>, stream_id: String, refunded_postage_cents: f32, stream_title: String) -> ListBuyerLiveShipmentsItem {
+    pub fn new(id: String, stream_id: String, stream_title: String, status: String, refunded_postage_cents: f32, orders: Vec<crate::models::ListBuyerLiveShipmentsItemOrders>) -> ListBuyerLiveShipmentsItem {
         ListBuyerLiveShipmentsItem {
             id,
-            status,
-            orders,
-            carrier: None,
-            tracking_number: None,
-            label_url: None,
             stream_id,
-            refunded_postage_cents,
             stream_title,
+            status,
             buyer_name: None,
+            tracking_number: None,
+            carrier: None,
+            label_url: None,
+            refunded_postage_cents,
+            orders,
         }
     }
 }

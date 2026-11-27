@@ -15,34 +15,34 @@
 pub struct ListBuyerVaultItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "condition")]
-    pub condition: String,
-    #[serde(rename = "gradeKey", skip_serializing_if = "Option::is_none")]
-    pub grade_key: Option<String>,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "receivedAt", skip_serializing_if = "Option::is_none")]
-    pub received_at: Option<String>,
+    #[serde(rename = "skuId")]
+    pub sku_id: String,
+    #[serde(rename = "skuName", skip_serializing_if = "Option::is_none")]
+    pub sku_name: Option<String>,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "variantId", skip_serializing_if = "Option::is_none")]
     pub variant_id: Option<String>,
+    #[serde(rename = "variantLabel", skip_serializing_if = "Option::is_none")]
+    pub variant_label: Option<String>,
+    #[serde(rename = "condition")]
+    pub condition: String,
+    #[serde(rename = "gradeKey", skip_serializing_if = "Option::is_none")]
+    pub grade_key: Option<String>,
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location: Option<String>,
     #[serde(rename = "lastSaleCents", skip_serializing_if = "Option::is_none")]
     pub last_sale_cents: Option<f32>,
-    #[serde(rename = "skuId")]
-    pub sku_id: String,
+    #[serde(rename = "askPriceCents", skip_serializing_if = "Option::is_none")]
+    pub ask_price_cents: Option<f32>,
     #[serde(rename = "withdrawSpeed", skip_serializing_if = "Option::is_none")]
     pub withdraw_speed: Option<String>,
     #[serde(rename = "withdrawTracking", skip_serializing_if = "Option::is_none")]
     pub withdraw_tracking: Option<String>,
-    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location: Option<String>,
-    #[serde(rename = "skuName", skip_serializing_if = "Option::is_none")]
-    pub sku_name: Option<String>,
-    #[serde(rename = "variantLabel", skip_serializing_if = "Option::is_none")]
-    pub variant_label: Option<String>,
-    #[serde(rename = "askPriceCents", skip_serializing_if = "Option::is_none")]
-    pub ask_price_cents: Option<f32>,
+    #[serde(rename = "receivedAt", skip_serializing_if = "Option::is_none")]
+    pub received_at: Option<String>,
     /// What is really going on with it: in_auction, pledged, collateral, lent, in_grading, gift_pending, else the status.
     #[serde(rename = "situation", skip_serializing_if = "Option::is_none")]
     pub situation: Option<String>,
@@ -51,23 +51,23 @@ pub struct ListBuyerVaultItem {
 }
 
 impl ListBuyerVaultItem {
-    pub fn new(id: String, condition: String, status: String, sku_id: String) -> ListBuyerVaultItem {
+    pub fn new(id: String, status: String, sku_id: String, condition: String) -> ListBuyerVaultItem {
         ListBuyerVaultItem {
             id,
-            condition,
-            grade_key: None,
             status,
-            received_at: None,
+            sku_id,
+            sku_name: None,
             image_url: None,
             variant_id: None,
+            variant_label: None,
+            condition,
+            grade_key: None,
+            location: None,
             last_sale_cents: None,
-            sku_id,
+            ask_price_cents: None,
             withdraw_speed: None,
             withdraw_tracking: None,
-            location: None,
-            sku_name: None,
-            variant_label: None,
-            ask_price_cents: None,
+            received_at: None,
             situation: None,
             early_withdraw_fee_cents: None,
         }

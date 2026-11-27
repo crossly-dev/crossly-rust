@@ -13,10 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCollectionSetResponseDataGroup {
-    #[serde(rename = "brand")]
-    pub brand: String,
     #[serde(rename = "category")]
     pub category: String,
+    #[serde(rename = "brand")]
+    pub brand: String,
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "brandSlug")]
@@ -30,10 +30,10 @@ pub struct GetBuyerCollectionSetResponseDataGroup {
 }
 
 impl GetBuyerCollectionSetResponseDataGroup {
-    pub fn new(brand: String, category: String, model: String, brand_slug: String, model_slug: String, total: f32, owned: f32) -> GetBuyerCollectionSetResponseDataGroup {
+    pub fn new(category: String, brand: String, model: String, brand_slug: String, model_slug: String, total: f32, owned: f32) -> GetBuyerCollectionSetResponseDataGroup {
         GetBuyerCollectionSetResponseDataGroup {
-            brand,
             category,
+            brand,
             model,
             brand_slug,
             model_slug,

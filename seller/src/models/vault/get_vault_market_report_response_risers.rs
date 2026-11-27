@@ -54,12 +54,12 @@ impl GetVaultMarketReportResponseRisers {
 pub enum Quality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Quality {

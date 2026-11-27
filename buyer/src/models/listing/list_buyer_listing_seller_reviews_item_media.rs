@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerListingSellerReviewsItemMedia {
-    #[serde(rename = "url")]
-    pub url: String,
     #[serde(rename = "kind")]
     pub kind: String,
+    #[serde(rename = "url")]
+    pub url: String,
 }
 
 impl ListBuyerListingSellerReviewsItemMedia {
-    pub fn new(url: String, kind: String) -> ListBuyerListingSellerReviewsItemMedia {
+    pub fn new(kind: String, url: String) -> ListBuyerListingSellerReviewsItemMedia {
         ListBuyerListingSellerReviewsItemMedia {
-            url,
             kind,
+            url,
         }
     }
 }

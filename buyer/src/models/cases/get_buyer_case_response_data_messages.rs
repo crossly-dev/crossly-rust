@@ -15,28 +15,28 @@
 pub struct GetBuyerCaseResponseDataMessages {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    /// message | offer | decision | state_change.
-    #[serde(rename = "kind")]
-    pub kind: String,
-    #[serde(rename = "body")]
-    pub body: String,
     /// buyer | seller | ops | system.
     #[serde(rename = "authorRole")]
     pub author_role: String,
+    #[serde(rename = "body")]
+    pub body: String,
+    /// message | offer | decision | state_change.
+    #[serde(rename = "kind")]
+    pub kind: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
     #[serde(rename = "attachmentUrls", skip_serializing_if = "Option::is_none")]
     pub attachment_urls: Option<Vec<String>>,
 }
 
 impl GetBuyerCaseResponseDataMessages {
-    pub fn new(id: String, created_at: String, kind: String, body: String, author_role: String) -> GetBuyerCaseResponseDataMessages {
+    pub fn new(id: String, author_role: String, body: String, kind: String, created_at: String) -> GetBuyerCaseResponseDataMessages {
         GetBuyerCaseResponseDataMessages {
             id,
-            created_at,
-            kind,
-            body,
             author_role,
+            body,
+            kind,
+            created_at,
             attachment_urls: None,
         }
     }

@@ -42,17 +42,17 @@ impl ListVaultReceiptTokenWalletsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "allowed")]
-    Allowed,
     #[serde(rename = "revoked")]
     Revoked,
+    #[serde(rename = "allowed")]
+    Allowed,
     #[serde(rename = "not_allowed")]
     NotAllowed,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Allowed
+        Self::Revoked
     }
 }
 

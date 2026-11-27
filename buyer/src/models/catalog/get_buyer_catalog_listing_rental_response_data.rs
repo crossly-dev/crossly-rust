@@ -17,8 +17,8 @@ pub struct GetBuyerCatalogListingRentalResponseData {
     pub daily_cents: f32,
     #[serde(rename = "weeklyCents", skip_serializing_if = "Option::is_none")]
     pub weekly_cents: Option<f32>,
-    #[serde(rename = "depositCents")]
-    pub deposit_cents: f32,
+    #[serde(rename = "depositCents", skip_serializing_if = "Option::is_none")]
+    pub deposit_cents: Option<f32>,
     #[serde(rename = "minDays")]
     pub min_days: f32,
     #[serde(rename = "maxDays")]
@@ -31,23 +31,32 @@ pub struct GetBuyerCatalogListingRentalResponseData {
     pub require_approval: bool,
     #[serde(rename = "available")]
     pub available: bool,
+    #[serde(rename = "returnPolicy", skip_serializing_if = "Option::is_none")]
+    pub return_policy: Option<String>,
     #[serde(rename = "booked")]
     pub booked: Vec<crate::models::GetBuyerCatalogListingRentalResponseDataBooked>,
+    #[serde(rename = "options")]
+    pub options: Box<crate::models::GetBuyerCatalogListingRentalResponseDataOptions>,
+    #[serde(rename = "unitsFree")]
+    pub units_free: ::std::collections::HashMap<String, serde_json::Value>,
 }
 
 impl GetBuyerCatalogListingRentalResponseData {
-    pub fn new(daily_cents: f32, deposit_cents: f32, min_days: f32, max_days: f32, buffer_days: f32, rent_only: bool, require_approval: bool, available: bool, booked: Vec<crate::models::GetBuyerCatalogListingRentalResponseDataBooked>) -> GetBuyerCatalogListingRentalResponseData {
+    pub fn new(daily_cents: f32, min_days: f32, max_days: f32, buffer_days: f32, rent_only: bool, require_approval: bool, available: bool, booked: Vec<crate::models::GetBuyerCatalogListingRentalResponseDataBooked>, options: crate::models::GetBuyerCatalogListingRentalResponseDataOptions, units_free: ::std::collections::HashMap<String, serde_json::Value>) -> GetBuyerCatalogListingRentalResponseData {
         GetBuyerCatalogListingRentalResponseData {
             daily_cents,
             weekly_cents: None,
-            deposit_cents,
+            deposit_cents: None,
             min_days,
             max_days,
             buffer_days,
             rent_only,
             require_approval,
             available,
+            return_policy: None,
             booked,
+            options: Box::new(options),
+            units_free,
         }
     }
 }

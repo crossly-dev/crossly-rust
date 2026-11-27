@@ -70,12 +70,12 @@ pub enum Kind {
     Brand,
     #[serde(rename = "category")]
     Category,
+    #[serde(rename = "segment")]
+    Segment,
     #[serde(rename = "curated")]
     Curated,
     #[serde(rename = "composite")]
     Composite,
-    #[serde(rename = "segment")]
-    Segment,
 }
 
 impl Default for Kind {
@@ -106,12 +106,12 @@ impl Default for Weighting {
 pub enum Quality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Quality {

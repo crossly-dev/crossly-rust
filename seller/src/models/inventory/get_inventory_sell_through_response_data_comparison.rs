@@ -13,20 +13,28 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetInventorySellThroughResponseDataComparison {
-    #[serde(rename = "pctChange", skip_serializing_if = "Option::is_none")]
-    pub pct_change: Option<f32>,
+    /// Always null: a relative change of a rate is not reported. Read `pp`.
+    #[serde(rename = "pctChange")]
+    pub pct_change: Option<serde_json::Value>,
+    /// Percentage points, null when not comparable.
+    #[serde(rename = "pp", skip_serializing_if = "Option::is_none")]
+    pub pp: Option<f32>,
     #[serde(rename = "comparable")]
     pub comparable: bool,
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
+    #[serde(rename = "delta")]
+    pub delta: Box<crate::models::GetAnalyticOverviewResponseDataKpisNetSalesDelta>,
 }
 
 impl GetInventorySellThroughResponseDataComparison {
-    pub fn new(comparable: bool) -> GetInventorySellThroughResponseDataComparison {
+    pub fn new(pct_change: Option<serde_json::Value>, comparable: bool, delta: crate::models::GetAnalyticOverviewResponseDataKpisNetSalesDelta) -> GetInventorySellThroughResponseDataComparison {
         GetInventorySellThroughResponseDataComparison {
-            pct_change: None,
+            pct_change,
+            pp: None,
             comparable,
             reason: None,
+            delta: Box::new(delta),
         }
     }
 }

@@ -1,0 +1,12 @@
+pub mod create_conversation_message_request;
+pub use self::create_conversation_message_request::CreateConversationMessageRequest;
+pub mod create_conversation_message_response;
+pub use self::create_conversation_message_response::CreateConversationMessageResponse;
+pub mod list_conversation_messages_item;
+pub use self::list_conversation_messages_item::ListConversationMessagesItem;
+pub mod list_conversation_messages_response;
+pub use self::list_conversation_messages_response::ListConversationMessagesResponse;
+pub mod list_conversations_item;
+pub use self::list_conversations_item::ListConversationsItem;
+pub mod list_conversations_response;
+pub use self::list_conversations_response::ListConversationsResponse;

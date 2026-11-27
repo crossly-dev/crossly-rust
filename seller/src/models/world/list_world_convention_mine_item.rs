@@ -50,10 +50,21 @@ pub struct ListWorldConventionMineItem {
     /// The room it is held in, so a card can link straight into it.
     #[serde(rename = "publicSlug", skip_serializing_if = "Option::is_none")]
     pub public_slug: Option<String>,
+    /// A full-page convention (a rented hall, booth tiers; spec WD4): sellers book a tier on its booth page.
+    #[serde(rename = "tiered")]
+    pub tiered: bool,
+    /// When the doors open for visitors: the start (or when the host takes it live, if sooner).
+    #[serde(rename = "doorsOpenAt")]
+    pub doors_open_at: String,
+    /// For a signed-in viewer (doors.ts): when THEIR doors open (earlier with live_early_entry), and whether they are.
+    #[serde(rename = "yourDoorsOpenAt", skip_serializing_if = "Option::is_none")]
+    pub your_doors_open_at: Option<String>,
+    #[serde(rename = "doorsOpen", skip_serializing_if = "Option::is_none")]
+    pub doors_open: Option<bool>,
 }
 
 impl ListWorldConventionMineItem {
-    pub fn new(role: Role, id: String, title: String, starts_at: String, ends_at: String, status: String, entry_model: String, table_count: f32, exhibitor_count: f32) -> ListWorldConventionMineItem {
+    pub fn new(role: Role, id: String, title: String, starts_at: String, ends_at: String, status: String, entry_model: String, table_count: f32, exhibitor_count: f32, tiered: bool, doors_open_at: String) -> ListWorldConventionMineItem {
         ListWorldConventionMineItem {
             role,
             table_index: None,
@@ -71,6 +82,10 @@ impl ListWorldConventionMineItem {
             table_count,
             exhibitor_count,
             public_slug: None,
+            tiered,
+            doors_open_at,
+            your_doors_open_at: None,
+            doors_open: None,
         }
     }
 }
@@ -80,16 +95,16 @@ impl ListWorldConventionMineItem {
 pub enum Role {
     #[serde(rename = "host")]
     Host,
-    #[serde(rename = "applied")]
-    Applied,
-    #[serde(rename = "invited")]
-    Invited,
-    #[serde(rename = "withdrawn")]
-    Withdrawn,
     #[serde(rename = "accepted")]
     Accepted,
     #[serde(rename = "declined")]
     Declined,
+    #[serde(rename = "applied")]
+    Applied,
+    #[serde(rename = "withdrawn")]
+    Withdrawn,
+    #[serde(rename = "invited")]
+    Invited,
 }
 
 impl Default for Role {

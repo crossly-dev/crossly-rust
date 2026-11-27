@@ -19,14 +19,14 @@ pub struct ListWorldContestsItem {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: Status,
+    #[serde(rename = "ownerUserId")]
+    pub owner_user_id: String,
     #[serde(rename = "endsAt")]
     pub ends_at: String,
     #[serde(rename = "startsAt")]
     pub starts_at: String,
     #[serde(rename = "feeCents", skip_serializing_if = "Option::is_none")]
     pub fee_cents: Option<f32>,
-    #[serde(rename = "ownerUserId")]
-    pub owner_user_id: String,
     #[serde(rename = "settledAt", skip_serializing_if = "Option::is_none")]
     pub settled_at: Option<String>,
     #[serde(rename = "gamePlace")]
@@ -40,15 +40,15 @@ pub struct ListWorldContestsItem {
 }
 
 impl ListWorldContestsItem {
-    pub fn new(id: String, created_at: String, status: Status, ends_at: String, starts_at: String, owner_user_id: String, game_place: String, game_object: String, entry_mode: EntryMode, score_order: ScoreOrder) -> ListWorldContestsItem {
+    pub fn new(id: String, created_at: String, status: Status, owner_user_id: String, ends_at: String, starts_at: String, game_place: String, game_object: String, entry_mode: EntryMode, score_order: ScoreOrder) -> ListWorldContestsItem {
         ListWorldContestsItem {
             id,
             created_at,
             status,
+            owner_user_id,
             ends_at,
             starts_at,
             fee_cents: None,
-            owner_user_id,
             settled_at: None,
             game_place,
             game_object,
@@ -61,17 +61,17 @@ impl ListWorldContestsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "open")]
-    Open,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "open")]
+    Open,
     #[serde(rename = "settled")]
     Settled,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Open
+        Self::Cancelled
     }
 }
 /// 
@@ -79,10 +79,10 @@ impl Default for Status {
 pub enum EntryMode {
     #[serde(rename = "free")]
     Free,
-    #[serde(rename = "sponsored")]
-    Sponsored,
     #[serde(rename = "paid")]
     Paid,
+    #[serde(rename = "sponsored")]
+    Sponsored,
 }
 
 impl Default for EntryMode {

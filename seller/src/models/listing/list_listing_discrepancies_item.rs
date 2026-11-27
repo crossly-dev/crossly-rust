@@ -21,18 +21,18 @@ pub struct ListListingDiscrepanciesItem {
     pub updated_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
-    #[serde(rename = "source")]
-    pub source: String,
     #[serde(rename = "platform")]
     pub platform: String,
-    #[serde(rename = "listingId")]
-    pub listing_id: String,
+    #[serde(rename = "accountSlot")]
+    pub account_slot: f32,
     #[serde(rename = "marketplaceId")]
     pub marketplace_id: String,
     #[serde(rename = "lastError", skip_serializing_if = "Option::is_none")]
     pub last_error: Option<String>,
-    #[serde(rename = "accountSlot")]
-    pub account_slot: f32,
+    #[serde(rename = "source")]
+    pub source: String,
+    #[serde(rename = "listingId")]
+    pub listing_id: String,
     #[serde(rename = "field")]
     pub field: String,
     #[serde(rename = "ourValue", skip_serializing_if = "Option::is_none")]
@@ -50,18 +50,18 @@ pub struct ListListingDiscrepanciesItem {
 }
 
 impl ListListingDiscrepanciesItem {
-    pub fn new(id: String, created_at: String, updated_at: String, user_id: String, source: String, platform: String, listing_id: String, marketplace_id: String, account_slot: f32, field: String, first_detected_at: String, last_detected_at: String) -> ListListingDiscrepanciesItem {
+    pub fn new(id: String, created_at: String, updated_at: String, user_id: String, platform: String, account_slot: f32, marketplace_id: String, source: String, listing_id: String, field: String, first_detected_at: String, last_detected_at: String) -> ListListingDiscrepanciesItem {
         ListListingDiscrepanciesItem {
             id,
             created_at,
             updated_at,
             user_id,
-            source,
             platform,
-            listing_id,
+            account_slot,
             marketplace_id,
             last_error: None,
-            account_slot,
+            source,
+            listing_id,
             field,
             our_value: None,
             remote_value: None,

@@ -15,15 +15,15 @@
 pub struct CreateAutomationRuleRunNowResponse {
     #[serde(rename = "success")]
     pub success: bool,
-    #[serde(rename = "jobId", skip_serializing_if = "Option::is_none")]
-    pub job_id: Option<String>,
+    #[serde(rename = "jobId")]
+    pub job_id: String,
 }
 
 impl CreateAutomationRuleRunNowResponse {
-    pub fn new(success: bool) -> CreateAutomationRuleRunNowResponse {
+    pub fn new(success: bool, job_id: String) -> CreateAutomationRuleRunNowResponse {
         CreateAutomationRuleRunNowResponse {
             success,
-            job_id: None,
+            job_id,
         }
     }
 }

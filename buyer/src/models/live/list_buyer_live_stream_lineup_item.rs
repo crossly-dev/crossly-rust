@@ -13,34 +13,34 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerLiveStreamLineupItem {
-    #[serde(rename = "available")]
-    pub available: bool,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
     #[serde(rename = "position")]
     pub position: f32,
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
+    #[serde(rename = "available")]
+    pub available: bool,
     #[serde(rename = "pinned")]
     pub pinned: bool,
 }
 
 impl ListBuyerLiveStreamLineupItem {
-    pub fn new(available: bool, platform_listing_id: String, position: f32, price_cents: f32, pinned: bool) -> ListBuyerLiveStreamLineupItem {
+    pub fn new(platform_listing_id: String, position: f32, price_cents: f32, available: bool, pinned: bool) -> ListBuyerLiveStreamLineupItem {
         ListBuyerLiveStreamLineupItem {
-            available,
-            title: None,
             platform_listing_id,
             position,
             slug: None,
+            title: None,
             price_cents,
             image_url: None,
+            available,
             pinned,
         }
     }

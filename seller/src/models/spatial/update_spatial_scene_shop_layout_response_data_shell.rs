@@ -31,12 +31,12 @@ impl UpdateSpatialSceneShopLayoutResponseDataShell {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
+    #[serde(rename = "auto")]
+    Auto,
     #[serde(rename = "standard")]
     Standard,
     #[serde(rename = "large")]
     Large,
-    #[serde(rename = "auto")]
-    Auto,
     #[serde(rename = "compact")]
     Compact,
     #[serde(rename = "flagship")]
@@ -45,7 +45,7 @@ pub enum Size {
 
 impl Default for Size {
     fn default() -> Size {
-        Self::Standard
+        Self::Auto
     }
 }
 

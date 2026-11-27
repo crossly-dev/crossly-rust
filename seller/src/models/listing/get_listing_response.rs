@@ -31,6 +31,12 @@ pub struct GetListingResponse {
     pub updated_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "source")]
+    pub source: String,
     #[serde(rename = "sku", skip_serializing_if = "Option::is_none")]
     pub sku: Option<String>,
     #[serde(rename = "quantity")]
@@ -66,7 +72,7 @@ pub struct GetListingResponse {
     #[serde(rename = "gradeKey", skip_serializing_if = "Option::is_none")]
     pub grade_key: Option<String>,
     #[serde(rename = "grading", skip_serializing_if = "Option::is_none")]
-    pub grading: Option<Box<crate::models::ListGradingSubmissionsItemGrading>>,
+    pub grading: Option<Box<crate::models::CreateBulkBatchItemResponseGrading>>,
     #[serde(rename = "priceFloorCents", skip_serializing_if = "Option::is_none")]
     pub price_floor_cents: Option<f32>,
     #[serde(rename = "floorIsNet")]
@@ -81,12 +87,6 @@ pub struct GetListingResponse {
     pub dimension_win: Option<String>,
     #[serde(rename = "dimensionHIn", skip_serializing_if = "Option::is_none")]
     pub dimension_hin: Option<String>,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "source")]
-    pub source: String,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
     #[serde(rename = "descriptionHtml", skip_serializing_if = "Option::is_none")]
@@ -121,6 +121,10 @@ pub struct GetListingResponse {
     pub automation_assigned_chain_ids: Vec<String>,
     #[serde(rename = "automationBlockedChainIds")]
     pub automation_blocked_chain_ids: Vec<String>,
+    #[serde(rename = "workflowBlockedIds")]
+    pub workflow_blocked_ids: Vec<String>,
+    #[serde(rename = "workflowAssignedIds")]
+    pub workflow_assigned_ids: Vec<String>,
     #[serde(rename = "hsCode", skip_serializing_if = "Option::is_none")]
     pub hs_code: Option<String>,
     #[serde(rename = "countryOfOrigin", skip_serializing_if = "Option::is_none")]
@@ -135,10 +139,16 @@ pub struct GetListingResponse {
     pub duplicate_of_listing_id: Option<String>,
     #[serde(rename = "clientDraftId", skip_serializing_if = "Option::is_none")]
     pub client_draft_id: Option<String>,
+    #[serde(rename = "attributedOauthAppId", skip_serializing_if = "Option::is_none")]
+    pub attributed_oauth_app_id: Option<String>,
+    #[serde(rename = "attributedGrantId", skip_serializing_if = "Option::is_none")]
+    pub attributed_grant_id: Option<String>,
+    #[serde(rename = "quotaBucket", skip_serializing_if = "Option::is_none")]
+    pub quota_bucket: Option<String>,
 }
 
 impl GetListingResponse {
-    pub fn new(ai_media: bool, ai_media_detected: bool, platform_listings: Vec<crate::models::GetListingResponsePlatformListings>, id: String, created_at: String, updated_at: String, user_id: String, quantity: f32, quantity_available: f32, color: Vec<String>, tags: Vec<String>, floor_is_net: bool, status: String, source: String, ai_media_urls: Vec<String>, ai_media_declared: bool, ai_media_detected_urls: Vec<String>, is_digital: bool, is_bundle: bool, automation_assigned_rule_ids: Vec<String>, automation_blocked_rule_ids: Vec<String>, automation_assigned_chain_ids: Vec<String>, automation_blocked_chain_ids: Vec<String>) -> GetListingResponse {
+    pub fn new(ai_media: bool, ai_media_detected: bool, platform_listings: Vec<crate::models::GetListingResponsePlatformListings>, id: String, created_at: String, updated_at: String, user_id: String, status: String, source: String, quantity: f32, quantity_available: f32, color: Vec<String>, tags: Vec<String>, floor_is_net: bool, ai_media_urls: Vec<String>, ai_media_declared: bool, ai_media_detected_urls: Vec<String>, is_digital: bool, is_bundle: bool, automation_assigned_rule_ids: Vec<String>, automation_blocked_rule_ids: Vec<String>, automation_assigned_chain_ids: Vec<String>, automation_blocked_chain_ids: Vec<String>, workflow_blocked_ids: Vec<String>, workflow_assigned_ids: Vec<String>) -> GetListingResponse {
         GetListingResponse {
             ai_media,
             ai_media_detected,
@@ -149,6 +159,9 @@ impl GetListingResponse {
             created_at,
             updated_at,
             user_id,
+            description: None,
+            status,
+            source,
             sku: None,
             quantity,
             quantity_available,
@@ -174,9 +187,6 @@ impl GetListingResponse {
             dimension_lin: None,
             dimension_win: None,
             dimension_hin: None,
-            status,
-            source,
-            description: None,
             title: None,
             description_html: None,
             price: None,
@@ -194,6 +204,8 @@ impl GetListingResponse {
             automation_blocked_rule_ids,
             automation_assigned_chain_ids,
             automation_blocked_chain_ids,
+            workflow_blocked_ids,
+            workflow_assigned_ids,
             hs_code: None,
             country_of_origin: None,
             delisted_at: None,
@@ -201,6 +213,9 @@ impl GetListingResponse {
             ebay_attributes_enriched_at: None,
             duplicate_of_listing_id: None,
             client_draft_id: None,
+            attributed_oauth_app_id: None,
+            attributed_grant_id: None,
+            quota_bucket: None,
         }
     }
 }

@@ -21,24 +21,26 @@ pub struct GetOrderShipmentResponseData {
     pub user_id: String,
     #[serde(rename = "source")]
     pub source: String,
-    #[serde(rename = "orderId")]
-    pub order_id: String,
     #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
     pub carrier: Option<String>,
     #[serde(rename = "service", skip_serializing_if = "Option::is_none")]
     pub service: Option<String>,
     #[serde(rename = "trackingNumber", skip_serializing_if = "Option::is_none")]
     pub tracking_number: Option<String>,
-    #[serde(rename = "voidedAt", skip_serializing_if = "Option::is_none")]
-    pub voided_at: Option<String>,
+    #[serde(rename = "orderId")]
+    pub order_id: String,
     #[serde(rename = "labelCostCents", skip_serializing_if = "Option::is_none")]
     pub label_cost_cents: Option<f32>,
     #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
     pub label_url: Option<String>,
+    #[serde(rename = "labelQrUrl", skip_serializing_if = "Option::is_none")]
+    pub label_qr_url: Option<String>,
     #[serde(rename = "shippoShipmentId", skip_serializing_if = "Option::is_none")]
     pub shippo_shipment_id: Option<String>,
     #[serde(rename = "trackingRegisteredAt", skip_serializing_if = "Option::is_none")]
     pub tracking_registered_at: Option<String>,
+    #[serde(rename = "voidedAt", skip_serializing_if = "Option::is_none")]
+    pub voided_at: Option<String>,
 }
 
 impl GetOrderShipmentResponseData {
@@ -48,15 +50,16 @@ impl GetOrderShipmentResponseData {
             created_at,
             user_id,
             source,
-            order_id,
             carrier: None,
             service: None,
             tracking_number: None,
-            voided_at: None,
+            order_id,
             label_cost_cents: None,
             label_url: None,
+            label_qr_url: None,
             shippo_shipment_id: None,
             tracking_registered_at: None,
+            voided_at: None,
         }
     }
 }

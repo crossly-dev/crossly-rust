@@ -19,6 +19,8 @@ pub struct GetBuyerCatalogListingResponse {
     pub title: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    #[serde(rename = "descriptionBlocks")]
+    pub description_blocks: Vec<crate::models::GetBuyerCatalogListingResponseDescriptionBlocksItem>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
     #[serde(rename = "compareAtCents", skip_serializing_if = "Option::is_none")]
@@ -31,6 +33,8 @@ pub struct GetBuyerCatalogListingResponse {
     pub available: bool,
     #[serde(rename = "quantityAvailable")]
     pub quantity_available: f32,
+    #[serde(rename = "variants", skip_serializing_if = "Option::is_none")]
+    pub variants: Option<Vec<crate::models::GetBuyerCatalogListingResponseVariants>>,
     #[serde(rename = "condition", skip_serializing_if = "Option::is_none")]
     pub condition: Option<String>,
     #[serde(rename = "brand", skip_serializing_if = "Option::is_none")]
@@ -51,20 +55,24 @@ pub struct GetBuyerCatalogListingResponse {
     pub seller_display_name: Option<String>,
     #[serde(rename = "listedAt", skip_serializing_if = "Option::is_none")]
     pub listed_at: Option<String>,
+    #[serde(rename = "tokenGate", skip_serializing_if = "Option::is_none")]
+    pub token_gate: Option<Box<crate::models::GetBuyerCatalogListingResponseTokenGate>>,
 }
 
 impl GetBuyerCatalogListingResponse {
-    pub fn new(slug: String, title: String, price_cents: f32, currency: String, status: String, available: bool, quantity_available: f32, images: Vec<String>) -> GetBuyerCatalogListingResponse {
+    pub fn new(slug: String, title: String, description_blocks: Vec<crate::models::GetBuyerCatalogListingResponseDescriptionBlocksItem>, price_cents: f32, currency: String, status: String, available: bool, quantity_available: f32, images: Vec<String>) -> GetBuyerCatalogListingResponse {
         GetBuyerCatalogListingResponse {
             slug,
             title,
             description: None,
+            description_blocks,
             price_cents,
             compare_at_cents: None,
             currency,
             status,
             available,
             quantity_available,
+            variants: None,
             condition: None,
             brand: None,
             size: None,
@@ -75,6 +83,7 @@ impl GetBuyerCatalogListingResponse {
             seller_username: None,
             seller_display_name: None,
             listed_at: None,
+            token_gate: None,
         }
     }
 }

@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerCartOptimizerResponseDataLinesLine {
-    #[serde(rename = "quantity")]
-    pub quantity: f32,
     #[serde(rename = "query")]
     pub query: String,
+    #[serde(rename = "quantity")]
+    pub quantity: f32,
 }
 
 impl CreateBuyerCartOptimizerResponseDataLinesLine {
-    pub fn new(quantity: f32, query: String) -> CreateBuyerCartOptimizerResponseDataLinesLine {
+    pub fn new(query: String, quantity: f32) -> CreateBuyerCartOptimizerResponseDataLinesLine {
         CreateBuyerCartOptimizerResponseDataLinesLine {
-            quantity,
             query,
+            quantity,
         }
     }
 }

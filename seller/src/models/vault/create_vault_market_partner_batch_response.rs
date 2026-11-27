@@ -20,7 +20,7 @@ pub struct CreateVaultMarketPartnerBatchResponse {
     #[serde(rename = "created")]
     pub created: Vec<crate::models::CreateVaultMarketPartnerBatchResponseCreated>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Box<crate::models::CreateVaultMarketPartnerBatchResponseLabel>>,
+    pub label: Option<Box<crate::models::LabelUrlTrackingCode>>,
     #[serde(rename = "labelError", skip_serializing_if = "Option::is_none")]
     pub label_error: Option<String>,
 }

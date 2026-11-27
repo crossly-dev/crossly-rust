@@ -19,12 +19,14 @@ pub struct GetVaultMarketPositionResponseLoans {
     pub status: String,
     #[serde(rename = "closedAt", skip_serializing_if = "Option::is_none")]
     pub closed_at: Option<String>,
+    #[serde(rename = "openedAt")]
+    pub opened_at: String,
     #[serde(rename = "vaultItemId")]
     pub vault_item_id: String,
     #[serde(rename = "holderAccountId", skip_serializing_if = "Option::is_none")]
     pub holder_account_id: Option<String>,
-    #[serde(rename = "openedAt")]
-    pub opened_at: String,
+    #[serde(rename = "positionId")]
+    pub position_id: String,
     #[serde(rename = "bookKey")]
     pub book_key: String,
     #[serde(rename = "feesPaidCents")]
@@ -33,8 +35,6 @@ pub struct GetVaultMarketPositionResponseLoans {
     pub late_penalty_paid_cents: f32,
     #[serde(rename = "lenderUserId")]
     pub lender_user_id: String,
-    #[serde(rename = "positionId")]
-    pub position_id: String,
     #[serde(rename = "aprBps")]
     pub apr_bps: f32,
     #[serde(rename = "markCentsAtOpen")]
@@ -54,19 +54,19 @@ pub struct GetVaultMarketPositionResponseLoans {
 }
 
 impl GetVaultMarketPositionResponseLoans {
-    pub fn new(id: String, status: String, vault_item_id: String, opened_at: String, book_key: String, fees_paid_cents: f32, late_penalty_paid_cents: f32, lender_user_id: String, position_id: String, apr_bps: f32, mark_cents_at_open: f32, fees_accrued_cents: String, lender_storage_cents: f32, late_penalty_accrued_cents: String) -> GetVaultMarketPositionResponseLoans {
+    pub fn new(id: String, status: String, opened_at: String, vault_item_id: String, position_id: String, book_key: String, fees_paid_cents: f32, late_penalty_paid_cents: f32, lender_user_id: String, apr_bps: f32, mark_cents_at_open: f32, fees_accrued_cents: String, lender_storage_cents: f32, late_penalty_accrued_cents: String) -> GetVaultMarketPositionResponseLoans {
         GetVaultMarketPositionResponseLoans {
             id,
             status,
             closed_at: None,
+            opened_at,
             vault_item_id,
             holder_account_id: None,
-            opened_at,
+            position_id,
             book_key,
             fees_paid_cents,
             late_penalty_paid_cents,
             lender_user_id,
-            position_id,
             apr_bps,
             mark_cents_at_open,
             fees_accrued_cents,

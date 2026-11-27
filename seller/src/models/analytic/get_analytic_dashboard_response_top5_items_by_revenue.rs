@@ -21,24 +21,24 @@ pub struct GetAnalyticDashboardResponseTop5ItemsByRevenue {
     pub sale_price: Option<f32>,
     #[serde(rename = "netProfit", skip_serializing_if = "Option::is_none")]
     pub net_profit: Option<f32>,
-    #[serde(rename = "detectedAt")]
-    pub detected_at: String,
+    #[serde(rename = "revenue")]
+    pub revenue: f32,
     #[serde(rename = "itemTitle", skip_serializing_if = "Option::is_none")]
     pub item_title: Option<String>,
-    #[serde(rename = "itemImage")]
-    pub item_image: String,
+    #[serde(rename = "itemImage", skip_serializing_if = "Option::is_none")]
+    pub item_image: Option<String>,
 }
 
 impl GetAnalyticDashboardResponseTop5ItemsByRevenue {
-    pub fn new(sale_id: String, platform: String, detected_at: String, item_image: String) -> GetAnalyticDashboardResponseTop5ItemsByRevenue {
+    pub fn new(sale_id: String, platform: String, revenue: f32) -> GetAnalyticDashboardResponseTop5ItemsByRevenue {
         GetAnalyticDashboardResponseTop5ItemsByRevenue {
             sale_id,
             platform,
             sale_price: None,
             net_profit: None,
-            detected_at,
+            revenue,
             item_title: None,
-            item_image,
+            item_image: None,
         }
     }
 }

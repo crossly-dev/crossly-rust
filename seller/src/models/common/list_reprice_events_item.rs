@@ -19,20 +19,16 @@ pub struct ListRepriceEventsItem {
     pub created_at: String,
     #[serde(rename = "userId")]
     pub user_id: String,
-    #[serde(rename = "reason")]
-    pub reason: String,
     #[serde(rename = "platform", skip_serializing_if = "Option::is_none")]
     pub platform: Option<String>,
     #[serde(rename = "listingId", skip_serializing_if = "Option::is_none")]
     pub listing_id: Option<String>,
     #[serde(rename = "platformListingId", skip_serializing_if = "Option::is_none")]
     pub platform_listing_id: Option<String>,
-    #[serde(rename = "decidedAt", skip_serializing_if = "Option::is_none")]
-    pub decided_at: Option<String>,
+    #[serde(rename = "reason")]
+    pub reason: String,
     #[serde(rename = "ruleId", skip_serializing_if = "Option::is_none")]
     pub rule_id: Option<String>,
-    #[serde(rename = "floorCents", skip_serializing_if = "Option::is_none")]
-    pub floor_cents: Option<f32>,
     #[serde(rename = "strategy")]
     pub strategy: String,
     #[serde(rename = "oldPriceCents", skip_serializing_if = "Option::is_none")]
@@ -41,10 +37,14 @@ pub struct ListRepriceEventsItem {
     pub new_price_cents: Option<f32>,
     #[serde(rename = "changed")]
     pub changed: bool,
+    #[serde(rename = "floorCents", skip_serializing_if = "Option::is_none")]
+    pub floor_cents: Option<f32>,
     #[serde(rename = "floorWasNet")]
     pub floor_was_net: bool,
     #[serde(rename = "approval", skip_serializing_if = "Option::is_none")]
     pub approval: Option<String>,
+    #[serde(rename = "decidedAt", skip_serializing_if = "Option::is_none")]
+    pub decided_at: Option<String>,
 }
 
 impl ListRepriceEventsItem {
@@ -53,19 +53,19 @@ impl ListRepriceEventsItem {
             id,
             created_at,
             user_id,
-            reason,
             platform: None,
             listing_id: None,
             platform_listing_id: None,
-            decided_at: None,
+            reason,
             rule_id: None,
-            floor_cents: None,
             strategy,
             old_price_cents: None,
             new_price_cents: None,
             changed,
+            floor_cents: None,
             floor_was_net,
             approval: None,
+            decided_at: None,
         }
     }
 }

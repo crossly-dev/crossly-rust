@@ -13,37 +13,85 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerCatalogListingRentalQuoteResponseData {
+    #[serde(rename = "fulfilment")]
+    pub fulfilment: Fulfilment,
+    #[serde(rename = "shippingCents", skip_serializing_if = "Option::is_none")]
+    pub shipping_cents: Option<f32>,
+    #[serde(rename = "totalCents", skip_serializing_if = "Option::is_none")]
+    pub total_cents: Option<f32>,
+    #[serde(rename = "needsApproval")]
+    pub needs_approval: bool,
+    #[serde(rename = "cancellation")]
+    pub cancellation: Box<crate::models::CreateBuyerCatalogListingRentalQuoteResponseDataCancellation>,
+    #[serde(rename = "buyout")]
+    pub buyout: Box<crate::models::CreateBuyerCatalogListingRentalQuoteResponseDataBuyout>,
+    #[serde(rename = "problem", skip_serializing_if = "Option::is_none")]
+    pub problem: Option<String>,
     #[serde(rename = "startDate")]
     pub start_date: String,
     #[serde(rename = "endDate")]
     pub end_date: String,
     #[serde(rename = "days")]
     pub days: f32,
-    #[serde(rename = "problem", skip_serializing_if = "Option::is_none")]
-    pub problem: Option<String>,
+    /// The unit the booking would hold (null when none is free).
+    #[serde(rename = "unit", skip_serializing_if = "Option::is_none")]
+    pub unit: Option<f32>,
+    #[serde(rename = "lines")]
+    pub lines: Vec<crate::models::CreateBuyerCatalogListingRentalQuoteResponseDataLines>,
+    /// Rent after discounts.
     #[serde(rename = "rentCents")]
     pub rent_cents: f32,
+    #[serde(rename = "cleaningFeeCents")]
+    pub cleaning_fee_cents: f32,
+    #[serde(rename = "damageWaiverCents")]
+    pub damage_waiver_cents: f32,
     #[serde(rename = "depositCents")]
     pub deposit_cents: f32,
-    #[serde(rename = "shippingCents", skip_serializing_if = "Option::is_none")]
-    pub shipping_cents: Option<f32>,
-    #[serde(rename = "totalCents", skip_serializing_if = "Option::is_none")]
-    pub total_cents: Option<f32>,
+    /// Why the deposit is 0 or lowered, when it is.
+    #[serde(rename = "depositNote", skip_serializing_if = "Option::is_none")]
+    pub deposit_note: Option<String>,
+    /// Everything but shipping and the deposit: what the seller's fee is taken on.
+    #[serde(rename = "chargeableCents")]
+    pub chargeable_cents: f32,
 }
 
 impl CreateBuyerCatalogListingRentalQuoteResponseData {
-    pub fn new(start_date: String, end_date: String, days: f32, rent_cents: f32, deposit_cents: f32) -> CreateBuyerCatalogListingRentalQuoteResponseData {
+    pub fn new(fulfilment: Fulfilment, needs_approval: bool, cancellation: crate::models::CreateBuyerCatalogListingRentalQuoteResponseDataCancellation, buyout: crate::models::CreateBuyerCatalogListingRentalQuoteResponseDataBuyout, start_date: String, end_date: String, days: f32, lines: Vec<crate::models::CreateBuyerCatalogListingRentalQuoteResponseDataLines>, rent_cents: f32, cleaning_fee_cents: f32, damage_waiver_cents: f32, deposit_cents: f32, chargeable_cents: f32) -> CreateBuyerCatalogListingRentalQuoteResponseData {
         CreateBuyerCatalogListingRentalQuoteResponseData {
+            fulfilment,
+            shipping_cents: None,
+            total_cents: None,
+            needs_approval,
+            cancellation: Box::new(cancellation),
+            buyout: Box::new(buyout),
+            problem: None,
             start_date,
             end_date,
             days,
-            problem: None,
+            unit: None,
+            lines,
             rent_cents,
+            cleaning_fee_cents,
+            damage_waiver_cents,
             deposit_cents,
-            shipping_cents: None,
-            total_cents: None,
+            deposit_note: None,
+            chargeable_cents,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Fulfilment {
+    #[serde(rename = "ship")]
+    Ship,
+    #[serde(rename = "pickup")]
+    Pickup,
+}
+
+impl Default for Fulfilment {
+    fn default() -> Fulfilment {
+        Self::Ship
+    }
+}
 

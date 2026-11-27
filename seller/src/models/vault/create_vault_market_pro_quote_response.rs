@@ -16,13 +16,13 @@ pub struct CreateVaultMarketProQuoteResponse {
     #[serde(rename = "bookKey")]
     pub book_key: String,
     #[serde(rename = "bid")]
-    pub bid: Box<crate::models::CreateVaultMarketProQuoteResponseBid>,
+    pub bid: Box<crate::models::OrderIdError>,
     #[serde(rename = "ask")]
-    pub ask: Box<crate::models::CreateVaultMarketProQuoteResponseBid>,
+    pub ask: Box<crate::models::OrderIdError>,
 }
 
 impl CreateVaultMarketProQuoteResponse {
-    pub fn new(book_key: String, bid: crate::models::CreateVaultMarketProQuoteResponseBid, ask: crate::models::CreateVaultMarketProQuoteResponseBid) -> CreateVaultMarketProQuoteResponse {
+    pub fn new(book_key: String, bid: crate::models::OrderIdError, ask: crate::models::OrderIdError) -> CreateVaultMarketProQuoteResponse {
         CreateVaultMarketProQuoteResponse {
             book_key,
             bid: Box::new(bid),

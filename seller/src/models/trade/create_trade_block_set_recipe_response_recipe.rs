@@ -23,40 +23,40 @@ pub struct CreateTradeBlockSetRecipeResponseRecipe {
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
+    #[serde(rename = "version")]
+    pub version: f32,
     #[serde(rename = "reviewedAt", skip_serializing_if = "Option::is_none")]
     pub reviewed_at: Option<String>,
+    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+    #[serde(rename = "members")]
+    pub members: Vec<crate::models::CreateTradeBlockSetRecipeResponseRecipeMembers>,
     #[serde(rename = "merchantId")]
     pub merchant_id: String,
     #[serde(rename = "creatorSubjectId")]
     pub creator_subject_id: String,
     #[serde(rename = "outputCosmeticId")]
     pub output_cosmetic_id: String,
-    #[serde(rename = "version")]
-    pub version: f32,
     #[serde(rename = "frozenAt", skip_serializing_if = "Option::is_none")]
     pub frozen_at: Option<String>,
-    #[serde(rename = "members")]
-    pub members: Vec<crate::models::CreateTradeBlockSetRecipeResponseRecipeMembers>,
 }
 
 impl CreateTradeBlockSetRecipeResponseRecipe {
-    pub fn new(id: String, name: String, active: bool, created_at: String, updated_at: String, merchant_id: String, creator_subject_id: String, output_cosmetic_id: String, version: f32, members: Vec<crate::models::CreateTradeBlockSetRecipeResponseRecipeMembers>) -> CreateTradeBlockSetRecipeResponseRecipe {
+    pub fn new(id: String, name: String, active: bool, created_at: String, updated_at: String, version: f32, members: Vec<crate::models::CreateTradeBlockSetRecipeResponseRecipeMembers>, merchant_id: String, creator_subject_id: String, output_cosmetic_id: String) -> CreateTradeBlockSetRecipeResponseRecipe {
         CreateTradeBlockSetRecipeResponseRecipe {
             id,
             name,
             active,
             created_at,
             updated_at,
-            note: None,
+            version,
             reviewed_at: None,
+            note: None,
+            members,
             merchant_id,
             creator_subject_id,
             output_cosmetic_id,
-            version,
             frozen_at: None,
-            members,
         }
     }
 }

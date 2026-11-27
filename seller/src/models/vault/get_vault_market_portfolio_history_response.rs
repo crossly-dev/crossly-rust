@@ -17,13 +17,16 @@ pub struct GetVaultMarketPortfolioHistoryResponse {
     pub series: Vec<crate::models::GetVaultMarketPortfolioHistoryResponseSeries>,
     #[serde(rename = "now")]
     pub now: Box<crate::models::GetVaultMarketPortfolioHistoryResponseNow>,
+    #[serde(rename = "today")]
+    pub today: Box<crate::models::GetVaultMarketPortfolioHistoryResponseToday>,
 }
 
 impl GetVaultMarketPortfolioHistoryResponse {
-    pub fn new(series: Vec<crate::models::GetVaultMarketPortfolioHistoryResponseSeries>, now: crate::models::GetVaultMarketPortfolioHistoryResponseNow) -> GetVaultMarketPortfolioHistoryResponse {
+    pub fn new(series: Vec<crate::models::GetVaultMarketPortfolioHistoryResponseSeries>, now: crate::models::GetVaultMarketPortfolioHistoryResponseNow, today: crate::models::GetVaultMarketPortfolioHistoryResponseToday) -> GetVaultMarketPortfolioHistoryResponse {
         GetVaultMarketPortfolioHistoryResponse {
             series,
             now: Box::new(now),
+            today: Box::new(today),
         }
     }
 }

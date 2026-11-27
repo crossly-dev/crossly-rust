@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerTogetherResponseData {
-    #[serde(rename = "id")]
-    pub id: String,
     #[serde(rename = "code")]
     pub code: String,
+    #[serde(rename = "id")]
+    pub id: String,
 }
 
 impl CreateBuyerTogetherResponseData {
-    pub fn new(id: String, code: String) -> CreateBuyerTogetherResponseData {
+    pub fn new(code: String, id: String) -> CreateBuyerTogetherResponseData {
         CreateBuyerTogetherResponseData {
-            id,
             code,
+            id,
         }
     }
 }

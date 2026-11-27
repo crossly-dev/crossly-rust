@@ -23,6 +23,16 @@ pub struct ListRentalsItem {
     pub created_at: String,
     #[serde(rename = "shipTo", skip_serializing_if = "Option::is_none")]
     pub ship_to: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "platformListingId", skip_serializing_if = "Option::is_none")]
+    pub platform_listing_id: Option<String>,
+    #[serde(rename = "payoutTiming", skip_serializing_if = "Option::is_none")]
+    pub payout_timing: Option<String>,
+    #[serde(rename = "payoutReleasedAt", skip_serializing_if = "Option::is_none")]
+    pub payout_released_at: Option<String>,
+    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
+    pub order_id: Option<String>,
+    #[serde(rename = "crosslyFeeCents", skip_serializing_if = "Option::is_none")]
+    pub crossly_fee_cents: Option<f32>,
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "status")]
@@ -67,16 +77,51 @@ pub struct ListRentalsItem {
     pub approval_due_at: Option<String>,
     #[serde(rename = "depositRefundedCents")]
     pub deposit_refunded_cents: f32,
+    #[serde(rename = "unit")]
+    pub unit: f32,
+    #[serde(rename = "fulfilment")]
+    pub fulfilment: String,
+    #[serde(rename = "cleaningFeeCents")]
+    pub cleaning_fee_cents: f32,
+    #[serde(rename = "damageWaiver")]
+    pub damage_waiver: bool,
+    #[serde(rename = "damageWaiverCents")]
+    pub damage_waiver_cents: f32,
+    #[serde(rename = "lateFeeCents")]
+    pub late_fee_cents: f32,
+    #[serde(rename = "rentRefundedCents")]
+    pub rent_refunded_cents: f32,
+    #[serde(rename = "buyoutCents", skip_serializing_if = "Option::is_none")]
+    pub buyout_cents: Option<f32>,
+    #[serde(rename = "charges")]
+    pub charges: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "conditionPhotosReturn")]
+    pub condition_photos_return: Vec<String>,
+    #[serde(rename = "approvedAt", skip_serializing_if = "Option::is_none")]
+    pub approved_at: Option<String>,
+    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
+    pub delivered_at: Option<String>,
+    #[serde(rename = "returnShippedAt", skip_serializing_if = "Option::is_none")]
+    pub return_shipped_at: Option<String>,
+    #[serde(rename = "inspectedAt", skip_serializing_if = "Option::is_none")]
+    pub inspected_at: Option<String>,
+    #[serde(rename = "boughtOutAt", skip_serializing_if = "Option::is_none")]
+    pub bought_out_at: Option<String>,
 }
 
 impl ListRentalsItem {
-    pub fn new(created_at: String, id: String, status: String, title: String, image_url: String, start_date: String, end_date: String, days: f32, rent_cents: f32, shipping_cents: f32, deposit_cents: f32, claim_cents: f32, claim_photos: Vec<String>, claim_disputed: bool, condition_photos_out: Vec<String>, condition_photos_in: Vec<String>, deposit_refunded_cents: f32) -> ListRentalsItem {
+    pub fn new(created_at: String, id: String, status: String, title: String, image_url: String, start_date: String, end_date: String, days: f32, rent_cents: f32, shipping_cents: f32, deposit_cents: f32, claim_cents: f32, claim_photos: Vec<String>, claim_disputed: bool, condition_photos_out: Vec<String>, condition_photos_in: Vec<String>, deposit_refunded_cents: f32, unit: f32, fulfilment: String, cleaning_fee_cents: f32, damage_waiver: bool, damage_waiver_cents: f32, late_fee_cents: f32, rent_refunded_cents: f32, charges: ::std::collections::HashMap<String, serde_json::Value>, condition_photos_return: Vec<String>) -> ListRentalsItem {
         ListRentalsItem {
             shipped_at: None,
             returned_at: None,
             closed_at: None,
             created_at,
             ship_to: None,
+            platform_listing_id: None,
+            payout_timing: None,
+            payout_released_at: None,
+            order_id: None,
+            crossly_fee_cents: None,
             id,
             status,
             slug: None,
@@ -99,6 +144,21 @@ impl ListRentalsItem {
             condition_photos_in,
             approval_due_at: None,
             deposit_refunded_cents,
+            unit,
+            fulfilment,
+            cleaning_fee_cents,
+            damage_waiver,
+            damage_waiver_cents,
+            late_fee_cents,
+            rent_refunded_cents,
+            buyout_cents: None,
+            charges,
+            condition_photos_return,
+            approved_at: None,
+            delivered_at: None,
+            return_shipped_at: None,
+            inspected_at: None,
+            bought_out_at: None,
         }
     }
 }

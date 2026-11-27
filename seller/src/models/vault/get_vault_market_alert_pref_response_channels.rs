@@ -42,10 +42,10 @@ impl GetVaultMarketAlertPrefResponseChannels {
 pub enum Key {
     #[serde(rename = "email")]
     Email,
-    #[serde(rename = "webhook")]
-    Webhook,
     #[serde(rename = "push")]
     Push,
+    #[serde(rename = "webhook")]
+    Webhook,
     #[serde(rename = "telegram")]
     Telegram,
     #[serde(rename = "terminal")]

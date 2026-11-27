@@ -15,26 +15,29 @@
 pub struct GetWorkflowChainResponseSteps {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "position")]
-    pub position: f32,
     #[serde(rename = "chainId")]
     pub chain_id: String,
+    #[serde(rename = "position")]
+    pub position: f32,
     #[serde(rename = "stepType")]
     pub step_type: String,
     #[serde(rename = "actionId", skip_serializing_if = "Option::is_none")]
     pub action_id: Option<String>,
+    #[serde(rename = "actionConfig")]
+    pub action_config: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "waitMs", skip_serializing_if = "Option::is_none")]
     pub wait_ms: Option<f32>,
 }
 
 impl GetWorkflowChainResponseSteps {
-    pub fn new(id: String, position: f32, chain_id: String, step_type: String) -> GetWorkflowChainResponseSteps {
+    pub fn new(id: String, chain_id: String, position: f32, step_type: String, action_config: ::std::collections::HashMap<String, serde_json::Value>) -> GetWorkflowChainResponseSteps {
         GetWorkflowChainResponseSteps {
             id,
-            position,
             chain_id,
+            position,
             step_type,
             action_id: None,
+            action_config,
             wait_ms: None,
         }
     }

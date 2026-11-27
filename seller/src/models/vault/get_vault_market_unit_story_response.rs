@@ -18,7 +18,7 @@ pub struct GetVaultMarketUnitStoryResponse {
     #[serde(rename = "holder")]
     pub holder: Box<crate::models::GetVaultMarketUnitStoryResponseHolder>,
     #[serde(rename = "mark")]
-    pub mark: Box<crate::models::ListVaultMarketFeedItemMark>,
+    pub mark: Box<crate::models::ListVaultMarketOpeningItemMark>,
     /// 'holder' sees everything about their unit; 'public' is the share page.
     #[serde(rename = "viewer")]
     pub viewer: Viewer,
@@ -40,7 +40,7 @@ pub struct GetVaultMarketUnitStoryResponse {
 }
 
 impl GetVaultMarketUnitStoryResponse {
-    pub fn new(unit: crate::models::GetVaultMarketUnitStoryResponseUnit, holder: crate::models::GetVaultMarketUnitStoryResponseHolder, mark: crate::models::ListVaultMarketFeedItemMark, viewer: Viewer, shareable: bool, share_url: String, badges: Vec<crate::models::GetVaultMarketUnitStoryResponseBadgesItem>, stats: crate::models::GetVaultMarketUnitStoryResponseStats, events: Vec<crate::models::GetVaultMarketUnitStoryResponseEvents>) -> GetVaultMarketUnitStoryResponse {
+    pub fn new(unit: crate::models::GetVaultMarketUnitStoryResponseUnit, holder: crate::models::GetVaultMarketUnitStoryResponseHolder, mark: crate::models::ListVaultMarketOpeningItemMark, viewer: Viewer, shareable: bool, share_url: String, badges: Vec<crate::models::GetVaultMarketUnitStoryResponseBadgesItem>, stats: crate::models::GetVaultMarketUnitStoryResponseStats, events: Vec<crate::models::GetVaultMarketUnitStoryResponseEvents>) -> GetVaultMarketUnitStoryResponse {
         GetVaultMarketUnitStoryResponse {
             unit: Box::new(unit),
             holder: Box::new(holder),
@@ -60,15 +60,15 @@ impl GetVaultMarketUnitStoryResponse {
 /// 'holder' sees everything about their unit; 'public' is the share page.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Viewer {
-    #[serde(rename = "holder")]
-    Holder,
     #[serde(rename = "public")]
     Public,
+    #[serde(rename = "holder")]
+    Holder,
 }
 
 impl Default for Viewer {
     fn default() -> Viewer {
-        Self::Holder
+        Self::Public
     }
 }
 

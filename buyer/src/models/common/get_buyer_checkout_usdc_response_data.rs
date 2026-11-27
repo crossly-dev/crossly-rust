@@ -13,10 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCheckoutUsdcResponseData {
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<String>,
     #[serde(rename = "available")]
     pub available: bool,
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
     #[serde(rename = "maxCents")]
     pub max_cents: f32,
     #[serde(rename = "networks")]
@@ -26,8 +26,8 @@ pub struct GetBuyerCheckoutUsdcResponseData {
 impl GetBuyerCheckoutUsdcResponseData {
     pub fn new(available: bool, max_cents: f32, networks: Vec<String>) -> GetBuyerCheckoutUsdcResponseData {
         GetBuyerCheckoutUsdcResponseData {
-            reason: None,
             available,
+            reason: None,
             max_cents,
             networks,
         }

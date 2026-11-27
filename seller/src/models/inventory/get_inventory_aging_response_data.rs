@@ -16,25 +16,66 @@ pub struct GetInventoryAgingResponseData {
     #[serde(rename = "buckets")]
     pub buckets: Vec<crate::models::GetInventoryAgingResponseDataBuckets>,
     #[serde(rename = "worst")]
-    pub worst: Vec<crate::models::GetInventoryAgingResponseDataWorst>,
+    pub worst: Vec<crate::models::GetAnalyticInventoryResponseDataWorst>,
+    /// Cost of stock 30+ days listed or unlisted (30-90 + 90+ + unlisted): the same number as attentionCostCents. Not \"older than three months\"; that is over90CostCents.
     #[serde(rename = "stuckCapitalCents")]
     pub stuck_capital_cents: f32,
+    #[serde(rename = "attentionCostCents")]
+    pub attention_cost_cents: f32,
+    #[serde(rename = "over90CostCents")]
+    pub over90_cost_cents: f32,
+    #[serde(rename = "over90ListedValueCents")]
+    pub over90_listed_value_cents: f32,
     #[serde(rename = "totalItems")]
     pub total_items: f32,
     #[serde(rename = "totalUnits")]
     pub total_units: f32,
+    #[serde(rename = "costKnownItems")]
+    pub cost_known_items: f32,
+    #[serde(rename = "costUnknownItems")]
+    pub cost_unknown_items: f32,
+    #[serde(rename = "listedValueCents")]
+    pub listed_value_cents: f32,
+    #[serde(rename = "marketValueCents", skip_serializing_if = "Option::is_none")]
+    pub market_value_cents: Option<f32>,
+    #[serde(rename = "sizeBy")]
+    pub size_by: SizeBy,
 }
 
 impl GetInventoryAgingResponseData {
-    pub fn new(buckets: Vec<crate::models::GetInventoryAgingResponseDataBuckets>, worst: Vec<crate::models::GetInventoryAgingResponseDataWorst>, stuck_capital_cents: f32, total_items: f32, total_units: f32) -> GetInventoryAgingResponseData {
+    pub fn new(buckets: Vec<crate::models::GetInventoryAgingResponseDataBuckets>, worst: Vec<crate::models::GetAnalyticInventoryResponseDataWorst>, stuck_capital_cents: f32, attention_cost_cents: f32, over90_cost_cents: f32, over90_listed_value_cents: f32, total_items: f32, total_units: f32, cost_known_items: f32, cost_unknown_items: f32, listed_value_cents: f32, size_by: SizeBy) -> GetInventoryAgingResponseData {
         GetInventoryAgingResponseData {
             buckets,
             worst,
             stuck_capital_cents,
+            attention_cost_cents,
+            over90_cost_cents,
+            over90_listed_value_cents,
             total_items,
             total_units,
+            cost_known_items,
+            cost_unknown_items,
+            listed_value_cents,
+            market_value_cents: None,
+            size_by,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SizeBy {
+    #[serde(rename = "value")]
+    valueOption,
+    #[serde(rename = "cost")]
+    cost,
+    #[serde(rename = "units")]
+    units,
+}
+
+impl Default for SizeBy {
+    fn default() -> SizeBy {
+        Self::valueOption
+    }
+}
 

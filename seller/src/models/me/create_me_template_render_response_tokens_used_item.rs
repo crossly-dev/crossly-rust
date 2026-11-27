@@ -16,6 +16,10 @@ pub enum CreateMeTemplateRenderResponseTokensUsedItem {
     Date,
     #[serde(rename = "brand")]
     Brand,
+    #[serde(rename = "category")]
+    Category,
+    #[serde(rename = "month")]
+    Month,
     #[serde(rename = "sku")]
     Sku,
     #[serde(rename = "condition")]
@@ -30,16 +34,12 @@ pub enum CreateMeTemplateRenderResponseTokensUsedItem {
     Color,
     #[serde(rename = "price")]
     Price,
-    #[serde(rename = "category")]
-    Category,
     #[serde(rename = "year")]
     Year,
     #[serde(rename = "model")]
     Model,
     #[serde(rename = "item_name")]
     ItemName,
-    #[serde(rename = "month")]
-    Month,
 
 }
 
@@ -48,6 +48,8 @@ impl ToString for CreateMeTemplateRenderResponseTokensUsedItem {
         match self {
             Self::Date => String::from("date"),
             Self::Brand => String::from("brand"),
+            Self::Category => String::from("category"),
+            Self::Month => String::from("month"),
             Self::Sku => String::from("sku"),
             Self::Condition => String::from("condition"),
             Self::Size => String::from("size"),
@@ -55,11 +57,9 @@ impl ToString for CreateMeTemplateRenderResponseTokensUsedItem {
             Self::Style => String::from("style"),
             Self::Color => String::from("color"),
             Self::Price => String::from("price"),
-            Self::Category => String::from("category"),
             Self::Year => String::from("year"),
             Self::Model => String::from("model"),
             Self::ItemName => String::from("item_name"),
-            Self::Month => String::from("month"),
         }
     }
 }

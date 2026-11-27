@@ -13,38 +13,38 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct UpdateHotspotItem {
-    #[serde(rename = "available")]
-    pub available: bool,
-    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
-    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
-    pub slug: Option<String>,
-    #[serde(rename = "priceCents")]
-    pub price_cents: f32,
-    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
-    pub image_url: Option<String>,
     #[serde(rename = "x")]
     pub x: f32,
     #[serde(rename = "y")]
     pub y: f32,
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(rename = "priceCents")]
+    pub price_cents: f32,
+    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    #[serde(rename = "available")]
+    pub available: bool,
 }
 
 impl UpdateHotspotItem {
-    pub fn new(available: bool, platform_listing_id: String, price_cents: f32, x: f32, y: f32) -> UpdateHotspotItem {
+    pub fn new(platform_listing_id: String, x: f32, y: f32, price_cents: f32, available: bool) -> UpdateHotspotItem {
         UpdateHotspotItem {
-            available,
-            label: None,
-            title: None,
             platform_listing_id,
-            slug: None,
-            price_cents,
-            image_url: None,
             x,
             y,
+            label: None,
+            slug: None,
+            title: None,
+            price_cents,
+            image_url: None,
+            available,
         }
     }
 }

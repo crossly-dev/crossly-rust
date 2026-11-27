@@ -13,26 +13,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerCreatorResponseDataCreator {
-    #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
-    #[serde(rename = "avatarUrl", skip_serializing_if = "Option::is_none")]
-    pub avatar_url: Option<String>,
-    #[serde(rename = "bio", skip_serializing_if = "Option::is_none")]
-    pub bio: Option<String>,
-    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<String>,
     #[serde(rename = "handle")]
     pub handle: String,
+    #[serde(rename = "displayName", skip_serializing_if = "Option::is_none")]
+    pub display_name: Option<String>,
+    #[serde(rename = "bio", skip_serializing_if = "Option::is_none")]
+    pub bio: Option<String>,
+    #[serde(rename = "avatarUrl", skip_serializing_if = "Option::is_none")]
+    pub avatar_url: Option<String>,
+    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
 }
 
 impl GetBuyerCreatorResponseDataCreator {
     pub fn new(handle: String) -> GetBuyerCreatorResponseDataCreator {
         GetBuyerCreatorResponseDataCreator {
-            display_name: None,
-            avatar_url: None,
-            bio: None,
-            code: None,
             handle,
+            display_name: None,
+            bio: None,
+            avatar_url: None,
+            code: None,
         }
     }
 }

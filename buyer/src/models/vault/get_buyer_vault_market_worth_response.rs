@@ -33,6 +33,8 @@ pub struct GetBuyerVaultMarketWorthResponse {
     pub cost_cents: f32,
     #[serde(rename = "pnlCents")]
     pub pnl_cents: f32,
+    #[serde(rename = "today")]
+    pub today: Box<crate::models::GetBuyerVaultMarketWorthResponseToday>,
     #[serde(rename = "sellNow")]
     pub sell_now: Box<crate::models::GetBuyerVaultMarketWorthResponseSellNow>,
     #[serde(rename = "note")]
@@ -40,7 +42,7 @@ pub struct GetBuyerVaultMarketWorthResponse {
 }
 
 impl GetBuyerVaultMarketWorthResponse {
-    pub fn new(as_of: String, value_cents: f32, vault_cents: f32, on_loan_cents: f32, positions_cents: f32, units: f32, units_on_loan: f32, marks: crate::models::GetBuyerVaultMarketHistoryResponseNowMarks, cost_cents: f32, pnl_cents: f32, sell_now: crate::models::GetBuyerVaultMarketWorthResponseSellNow, note: String) -> GetBuyerVaultMarketWorthResponse {
+    pub fn new(as_of: String, value_cents: f32, vault_cents: f32, on_loan_cents: f32, positions_cents: f32, units: f32, units_on_loan: f32, marks: crate::models::GetBuyerVaultMarketHistoryResponseNowMarks, cost_cents: f32, pnl_cents: f32, today: crate::models::GetBuyerVaultMarketWorthResponseToday, sell_now: crate::models::GetBuyerVaultMarketWorthResponseSellNow, note: String) -> GetBuyerVaultMarketWorthResponse {
         GetBuyerVaultMarketWorthResponse {
             as_of,
             value_cents,
@@ -52,6 +54,7 @@ impl GetBuyerVaultMarketWorthResponse {
             marks: Box::new(marks),
             cost_cents,
             pnl_cents,
+            today: Box::new(today),
             sell_now: Box::new(sell_now),
             note,
         }

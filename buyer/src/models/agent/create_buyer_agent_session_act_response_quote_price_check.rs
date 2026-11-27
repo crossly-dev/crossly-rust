@@ -43,19 +43,19 @@ impl CreateBuyerAgentSessionActResponseQuotePriceCheck {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Verdict {
-    #[serde(rename = "high")]
-    High,
-    #[serde(rename = "fair")]
-    Fair,
     #[serde(rename = "good")]
     Good,
+    #[serde(rename = "fair")]
+    Fair,
+    #[serde(rename = "high")]
+    High,
     #[serde(rename = "great")]
     Great,
 }
 
 impl Default for Verdict {
     fn default() -> Verdict {
-        Self::High
+        Self::Good
     }
 }
 

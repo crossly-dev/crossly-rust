@@ -53,19 +53,19 @@ impl ListWorldSpaceWhatsOnItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Place {
+    #[serde(rename = "stage")]
+    Stage,
     #[serde(rename = "street")]
     Street,
     #[serde(rename = "festival")]
     Festival,
     #[serde(rename = "space")]
     Space,
-    #[serde(rename = "stage")]
-    Stage,
 }
 
 impl Default for Place {
     fn default() -> Place {
-        Self::Street
+        Self::Stage
     }
 }
 

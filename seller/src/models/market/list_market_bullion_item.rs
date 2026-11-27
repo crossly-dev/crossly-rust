@@ -98,26 +98,26 @@ impl Default for Metal {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Form {
-    #[serde(rename = "round")]
-    Round,
     #[serde(rename = "bullion_coin")]
     BullionCoin,
     #[serde(rename = "bar")]
     Bar,
+    #[serde(rename = "round")]
+    Round,
 }
 
 impl Default for Form {
     fn default() -> Form {
-        Self::Round
+        Self::BullionCoin
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
-    #[serde(rename = "quarter")]
-    Quarter,
     #[serde(rename = "fractional")]
     Fractional,
+    #[serde(rename = "quarter")]
+    Quarter,
     #[serde(rename = "half")]
     Half,
     #[serde(rename = "one")]
@@ -134,7 +134,7 @@ pub enum Size {
 
 impl Default for Size {
     fn default() -> Size {
-        Self::Quarter
+        Self::Fractional
     }
 }
 

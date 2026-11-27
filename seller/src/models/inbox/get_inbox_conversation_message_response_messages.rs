@@ -39,6 +39,10 @@ pub struct GetInboxConversationMessageResponseMessages {
     pub ai_suggested_reply: Option<String>,
     #[serde(rename = "aiTriagedAt", skip_serializing_if = "Option::is_none")]
     pub ai_triaged_at: Option<String>,
+    #[serde(rename = "offerAmount", skip_serializing_if = "Option::is_none")]
+    pub offer_amount: Option<String>,
+    #[serde(rename = "offerStatus", skip_serializing_if = "Option::is_none")]
+    pub offer_status: Option<OfferStatus>,
 }
 
 impl GetInboxConversationMessageResponseMessages {
@@ -57,8 +61,30 @@ impl GetInboxConversationMessageResponseMessages {
             ai_scam_score: None,
             ai_suggested_reply: None,
             ai_triaged_at: None,
+            offer_amount: None,
+            offer_status: None,
         }
     }
 }
 
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum OfferStatus {
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "accepted")]
+    Accepted,
+    #[serde(rename = "declined")]
+    Declined,
+    #[serde(rename = "expired")]
+    Expired,
+    #[serde(rename = "voided")]
+    Voided,
+}
+
+impl Default for OfferStatus {
+    fn default() -> OfferStatus {
+        Self::Pending
+    }
+}
 

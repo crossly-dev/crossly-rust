@@ -17,16 +17,24 @@ pub struct CreateOrderMessageResponse {
     pub order_id: String,
     #[serde(rename = "sent")]
     pub sent: bool,
-    #[serde(rename = "platformConversationId")]
-    pub platform_conversation_id: String,
+    /// True when the managing app was asked to send it (action authority).
+    #[serde(rename = "relayed", skip_serializing_if = "Option::is_none")]
+    pub relayed: Option<bool>,
+    /// The managing-app command id, on a relay.
+    #[serde(rename = "commandId", skip_serializing_if = "Option::is_none")]
+    pub command_id: Option<String>,
+    #[serde(rename = "platformConversationId", skip_serializing_if = "Option::is_none")]
+    pub platform_conversation_id: Option<String>,
 }
 
 impl CreateOrderMessageResponse {
-    pub fn new(order_id: String, sent: bool, platform_conversation_id: String) -> CreateOrderMessageResponse {
+    pub fn new(order_id: String, sent: bool) -> CreateOrderMessageResponse {
         CreateOrderMessageResponse {
             order_id,
             sent,
-            platform_conversation_id,
+            relayed: None,
+            command_id: None,
+            platform_conversation_id: None,
         }
     }
 }

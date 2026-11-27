@@ -17,16 +17,16 @@ pub struct ListBuyerFeedbackPendingItem {
     pub purchase_id: String,
     #[serde(rename = "itemTitle")]
     pub item_title: String,
-    #[serde(rename = "shippedAt", skip_serializing_if = "Option::is_none")]
-    pub shipped_at: Option<String>,
-    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
-    pub delivered_at: Option<String>,
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
-    #[serde(rename = "sellerName", skip_serializing_if = "Option::is_none")]
-    pub seller_name: Option<String>,
+    #[serde(rename = "deliveredAt", skip_serializing_if = "Option::is_none")]
+    pub delivered_at: Option<String>,
+    #[serde(rename = "shippedAt", skip_serializing_if = "Option::is_none")]
+    pub shipped_at: Option<String>,
     #[serde(rename = "orderedAt", skip_serializing_if = "Option::is_none")]
     pub ordered_at: Option<String>,
+    #[serde(rename = "sellerName", skip_serializing_if = "Option::is_none")]
+    pub seller_name: Option<String>,
 }
 
 impl ListBuyerFeedbackPendingItem {
@@ -34,11 +34,11 @@ impl ListBuyerFeedbackPendingItem {
         ListBuyerFeedbackPendingItem {
             purchase_id,
             item_title,
-            shipped_at: None,
-            delivered_at: None,
             image_url: None,
-            seller_name: None,
+            delivered_at: None,
+            shipped_at: None,
             ordered_at: None,
+            seller_name: None,
         }
     }
 }

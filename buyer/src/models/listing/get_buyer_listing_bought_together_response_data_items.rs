@@ -13,10 +13,10 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerListingBoughtTogetherResponseDataItems {
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "slug")]
     pub slug: String,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
@@ -28,8 +28,8 @@ pub struct GetBuyerListingBoughtTogetherResponseDataItems {
 impl GetBuyerListingBoughtTogetherResponseDataItems {
     pub fn new(slug: String, price_cents: f32, same_seller: bool) -> GetBuyerListingBoughtTogetherResponseDataItems {
         GetBuyerListingBoughtTogetherResponseDataItems {
-            title: None,
             slug,
+            title: None,
             price_cents,
             image: None,
             same_seller,

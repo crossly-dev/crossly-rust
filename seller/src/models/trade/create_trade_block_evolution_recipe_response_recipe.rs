@@ -23,14 +23,18 @@ pub struct CreateTradeBlockEvolutionRecipeResponseRecipe {
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
-    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
+    #[serde(rename = "version")]
+    pub version: f32,
     #[serde(rename = "reviewedAt", skip_serializing_if = "Option::is_none")]
     pub reviewed_at: Option<String>,
+    #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
     #[serde(rename = "merchantId")]
     pub merchant_id: String,
     #[serde(rename = "creatorSubjectId")]
     pub creator_subject_id: String,
+    #[serde(rename = "outputCosmeticId")]
+    pub output_cosmetic_id: String,
     #[serde(rename = "inputAVariantId")]
     pub input_a_variant_id: String,
     #[serde(rename = "inputACondition", skip_serializing_if = "Option::is_none")]
@@ -43,34 +47,30 @@ pub struct CreateTradeBlockEvolutionRecipeResponseRecipe {
     pub input_b_condition: Option<String>,
     #[serde(rename = "inputBGradeKey", skip_serializing_if = "Option::is_none")]
     pub input_b_grade_key: Option<String>,
-    #[serde(rename = "outputCosmeticId")]
-    pub output_cosmetic_id: String,
-    #[serde(rename = "version")]
-    pub version: f32,
     #[serde(rename = "frozenAt", skip_serializing_if = "Option::is_none")]
     pub frozen_at: Option<String>,
 }
 
 impl CreateTradeBlockEvolutionRecipeResponseRecipe {
-    pub fn new(id: String, name: String, active: bool, created_at: String, updated_at: String, merchant_id: String, creator_subject_id: String, input_a_variant_id: String, output_cosmetic_id: String, version: f32) -> CreateTradeBlockEvolutionRecipeResponseRecipe {
+    pub fn new(id: String, name: String, active: bool, created_at: String, updated_at: String, version: f32, merchant_id: String, creator_subject_id: String, output_cosmetic_id: String, input_a_variant_id: String) -> CreateTradeBlockEvolutionRecipeResponseRecipe {
         CreateTradeBlockEvolutionRecipeResponseRecipe {
             id,
             name,
             active,
             created_at,
             updated_at,
-            note: None,
+            version,
             reviewed_at: None,
+            note: None,
             merchant_id,
             creator_subject_id,
+            output_cosmetic_id,
             input_a_variant_id,
             input_a_condition: None,
             input_a_grade_key: None,
             input_b_variant_id: None,
             input_b_condition: None,
             input_b_grade_key: None,
-            output_cosmetic_id,
-            version,
             frozen_at: None,
         }
     }

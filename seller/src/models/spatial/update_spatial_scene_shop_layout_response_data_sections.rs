@@ -30,6 +30,12 @@ pub struct UpdateSpatialSceneShopLayoutResponseDataSections {
     /// Shown to visitors? A hidden section keeps its stock off the floor.
     #[serde(rename = "hidden", skip_serializing_if = "Option::is_none")]
     pub hidden: Option<bool>,
+    /// How many units (cases, bays, pages) it stands with, at least; absent = as many as its stock needs. Set from the showroom organizer so an empty display has slots to fill (shared showroom/).
+    #[serde(rename = "units", skip_serializing_if = "Option::is_none")]
+    pub units: Option<f32>,
+    /// The holder model it stands as (showroom/fixtures.ts FIXTURE_HOLDERS); absent = its type's free holder.
+    #[serde(rename = "holder", skip_serializing_if = "Option::is_none")]
+    pub holder: Option<String>,
 }
 
 impl UpdateSpatialSceneShopLayoutResponseDataSections {
@@ -41,6 +47,8 @@ impl UpdateSpatialSceneShopLayoutResponseDataSections {
             rotation_y: None,
             sign: None,
             hidden: None,
+            units: None,
+            holder: None,
         }
     }
 }

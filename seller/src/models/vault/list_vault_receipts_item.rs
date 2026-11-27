@@ -90,6 +90,8 @@ impl Default for Form {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
+    #[serde(rename = "void")]
+    Void,
     #[serde(rename = "pledged")]
     Pledged,
     #[serde(rename = "issued")]
@@ -98,13 +100,11 @@ pub enum Status {
     Transferred,
     #[serde(rename = "surrendered")]
     Surrendered,
-    #[serde(rename = "void")]
-    Void,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Pledged
+        Self::Void
     }
 }
 

@@ -14,7 +14,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetVaultMarketIndexFeedSettlementResponse {
     #[serde(rename = "index")]
-    pub index: Box<crate::models::SlugName>,
+    pub index: Box<crate::models::NameSlug>,
     #[serde(rename = "method")]
     pub method: String,
     #[serde(rename = "series")]
@@ -22,7 +22,7 @@ pub struct GetVaultMarketIndexFeedSettlementResponse {
 }
 
 impl GetVaultMarketIndexFeedSettlementResponse {
-    pub fn new(index: crate::models::SlugName, method: String, series: Vec<crate::models::GetVaultMarketIndexFeedSettlementResponseSeries>) -> GetVaultMarketIndexFeedSettlementResponse {
+    pub fn new(index: crate::models::NameSlug, method: String, series: Vec<crate::models::GetVaultMarketIndexFeedSettlementResponseSeries>) -> GetVaultMarketIndexFeedSettlementResponse {
         GetVaultMarketIndexFeedSettlementResponse {
             index: Box::new(index),
             method,

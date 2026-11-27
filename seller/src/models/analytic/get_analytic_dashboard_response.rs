@@ -19,6 +19,9 @@ pub struct GetAnalyticDashboardResponse {
     pub profit: Box<crate::models::GetAnalyticDashboardResponseRevenue>,
     #[serde(rename = "soldItemsCount")]
     pub sold_items_count: Box<crate::models::GetAnalyticDashboardResponseRevenue>,
+    /// \"N sales pending details\": in the period, not in revenue/profit/avg.
+    #[serde(rename = "pendingDetailsCount")]
+    pub pending_details_count: f32,
     #[serde(rename = "cancelledCount")]
     pub cancelled_count: Box<crate::models::GetAnalyticDashboardResponseRevenue>,
     #[serde(rename = "cancelRate")]
@@ -31,12 +34,17 @@ pub struct GetAnalyticDashboardResponse {
     pub listed_items_count: Box<crate::models::GetAnalyticDashboardResponseRevenue>,
     #[serde(rename = "avgSalePrice")]
     pub avg_sale_price: Box<crate::models::GetAnalyticDashboardResponseRevenue>,
+    /// 0–100 (legacy unit). The full cohort is `sellThroughCohort`.
     #[serde(rename = "sellThroughRate", skip_serializing_if = "Option::is_none")]
     pub sell_through_rate: Option<f32>,
     #[serde(rename = "sellThrough")]
     pub sell_through: Box<crate::models::GetAnalyticDashboardResponseSellThrough>,
+    #[serde(rename = "sellThroughCohort")]
+    pub sell_through_cohort: Box<crate::models::GetAnalyticDashboardResponseSellThroughCohort>,
     #[serde(rename = "avgDaysToSell", skip_serializing_if = "Option::is_none")]
     pub avg_days_to_sell: Option<f32>,
+    #[serde(rename = "medianDaysToSell", skip_serializing_if = "Option::is_none")]
+    pub median_days_to_sell: Option<f32>,
     #[serde(rename = "salesByPlatform")]
     pub sales_by_platform: Vec<crate::models::GetAnalyticDashboardResponseSalesByPlatform>,
     #[serde(rename = "avgSalePriceByPlatform")]
@@ -55,14 +63,17 @@ pub struct GetAnalyticDashboardResponse {
     pub recent_sales: Vec<crate::models::GetAnalyticDashboardResponseRecentSales>,
     #[serde(rename = "availableLabels")]
     pub available_labels: Vec<String>,
+    #[serde(rename = "period")]
+    pub period: Box<crate::models::GetAnalyticDashboardResponsePeriod>,
 }
 
 impl GetAnalyticDashboardResponse {
-    pub fn new(revenue: crate::models::GetAnalyticDashboardResponseRevenue, profit: crate::models::GetAnalyticDashboardResponseRevenue, sold_items_count: crate::models::GetAnalyticDashboardResponseRevenue, cancelled_count: crate::models::GetAnalyticDashboardResponseRevenue, cancel_rate: crate::models::GetAnalyticDashboardResponseCancelRate, refunded_amount: crate::models::GetAnalyticDashboardResponseRevenue, refunded_count: crate::models::GetAnalyticDashboardResponseRevenue, listed_items_count: crate::models::GetAnalyticDashboardResponseRevenue, avg_sale_price: crate::models::GetAnalyticDashboardResponseRevenue, sell_through: crate::models::GetAnalyticDashboardResponseSellThrough, sales_by_platform: Vec<crate::models::GetAnalyticDashboardResponseSalesByPlatform>, avg_sale_price_by_platform: Vec<crate::models::GetAnalyticDashboardResponseAvgSalePriceByPlatform>, revenue_by_day: Vec<crate::models::GetAnalyticDashboardResponseRevenueByDay>, top_categories: Vec<crate::models::GetAnalyticDashboardResponseTopCategories>, top_subcategories: Vec<crate::models::GetAnalyticDashboardResponseTopCategories>, top_brands: Vec<crate::models::GetAnalyticDashboardResponseTopCategories>, top5_items_by_revenue: Vec<crate::models::GetAnalyticDashboardResponseTop5ItemsByRevenue>, recent_sales: Vec<crate::models::GetAnalyticDashboardResponseRecentSales>, available_labels: Vec<String>) -> GetAnalyticDashboardResponse {
+    pub fn new(revenue: crate::models::GetAnalyticDashboardResponseRevenue, profit: crate::models::GetAnalyticDashboardResponseRevenue, sold_items_count: crate::models::GetAnalyticDashboardResponseRevenue, pending_details_count: f32, cancelled_count: crate::models::GetAnalyticDashboardResponseRevenue, cancel_rate: crate::models::GetAnalyticDashboardResponseCancelRate, refunded_amount: crate::models::GetAnalyticDashboardResponseRevenue, refunded_count: crate::models::GetAnalyticDashboardResponseRevenue, listed_items_count: crate::models::GetAnalyticDashboardResponseRevenue, avg_sale_price: crate::models::GetAnalyticDashboardResponseRevenue, sell_through: crate::models::GetAnalyticDashboardResponseSellThrough, sell_through_cohort: crate::models::GetAnalyticDashboardResponseSellThroughCohort, sales_by_platform: Vec<crate::models::GetAnalyticDashboardResponseSalesByPlatform>, avg_sale_price_by_platform: Vec<crate::models::GetAnalyticDashboardResponseAvgSalePriceByPlatform>, revenue_by_day: Vec<crate::models::GetAnalyticDashboardResponseRevenueByDay>, top_categories: Vec<crate::models::GetAnalyticDashboardResponseTopCategories>, top_subcategories: Vec<crate::models::GetAnalyticDashboardResponseTopCategories>, top_brands: Vec<crate::models::GetAnalyticDashboardResponseTopCategories>, top5_items_by_revenue: Vec<crate::models::GetAnalyticDashboardResponseTop5ItemsByRevenue>, recent_sales: Vec<crate::models::GetAnalyticDashboardResponseRecentSales>, available_labels: Vec<String>, period: crate::models::GetAnalyticDashboardResponsePeriod) -> GetAnalyticDashboardResponse {
         GetAnalyticDashboardResponse {
             revenue: Box::new(revenue),
             profit: Box::new(profit),
             sold_items_count: Box::new(sold_items_count),
+            pending_details_count,
             cancelled_count: Box::new(cancelled_count),
             cancel_rate: Box::new(cancel_rate),
             refunded_amount: Box::new(refunded_amount),
@@ -71,7 +82,9 @@ impl GetAnalyticDashboardResponse {
             avg_sale_price: Box::new(avg_sale_price),
             sell_through_rate: None,
             sell_through: Box::new(sell_through),
+            sell_through_cohort: Box::new(sell_through_cohort),
             avg_days_to_sell: None,
+            median_days_to_sell: None,
             sales_by_platform,
             avg_sale_price_by_platform,
             revenue_by_day,
@@ -81,6 +94,7 @@ impl GetAnalyticDashboardResponse {
             top5_items_by_revenue,
             recent_sales,
             available_labels,
+            period: Box::new(period),
         }
     }
 }

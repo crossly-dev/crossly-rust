@@ -57,19 +57,19 @@ impl Default for Domain {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Department {
+    #[serde(rename = "unisex")]
+    Unisex,
     #[serde(rename = "men")]
     Men,
     #[serde(rename = "women")]
     Women,
     #[serde(rename = "kids")]
     Kids,
-    #[serde(rename = "unisex")]
-    Unisex,
 }
 
 impl Default for Department {
     fn default() -> Department {
-        Self::Men
+        Self::Unisex
     }
 }
 

@@ -36,12 +36,16 @@ impl ListWorldCapabilityDeclarationsItemCapabilities {
 pub enum Kind {
     #[serde(rename = "portal")]
     Portal,
-    #[serde(rename = "display")]
-    Display,
+    #[serde(rename = "interactive")]
+    Interactive,
     #[serde(rename = "place")]
     Place,
+    #[serde(rename = "display")]
+    Display,
     #[serde(rename = "badge")]
     Badge,
+    #[serde(rename = "perk")]
+    Perk,
     #[serde(rename = "wear")]
     Wear,
     #[serde(rename = "emote")]
@@ -56,10 +60,6 @@ pub enum Kind {
     Quest,
     #[serde(rename = "game_pass")]
     GamePass,
-    #[serde(rename = "perk")]
-    Perk,
-    #[serde(rename = "interactive")]
-    Interactive,
 }
 
 impl Default for Kind {

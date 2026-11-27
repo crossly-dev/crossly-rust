@@ -19,36 +19,42 @@ pub struct ListBrandDropsItem {
     pub name: String,
     #[serde(rename = "createdAt")]
     pub created_at: String,
-    #[serde(rename = "status")]
-    pub status: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "releasedAt", skip_serializing_if = "Option::is_none")]
+    pub released_at: Option<String>,
+    #[serde(rename = "published")]
+    pub published: bool,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "endsAt", skip_serializing_if = "Option::is_none")]
     pub ends_at: Option<String>,
+    #[serde(rename = "eventId", skip_serializing_if = "Option::is_none")]
+    pub event_id: Option<String>,
+    #[serde(rename = "format")]
+    pub format: String,
+    #[serde(rename = "config")]
+    pub config: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "sellerUserId")]
     pub seller_user_id: String,
     #[serde(rename = "coverImageUrl", skip_serializing_if = "Option::is_none")]
     pub cover_image_url: Option<String>,
-    #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
-    pub published_at: Option<String>,
-    #[serde(rename = "reviewedAt", skip_serializing_if = "Option::is_none")]
-    pub reviewed_at: Option<String>,
-    #[serde(rename = "reviewNote", skip_serializing_if = "Option::is_none")]
-    pub review_note: Option<String>,
-    #[serde(rename = "supplierName", skip_serializing_if = "Option::is_none")]
-    pub supplier_name: Option<String>,
-    #[serde(rename = "partnerId", skip_serializing_if = "Option::is_none")]
-    pub partner_id: Option<String>,
-    #[serde(rename = "published")]
-    pub published: bool,
     #[serde(rename = "platformListingIds", skip_serializing_if = "Option::is_none")]
     pub platform_listing_ids: Option<Vec<String>>,
     #[serde(rename = "dropAt")]
     pub drop_at: String,
+    #[serde(rename = "partnerId", skip_serializing_if = "Option::is_none")]
+    pub partner_id: Option<String>,
     #[serde(rename = "wholesaleUnitCostCents", skip_serializing_if = "Option::is_none")]
     pub wholesale_unit_cost_cents: Option<f32>,
     #[serde(rename = "unitsPurchased", skip_serializing_if = "Option::is_none")]
     pub units_purchased: Option<f32>,
+    #[serde(rename = "supplierName", skip_serializing_if = "Option::is_none")]
+    pub supplier_name: Option<String>,
     #[serde(rename = "poReference", skip_serializing_if = "Option::is_none")]
     pub po_reference: Option<String>,
     #[serde(rename = "retailUnitPriceCents", skip_serializing_if = "Option::is_none")]
@@ -59,36 +65,90 @@ pub struct ListBrandDropsItem {
     pub per_customer_limit: Option<f32>,
     #[serde(rename = "previewFrom", skip_serializing_if = "Option::is_none")]
     pub preview_from: Option<String>,
+    #[serde(rename = "publishedAt", skip_serializing_if = "Option::is_none")]
+    pub published_at: Option<String>,
+    #[serde(rename = "reviewNote", skip_serializing_if = "Option::is_none")]
+    pub review_note: Option<String>,
+    #[serde(rename = "reviewedAt", skip_serializing_if = "Option::is_none")]
+    pub reviewed_at: Option<String>,
+    #[serde(rename = "placements")]
+    pub placements: Vec<String>,
+    #[serde(rename = "announceAt", skip_serializing_if = "Option::is_none")]
+    pub announce_at: Option<String>,
+    #[serde(rename = "countdownAt", skip_serializing_if = "Option::is_none")]
+    pub countdown_at: Option<String>,
+    #[serde(rename = "pausedAt", skip_serializing_if = "Option::is_none")]
+    pub paused_at: Option<String>,
+    #[serde(rename = "liveStreamId", skip_serializing_if = "Option::is_none")]
+    pub live_stream_id: Option<String>,
+    #[serde(rename = "spatialDropId", skip_serializing_if = "Option::is_none")]
+    pub spatial_drop_id: Option<String>,
+    #[serde(rename = "timezone", skip_serializing_if = "Option::is_none")]
+    pub timezone: Option<String>,
+    #[serde(rename = "featuredStatus", skip_serializing_if = "Option::is_none")]
+    pub featured_status: Option<String>,
+    #[serde(rename = "audience")]
+    pub audience: String,
+    #[serde(rename = "audienceCatalogId", skip_serializing_if = "Option::is_none")]
+    pub audience_catalog_id: Option<String>,
+    #[serde(rename = "dropKind")]
+    pub drop_kind: String,
+    #[serde(rename = "depositBps", skip_serializing_if = "Option::is_none")]
+    pub deposit_bps: Option<f32>,
+    #[serde(rename = "shipBy", skip_serializing_if = "Option::is_none")]
+    pub ship_by: Option<String>,
+    #[serde(rename = "balanceNetDays", skip_serializing_if = "Option::is_none")]
+    pub balance_net_days: Option<f32>,
     #[serde(rename = "listingCount")]
     pub listing_count: f32,
 }
 
 impl ListBrandDropsItem {
-    pub fn new(id: String, name: String, created_at: String, status: String, seller_user_id: String, published: bool, drop_at: String, buyer_api_enabled: bool, listing_count: f32) -> ListBrandDropsItem {
+    pub fn new(id: String, name: String, created_at: String, updated_at: String, status: String, published: bool, format: String, config: ::std::collections::HashMap<String, serde_json::Value>, seller_user_id: String, drop_at: String, buyer_api_enabled: bool, placements: Vec<String>, audience: String, drop_kind: String, listing_count: f32) -> ListBrandDropsItem {
         ListBrandDropsItem {
             id,
             name,
             created_at,
-            status,
+            updated_at,
             description: None,
+            status,
+            released_at: None,
+            published,
+            storefront_id: None,
             ends_at: None,
+            event_id: None,
+            format,
+            config,
             seller_user_id,
             cover_image_url: None,
-            published_at: None,
-            reviewed_at: None,
-            review_note: None,
-            supplier_name: None,
-            partner_id: None,
-            published,
             platform_listing_ids: None,
             drop_at,
+            partner_id: None,
             wholesale_unit_cost_cents: None,
             units_purchased: None,
+            supplier_name: None,
             po_reference: None,
             retail_unit_price_cents: None,
             buyer_api_enabled,
             per_customer_limit: None,
             preview_from: None,
+            published_at: None,
+            review_note: None,
+            reviewed_at: None,
+            placements,
+            announce_at: None,
+            countdown_at: None,
+            paused_at: None,
+            live_stream_id: None,
+            spatial_drop_id: None,
+            timezone: None,
+            featured_status: None,
+            audience,
+            audience_catalog_id: None,
+            drop_kind,
+            deposit_bps: None,
+            ship_by: None,
+            balance_net_days: None,
             listing_count,
         }
     }

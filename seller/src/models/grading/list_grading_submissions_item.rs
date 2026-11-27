@@ -17,6 +17,9 @@ pub struct ListGradingSubmissionsItem {
     pub id: String,
     #[serde(rename = "mode")]
     pub mode: Mode,
+    /// The grading order (submission through Crossly) this card is in.
+    #[serde(rename = "orderId", skip_serializing_if = "Option::is_none")]
+    pub order_id: Option<String>,
     #[serde(rename = "runId", skip_serializing_if = "Option::is_none")]
     pub run_id: Option<String>,
     #[serde(rename = "runCutoffAt", skip_serializing_if = "Option::is_none")]
@@ -56,7 +59,7 @@ pub struct ListGradingSubmissionsItem {
     #[serde(rename = "prescreenNote", skip_serializing_if = "Option::is_none")]
     pub prescreen_note: Option<String>,
     #[serde(rename = "grading", skip_serializing_if = "Option::is_none")]
-    pub grading: Option<Box<crate::models::ListGradingSubmissionsItemGrading>>,
+    pub grading: Option<Box<crate::models::CreateBulkBatchItemResponseGrading>>,
     #[serde(rename = "certVerified")]
     pub cert_verified: bool,
     #[serde(rename = "createdAt")]
@@ -70,6 +73,7 @@ impl ListGradingSubmissionsItem {
         ListGradingSubmissionsItem {
             id,
             mode,
+            order_id: None,
             run_id: None,
             run_cutoff_at: None,
             run_status: None,
@@ -100,32 +104,30 @@ impl ListGradingSubmissionsItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {
-    #[serde(rename = "run")]
-    Run,
     #[serde(rename = "direct")]
     Direct,
+    #[serde(rename = "order")]
+    Order,
+    #[serde(rename = "run")]
+    Run,
 }
 
 impl Default for Mode {
     fn default() -> Mode {
-        Self::Run
+        Self::Direct
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "graded")]
-    Graded,
-    #[serde(rename = "returned")]
-    Returned,
-    #[serde(rename = "released")]
-    Released,
     #[serde(rename = "refunded")]
     Refunded,
-    #[serde(rename = "reserved")]
-    Reserved,
     #[serde(rename = "received")]
     Received,
+    #[serde(rename = "released")]
+    Released,
+    #[serde(rename = "reserved")]
+    Reserved,
     #[serde(rename = "charged")]
     Charged,
     #[serde(rename = "shipped_to_hub")]
@@ -134,15 +136,19 @@ pub enum Status {
     PrescreenFailed,
     #[serde(rename = "at_grader")]
     AtGrader,
+    #[serde(rename = "graded")]
+    Graded,
     #[serde(rename = "returning")]
     Returning,
+    #[serde(rename = "returned")]
+    Returned,
     #[serde(rename = "vaulted")]
     Vaulted,
 }
 
 impl Default for Status {
     fn default() -> Status {
-        Self::Graded
+        Self::Refunded
     }
 }
 

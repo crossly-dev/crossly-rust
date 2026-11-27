@@ -25,6 +25,18 @@ pub struct CreateVariationGroupPublishResponseDataOutcomes {
     /// Dispatcher job ids, on the separate path.
     #[serde(rename = "jobIds", skip_serializing_if = "Option::is_none")]
     pub job_ids: Option<Vec<String>>,
+    /// Grouped: every option that went live, with its own id on the platform. publishGroupToPlatform records one platform_listings row per entry (variation-publish-members.ts), so a sale or delist acts on that option.
+    #[serde(rename = "members", skip_serializing_if = "Option::is_none")]
+    pub members: Option<Vec<::std::collections::HashMap<String, serde_json::Value>>>,
+    /// Grouped: options that did not go live. Reported in `warnings`; the live ones are still recorded.
+    #[serde(rename = "failed", skip_serializing_if = "Option::is_none")]
+    pub failed: Option<Vec<::std::collections::HashMap<String, serde_json::Value>>>,
+    /// Grouped: work that needs the option rows to exist (a POS stock base, markPosPushed), run right after they are recorded. Returns warnings for the seller; must not throw for one option.
+    #[serde(rename = "afterRecorded", skip_serializing_if = "Option::is_none")]
+    pub after_recorded: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    /// The publisher tracks its options itself, not as platform_listings rows (Crossly: crossly_listing_variants with the member listing id, variation-publish-crossly.ts), so no `members` is not a gap.
+    #[serde(rename = "ownOptionRows", skip_serializing_if = "Option::is_none")]
+    pub own_option_rows: Option<bool>,
     #[serde(rename = "warnings")]
     pub warnings: Vec<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
@@ -39,6 +51,10 @@ impl CreateVariationGroupPublishResponseDataOutcomes {
             ok,
             listing_id: None,
             job_ids: None,
+            members: None,
+            failed: None,
+            after_recorded: None,
+            own_option_rows: None,
             warnings,
             error: None,
         }
@@ -48,15 +64,15 @@ impl CreateVariationGroupPublishResponseDataOutcomes {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {
-    #[serde(rename = "grouped")]
-    Grouped,
     #[serde(rename = "separate")]
     Separate,
+    #[serde(rename = "grouped")]
+    Grouped,
 }
 
 impl Default for Mode {
     fn default() -> Mode {
-        Self::Grouped
+        Self::Separate
     }
 }
 

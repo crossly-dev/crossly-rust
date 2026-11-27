@@ -35,17 +35,17 @@ impl CreateBuyerLockonConfirmResponseHudFacts {
 /// `good` is a saving or a strong signal; `warn` is a reason to hesitate.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tone {
-    #[serde(rename = "good")]
-    Good,
-    #[serde(rename = "warn")]
-    Warn,
     #[serde(rename = "neutral")]
     Neutral,
+    #[serde(rename = "warn")]
+    Warn,
+    #[serde(rename = "good")]
+    Good,
 }
 
 impl Default for Tone {
     fn default() -> Tone {
-        Self::Good
+        Self::Neutral
     }
 }
 

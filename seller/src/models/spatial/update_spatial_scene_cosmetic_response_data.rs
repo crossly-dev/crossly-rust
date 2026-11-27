@@ -29,7 +29,7 @@ pub struct UpdateSpatialSceneCosmeticResponseData {
     pub cove_intensity: Option<f32>,
     /// Decorative props. Never containers — see CosmeticProp.
     #[serde(rename = "props", skip_serializing_if = "Option::is_none")]
-    pub props: Option<Vec<crate::models::UpdateSpatialSceneCosmeticResponseDataProps>>,
+    pub props: Option<Vec<crate::models::GetShowroomResponseDataRoomProps>>,
     /// How this room's door presents itself in the hall. See SHOPFRONT_STYLES.  Undefined means \"never chosen\", which the renderer reads as SHOPFRONT_DEFAULT — NOT as `none`. The two are different answers and the distinction is the whole reason this is optional rather than defaulted here: a validator that filled in `fascia` would make \"I explicitly want a bare opening\" unrepresentable.
     #[serde(rename = "shopfront", skip_serializing_if = "Option::is_none")]
     pub shopfront: Option<Shopfront>,
@@ -156,10 +156,10 @@ pub enum Shopfront {
     Full,
     #[serde(rename = "none")]
     None,
-    #[serde(rename = "awning")]
-    Awning,
     #[serde(rename = "fascia")]
     Fascia,
+    #[serde(rename = "awning")]
+    Awning,
     #[serde(rename = "neon_fascia")]
     NeonFascia,
     #[serde(rename = "gilded_fascia")]

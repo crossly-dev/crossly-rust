@@ -31,17 +31,17 @@ impl CreateCbxSubjectSpendPlanResponseDataLegs {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Source {
-    #[serde(rename = "granted")]
-    Granted,
     #[serde(rename = "earned")]
     Earned,
     #[serde(rename = "connected")]
     Connected,
+    #[serde(rename = "granted")]
+    Granted,
 }
 
 impl Default for Source {
     fn default() -> Source {
-        Self::Granted
+        Self::Earned
     }
 }
 

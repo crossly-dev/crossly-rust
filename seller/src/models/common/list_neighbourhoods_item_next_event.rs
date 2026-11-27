@@ -15,10 +15,10 @@
 pub struct ListNeighbourhoodsItemNextEvent {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "live")]
-    pub live: bool,
     #[serde(rename = "title")]
     pub title: String,
+    #[serde(rename = "live")]
+    pub live: bool,
     #[serde(rename = "endsAt")]
     pub ends_at: String,
     #[serde(rename = "kind")]
@@ -28,11 +28,11 @@ pub struct ListNeighbourhoodsItemNextEvent {
 }
 
 impl ListNeighbourhoodsItemNextEvent {
-    pub fn new(id: String, live: bool, title: String, ends_at: String, kind: Kind, starts_at: String) -> ListNeighbourhoodsItemNextEvent {
+    pub fn new(id: String, title: String, live: bool, ends_at: String, kind: Kind, starts_at: String) -> ListNeighbourhoodsItemNextEvent {
         ListNeighbourhoodsItemNextEvent {
             id,
-            live,
             title,
+            live,
             ends_at,
             kind,
             starts_at,

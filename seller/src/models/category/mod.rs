@@ -1,0 +1,12 @@
+pub mod get_category_by_id_response;
+pub use self::get_category_by_id_response::GetCategoryByIdResponse;
+pub mod get_category_response;
+pub use self::get_category_response::GetCategoryResponse;
+pub mod list_category_aspects_item;
+pub use self::list_category_aspects_item::ListCategoryAspectsItem;
+pub mod list_category_aspects_response;
+pub use self::list_category_aspects_response::ListCategoryAspectsResponse;
+pub mod list_category_search_item;
+pub use self::list_category_search_item::ListCategorySearchItem;
+pub mod list_category_search_response;
+pub use self::list_category_search_response::ListCategorySearchResponse;

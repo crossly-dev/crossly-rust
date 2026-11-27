@@ -19,73 +19,73 @@ pub struct GetVaultMarketSetGoalResponse {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "title")]
-    pub title: String,
     #[serde(rename = "category")]
     pub category: String,
+    #[serde(rename = "title")]
+    pub title: String,
     #[serde(rename = "options")]
     pub options: Box<crate::models::GetVaultMarketSetGoalResponseOptions>,
     #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
     pub completed_at: Option<String>,
-    #[serde(rename = "progress")]
-    pub progress: String,
-    #[serde(rename = "brandSlug")]
-    pub brand_slug: String,
-    #[serde(rename = "modelSlug")]
-    pub model_slug: String,
     #[serde(rename = "target")]
     pub target: Box<crate::models::GetVaultMarketSetGoalResponseTarget>,
-    #[serde(rename = "held")]
-    pub held: f32,
-    #[serde(rename = "complete")]
-    pub complete: bool,
-    #[serde(rename = "href")]
-    pub href: String,
     #[serde(rename = "total")]
     pub total: f32,
-    #[serde(rename = "setFound")]
-    pub set_found: bool,
-    #[serde(rename = "basket", skip_serializing_if = "Option::is_none")]
-    pub basket: Option<Box<crate::models::GetVaultMarketSetGoalResponseBasket>>,
+    #[serde(rename = "href")]
+    pub href: String,
+    #[serde(rename = "brandSlug")]
+    pub brand_slug: String,
+    #[serde(rename = "progress")]
+    pub progress: String,
     #[serde(rename = "missing")]
     pub missing: f32,
+    #[serde(rename = "held")]
+    pub held: f32,
+    #[serde(rename = "modelSlug")]
+    pub model_slug: String,
+    #[serde(rename = "basket", skip_serializing_if = "Option::is_none")]
+    pub basket: Option<Box<crate::models::GetVaultMarketSetGoalResponseBasket>>,
+    #[serde(rename = "pieces")]
+    pub pieces: Vec<crate::models::GetVaultMarketSetGoalResponsePieces>,
+    #[serde(rename = "complete")]
+    pub complete: bool,
+    #[serde(rename = "setFound")]
+    pub set_found: bool,
     #[serde(rename = "priced")]
     pub priced: f32,
     #[serde(rename = "missingMarkCents")]
     pub missing_mark_cents: f32,
     #[serde(rename = "tooBig")]
     pub too_big: bool,
-    #[serde(rename = "pieces")]
-    pub pieces: Vec<crate::models::GetVaultMarketSetGoalResponsePieces>,
     #[serde(rename = "cardSetHref")]
     pub card_set_href: String,
 }
 
 impl GetVaultMarketSetGoalResponse {
-    pub fn new(id: String, created_at: String, status: Status, title: String, category: String, options: crate::models::GetVaultMarketSetGoalResponseOptions, progress: String, brand_slug: String, model_slug: String, target: crate::models::GetVaultMarketSetGoalResponseTarget, held: f32, complete: bool, href: String, total: f32, set_found: bool, missing: f32, priced: f32, missing_mark_cents: f32, too_big: bool, pieces: Vec<crate::models::GetVaultMarketSetGoalResponsePieces>, card_set_href: String) -> GetVaultMarketSetGoalResponse {
+    pub fn new(id: String, created_at: String, status: Status, category: String, title: String, options: crate::models::GetVaultMarketSetGoalResponseOptions, target: crate::models::GetVaultMarketSetGoalResponseTarget, total: f32, href: String, brand_slug: String, progress: String, missing: f32, held: f32, model_slug: String, pieces: Vec<crate::models::GetVaultMarketSetGoalResponsePieces>, complete: bool, set_found: bool, priced: f32, missing_mark_cents: f32, too_big: bool, card_set_href: String) -> GetVaultMarketSetGoalResponse {
         GetVaultMarketSetGoalResponse {
             id,
             created_at,
             status,
-            title,
             category,
+            title,
             options: Box::new(options),
             completed_at: None,
-            progress,
-            brand_slug,
-            model_slug,
             target: Box::new(target),
-            held,
-            complete,
-            href,
             total,
-            set_found,
-            basket: None,
+            href,
+            brand_slug,
+            progress,
             missing,
+            held,
+            model_slug,
+            basket: None,
+            pieces,
+            complete,
+            set_found,
             priced,
             missing_mark_cents,
             too_big,
-            pieces,
             card_set_href,
         }
     }
@@ -96,10 +96,10 @@ impl GetVaultMarketSetGoalResponse {
 pub enum Status {
     #[serde(rename = "active")]
     Active,
-    #[serde(rename = "complete")]
-    Complete,
     #[serde(rename = "archived")]
     Archived,
+    #[serde(rename = "complete")]
+    Complete,
 }
 
 impl Default for Status {

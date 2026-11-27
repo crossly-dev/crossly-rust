@@ -13,32 +13,32 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerPurchaseLiveMomentResponseData {
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "title")]
-    pub title: String,
-    #[serde(rename = "soldAt")]
-    pub sold_at: String,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
-    #[serde(rename = "replayUrl", skip_serializing_if = "Option::is_none")]
-    pub replay_url: Option<String>,
     #[serde(rename = "streamId")]
     pub stream_id: String,
+    #[serde(rename = "title")]
+    pub title: String,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "replayUrl", skip_serializing_if = "Option::is_none")]
+    pub replay_url: Option<String>,
     #[serde(rename = "offsetSeconds")]
     pub offset_seconds: f32,
+    #[serde(rename = "soldAt")]
+    pub sold_at: String,
 }
 
 impl GetBuyerPurchaseLiveMomentResponseData {
-    pub fn new(status: String, title: String, sold_at: String, seller_user_id: String, stream_id: String, offset_seconds: f32) -> GetBuyerPurchaseLiveMomentResponseData {
+    pub fn new(stream_id: String, title: String, seller_user_id: String, status: String, offset_seconds: f32, sold_at: String) -> GetBuyerPurchaseLiveMomentResponseData {
         GetBuyerPurchaseLiveMomentResponseData {
-            status,
-            title,
-            sold_at,
-            seller_user_id,
-            replay_url: None,
             stream_id,
+            title,
+            seller_user_id,
+            status,
+            replay_url: None,
             offset_seconds,
+            sold_at,
         }
     }
 }

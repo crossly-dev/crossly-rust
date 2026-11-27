@@ -15,12 +15,15 @@
 pub struct GetVaultMarketPartnerMeResponse {
     #[serde(rename = "partnership", skip_serializing_if = "Option::is_none")]
     pub partnership: Option<Box<crate::models::GetVaultMarketPartnerMeResponsePartnership>>,
+    #[serde(rename = "identity")]
+    pub identity: Box<crate::models::GetVaultMarketPartnerMeResponseIdentity>,
 }
 
 impl GetVaultMarketPartnerMeResponse {
-    pub fn new() -> GetVaultMarketPartnerMeResponse {
+    pub fn new(identity: crate::models::GetVaultMarketPartnerMeResponseIdentity) -> GetVaultMarketPartnerMeResponse {
         GetVaultMarketPartnerMeResponse {
             partnership: None,
+            identity: Box::new(identity),
         }
     }
 }

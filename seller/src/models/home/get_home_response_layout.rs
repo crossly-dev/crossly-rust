@@ -30,6 +30,9 @@ pub struct GetHomeResponseLayout {
     /// A set wall: which set it shows, \"category/brand/model\" (HOME_SET_KEY). Absent: the owner's most complete.
     #[serde(rename = "set", skip_serializing_if = "Option::is_none")]
     pub set: Option<String>,
+    /// A furniture piece's colour (HOME_TINTS key): its fabric and finish take it. Absent: as made.
+    #[serde(rename = "tint", skip_serializing_if = "Option::is_none")]
+    pub tint: Option<Tint>,
     #[serde(rename = "item", skip_serializing_if = "Option::is_none")]
     pub item: Option<Box<crate::models::GetHomeResponseLayoutItem>>,
 }
@@ -44,6 +47,7 @@ impl GetHomeResponseLayout {
             rotation_y,
             slot: None,
             set: None,
+            tint: None,
             item: None,
         }
     }
@@ -61,6 +65,32 @@ pub enum Kind {
 impl Default for Kind {
     fn default() -> Kind {
         Self::Display
+    }
+}
+/// A furniture piece's colour (HOME_TINTS key): its fabric and finish take it. Absent: as made.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Tint {
+    #[serde(rename = "oat")]
+    Oat,
+    #[serde(rename = "sage")]
+    Sage,
+    #[serde(rename = "forest")]
+    Forest,
+    #[serde(rename = "navy")]
+    Navy,
+    #[serde(rename = "clay")]
+    Clay,
+    #[serde(rename = "mustard")]
+    Mustard,
+    #[serde(rename = "blush")]
+    Blush,
+    #[serde(rename = "charcoal")]
+    Charcoal,
+}
+
+impl Default for Tint {
+    fn default() -> Tint {
+        Self::Oat
     }
 }
 

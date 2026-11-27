@@ -19,16 +19,16 @@ pub struct GetSpatialPropertyResponseDataDeedsLease {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "endedAt", skip_serializing_if = "Option::is_none")]
-    pub ended_at: Option<String>,
     #[serde(rename = "ownerUserId")]
     pub owner_user_id: String,
-    #[serde(rename = "endReason", skip_serializing_if = "Option::is_none")]
-    pub end_reason: Option<String>,
-    #[serde(rename = "paidThrough", skip_serializing_if = "Option::is_none")]
-    pub paid_through: Option<String>,
+    #[serde(rename = "endedAt", skip_serializing_if = "Option::is_none")]
+    pub ended_at: Option<String>,
+    #[serde(rename = "rail", skip_serializing_if = "Option::is_none")]
+    pub rail: Option<String>,
     #[serde(rename = "plotId")]
     pub plot_id: String,
+    #[serde(rename = "paidThrough", skip_serializing_if = "Option::is_none")]
+    pub paid_through: Option<String>,
     #[serde(rename = "deedId")]
     pub deed_id: String,
     #[serde(rename = "tenantUserId", skip_serializing_if = "Option::is_none")]
@@ -39,24 +39,39 @@ pub struct GetSpatialPropertyResponseDataDeedsLease {
     pub rent_weekly_cents: f32,
     #[serde(rename = "termsFrozenAt", skip_serializing_if = "Option::is_none")]
     pub terms_frozen_at: Option<String>,
+    #[serde(rename = "endReason", skip_serializing_if = "Option::is_none")]
+    pub end_reason: Option<String>,
+    #[serde(rename = "autopay")]
+    pub autopay: bool,
+    #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
+    pub address: Option<String>,
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    #[serde(rename = "tenantName", skip_serializing_if = "Option::is_none")]
+    pub tenant_name: Option<String>,
 }
 
 impl GetSpatialPropertyResponseDataDeedsLease {
-    pub fn new(id: String, created_at: String, status: String, owner_user_id: String, plot_id: String, deed_id: String, rent_weekly_cents: f32) -> GetSpatialPropertyResponseDataDeedsLease {
+    pub fn new(id: String, created_at: String, status: String, owner_user_id: String, plot_id: String, deed_id: String, rent_weekly_cents: f32, autopay: bool) -> GetSpatialPropertyResponseDataDeedsLease {
         GetSpatialPropertyResponseDataDeedsLease {
             id,
             created_at,
             status,
-            ended_at: None,
             owner_user_id,
-            end_reason: None,
-            paid_through: None,
+            ended_at: None,
+            rail: None,
             plot_id,
+            paid_through: None,
             deed_id,
             tenant_user_id: None,
             tenant_scene_id: None,
             rent_weekly_cents,
             terms_frozen_at: None,
+            end_reason: None,
+            autopay,
+            address: None,
+            label: None,
+            tenant_name: None,
         }
     }
 }

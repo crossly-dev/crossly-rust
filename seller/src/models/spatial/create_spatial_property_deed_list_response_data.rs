@@ -19,12 +19,14 @@ pub struct CreateSpatialPropertyDeedListResponseData {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
     #[serde(rename = "buyerUserId", skip_serializing_if = "Option::is_none")]
     pub buyer_user_id: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
     #[serde(rename = "closedAt", skip_serializing_if = "Option::is_none")]
     pub closed_at: Option<String>,
     #[serde(rename = "deedId")]
@@ -32,14 +34,15 @@ pub struct CreateSpatialPropertyDeedListResponseData {
 }
 
 impl CreateSpatialPropertyDeedListResponseData {
-    pub fn new(id: String, created_at: String, status: String, seller_user_id: String, price_cents: f32, deed_id: String) -> CreateSpatialPropertyDeedListResponseData {
+    pub fn new(id: String, created_at: String, status: String, price_cents: f32, seller_user_id: String, deed_id: String) -> CreateSpatialPropertyDeedListResponseData {
         CreateSpatialPropertyDeedListResponseData {
             id,
             created_at,
             status,
-            seller_user_id,
+            storefront_id: None,
             buyer_user_id: None,
             price_cents,
+            seller_user_id,
             closed_at: None,
             deed_id,
         }

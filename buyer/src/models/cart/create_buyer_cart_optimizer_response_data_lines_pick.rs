@@ -13,12 +13,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerCartOptimizerResponseDataLinesPick {
+    #[serde(rename = "slug")]
+    pub slug: String,
     #[serde(rename = "title")]
     pub title: String,
     #[serde(rename = "sellerUserId")]
     pub seller_user_id: String,
-    #[serde(rename = "slug")]
-    pub slug: String,
     #[serde(rename = "sellerName", skip_serializing_if = "Option::is_none")]
     pub seller_name: Option<String>,
     #[serde(rename = "unitCents")]
@@ -28,11 +28,11 @@ pub struct CreateBuyerCartOptimizerResponseDataLinesPick {
 }
 
 impl CreateBuyerCartOptimizerResponseDataLinesPick {
-    pub fn new(title: String, seller_user_id: String, slug: String, unit_cents: f32, ship_cents: f32) -> CreateBuyerCartOptimizerResponseDataLinesPick {
+    pub fn new(slug: String, title: String, seller_user_id: String, unit_cents: f32, ship_cents: f32) -> CreateBuyerCartOptimizerResponseDataLinesPick {
         CreateBuyerCartOptimizerResponseDataLinesPick {
+            slug,
             title,
             seller_user_id,
-            slug,
             seller_name: None,
             unit_cents,
             ship_cents,

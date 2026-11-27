@@ -13,21 +13,21 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerCatalogListingSoldHistoryItem {
+    /// Per-unit item price the buyer paid, in cents — excludes shipping and tax.
+    #[serde(rename = "priceCents")]
+    pub price_cents: f32,
     #[serde(rename = "quantity")]
     pub quantity: f32,
     #[serde(rename = "soldAt")]
     pub sold_at: String,
-    /// Per-unit item price the buyer paid, in cents — excludes shipping and tax.
-    #[serde(rename = "priceCents")]
-    pub price_cents: f32,
 }
 
 impl ListBuyerCatalogListingSoldHistoryItem {
-    pub fn new(quantity: f32, sold_at: String, price_cents: f32) -> ListBuyerCatalogListingSoldHistoryItem {
+    pub fn new(price_cents: f32, quantity: f32, sold_at: String) -> ListBuyerCatalogListingSoldHistoryItem {
         ListBuyerCatalogListingSoldHistoryItem {
+            price_cents,
             quantity,
             sold_at,
-            price_cents,
         }
     }
 }

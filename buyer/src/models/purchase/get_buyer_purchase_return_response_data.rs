@@ -13,19 +13,19 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerPurchaseReturnResponseData {
-    #[serde(rename = "reasons")]
-    pub reasons: Vec<crate::models::GetBuyerPurchaseReturnResponseDataReasons>,
     #[serde(rename = "terms")]
     pub terms: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "reasons")]
+    pub reasons: Vec<crate::models::GetBuyerPurchaseReturnResponseDataReasons>,
     #[serde(rename = "existing", skip_serializing_if = "Option::is_none")]
     pub existing: Option<::std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl GetBuyerPurchaseReturnResponseData {
-    pub fn new(reasons: Vec<crate::models::GetBuyerPurchaseReturnResponseDataReasons>, terms: ::std::collections::HashMap<String, serde_json::Value>) -> GetBuyerPurchaseReturnResponseData {
+    pub fn new(terms: ::std::collections::HashMap<String, serde_json::Value>, reasons: Vec<crate::models::GetBuyerPurchaseReturnResponseDataReasons>) -> GetBuyerPurchaseReturnResponseData {
         GetBuyerPurchaseReturnResponseData {
-            reasons,
             terms,
+            reasons,
             existing: None,
         }
     }

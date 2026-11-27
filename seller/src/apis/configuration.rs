@@ -20,6 +20,8 @@ pub struct Configuration {
     pub oauth_access_token: Option<String>,
     pub bearer_access_token: Option<String>,
     pub api_key: Option<ApiKey>,
+    /// Retries, backoff and idempotency keys for every call (crate::client).
+    pub retry: crate::client::RetryPolicy,
     // TODO: take an oauth2 token source, similar to the go one
 }
 
@@ -41,12 +43,13 @@ impl Default for Configuration {
     fn default() -> Self {
         Configuration {
             base_path: "https://crossly.net/api".to_owned(),
-            user_agent: Some("OpenAPI-Generator/1.0.0/rust".to_owned()),
+            user_agent: Some(crate::client::user_agent()),
             client: reqwest::Client::new(),
             basic_auth: None,
             oauth_access_token: None,
             bearer_access_token: None,
             api_key: None,
+            retry: crate::client::RetryPolicy::default(),
         }
     }
 }

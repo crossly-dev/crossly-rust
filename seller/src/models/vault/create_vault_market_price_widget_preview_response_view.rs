@@ -97,15 +97,15 @@ impl CreateVaultMarketPriceWidgetPreviewResponseView {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "mark")]
-    Mark,
     #[serde(rename = "index")]
     Index,
+    #[serde(rename = "mark")]
+    Mark,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Mark
+        Self::Index
     }
 }
 /// 
@@ -113,12 +113,12 @@ impl Default for Kind {
 pub enum Quality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for Quality {

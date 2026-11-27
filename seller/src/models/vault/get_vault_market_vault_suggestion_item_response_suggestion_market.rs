@@ -46,19 +46,19 @@ impl GetVaultMarketVaultSuggestionItemResponseSuggestionMarket {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Tier {
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
     #[serde(rename = "D")]
     D,
 }
 
 impl Default for Tier {
     fn default() -> Tier {
-        Self::A
+        Self::C
     }
 }
 

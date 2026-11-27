@@ -31,6 +31,8 @@ pub struct GetVaultMarketTodResponse {
     pub units: Vec<crate::models::GetVaultMarketTodResponseUnits>,
     #[serde(rename = "claims")]
     pub claims: Vec<crate::models::GetVaultMarketTodResponseClaims>,
+    #[serde(rename = "vaultShares", skip_serializing_if = "Option::is_none")]
+    pub vault_shares: Option<Box<crate::models::GetVaultMarketTodResponseVaultShares>>,
 }
 
 impl GetVaultMarketTodResponse {
@@ -45,6 +47,7 @@ impl GetVaultMarketTodResponse {
             shares_problem: None,
             units,
             claims,
+            vault_shares: None,
         }
     }
 }

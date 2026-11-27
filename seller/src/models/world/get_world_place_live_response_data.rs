@@ -16,7 +16,7 @@ pub struct GetWorldPlaceLiveResponseData {
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<Box<crate::models::GetWorldPlaceLiveResponseDataStream>>,
     #[serde(rename = "lot", skip_serializing_if = "Option::is_none")]
-    pub lot: Option<Box<crate::models::GetWorldPlaceLiveResponseDataLot>>,
+    pub lot: Option<Box<crate::models::GetMainStageResponseStreamLot>>,
 }
 
 impl GetWorldPlaceLiveResponseData {

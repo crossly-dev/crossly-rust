@@ -37,17 +37,17 @@ impl CreateWorldInteractiveAssetResponseData {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "png")]
-    Png,
     #[serde(rename = "glb")]
     Glb,
+    #[serde(rename = "png")]
+    Png,
     #[serde(rename = "wav")]
     Wav,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Png
+        Self::Glb
     }
 }
 

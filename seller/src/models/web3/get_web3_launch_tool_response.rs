@@ -13,6 +13,8 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetWeb3LaunchToolResponse {
+    #[serde(rename = "royalties")]
+    pub royalties: Box<crate::models::GetWeb3LaunchToolResponseRoyalties>,
     #[serde(rename = "allowlist")]
     pub allowlist: Box<crate::models::GetWeb3LaunchToolResponseAllowlist>,
     #[serde(rename = "art")]
@@ -22,8 +24,9 @@ pub struct GetWeb3LaunchToolResponse {
 }
 
 impl GetWeb3LaunchToolResponse {
-    pub fn new(allowlist: crate::models::GetWeb3LaunchToolResponseAllowlist, art: crate::models::GetWeb3LaunchToolResponseArt, supply: crate::models::GetWeb3LaunchToolResponseSupply) -> GetWeb3LaunchToolResponse {
+    pub fn new(royalties: crate::models::GetWeb3LaunchToolResponseRoyalties, allowlist: crate::models::GetWeb3LaunchToolResponseAllowlist, art: crate::models::GetWeb3LaunchToolResponseArt, supply: crate::models::GetWeb3LaunchToolResponseSupply) -> GetWeb3LaunchToolResponse {
         GetWeb3LaunchToolResponse {
+            royalties: Box::new(royalties),
             allowlist: Box::new(allowlist),
             art: Box::new(art),
             supply: Box::new(supply),

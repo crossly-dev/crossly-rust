@@ -42,27 +42,27 @@ impl GetSpatialStreetResponseDataDecor {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BannerColour {
-    #[serde(rename = "red")]
-    Red,
-    #[serde(rename = "green")]
-    Green,
-    #[serde(rename = "teal")]
-    Teal,
     #[serde(rename = "blue")]
     Blue,
+    #[serde(rename = "green")]
+    Green,
     #[serde(rename = "purple")]
     Purple,
+    #[serde(rename = "red")]
+    Red,
+    #[serde(rename = "teal")]
+    Teal,
     #[serde(rename = "cream")]
     Cream,
-    #[serde(rename = "amber")]
-    Amber,
     #[serde(rename = "ink")]
     Ink,
+    #[serde(rename = "amber")]
+    Amber,
 }
 
 impl Default for BannerColour {
     fn default() -> BannerColour {
-        Self::Red
+        Self::Blue
     }
 }
 

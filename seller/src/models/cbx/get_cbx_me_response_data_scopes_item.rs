@@ -12,12 +12,12 @@
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum GetCbxMeResponseDataScopesItem {
+    #[serde(rename = "read")]
+    Read,
     #[serde(rename = "spend")]
     Spend,
     #[serde(rename = "campaign")]
     Campaign,
-    #[serde(rename = "read")]
-    Read,
     #[serde(rename = "accrue")]
     Accrue,
     #[serde(rename = "treasury")]
@@ -28,9 +28,9 @@ pub enum GetCbxMeResponseDataScopesItem {
 impl ToString for GetCbxMeResponseDataScopesItem {
     fn to_string(&self) -> String {
         match self {
+            Self::Read => String::from("read"),
             Self::Spend => String::from("spend"),
             Self::Campaign => String::from("campaign"),
-            Self::Read => String::from("read"),
             Self::Accrue => String::from("accrue"),
             Self::Treasury => String::from("treasury"),
         }
@@ -39,7 +39,7 @@ impl ToString for GetCbxMeResponseDataScopesItem {
 
 impl Default for GetCbxMeResponseDataScopesItem {
     fn default() -> GetCbxMeResponseDataScopesItem {
-        Self::Spend
+        Self::Read
     }
 }
 

@@ -46,14 +46,14 @@ impl ListWorldProvenanceItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "auction")]
-    Auction,
     #[serde(rename = "window")]
     Window,
-    #[serde(rename = "agent")]
-    Agent,
+    #[serde(rename = "auction")]
+    Auction,
     #[serde(rename = "room")]
     Room,
+    #[serde(rename = "agent")]
+    Agent,
     #[serde(rename = "stall")]
     Stall,
     #[serde(rename = "worn")]
@@ -66,7 +66,7 @@ pub enum Kind {
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Auction
+        Self::Window
     }
 }
 

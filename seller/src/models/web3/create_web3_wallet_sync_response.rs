@@ -14,11 +14,11 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateWeb3WalletSyncResponse {
     #[serde(rename = "summary")]
-    pub summary: Box<crate::models::CreateWeb3WalletSyncResponseSummary>,
+    pub summary: Box<crate::models::CreateWeb3StoreWalletSyncResponseData>,
 }
 
 impl CreateWeb3WalletSyncResponse {
-    pub fn new(summary: crate::models::CreateWeb3WalletSyncResponseSummary) -> CreateWeb3WalletSyncResponse {
+    pub fn new(summary: crate::models::CreateWeb3StoreWalletSyncResponseData) -> CreateWeb3WalletSyncResponse {
         CreateWeb3WalletSyncResponse {
             summary: Box::new(summary),
         }

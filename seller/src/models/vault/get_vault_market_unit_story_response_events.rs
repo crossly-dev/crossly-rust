@@ -64,28 +64,28 @@ impl GetVaultMarketUnitStoryResponseEvents {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "transfer")]
-    Transfer,
-    #[serde(rename = "evidence")]
-    Evidence,
     #[serde(rename = "sale")]
     Sale,
-    #[serde(rename = "graded")]
-    Graded,
-    #[serde(rename = "pledged")]
-    Pledged,
-    #[serde(rename = "released")]
-    Released,
-    #[serde(rename = "received")]
-    Received,
     #[serde(rename = "receipt")]
     Receipt,
+    #[serde(rename = "received")]
+    Received,
+    #[serde(rename = "released")]
+    Released,
+    #[serde(rename = "evidence")]
+    Evidence,
+    #[serde(rename = "graded")]
+    Graded,
+    #[serde(rename = "transfer")]
+    Transfer,
+    #[serde(rename = "pledged")]
+    Pledged,
     #[serde(rename = "lent")]
     Lent,
-    #[serde(rename = "recalled")]
-    Recalled,
     #[serde(rename = "foreclosed")]
     Foreclosed,
+    #[serde(rename = "recalled")]
+    Recalled,
     #[serde(rename = "sent_in")]
     SentIn,
     #[serde(rename = "vaulted_from_grading")]
@@ -112,33 +112,33 @@ pub enum Kind {
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Transfer
+        Self::Sale
     }
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Group {
-    #[serde(rename = "token")]
-    Token,
     #[serde(rename = "grade")]
     Grade,
-    #[serde(rename = "loan")]
-    Loan,
-    #[serde(rename = "hall")]
-    Hall,
+    #[serde(rename = "token")]
+    Token,
     #[serde(rename = "receipt")]
     Receipt,
-    #[serde(rename = "intake")]
-    Intake,
     #[serde(rename = "owner")]
     Owner,
+    #[serde(rename = "hall")]
+    Hall,
+    #[serde(rename = "intake")]
+    Intake,
     #[serde(rename = "custody")]
     Custody,
+    #[serde(rename = "loan")]
+    Loan,
 }
 
 impl Default for Group {
     fn default() -> Group {
-        Self::Token
+        Self::Grade
     }
 }
 

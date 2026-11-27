@@ -27,30 +27,40 @@ pub struct ListRentalOffersItem {
     pub updated_at: String,
     #[serde(rename = "active")]
     pub active: bool,
+    #[serde(rename = "quantity")]
+    pub quantity: f32,
     #[serde(rename = "platformListingId")]
     pub platform_listing_id: String,
+    #[serde(rename = "storefrontId", skip_serializing_if = "Option::is_none")]
+    pub storefront_id: Option<String>,
+    #[serde(rename = "options")]
+    pub options: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "sellerUserId")]
     pub seller_user_id: String,
     #[serde(rename = "depositCents")]
     pub deposit_cents: f32,
-    #[serde(rename = "dailyCents")]
-    pub daily_cents: f32,
-    #[serde(rename = "weeklyCents", skip_serializing_if = "Option::is_none")]
-    pub weekly_cents: Option<f32>,
     #[serde(rename = "minDays")]
     pub min_days: f32,
     #[serde(rename = "maxDays")]
     pub max_days: f32,
+    #[serde(rename = "dailyCents")]
+    pub daily_cents: f32,
+    #[serde(rename = "weeklyCents", skip_serializing_if = "Option::is_none")]
+    pub weekly_cents: Option<f32>,
     #[serde(rename = "bufferDays")]
     pub buffer_days: f32,
     #[serde(rename = "rentOnly")]
     pub rent_only: bool,
     #[serde(rename = "requireApproval")]
     pub require_approval: bool,
+    #[serde(rename = "blackoutRanges")]
+    pub blackout_ranges: Vec<crate::models::StartEnd>,
+    #[serde(rename = "returnPolicy", skip_serializing_if = "Option::is_none")]
+    pub return_policy: Option<String>,
 }
 
 impl ListRentalOffersItem {
-    pub fn new(slug: String, listing_id: String, title: String, image_url: String, created_at: String, updated_at: String, active: bool, platform_listing_id: String, seller_user_id: String, deposit_cents: f32, daily_cents: f32, min_days: f32, max_days: f32, buffer_days: f32, rent_only: bool, require_approval: bool) -> ListRentalOffersItem {
+    pub fn new(slug: String, listing_id: String, title: String, image_url: String, created_at: String, updated_at: String, active: bool, quantity: f32, platform_listing_id: String, options: ::std::collections::HashMap<String, serde_json::Value>, seller_user_id: String, deposit_cents: f32, min_days: f32, max_days: f32, daily_cents: f32, buffer_days: f32, rent_only: bool, require_approval: bool, blackout_ranges: Vec<crate::models::StartEnd>) -> ListRentalOffersItem {
         ListRentalOffersItem {
             slug,
             listing_id,
@@ -59,16 +69,21 @@ impl ListRentalOffersItem {
             created_at,
             updated_at,
             active,
+            quantity,
             platform_listing_id,
+            storefront_id: None,
+            options,
             seller_user_id,
             deposit_cents,
-            daily_cents,
-            weekly_cents: None,
             min_days,
             max_days,
+            daily_cents,
+            weekly_cents: None,
             buffer_days,
             rent_only,
             require_approval,
+            blackout_ranges,
+            return_policy: None,
         }
     }
 }

@@ -15,16 +15,16 @@
 pub struct GetBuyerTogetherResponseDataItems {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "available")]
-    pub available: bool,
-    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
     #[serde(rename = "slug")]
     pub slug: String,
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(rename = "priceCents")]
     pub price_cents: f32,
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
     pub image: Option<String>,
+    #[serde(rename = "available")]
+    pub available: bool,
     #[serde(rename = "addedBy")]
     pub added_by: String,
     #[serde(rename = "up")]
@@ -36,14 +36,14 @@ pub struct GetBuyerTogetherResponseDataItems {
 }
 
 impl GetBuyerTogetherResponseDataItems {
-    pub fn new(id: String, available: bool, slug: String, price_cents: f32, added_by: String, up: f32, down: f32, my_vote: f32) -> GetBuyerTogetherResponseDataItems {
+    pub fn new(id: String, slug: String, price_cents: f32, available: bool, added_by: String, up: f32, down: f32, my_vote: f32) -> GetBuyerTogetherResponseDataItems {
         GetBuyerTogetherResponseDataItems {
             id,
-            available,
-            title: None,
             slug,
+            title: None,
             price_cents,
             image: None,
+            available,
             added_by,
             up,
             down,

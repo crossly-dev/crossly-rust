@@ -19,23 +19,23 @@ pub struct ListBuyerHuntsItem {
     pub name: String,
     #[serde(rename = "mode")]
     pub mode: String,
-    #[serde(rename = "status")]
-    pub status: String,
     #[serde(rename = "maxPriceCents")]
     pub max_price_cents: f32,
     #[serde(rename = "buysLeft")]
     pub buys_left: f32,
+    #[serde(rename = "status")]
+    pub status: String,
 }
 
 impl ListBuyerHuntsItem {
-    pub fn new(id: String, name: String, mode: String, status: String, max_price_cents: f32, buys_left: f32) -> ListBuyerHuntsItem {
+    pub fn new(id: String, name: String, mode: String, max_price_cents: f32, buys_left: f32, status: String) -> ListBuyerHuntsItem {
         ListBuyerHuntsItem {
             id,
             name,
             mode,
-            status,
             max_price_cents,
             buys_left,
+            status,
         }
     }
 }

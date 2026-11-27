@@ -40,17 +40,17 @@ impl GetWorldArcadeResponseDataScores {
 /// `leaderboard`: Price Guess's ranking; `record`: a piece's room record; `top`: a creator game's best scores.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
+    #[serde(rename = "record")]
+    Record,
     #[serde(rename = "top")]
     Top,
     #[serde(rename = "leaderboard")]
     Leaderboard,
-    #[serde(rename = "record")]
-    Record,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Top
+        Self::Record
     }
 }
 

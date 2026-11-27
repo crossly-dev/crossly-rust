@@ -18,7 +18,7 @@ pub struct GetVaultMarketReportResponse {
     #[serde(rename = "label")]
     pub label: String,
     #[serde(rename = "range")]
-    pub range: Box<crate::models::GetInventorySellThroughResponseDataWindow>,
+    pub range: Box<crate::models::StartEnd>,
     #[serde(rename = "inProgress")]
     pub in_progress: bool,
     #[serde(rename = "generatedAt")]
@@ -44,7 +44,7 @@ pub struct GetVaultMarketReportResponse {
 }
 
 impl GetVaultMarketReportResponse {
-    pub fn new(quarter: String, label: String, range: crate::models::GetInventorySellThroughResponseDataWindow, in_progress: bool, generated_at: String, totals: crate::models::GetVaultMarketReportResponseTotals, indexes: Vec<crate::models::GetVaultMarketReportResponseIndexes>, risers: Vec<crate::models::GetVaultMarketReportResponseRisers>, fallers: Vec<crate::models::GetVaultMarketReportResponseRisers>, most_lent: Vec<crate::models::GetVaultMarketReportResponseMostLent>, grade_premiums: Vec<crate::models::GetVaultMarketReportResponseGradePremiums>, method: Vec<String>, printable: crate::models::GetVaultMarketReportResponsePrintable, quarters: Vec<String>) -> GetVaultMarketReportResponse {
+    pub fn new(quarter: String, label: String, range: crate::models::StartEnd, in_progress: bool, generated_at: String, totals: crate::models::GetVaultMarketReportResponseTotals, indexes: Vec<crate::models::GetVaultMarketReportResponseIndexes>, risers: Vec<crate::models::GetVaultMarketReportResponseRisers>, fallers: Vec<crate::models::GetVaultMarketReportResponseRisers>, most_lent: Vec<crate::models::GetVaultMarketReportResponseMostLent>, grade_premiums: Vec<crate::models::GetVaultMarketReportResponseGradePremiums>, method: Vec<String>, printable: crate::models::GetVaultMarketReportResponsePrintable, quarters: Vec<String>) -> GetVaultMarketReportResponse {
         GetVaultMarketReportResponse {
             quarter,
             label,

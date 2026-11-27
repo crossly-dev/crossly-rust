@@ -23,14 +23,14 @@ pub struct GetVaultMarketMmResponseObligations {
     pub day: String,
     #[serde(rename = "reasons", skip_serializing_if = "Option::is_none")]
     pub reasons: Option<Vec<String>>,
+    #[serde(rename = "program")]
+    pub program: String,
     #[serde(rename = "tier", skip_serializing_if = "Option::is_none")]
     pub tier: Option<String>,
     #[serde(rename = "bookKey")]
     pub book_key: String,
     #[serde(rename = "level", skip_serializing_if = "Option::is_none")]
     pub level: Option<String>,
-    #[serde(rename = "program")]
-    pub program: String,
     #[serde(rename = "samples")]
     pub samples: f32,
     #[serde(rename = "inSpread")]
@@ -52,17 +52,17 @@ pub struct GetVaultMarketMmResponseObligations {
 }
 
 impl GetVaultMarketMmResponseObligations {
-    pub fn new(updated_at: String, user_id: String, day: String, book_key: String, program: String, samples: f32, in_spread: f32, in_half_spread: f32, calls_total: f32, calls_joined: f32, rfq_invited: f32, rfq_answered_fast: f32) -> GetVaultMarketMmResponseObligations {
+    pub fn new(updated_at: String, user_id: String, day: String, program: String, book_key: String, samples: f32, in_spread: f32, in_half_spread: f32, calls_total: f32, calls_joined: f32, rfq_invited: f32, rfq_answered_fast: f32) -> GetVaultMarketMmResponseObligations {
         GetVaultMarketMmResponseObligations {
             coverage_pct: None,
             updated_at,
             user_id,
             day,
             reasons: None,
+            program,
             tier: None,
             book_key,
             level: None,
-            program,
             samples,
             in_spread,
             in_half_spread,

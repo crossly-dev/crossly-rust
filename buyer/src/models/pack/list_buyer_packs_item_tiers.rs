@@ -17,14 +17,14 @@ pub struct ListBuyerPacksItemTiers {
     pub id: String,
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "available")]
-    pub available: f32,
-    #[serde(rename = "minValueCents", skip_serializing_if = "Option::is_none")]
-    pub min_value_cents: Option<f32>,
     #[serde(rename = "weight")]
     pub weight: f32,
     #[serde(rename = "oddsPct")]
     pub odds_pct: f32,
+    #[serde(rename = "available")]
+    pub available: f32,
+    #[serde(rename = "minValueCents", skip_serializing_if = "Option::is_none")]
+    pub min_value_cents: Option<f32>,
     #[serde(rename = "maxValueCents", skip_serializing_if = "Option::is_none")]
     pub max_value_cents: Option<f32>,
     #[serde(rename = "avgValueCents")]
@@ -32,14 +32,14 @@ pub struct ListBuyerPacksItemTiers {
 }
 
 impl ListBuyerPacksItemTiers {
-    pub fn new(id: String, name: String, available: f32, weight: f32, odds_pct: f32, avg_value_cents: f32) -> ListBuyerPacksItemTiers {
+    pub fn new(id: String, name: String, weight: f32, odds_pct: f32, available: f32, avg_value_cents: f32) -> ListBuyerPacksItemTiers {
         ListBuyerPacksItemTiers {
             id,
             name,
-            available,
-            min_value_cents: None,
             weight,
             odds_pct,
+            available,
+            min_value_cents: None,
             max_value_cents: None,
             avg_value_cents,
         }

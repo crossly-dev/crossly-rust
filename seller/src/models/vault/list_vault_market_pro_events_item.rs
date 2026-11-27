@@ -23,14 +23,14 @@ pub struct ListVaultMarketProEventsItem {
     pub order_id: String,
     #[serde(rename = "kind")]
     pub kind: String,
-    #[serde(rename = "seq")]
-    pub seq: f32,
-    #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
-    pub detail: Option<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "priceCents", skip_serializing_if = "Option::is_none")]
     pub price_cents: Option<f32>,
     #[serde(rename = "tradeId", skip_serializing_if = "Option::is_none")]
     pub trade_id: Option<String>,
+    #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
+    pub detail: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "seq")]
+    pub seq: f32,
 }
 
 impl ListVaultMarketProEventsItem {
@@ -41,10 +41,10 @@ impl ListVaultMarketProEventsItem {
             quantity: None,
             order_id,
             kind,
-            seq,
-            detail: None,
             price_cents: None,
             trade_id: None,
+            detail: None,
+            seq,
         }
     }
 }

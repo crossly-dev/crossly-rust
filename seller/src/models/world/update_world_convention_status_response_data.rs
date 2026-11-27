@@ -30,10 +30,10 @@ impl UpdateWorldConventionStatusResponseData {
 pub enum Status {
     #[serde(rename = "live")]
     Live,
-    #[serde(rename = "open")]
-    Open,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "open")]
+    Open,
     #[serde(rename = "ended")]
     Ended,
 }

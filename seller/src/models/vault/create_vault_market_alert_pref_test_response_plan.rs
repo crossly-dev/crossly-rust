@@ -15,10 +15,10 @@
 pub struct CreateVaultMarketAlertPrefTestResponsePlan {
     #[serde(rename = "email")]
     pub email: Email,
-    #[serde(rename = "webhook")]
-    pub webhook: Webhook,
     #[serde(rename = "push")]
     pub push: Push,
+    #[serde(rename = "webhook")]
+    pub webhook: Webhook,
     #[serde(rename = "telegram")]
     pub telegram: Telegram,
     #[serde(rename = "terminal")]
@@ -26,11 +26,11 @@ pub struct CreateVaultMarketAlertPrefTestResponsePlan {
 }
 
 impl CreateVaultMarketAlertPrefTestResponsePlan {
-    pub fn new(email: Email, webhook: Webhook, push: Push, telegram: Telegram, terminal: Terminal) -> CreateVaultMarketAlertPrefTestResponsePlan {
+    pub fn new(email: Email, push: Push, webhook: Webhook, telegram: Telegram, terminal: Terminal) -> CreateVaultMarketAlertPrefTestResponsePlan {
         CreateVaultMarketAlertPrefTestResponsePlan {
             email,
-            webhook,
             push,
+            webhook,
             telegram,
             terminal,
         }
@@ -57,24 +57,6 @@ impl Default for Email {
 }
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Webhook {
-    #[serde(rename = "unavailable")]
-    Unavailable,
-    #[serde(rename = "off")]
-    Off,
-    #[serde(rename = "send")]
-    Send,
-    #[serde(rename = "quiet")]
-    Quiet,
-}
-
-impl Default for Webhook {
-    fn default() -> Webhook {
-        Self::Unavailable
-    }
-}
-/// 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Push {
     #[serde(rename = "unavailable")]
     Unavailable,
@@ -88,6 +70,24 @@ pub enum Push {
 
 impl Default for Push {
     fn default() -> Push {
+        Self::Unavailable
+    }
+}
+/// 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Webhook {
+    #[serde(rename = "unavailable")]
+    Unavailable,
+    #[serde(rename = "off")]
+    Off,
+    #[serde(rename = "send")]
+    Send,
+    #[serde(rename = "quiet")]
+    Quiet,
+}
+
+impl Default for Webhook {
+    fn default() -> Webhook {
         Self::Unavailable
     }
 }

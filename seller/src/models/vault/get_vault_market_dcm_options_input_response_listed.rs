@@ -43,15 +43,15 @@ impl GetVaultMarketDcmOptionsInputResponseListed {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OptionType {
-    #[serde(rename = "call")]
-    Call,
     #[serde(rename = "put")]
     Put,
+    #[serde(rename = "call")]
+    Call,
 }
 
 impl Default for OptionType {
     fn default() -> OptionType {
-        Self::Call
+        Self::Put
     }
 }
 

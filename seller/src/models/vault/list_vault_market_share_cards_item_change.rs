@@ -41,19 +41,19 @@ impl ListVaultMarketShareCardsItemChange {
 /// What the % is measured from.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Since {
-    #[serde(rename = "fill")]
-    Fill,
     #[serde(rename = "entry")]
     Entry,
     #[serde(rename = "cost")]
     Cost,
+    #[serde(rename = "fill")]
+    Fill,
     #[serde(rename = "inception")]
     Inception,
 }
 
 impl Default for Since {
     fn default() -> Since {
-        Self::Fill
+        Self::Entry
     }
 }
 /// 
@@ -65,10 +65,10 @@ pub enum State {
     Open,
     #[serde(rename = "closed")]
     Closed,
-    #[serde(rename = "held")]
-    Held,
     #[serde(rename = "sold")]
     Sold,
+    #[serde(rename = "held")]
+    Held,
     #[serde(rename = "gone")]
     Gone,
 }
@@ -81,17 +81,17 @@ impl Default for State {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Side {
-    #[serde(rename = "long")]
-    Long,
     #[serde(rename = "short")]
     Short,
+    #[serde(rename = "long")]
+    Long,
     #[serde(rename = "own")]
     Own,
 }
 
 impl Default for Side {
     fn default() -> Side {
-        Self::Long
+        Self::Short
     }
 }
 

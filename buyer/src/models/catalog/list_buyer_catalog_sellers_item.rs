@@ -13,28 +13,28 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ListBuyerCatalogSellersItem {
-    #[serde(rename = "displayName")]
-    pub display_name: String,
     #[serde(rename = "username")]
     pub username: String,
-    #[serde(rename = "totalItemsSold")]
-    pub total_items_sold: f32,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
     #[serde(rename = "isVerified")]
     pub is_verified: bool,
     #[serde(rename = "activeListings")]
     pub active_listings: f32,
+    #[serde(rename = "totalItemsSold")]
+    pub total_items_sold: f32,
     #[serde(rename = "avatarUrl", skip_serializing_if = "Option::is_none")]
     pub avatar_url: Option<String>,
 }
 
 impl ListBuyerCatalogSellersItem {
-    pub fn new(display_name: String, username: String, total_items_sold: f32, is_verified: bool, active_listings: f32) -> ListBuyerCatalogSellersItem {
+    pub fn new(username: String, display_name: String, is_verified: bool, active_listings: f32, total_items_sold: f32) -> ListBuyerCatalogSellersItem {
         ListBuyerCatalogSellersItem {
-            display_name,
             username,
-            total_items_sold,
+            display_name,
             is_verified,
             active_listings,
+            total_items_sold,
             avatar_url: None,
         }
     }

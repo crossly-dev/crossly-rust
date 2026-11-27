@@ -21,15 +21,18 @@ pub struct CreateBuyerCatalogListingRentalResponseData {
     pub total_cents: f32,
     #[serde(rename = "needsApproval")]
     pub needs_approval: bool,
+    #[serde(rename = "quote")]
+    pub quote: Box<crate::models::CreateBuyerCatalogListingRentalResponseDataQuote>,
 }
 
 impl CreateBuyerCatalogListingRentalResponseData {
-    pub fn new(rental_id: String, total_cents: f32, needs_approval: bool) -> CreateBuyerCatalogListingRentalResponseData {
+    pub fn new(rental_id: String, total_cents: f32, needs_approval: bool, quote: crate::models::CreateBuyerCatalogListingRentalResponseDataQuote) -> CreateBuyerCatalogListingRentalResponseData {
         CreateBuyerCatalogListingRentalResponseData {
             rental_id,
             client_secret: None,
             total_cents,
             needs_approval,
+            quote: Box::new(quote),
         }
     }
 }

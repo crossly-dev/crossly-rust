@@ -15,12 +15,21 @@
 pub struct CreateListingResponse {
     #[serde(rename = "listing")]
     pub listing: Box<crate::models::IdResponse>,
+    /// One dispatched crosspost job per accepted platform.
     #[serde(rename = "jobs")]
     pub jobs: Vec<crate::models::CreateListingResponseJobs>,
+    /// Platforms not dispatched, and why (category gate, dropship_not_allowed_on_platform, a dispatch refusal such as validation_error \"Add a weight before listing\", ...). The listing itself was created.
     #[serde(rename = "skipped")]
     pub skipped: Vec<crate::models::CreateListingResponseSkipped>,
     #[serde(rename = "bulkJobId", skip_serializing_if = "Option::is_none")]
     pub bulk_job_id: Option<String>,
+    #[serde(rename = "clientReferenceId", skip_serializing_if = "Option::is_none")]
+    pub client_reference_id: Option<String>,
+    #[serde(rename = "existing", skip_serializing_if = "Option::is_none")]
+    pub existing: Option<bool>,
+    /// Soft item-specifics problems (strictItemSpecifics off) and eBay fields accepted but mapped or ignored.
+    #[serde(rename = "warnings", skip_serializing_if = "Option::is_none")]
+    pub warnings: Option<Vec<crate::models::CreateListingResponseWarnings>>,
 }
 
 impl CreateListingResponse {
@@ -30,6 +39,9 @@ impl CreateListingResponse {
             jobs,
             skipped,
             bulk_job_id: None,
+            client_reference_id: None,
+            existing: None,
+            warnings: None,
         }
     }
 }

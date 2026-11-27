@@ -48,15 +48,15 @@ impl GetSpatialPartyResponsePartyMembers {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    #[serde(rename = "member")]
-    Member,
     #[serde(rename = "leader")]
     Leader,
+    #[serde(rename = "member")]
+    Member,
 }
 
 impl Default for Role {
     fn default() -> Role {
-        Self::Member
+        Self::Leader
     }
 }
 

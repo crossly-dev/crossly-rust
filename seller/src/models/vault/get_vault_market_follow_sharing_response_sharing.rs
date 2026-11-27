@@ -17,22 +17,22 @@ pub struct GetVaultMarketFollowSharingResponseSharing {
     pub orders: bool,
     #[serde(rename = "sales")]
     pub sales: bool,
-    #[serde(rename = "hallLoans")]
-    pub hall_loans: bool,
     #[serde(rename = "leaderboard")]
     pub leaderboard: bool,
     #[serde(rename = "deposits")]
     pub deposits: bool,
+    #[serde(rename = "hallLoans")]
+    pub hall_loans: bool,
 }
 
 impl GetVaultMarketFollowSharingResponseSharing {
-    pub fn new(orders: bool, sales: bool, hall_loans: bool, leaderboard: bool, deposits: bool) -> GetVaultMarketFollowSharingResponseSharing {
+    pub fn new(orders: bool, sales: bool, leaderboard: bool, deposits: bool, hall_loans: bool) -> GetVaultMarketFollowSharingResponseSharing {
         GetVaultMarketFollowSharingResponseSharing {
             orders,
             sales,
-            hall_loans,
             leaderboard,
             deposits,
+            hall_loans,
         }
     }
 }

@@ -25,24 +25,24 @@ pub struct CreateWorldSpaceResponseData {
     pub status: String,
     #[serde(rename = "slug")]
     pub slug: String,
+    #[serde(rename = "venue")]
+    pub venue: String,
     #[serde(rename = "hostUserId")]
     pub host_user_id: String,
+    #[serde(rename = "about", skip_serializing_if = "Option::is_none")]
+    pub about: Option<String>,
     #[serde(rename = "gateChain", skip_serializing_if = "Option::is_none")]
     pub gate_chain: Option<String>,
     #[serde(rename = "gateContract", skip_serializing_if = "Option::is_none")]
     pub gate_contract: Option<String>,
     #[serde(rename = "gateName", skip_serializing_if = "Option::is_none")]
     pub gate_name: Option<String>,
-    #[serde(rename = "venue")]
-    pub venue: String,
     #[serde(rename = "membership")]
     pub membership: String,
-    #[serde(rename = "about", skip_serializing_if = "Option::is_none")]
-    pub about: Option<String>,
 }
 
 impl CreateWorldSpaceResponseData {
-    pub fn new(id: String, name: String, created_at: String, updated_at: String, status: String, slug: String, host_user_id: String, venue: String, membership: String) -> CreateWorldSpaceResponseData {
+    pub fn new(id: String, name: String, created_at: String, updated_at: String, status: String, slug: String, venue: String, host_user_id: String, membership: String) -> CreateWorldSpaceResponseData {
         CreateWorldSpaceResponseData {
             id,
             name,
@@ -50,13 +50,13 @@ impl CreateWorldSpaceResponseData {
             updated_at,
             status,
             slug,
+            venue,
             host_user_id,
+            about: None,
             gate_chain: None,
             gate_contract: None,
             gate_name: None,
-            venue,
             membership,
-            about: None,
         }
     }
 }

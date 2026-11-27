@@ -24,6 +24,8 @@ pub struct GetMainStageResponseStream {
     pub cover_image_url: Option<String>,
     #[serde(rename = "host", skip_serializing_if = "Option::is_none")]
     pub host: Option<String>,
+    #[serde(rename = "lot", skip_serializing_if = "Option::is_none")]
+    pub lot: Option<Box<crate::models::GetMainStageResponseStreamLot>>,
 }
 
 impl GetMainStageResponseStream {
@@ -35,6 +37,7 @@ impl GetMainStageResponseStream {
             playback_url: None,
             cover_image_url: None,
             host: None,
+            lot: None,
         }
     }
 }

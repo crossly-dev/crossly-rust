@@ -13,20 +13,29 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateSpatialPropertyLeaseRentResponseData {
-    #[serde(rename = "paidThrough")]
-    pub paid_through: String,
-    #[serde(rename = "waived")]
-    pub waived: bool,
-    #[serde(rename = "paidCents")]
-    pub paid_cents: f32,
+    #[serde(rename = "requiresAction", skip_serializing_if = "Option::is_none")]
+    pub requires_action: Option<bool>,
+    #[serde(rename = "paymentId", skip_serializing_if = "Option::is_none")]
+    pub payment_id: Option<String>,
+    #[serde(rename = "clientSecret", skip_serializing_if = "Option::is_none")]
+    pub client_secret: Option<String>,
+    #[serde(rename = "paidThrough", skip_serializing_if = "Option::is_none")]
+    pub paid_through: Option<String>,
+    #[serde(rename = "waived", skip_serializing_if = "Option::is_none")]
+    pub waived: Option<bool>,
+    #[serde(rename = "paidCents", skip_serializing_if = "Option::is_none")]
+    pub paid_cents: Option<f32>,
 }
 
 impl CreateSpatialPropertyLeaseRentResponseData {
-    pub fn new(paid_through: String, waived: bool, paid_cents: f32) -> CreateSpatialPropertyLeaseRentResponseData {
+    pub fn new() -> CreateSpatialPropertyLeaseRentResponseData {
         CreateSpatialPropertyLeaseRentResponseData {
-            paid_through,
-            waived,
-            paid_cents,
+            requires_action: None,
+            payment_id: None,
+            client_secret: None,
+            paid_through: None,
+            waived: None,
+            paid_cents: None,
         }
     }
 }

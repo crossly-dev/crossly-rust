@@ -53,12 +53,12 @@ pub enum Status {
     Pending,
     #[serde(rename = "cancelled")]
     Cancelled,
-    #[serde(rename = "expired")]
-    Expired,
     #[serde(rename = "accepted")]
     Accepted,
     #[serde(rename = "declined")]
     Declined,
+    #[serde(rename = "expired")]
+    Expired,
 }
 
 impl Default for Status {

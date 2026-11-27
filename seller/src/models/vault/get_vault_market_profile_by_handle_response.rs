@@ -30,7 +30,7 @@ pub struct GetVaultMarketProfileByHandleResponse {
     #[serde(rename = "isMe")]
     pub is_me: bool,
     #[serde(rename = "recentBuys")]
-    pub recent_buys: Vec<crate::models::ListVaultMarketFeedItem>,
+    pub recent_buys: Vec<crate::models::GetVaultMarketProfileByHandleResponseOneOfRecentBuys>,
     #[serde(rename = "displayName")]
     pub display_name: String,
     #[serde(rename = "avatarUrl", skip_serializing_if = "Option::is_none")]
@@ -40,7 +40,7 @@ pub struct GetVaultMarketProfileByHandleResponse {
 }
 
 impl GetVaultMarketProfileByHandleResponse {
-    pub fn new(handle: String, moved: bool, markets: f32, holdings: Vec<crate::models::GetVaultMarketProfileByHandleResponseOneOfHoldings>, followers: f32, following: bool, is_me: bool, recent_buys: Vec<crate::models::ListVaultMarketFeedItem>, display_name: String, profile_url: Option<serde_json::Value>) -> GetVaultMarketProfileByHandleResponse {
+    pub fn new(handle: String, moved: bool, markets: f32, holdings: Vec<crate::models::GetVaultMarketProfileByHandleResponseOneOfHoldings>, followers: f32, following: bool, is_me: bool, recent_buys: Vec<crate::models::GetVaultMarketProfileByHandleResponseOneOfRecentBuys>, display_name: String, profile_url: Option<serde_json::Value>) -> GetVaultMarketProfileByHandleResponse {
         GetVaultMarketProfileByHandleResponse {
             handle,
             moved,

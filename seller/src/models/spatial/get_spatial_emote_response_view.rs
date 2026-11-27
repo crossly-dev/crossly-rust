@@ -47,6 +47,8 @@ impl GetSpatialEmoteResponseView {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Slot {
+    #[serde(rename = "phone")]
+    Phone,
     #[serde(rename = "spin")]
     Spin,
     #[serde(rename = "wave")]
@@ -87,6 +89,60 @@ pub enum Slot {
     HighFive,
     #[serde(rename = "handshake")]
     Handshake,
+    #[serde(rename = "facepalm")]
+    Facepalm,
+    #[serde(rename = "think")]
+    Think,
+    #[serde(rename = "laugh")]
+    Laugh,
+    #[serde(rename = "sigh")]
+    Sigh,
+    #[serde(rename = "no")]
+    No,
+    #[serde(rename = "fist_pump")]
+    FistPump,
+    #[serde(rename = "victory")]
+    Victory,
+    #[serde(rename = "yawn")]
+    Yawn,
+    #[serde(rename = "salute")]
+    Salute,
+    #[serde(rename = "big_wave")]
+    BigWave,
+    #[serde(rename = "beckon")]
+    Beckon,
+    #[serde(rename = "shush")]
+    Shush,
+    #[serde(rename = "kiss")]
+    Kiss,
+    #[serde(rename = "peace")]
+    Peace,
+    #[serde(rename = "heart")]
+    Heart,
+    #[serde(rename = "sway")]
+    Sway,
+    #[serde(rename = "vibe")]
+    Vibe,
+    #[serde(rename = "air_guitar")]
+    AirGuitar,
+    #[serde(rename = "robot")]
+    Robot,
+    #[serde(rename = "disco")]
+    Disco,
+    #[serde(rename = "gavel")]
+    Gavel,
+    #[serde(rename = "haggle")]
+    Haggle,
+    #[serde(rename = "arms_crossed")]
+    ArmsCrossed,
+    #[serde(rename = "hands_on_hips")]
+    HandsOnHips,
+    #[serde(rename = "kneel")]
+    Kneel,
+    #[serde(rename = "fist_bump")]
+    FistBump,
+    #[serde(rename = "dance_off")]
+    DanceOff,
     #[serde(rename = "showoff")]
     Showoff,
     #[serde(rename = "moment:handshake")]
@@ -99,7 +155,7 @@ pub enum Slot {
 
 impl Default for Slot {
     fn default() -> Slot {
-        Self::Spin
+        Self::Phone
     }
 }
 

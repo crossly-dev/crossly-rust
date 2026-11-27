@@ -19,12 +19,12 @@ pub struct CreateProductionDesignSpecResponsePrefs {
     pub created_at: String,
     #[serde(rename = "updatedAt")]
     pub updated_at: String,
+    #[serde(rename = "cosmeticId")]
+    pub cosmetic_id: String,
     #[serde(rename = "merchantId")]
     pub merchant_id: String,
     #[serde(rename = "creatorSubjectId")]
     pub creator_subject_id: String,
-    #[serde(rename = "cosmeticId")]
-    pub cosmetic_id: String,
     #[serde(rename = "spec", skip_serializing_if = "Option::is_none")]
     pub spec: Option<Box<crate::models::CreateProductionDesignSpecResponsePrefsSpec>>,
     #[serde(rename = "physicalOptOut")]
@@ -36,14 +36,14 @@ pub struct CreateProductionDesignSpecResponsePrefs {
 }
 
 impl CreateProductionDesignSpecResponsePrefs {
-    pub fn new(id: String, created_at: String, updated_at: String, merchant_id: String, creator_subject_id: String, cosmetic_id: String, physical_opt_out: bool) -> CreateProductionDesignSpecResponsePrefs {
+    pub fn new(id: String, created_at: String, updated_at: String, cosmetic_id: String, merchant_id: String, creator_subject_id: String, physical_opt_out: bool) -> CreateProductionDesignSpecResponsePrefs {
         CreateProductionDesignSpecResponsePrefs {
             id,
             created_at,
             updated_at,
+            cosmetic_id,
             merchant_id,
             creator_subject_id,
-            cosmetic_id,
             spec: None,
             physical_opt_out,
             brief: None,

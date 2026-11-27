@@ -39,18 +39,18 @@ impl UpdateVaultMarketSupplyDepositResponse {
 pub enum Status {
     #[serde(rename = "stored")]
     Stored,
-    #[serde(rename = "listed")]
-    Listed,
-    #[serde(rename = "inbound")]
-    Inbound,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "listed")]
+    Listed,
+    #[serde(rename = "shipped")]
+    Shipped,
+    #[serde(rename = "inbound")]
+    Inbound,
     #[serde(rename = "sold_on_book")]
     SoldOnBook,
     #[serde(rename = "channel_sold")]
     ChannelSold,
-    #[serde(rename = "shipped")]
-    Shipped,
 }
 
 impl Default for Status {

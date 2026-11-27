@@ -64,12 +64,12 @@ impl GetVaultMarketWorldFloorResponseTickers {
 pub enum MarkQuality {
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "C")]
+    C,
     #[serde(rename = "A")]
     A,
     #[serde(rename = "B")]
     B,
-    #[serde(rename = "C")]
-    C,
 }
 
 impl Default for MarkQuality {

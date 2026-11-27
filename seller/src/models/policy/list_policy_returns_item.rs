@@ -21,34 +21,34 @@ pub struct ListPolicyReturnsItem {
     pub created_at: String,
     #[serde(rename = "status")]
     pub status: String,
-    #[serde(rename = "reason")]
-    pub reason: String,
-    #[serde(rename = "receivedAt", skip_serializing_if = "Option::is_none")]
-    pub received_at: Option<String>,
     #[serde(rename = "carrier", skip_serializing_if = "Option::is_none")]
     pub carrier: Option<String>,
     #[serde(rename = "shippedAt", skip_serializing_if = "Option::is_none")]
     pub shipped_at: Option<String>,
     #[serde(rename = "refundedAt", skip_serializing_if = "Option::is_none")]
     pub refunded_at: Option<String>,
-    #[serde(rename = "fit", skip_serializing_if = "Option::is_none")]
-    pub fit: Option<String>,
-    #[serde(rename = "sellerUserId")]
-    pub seller_user_id: String,
     #[serde(rename = "buyerUserId")]
     pub buyer_user_id: String,
-    #[serde(rename = "purchaseId")]
-    pub purchase_id: String,
+    #[serde(rename = "reason")]
+    pub reason: String,
+    #[serde(rename = "receivedAt", skip_serializing_if = "Option::is_none")]
+    pub received_at: Option<String>,
     #[serde(rename = "labelUrl", skip_serializing_if = "Option::is_none")]
     pub label_url: Option<String>,
+    #[serde(rename = "sellerUserId")]
+    pub seller_user_id: String,
     #[serde(rename = "refundStripeId", skip_serializing_if = "Option::is_none")]
     pub refund_stripe_id: Option<String>,
+    #[serde(rename = "purchaseId")]
+    pub purchase_id: String,
     #[serde(rename = "note", skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
     #[serde(rename = "feeCents")]
     pub fee_cents: f32,
     #[serde(rename = "trackingCode", skip_serializing_if = "Option::is_none")]
     pub tracking_code: Option<String>,
+    #[serde(rename = "fit", skip_serializing_if = "Option::is_none")]
+    pub fit: Option<String>,
     #[serde(rename = "refundCents")]
     pub refund_cents: f32,
     #[serde(rename = "prepaidLabel")]
@@ -56,26 +56,26 @@ pub struct ListPolicyReturnsItem {
 }
 
 impl ListPolicyReturnsItem {
-    pub fn new(id: String, created_at: String, status: String, reason: String, seller_user_id: String, buyer_user_id: String, purchase_id: String, fee_cents: f32, refund_cents: f32, prepaid_label: bool) -> ListPolicyReturnsItem {
+    pub fn new(id: String, created_at: String, status: String, buyer_user_id: String, reason: String, seller_user_id: String, purchase_id: String, fee_cents: f32, refund_cents: f32, prepaid_label: bool) -> ListPolicyReturnsItem {
         ListPolicyReturnsItem {
             order_id: None,
             id,
             created_at,
             status,
-            reason,
-            received_at: None,
             carrier: None,
             shipped_at: None,
             refunded_at: None,
-            fit: None,
-            seller_user_id,
             buyer_user_id,
-            purchase_id,
+            reason,
+            received_at: None,
             label_url: None,
+            seller_user_id,
             refund_stripe_id: None,
+            purchase_id,
             note: None,
             fee_cents,
             tracking_code: None,
+            fit: None,
             refund_cents,
             prepaid_label,
         }

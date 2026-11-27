@@ -13,6 +13,8 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct UpdateListingResponse {
+    #[serde(rename = "warnings", skip_serializing_if = "Option::is_none")]
+    pub warnings: Option<Vec<crate::models::CreateListingResponseWarnings>>,
     #[serde(rename = "jobs")]
     pub jobs: Vec<crate::models::UpdateListingResponseJobs>,
 }
@@ -20,6 +22,7 @@ pub struct UpdateListingResponse {
 impl UpdateListingResponse {
     pub fn new(jobs: Vec<crate::models::UpdateListingResponseJobs>) -> UpdateListingResponse {
         UpdateListingResponse {
+            warnings: None,
             jobs,
         }
     }

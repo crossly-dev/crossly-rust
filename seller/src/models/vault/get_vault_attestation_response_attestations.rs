@@ -91,6 +91,8 @@ impl GetVaultAttestationResponseAttestations {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
+    #[serde(rename = "other")]
+    Other,
     #[serde(rename = "physical_count")]
     PhysicalCount,
     #[serde(rename = "insurance_certificate")]
@@ -99,13 +101,11 @@ pub enum Kind {
     Soc1Type2,
     #[serde(rename = "soc2")]
     Soc2,
-    #[serde(rename = "other")]
-    Other,
 }
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::PhysicalCount
+        Self::Other
     }
 }
 

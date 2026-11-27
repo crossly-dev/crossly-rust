@@ -91,12 +91,12 @@ pub enum Kind {
     Brand,
     #[serde(rename = "category")]
     Category,
+    #[serde(rename = "segment")]
+    Segment,
     #[serde(rename = "curated")]
     Curated,
     #[serde(rename = "composite")]
     Composite,
-    #[serde(rename = "segment")]
-    Segment,
 }
 
 impl Default for Kind {

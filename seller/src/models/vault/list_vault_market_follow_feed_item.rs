@@ -21,6 +21,8 @@ pub struct ListVaultMarketFollowFeedItem {
     pub verb: String,
     #[serde(rename = "at")]
     pub at: String,
+    #[serde(rename = "by")]
+    pub by: Box<crate::models::ListVaultMarketFollowFeedItemBy>,
     #[serde(rename = "bookKey")]
     pub book_key: String,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -30,7 +32,7 @@ pub struct ListVaultMarketFollowFeedItem {
     #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "mark")]
-    pub mark: Box<crate::models::ListVaultMarketFeedItemMark>,
+    pub mark: Box<crate::models::ListVaultMarketOpeningItemMark>,
     #[serde(rename = "exhibition", skip_serializing_if = "Option::is_none")]
     pub exhibition: Option<Box<crate::models::ListVaultMarketFollowFeedItemExhibition>>,
     #[serde(rename = "buyHref")]
@@ -38,12 +40,13 @@ pub struct ListVaultMarketFollowFeedItem {
 }
 
 impl ListVaultMarketFollowFeedItem {
-    pub fn new(id: String, kind: Kind, verb: String, at: String, book_key: String, mark: crate::models::ListVaultMarketFeedItemMark, buy_href: String) -> ListVaultMarketFollowFeedItem {
+    pub fn new(id: String, kind: Kind, verb: String, at: String, by: crate::models::ListVaultMarketFollowFeedItemBy, book_key: String, mark: crate::models::ListVaultMarketOpeningItemMark, buy_href: String) -> ListVaultMarketFollowFeedItem {
         ListVaultMarketFollowFeedItem {
             id,
             kind,
             verb,
             at,
+            by: Box::new(by),
             book_key,
             name: None,
             label: None,
@@ -58,10 +61,10 @@ impl ListVaultMarketFollowFeedItem {
 /// 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Kind {
-    #[serde(rename = "deposit")]
-    Deposit,
     #[serde(rename = "sale")]
     Sale,
+    #[serde(rename = "deposit")]
+    Deposit,
     #[serde(rename = "buy")]
     Buy,
     #[serde(rename = "hall_loan")]
@@ -70,7 +73,7 @@ pub enum Kind {
 
 impl Default for Kind {
     fn default() -> Kind {
-        Self::Deposit
+        Self::Sale
     }
 }
 

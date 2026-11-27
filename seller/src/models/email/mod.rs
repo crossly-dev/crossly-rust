@@ -1,0 +1,16 @@
+pub mod create_email_event_confirm_request;
+pub use self::create_email_event_confirm_request::CreateEmailEventConfirmRequest;
+pub mod create_email_event_confirm_response;
+pub use self::create_email_event_confirm_response::CreateEmailEventConfirmResponse;
+pub mod list_email_events_item;
+pub use self::list_email_events_item::ListEmailEventsItem;
+pub mod list_email_events_item_candidates;
+pub use self::list_email_events_item_candidates::ListEmailEventsItemCandidates;
+pub mod list_email_events_item_price;
+pub use self::list_email_events_item_price::ListEmailEventsItemPrice;
+pub mod list_email_events_response;
+pub use self::list_email_events_response::ListEmailEventsResponse;
+pub mod list_email_providers_item;
+pub use self::list_email_providers_item::ListEmailProvidersItem;
+pub mod list_email_providers_response;
+pub use self::list_email_providers_response::ListEmailProvidersResponse;

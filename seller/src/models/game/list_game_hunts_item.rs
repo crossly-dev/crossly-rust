@@ -18,7 +18,7 @@ pub struct ListGameHuntsItem {
     #[serde(rename = "title")]
     pub title: String,
     #[serde(rename = "shop")]
-    pub shop: Box<crate::models::SlugName>,
+    pub shop: Box<crate::models::NameSlug>,
     #[serde(rename = "stall", skip_serializing_if = "Option::is_none")]
     pub stall: Option<Box<crate::models::ListGameHuntsItemStall>>,
     #[serde(rename = "tokens")]
@@ -30,10 +30,12 @@ pub struct ListGameHuntsItem {
     pub ends_at: String,
     #[serde(rename = "finishers")]
     pub finishers: f32,
+    #[serde(rename = "rules", skip_serializing_if = "Option::is_none")]
+    pub rules: Option<Box<crate::models::ListGameHuntsItemRules>>,
 }
 
 impl ListGameHuntsItem {
-    pub fn new(id: String, title: String, shop: crate::models::SlugName, tokens: f32, reward: String, ends_at: String, finishers: f32) -> ListGameHuntsItem {
+    pub fn new(id: String, title: String, shop: crate::models::NameSlug, tokens: f32, reward: String, ends_at: String, finishers: f32) -> ListGameHuntsItem {
         ListGameHuntsItem {
             id,
             title,
@@ -43,6 +45,7 @@ impl ListGameHuntsItem {
             reward,
             ends_at,
             finishers,
+            rules: None,
         }
     }
 }

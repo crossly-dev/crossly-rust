@@ -73,6 +73,8 @@ pub enum Category {
     FigureResin,
     #[serde(rename = "figure_vinyl")]
     FigureVinyl,
+    #[serde(rename = "trading_cards")]
+    TradingCards,
 }
 
 impl Default for Category {
@@ -85,10 +87,10 @@ impl Default for Category {
 pub enum MaterialTier {
     #[serde(rename = "standard")]
     Standard,
-    #[serde(rename = "luxury")]
-    Luxury,
     #[serde(rename = "premium")]
     Premium,
+    #[serde(rename = "luxury")]
+    Luxury,
 }
 
 impl Default for MaterialTier {

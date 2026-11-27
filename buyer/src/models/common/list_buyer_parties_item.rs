@@ -15,27 +15,27 @@
 pub struct ListBuyerPartiesItem {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "endsAt")]
-    pub ends_at: String,
     #[serde(rename = "slug")]
     pub slug: String,
-    #[serde(rename = "startsAt")]
-    pub starts_at: String,
     #[serde(rename = "theme")]
     pub theme: String,
+    #[serde(rename = "startsAt")]
+    pub starts_at: String,
+    #[serde(rename = "endsAt")]
+    pub ends_at: String,
+    #[serde(rename = "status")]
+    pub status: String,
 }
 
 impl ListBuyerPartiesItem {
-    pub fn new(id: String, status: String, ends_at: String, slug: String, starts_at: String, theme: String) -> ListBuyerPartiesItem {
+    pub fn new(id: String, slug: String, theme: String, starts_at: String, ends_at: String, status: String) -> ListBuyerPartiesItem {
         ListBuyerPartiesItem {
             id,
-            status,
-            ends_at,
             slug,
-            starts_at,
             theme,
+            starts_at,
+            ends_at,
+            status,
         }
     }
 }

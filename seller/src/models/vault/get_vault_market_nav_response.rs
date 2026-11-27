@@ -23,6 +23,8 @@ pub struct GetVaultMarketNavResponse {
     pub totals: Box<crate::models::GetVaultMarketNavResponseTotals>,
     #[serde(rename = "holdings")]
     pub holdings: Vec<crate::models::GetVaultMarketNavResponseHoldings>,
+    #[serde(rename = "options", skip_serializing_if = "Option::is_none")]
+    pub options: Option<Box<crate::models::GetVaultMarketNavResponseOptions>>,
     #[serde(rename = "policy")]
     pub policy: Vec<String>,
 }
@@ -35,6 +37,7 @@ impl GetVaultMarketNavResponse {
             currency,
             totals: Box::new(totals),
             holdings,
+            options: None,
             policy,
         }
     }

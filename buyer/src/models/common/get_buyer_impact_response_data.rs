@@ -13,23 +13,23 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetBuyerImpactResponseData {
-    #[serde(rename = "co2Kg")]
-    pub co2_kg: f32,
-    #[serde(rename = "waterL")]
-    pub water_l: f32,
     #[serde(rename = "itemsBought")]
     pub items_bought: f32,
     #[serde(rename = "itemsWithFigures")]
     pub items_with_figures: f32,
+    #[serde(rename = "co2Kg")]
+    pub co2_kg: f32,
+    #[serde(rename = "waterL")]
+    pub water_l: f32,
 }
 
 impl GetBuyerImpactResponseData {
-    pub fn new(co2_kg: f32, water_l: f32, items_bought: f32, items_with_figures: f32) -> GetBuyerImpactResponseData {
+    pub fn new(items_bought: f32, items_with_figures: f32, co2_kg: f32, water_l: f32) -> GetBuyerImpactResponseData {
         GetBuyerImpactResponseData {
-            co2_kg,
-            water_l,
             items_bought,
             items_with_figures,
+            co2_kg,
+            water_l,
         }
     }
 }

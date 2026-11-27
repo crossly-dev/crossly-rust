@@ -13,28 +13,28 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CreateBuyerCartOptimizerResponseData {
+    #[serde(rename = "lines")]
+    pub lines: Vec<crate::models::CreateBuyerCartOptimizerResponseDataLines>,
+    #[serde(rename = "itemsCents")]
+    pub items_cents: f32,
     #[serde(rename = "shippingCents")]
     pub shipping_cents: f32,
     #[serde(rename = "totalCents")]
     pub total_cents: f32,
-    #[serde(rename = "lines")]
-    pub lines: Vec<crate::models::CreateBuyerCartOptimizerResponseDataLines>,
     #[serde(rename = "sellers")]
     pub sellers: f32,
-    #[serde(rename = "itemsCents")]
-    pub items_cents: f32,
     #[serde(rename = "unmatched")]
     pub unmatched: Vec<String>,
 }
 
 impl CreateBuyerCartOptimizerResponseData {
-    pub fn new(shipping_cents: f32, total_cents: f32, lines: Vec<crate::models::CreateBuyerCartOptimizerResponseDataLines>, sellers: f32, items_cents: f32, unmatched: Vec<String>) -> CreateBuyerCartOptimizerResponseData {
+    pub fn new(lines: Vec<crate::models::CreateBuyerCartOptimizerResponseDataLines>, items_cents: f32, shipping_cents: f32, total_cents: f32, sellers: f32, unmatched: Vec<String>) -> CreateBuyerCartOptimizerResponseData {
         CreateBuyerCartOptimizerResponseData {
+            lines,
+            items_cents,
             shipping_cents,
             total_cents,
-            lines,
             sellers,
-            items_cents,
             unmatched,
         }
     }

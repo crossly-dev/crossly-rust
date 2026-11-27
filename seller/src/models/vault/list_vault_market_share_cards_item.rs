@@ -23,6 +23,8 @@ pub struct ListVaultMarketShareCardsItem {
     pub created_at: String,
     #[serde(rename = "showAmounts")]
     pub show_amounts: bool,
+    #[serde(rename = "owner")]
+    pub owner: Box<crate::models::ListVaultMarketShareCardsItemOwner>,
     #[serde(rename = "title")]
     pub title: String,
     #[serde(rename = "subtitle", skip_serializing_if = "Option::is_none")]
@@ -48,13 +50,14 @@ pub struct ListVaultMarketShareCardsItem {
 }
 
 impl ListVaultMarketShareCardsItem {
-    pub fn new(id: String, kind: Kind, verified: bool, created_at: String, show_amounts: bool, title: String, change: crate::models::ListVaultMarketShareCardsItemChange, links: crate::models::ListVaultMarketShareCardsItemLinks) -> ListVaultMarketShareCardsItem {
+    pub fn new(id: String, kind: Kind, verified: bool, created_at: String, show_amounts: bool, owner: crate::models::ListVaultMarketShareCardsItemOwner, title: String, change: crate::models::ListVaultMarketShareCardsItemChange, links: crate::models::ListVaultMarketShareCardsItemLinks) -> ListVaultMarketShareCardsItem {
         ListVaultMarketShareCardsItem {
             id,
             kind,
             verified,
             created_at,
             show_amounts,
+            owner: Box::new(owner),
             title,
             subtitle: None,
             image_url: None,
@@ -77,10 +80,10 @@ pub enum Kind {
     Position,
     #[serde(rename = "unit")]
     Unit,
-    #[serde(rename = "index")]
-    Index,
     #[serde(rename = "portfolio")]
     Portfolio,
+    #[serde(rename = "index")]
+    Index,
 }
 
 impl Default for Kind {

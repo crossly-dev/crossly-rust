@@ -17,24 +17,24 @@ pub struct CreateCosmCosmeticBuyCbxResponseDataOwnership {
     pub id: String,
     #[serde(rename = "acquiredAt")]
     pub acquired_at: String,
-    #[serde(rename = "retiredAt", skip_serializing_if = "Option::is_none")]
-    pub retired_at: Option<String>,
-    #[serde(rename = "merchantId")]
-    pub merchant_id: String,
     #[serde(rename = "cosmeticId")]
     pub cosmetic_id: String,
+    #[serde(rename = "merchantId")]
+    pub merchant_id: String,
+    #[serde(rename = "retiredAt", skip_serializing_if = "Option::is_none")]
+    pub retired_at: Option<String>,
     #[serde(rename = "subjectId")]
     pub subject_id: String,
-    #[serde(rename = "ledgerId", skip_serializing_if = "Option::is_none")]
-    pub ledger_id: Option<String>,
-    #[serde(rename = "editionNumber", skip_serializing_if = "Option::is_none")]
-    pub edition_number: Option<f32>,
     #[serde(rename = "acquiredVia")]
     pub acquired_via: String,
     #[serde(rename = "bound")]
     pub bound: bool,
     #[serde(rename = "paidCents", skip_serializing_if = "Option::is_none")]
     pub paid_cents: Option<f32>,
+    #[serde(rename = "ledgerId", skip_serializing_if = "Option::is_none")]
+    pub ledger_id: Option<String>,
+    #[serde(rename = "editionNumber", skip_serializing_if = "Option::is_none")]
+    pub edition_number: Option<f32>,
     #[serde(rename = "paymentRef", skip_serializing_if = "Option::is_none")]
     pub payment_ref: Option<String>,
     #[serde(rename = "retiredReason", skip_serializing_if = "Option::is_none")]
@@ -44,19 +44,19 @@ pub struct CreateCosmCosmeticBuyCbxResponseDataOwnership {
 }
 
 impl CreateCosmCosmeticBuyCbxResponseDataOwnership {
-    pub fn new(id: String, acquired_at: String, merchant_id: String, cosmetic_id: String, subject_id: String, acquired_via: String, bound: bool) -> CreateCosmCosmeticBuyCbxResponseDataOwnership {
+    pub fn new(id: String, acquired_at: String, cosmetic_id: String, merchant_id: String, subject_id: String, acquired_via: String, bound: bool) -> CreateCosmCosmeticBuyCbxResponseDataOwnership {
         CreateCosmCosmeticBuyCbxResponseDataOwnership {
             id,
             acquired_at,
-            retired_at: None,
-            merchant_id,
             cosmetic_id,
+            merchant_id,
+            retired_at: None,
             subject_id,
-            ledger_id: None,
-            edition_number: None,
             acquired_via,
             bound,
             paid_cents: None,
+            ledger_id: None,
+            edition_number: None,
             payment_ref: None,
             retired_reason: None,
             request_ref: None,
